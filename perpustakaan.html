@@ -926,6 +926,11 @@
     const email = document.getElementById('input-email').value.trim();
     const telepon = document.getElementById('input-telepon').value.trim();
     const instansi = document.getElementById('input-instansi').value.trim();
+    const jenisKelamin = document.getElementById('input-jenis-kelamin').value;
+    const usia = document.getElementById('input-usia').value.trim();
+    const kategori = document.getElementById('input-kategori').value;
+    const pendidikan = document.getElementById('input-pendidikan').value;
+    const kabkota = document.getElementById('input-kabkota').value;
     const deskripsi = document.getElementById('input-deskripsi').value.trim();
     const dokumen = document.getElementById('input-dokumen').files[0];
 
@@ -933,6 +938,12 @@
     if (!nama) return showError('Nama lengkap wajib diisi!');
     if (!email || !email.includes('@')) return showError('Email tidak valid!');
     if (!telepon) return showError('Nomor telepon wajib diisi!');
+    if (!jenisKelamin) return showError('Jenis kelamin wajib dipilih!');
+    if (!usia) return showError('Usia wajib diisi!');
+    if (!kategori) return showError('Kategori pengguna wajib dipilih!');
+    if (!pendidikan) return showError('Tingkat pendidikan wajib dipilih!');
+    if (!kabkota) return showError('Kabupaten/Kota wajib dipilih!');
+    if (!instansi === false && instansi.length === 0) {} // opsional, skip
     if (!deskripsi) return showError('Deskripsi kebutuhan data wajib diisi!');
     if (!dokumen) return showError('Dokumen surat / KTP wajib diupload!');
 
@@ -975,6 +986,11 @@
           nama, email,
           no_telepon: telepon,
           instansi: instansi || '-',
+          jenis_kelamin: jenisKelamin,
+          usia: parseInt(usia),
+          kategori_pengguna: kategori,
+          tingkat_pendidikan: pendidikan,
+          kabupaten_kota: kabkota,
           deskripsi,
           nama_dokumen: dokumen.name,
           url_dokumen: urlDokumen
