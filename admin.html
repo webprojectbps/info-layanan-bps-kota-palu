@@ -415,6 +415,37 @@
     .btn-hasil-link:hover { background: #2e7d32; color: white; border-color: #2e7d32; }
     .hidden-file-input { display: none; }
 
+    /* CHARTS */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 768px) { .charts-grid { grid-template-columns: 1fr; } }
+
+    .chart-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,91,170,0.07);
+    }
+
+    .chart-card h6 {
+      font-weight: 800;
+      color: var(--bps-dark);
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chart-card h6 i { color: var(--bps-blue); }
+    .chart-wrap { position: relative; height: 220px; }
+
     /* EMPTY STATE */
     .empty-state {
       text-align: center;
@@ -600,7 +631,27 @@
       </div>
     </div>
 
-    <!-- Table -->
+    <!-- CHARTS -->
+    <div class="charts-grid" id="charts-grid" style="display:none;">
+      <div class="chart-card">
+        <h6><i class="bi bi-bar-chart-fill"></i> Pengajuan per Layanan</h6>
+        <div class="chart-wrap"><canvas id="chart-layanan"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h6><i class="bi bi-pie-chart-fill"></i> Kategori Pengguna</h6>
+        <div class="chart-wrap"><canvas id="chart-kategori"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h6><i class="bi bi-geo-alt-fill"></i> Sebaran Kabupaten/Kota</h6>
+        <div class="chart-wrap"><canvas id="chart-kabkota"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h6><i class="bi bi-mortarboard-fill"></i> Tingkat Pendidikan</h6>
+        <div class="chart-wrap"><canvas id="chart-pendidikan"></canvas></div>
+      </div>
+    </div>
+
+    <!-- TABLE -->
     <div class="table-section">
       <div class="table-header">
         <h5><i class="bi bi-list-ul me-2" style="color:var(--bps-blue);"></i>Daftar Pengajuan</h5>
@@ -846,6 +897,18 @@
       // Update stats
       updateStats(data, filterStatus, filterLayanan);
 
+      // Render charts (always with full data)
+      if (!filterStatus && !filterLayanan) {
+        renderCharts(data);
+      } else {
+        // Fetch all data for charts
+        const resAll = await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?select=*`, {
+          headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}` }
+        });
+        const allData = await resAll.json();
+        renderCharts(allData);
+      }
+
       if (!data || data.length === 0) {
         tbody.innerHTML = `<tr><td colspan="9">
           <div class="empty-state">
@@ -979,6 +1042,88 @@
     setTimeout(() => toast.classList.remove('show'), 3000);
   }
 
+  // ===== CHARTS =====
+  let chartLayanan, chartKategori, chartKabkota, chartPendidikan;
+
+  function renderCharts(data) {
+    if (!data || data.length === 0) return;
+    document.getElementById('charts-grid').style.display = 'grid';
+
+    const bpsBlues = ['#005baa','#1a7fd4','#4da3e8','#003f7f','#7ec0f5','#c8dff5','#002d5a'];
+    const accents  = ['#f4a700','#005baa','#e05c2a','#2e7d32','#7b1fa2','#0097a7','#c62828'];
+
+    // 1. Pengajuan per Layanan
+    const layananCount = {};
+    data.forEach(d => {
+      const key = d.jenis_layanan.replace('Pelayanan ', '');
+      layananCount[key] = (layananCount[key] || 0) + 1;
+    });
+    if (chartLayanan) chartLayanan.destroy();
+    chartLayanan = new Chart(document.getElementById('chart-layanan'), {
+      type: 'bar',
+      data: {
+        labels: Object.keys(layananCount),
+        datasets: [{ data: Object.values(layananCount), backgroundColor: bpsBlues, borderRadius: 6 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } }, x: { ticks: { font: { size: 10 } } } }
+      }
+    });
+
+    // 2. Kategori Pengguna
+    const kategoriCount = {};
+    data.forEach(d => { if (d.kategori_pengguna) { kategoriCount[d.kategori_pengguna] = (kategoriCount[d.kategori_pengguna] || 0) + 1; } });
+    if (chartKategori) chartKategori.destroy();
+    chartKategori = new Chart(document.getElementById('chart-kategori'), {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(kategoriCount),
+        datasets: [{ data: Object.values(kategoriCount), backgroundColor: accents, borderWidth: 2 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'right', labels: { font: { size: 10 }, boxWidth: 12 } } }
+      }
+    });
+
+    // 3. Sebaran Kabupaten/Kota
+    const kabkotaCount = {};
+    data.forEach(d => { if (d.kabupaten_kota) { kabkotaCount[d.kabupaten_kota] = (kabkotaCount[d.kabupaten_kota] || 0) + 1; } });
+    const kabSorted = Object.entries(kabkotaCount).sort((a,b) => b[1]-a[1]);
+    if (chartKabkota) chartKabkota.destroy();
+    chartKabkota = new Chart(document.getElementById('chart-kabkota'), {
+      type: 'bar',
+      data: {
+        labels: kabSorted.map(k => k[0]),
+        datasets: [{ data: kabSorted.map(k => k[1]), backgroundColor: '#1a7fd4', borderRadius: 6 }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } }, y: { ticks: { font: { size: 10 } } } }
+      }
+    });
+
+    // 4. Tingkat Pendidikan
+    const pendidikanCount = {};
+    data.forEach(d => { if (d.tingkat_pendidikan) { pendidikanCount[d.tingkat_pendidikan] = (pendidikanCount[d.tingkat_pendidikan] || 0) + 1; } });
+    if (chartPendidikan) chartPendidikan.destroy();
+    chartPendidikan = new Chart(document.getElementById('chart-pendidikan'), {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(pendidikanCount),
+        datasets: [{ data: Object.values(pendidikanCount), backgroundColor: bpsBlues, borderWidth: 2 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'right', labels: { font: { size: 10 }, boxWidth: 12 } } }
+      }
+    });
+  }
+
   // ===== MODAL DETAIL =====
   function showDetail(d) {
     const statusMap = {
@@ -1093,5 +1238,6 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </body>
 </html>
