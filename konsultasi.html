@@ -202,23 +202,17 @@
     .rating-done-sub { font-size:0.75rem; color:#555; margin-top:4px; }
 
     /* ======= SCROLL ANCHOR OFFSET ======= */
-    .scroll-anchor {
-      scroll-margin-top: 80px;
-    }
+    .scroll-anchor { scroll-margin-top: 80px; }
 
     /* ======= FOOTER ======= */
     footer { background-color:var(--bps-dark); color:rgba(255,255,255,0.8); font-size:0.85rem; flex-shrink:0; }
 
     /* ======= RESPONSIVE ======= */
-
-    /* Tablet landscape (max 1024px) */
     @media (max-width:1024px) {
       .sidebar { width: 200px; }
       .sb-title { font-size: 0.82rem; }
       .snake-4 { grid-template-columns:1fr 28px 1fr 28px 1fr 32px 1fr; }
     }
-
-    /* Tablet portrait (max 768px) */
     @media (max-width:768px) {
       .sidebar { display:none; }
       .page-wrapper { height: auto; overflow: visible; }
@@ -240,8 +234,6 @@
       .result-row { flex-direction: column; gap: 2px; }
       .result-label { min-width: unset; }
     }
-
-    /* Mobile large (max 600px) */
     @media (max-width:600px) {
       .hero-detail { padding: 32px 16px; }
       .snake-3 { grid-template-columns: 1fr 18px 1fr 18px 1fr; }
@@ -254,8 +246,6 @@
       .tiket-number { font-size: 1.2rem; padding: 10px 16px; }
       .row.g-3 > [class*="col-md-6"] { flex: 0 0 100%; max-width: 100%; }
     }
-
-    /* Mobile small (max 480px) */
     @media (max-width:480px) {
       .hero-detail { padding: 26px 14px; }
       .hero-badge { font-size: 0.72rem; padding: 6px 14px; }
@@ -278,8 +268,6 @@
       .sg-arr { font-size: 0.8rem; }
       .form-control, .form-select { font-size: 0.84rem; padding: 9px 11px; }
     }
-
-    /* Very small (max 360px) */
     @media (max-width:360px) {
       .hero-title { font-size: 1.2rem; }
       .snake-4 { grid-template-columns: 1fr 9px 1fr 9px 1fr 10px 1fr; }
@@ -377,7 +365,7 @@
     </div>
     <div class="sb-group">
       <div class="sb-group-label">Pengajuan</div>
-      <button class="sb-link" onclick="showPanel('ajukan',this)">
+      <button class="sb-link" onclick="showPanel('ajukan', this)">
         <i class="bi bi-send sb-ico"></i> Ajukan Layanan
         <i class="bi bi-chevron-right sb-arr"></i>
       </button>
@@ -402,7 +390,7 @@
 
     <div class="content-area">
 
-      <!-- ===== PANEL: INFORMASI LAYANAN (gabungan) ===== -->
+      <!-- ===== PANEL: INFORMASI LAYANAN ===== -->
       <div id="panel-info" class="content-panel active">
 
         <!-- PERSYARATAN -->
@@ -579,7 +567,6 @@
 
         <!-- BIAYA & PRODUK -->
         <div id="section-biaya" class="scroll-anchor">
-          <!-- BIAYA -->
           <div class="section-box">
             <div class="section-head">
               <div class="section-head-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="bi bi-cash-coin"></i></div>
@@ -605,8 +592,6 @@
               </div>
             </div>
           </div>
-
-          <!-- PRODUK -->
           <div class="section-box">
             <div class="section-head">
               <div class="section-head-icon"><i class="bi bi-gift"></i></div>
@@ -734,23 +719,9 @@
               <p style="font-size:0.83rem;color:#555;">Simpan nomor tiket berikut untuk memantau status pengajuan Anda:</p>
               <div class="tiket-number" id="tiket-number">-</div>
               <p class="tiket-warning"><i class="bi bi-exclamation-triangle me-1"></i>Simpan nomor tiket ini! Anda membutuhkannya untuk cek status pengajuan.</p>
-              <!-- RATING EMOJI -->
-              <div class="rating-section" id="rating-section">
-                <div class="rating-title">⭐ Bagaimana pengalaman Anda menggunakan layanan ini?</div>
-                <div class="rating-sub">Berikan penilaian untuk membantu kami meningkatkan kualitas layanan</div>
-                <div class="emoji-row" id="emoji-row">
-                  <button class="emoji-btn" onclick="selectEmoji(this,1,'😠','Sangat Buruk')"><span class="em">😠</span><span class="em-label">Sangat Buruk</span></button>
-                  <button class="emoji-btn" onclick="selectEmoji(this,2,'😕','Kurang Baik')"><span class="em">😕</span><span class="em-label">Kurang Baik</span></button>
-                  <button class="emoji-btn" onclick="selectEmoji(this,3,'😐','Cukup')"><span class="em">😐</span><span class="em-label">Cukup</span></button>
-                  <button class="emoji-btn" onclick="selectEmoji(this,4,'😊','Baik')"><span class="em">😊</span><span class="em-label">Baik</span></button>
-                  <button class="emoji-btn" onclick="selectEmoji(this,5,'🤩','Sangat Baik')"><span class="em">🤩</span><span class="em-label">Sangat Baik</span></button>
-                </div>
-                <div><button class="btn-kirim-rating" id="btn-kirim-rating" disabled onclick="kirimRating()"><i class="bi bi-send"></i> Kirim Penilaian</button></div>
-                <div class="rating-done" id="rating-done">
-                  <div class="rating-done-emoji" id="rating-done-emoji">🤩</div>
-                  <div class="rating-done-text">Terima kasih atas penilaian Anda!</div>
-                  <div class="rating-done-sub">Masukan Anda sangat berarti bagi peningkatan layanan BPS Kota Palu.</div>
-                </div>
+              <div style="margin-top:16px;padding:14px 18px;background:rgba(0,91,170,0.07);border-radius:10px;border:1px solid rgba(0,91,170,0.15);font-size:0.8rem;color:#444;line-height:1.6;">
+                <i class="bi bi-info-circle" style="color:var(--bps-blue);margin-right:6px;"></i>
+                Setelah data Anda tersedia, Anda dapat memberikan penilaian melalui tab <strong>Cek Status</strong> menggunakan nomor tiket di atas.
               </div>
               <button class="btn-submit mt-3" onclick="resetForm()"><i class="bi bi-plus-circle"></i> Ajukan Permintaan Baru</button>
             </div>
@@ -806,6 +777,32 @@
                   <p style="margin:0 0 10px;font-size:0.78rem;color:#555;">Petugas BPS telah mengupload data yang Anda minta.</p>
                   <a id="res-hasil-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#2e7d32;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.8rem;"><i class="bi bi-download"></i> Download Data</a>
                 </div>
+
+                <!-- RATING — muncul hanya saat Selesai & data tersedia & belum pernah rating -->
+                <div id="res-rating-box" style="display:none;margin-top:16px;">
+                  <!-- Belum rating -->
+                  <div id="res-rating-form">
+                    <div style="padding:20px;background:white;border-radius:14px;border:1.5px solid #e0eaf5;text-align:center;animation:fadeInUp 0.4s ease;">
+                      <div style="font-weight:700;font-size:0.9rem;color:var(--bps-dark);margin-bottom:5px;">⭐ Bagaimana pengalaman Anda terhadap layanan ini?</div>
+                      <div style="font-size:0.77rem;color:#888;margin-bottom:16px;">Berikan penilaian untuk membantu kami meningkatkan kualitas layanan BPS</div>
+                      <div class="emoji-row" id="res-emoji-row">
+                        <button class="emoji-btn" onclick="selectEmojiCek(this,1,'😠','Sangat Buruk')"><span class="em">😠</span><span class="em-label">Sangat Buruk</span></button>
+                        <button class="emoji-btn" onclick="selectEmojiCek(this,2,'😕','Kurang Baik')"><span class="em">😕</span><span class="em-label">Kurang Baik</span></button>
+                        <button class="emoji-btn" onclick="selectEmojiCek(this,3,'😐','Cukup')"><span class="em">😐</span><span class="em-label">Cukup</span></button>
+                        <button class="emoji-btn" onclick="selectEmojiCek(this,4,'😊','Baik')"><span class="em">😊</span><span class="em-label">Baik</span></button>
+                        <button class="emoji-btn" onclick="selectEmojiCek(this,5,'🤩','Sangat Baik')"><span class="em">🤩</span><span class="em-label">Sangat Baik</span></button>
+                      </div>
+                      <div><button class="btn-kirim-rating" id="res-btn-kirim-rating" disabled onclick="kirimRatingCek()"><i class="bi bi-send"></i> Kirim Penilaian</button></div>
+                    </div>
+                  </div>
+                  <!-- Sudah rating -->
+                  <div id="res-rating-done" style="display:none;padding:16px 18px;background:linear-gradient(135deg,rgba(76,175,80,0.08),transparent);border-radius:12px;border:1.5px solid #a5d6a7;text-align:center;animation:fadeInUp 0.35s ease;">
+                    <div id="res-rating-done-emoji" style="font-size:2rem;margin-bottom:5px;">🤩</div>
+                    <div style="font-weight:700;color:#2e7d32;font-size:0.88rem;">Terima kasih atas penilaian Anda!</div>
+                    <div style="font-size:0.75rem;color:#555;margin-top:4px;">Masukan Anda sangat berarti bagi peningkatan layanan BPS Kota Palu.</div>
+                  </div>
+                </div>
+
               </div>
             </div></div>
           </div>
@@ -818,237 +815,6 @@
 
   </div><!-- /main-area -->
 </div><!-- /page-wrapper -->
-
-<script>
-  const SUPABASE_URL = 'https://rljhayfmfsrdtpmlqltp.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
-  const JENIS_LAYANAN = 'Pelayanan Konsultasi Statistik';
-
-  let selectedRating = null, selectedEmoji = '', currentTiket = '';
-
-  function selectEmoji(btn, score, emoji, label) {
-    document.querySelectorAll('#emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    selectedRating = score; selectedEmoji = emoji;
-    document.getElementById('btn-kirim-rating').disabled = false;
-  }
-
-  async function kirimRating() {
-    if (!selectedRating || !currentTiket) return;
-    const btnRating = document.getElementById('btn-kirim-rating');
-    btnRating.disabled = true;
-    btnRating.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
-    try {
-      await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${currentTiket}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal' },
-        body: JSON.stringify({ rating: selectedRating, rating_emoji: selectedEmoji })
-      });
-    } catch(e) {}
-    document.getElementById('emoji-row').style.display = 'none';
-    btnRating.style.display = 'none';
-    document.getElementById('rating-done-emoji').textContent = selectedEmoji;
-    document.getElementById('rating-done').classList.add('show');
-    document.querySelector('.rating-title').style.display = 'none';
-    document.querySelector('.rating-sub').style.display = 'none';
-  }
-
-  function resetRating() {
-    selectedRating = null; selectedEmoji = '';
-    document.querySelectorAll('#emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
-    document.getElementById('btn-kirim-rating').disabled = true;
-    document.getElementById('btn-kirim-rating').style.display = 'inline-flex';
-    document.getElementById('btn-kirim-rating').innerHTML = '<i class="bi bi-send"></i> Kirim Penilaian';
-    document.getElementById('emoji-row').style.display = 'flex';
-    document.getElementById('rating-done').classList.remove('show');
-    document.querySelector('.rating-title').style.display = '';
-    document.querySelector('.rating-sub').style.display = '';
-  }
-
-  // Scroll ke section dalam panel info
-  function scrollToSection(sectionId, sbEl) {
-    // Pastikan panel info aktif
-    const infoPanel = document.getElementById('panel-info');
-    const ajukanPanel = document.getElementById('panel-ajukan');
-
-    if (!infoPanel.classList.contains('active')) {
-      ajukanPanel.classList.remove('active');
-      infoPanel.classList.add('active');
-    }
-
-    // Update sidebar active
-    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
-    if (sbEl) sbEl.classList.add('active');
-
-    // Sync mobile bottom nav
-    const navMap = {
-      'section-persyaratan': 'persyaratan',
-      'section-sop': 'sop',
-      'section-jangka': 'jangka',
-      'section-biaya': 'biaya'
-    };
-    document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
-    const mbnId = 'mbn-' + navMap[sectionId];
-    const mbnEl = document.getElementById(mbnId);
-    if (mbnEl) mbnEl.classList.add('active');
-
-    // Scroll setelah render
-    setTimeout(() => {
-      const target = document.getElementById(sectionId);
-      if (!target) return;
-
-      // Cek apakah desktop (sidebar ada) atau mobile
-      const mainArea = document.getElementById('main-area');
-      const isMobile = window.innerWidth <= 768;
-
-      if (isMobile) {
-        // Mobile: scroll window
-        const rect = target.getBoundingClientRect();
-        const scrollTop = window.pageYOffset + rect.top - 80;
-        window.scrollTo({ top: scrollTop, behavior: 'smooth' });
-      } else {
-        // Desktop: scroll main-area
-        const containerRect = mainArea.getBoundingClientRect();
-        const targetRect = target.getBoundingClientRect();
-        const scrollOffset = mainArea.scrollTop + (targetRect.top - containerRect.top) - 80;
-        mainArea.scrollTo({ top: scrollOffset, behavior: 'smooth' });
-      }
-    }, 50);
-  }
-
-  function showPanel(id, el) {
-    document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
-    document.getElementById('panel-' + id).classList.add('active');
-    if (el) el.classList.add('active');
-
-    const mainArea = document.getElementById('main-area');
-    mainArea.scrollTo({ top: 0, behavior: 'smooth' });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // sync mobile bottom nav
-    document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
-    const mbn = document.getElementById('mbn-' + id);
-    if (mbn) mbn.classList.add('active');
-  }
-
-  function switchTab(tab, el) {
-    document.querySelectorAll('.pengajuan-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('tab-' + tab).classList.add('active');
-  }
-
-  function handleFileChange(input) {
-    const file = input.files[0];
-    const filename = document.getElementById('upload-filename');
-    if (file) {
-      if (file.size > 5*1024*1024) { showError('Ukuran file maksimal 5MB!'); input.value=''; filename.textContent=''; return; }
-      filename.textContent = '✓ ' + file.name;
-    }
-  }
-  const uploadArea = document.getElementById('upload-area');
-  uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
-  uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
-  uploadArea.addEventListener('drop', e => {
-    e.preventDefault(); uploadArea.classList.remove('dragover');
-    const file = e.dataTransfer.files[0];
-    if (file) { document.getElementById('input-dokumen').files = e.dataTransfer.files; handleFileChange(document.getElementById('input-dokumen')); }
-  });
-
-  function generateTiket() {
-    const now = new Date();
-    return `BPS-${now.getFullYear()}-${String(Math.floor(Math.random()*900)+100)}${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
-  }
-
-  function showError(msg) {
-    const el = document.getElementById('form-error');
-    el.textContent = msg; el.classList.remove('d-none');
-    setTimeout(() => el.classList.add('d-none'), 5000);
-  }
-
-  async function submitPengajuan() {
-    const nama=document.getElementById('input-nama').value.trim();
-    const email=document.getElementById('input-email').value.trim();
-    const telepon=document.getElementById('input-telepon').value.trim();
-    const instansi=document.getElementById('input-instansi').value.trim();
-    const jenisKelamin=document.getElementById('input-jenis-kelamin').value;
-    const usia=document.getElementById('input-usia').value.trim();
-    const kategori=document.getElementById('input-kategori').value;
-    const pendidikan=document.getElementById('input-pendidikan').value;
-    const kabkota=document.getElementById('input-kabkota').value;
-    const deskripsi=document.getElementById('input-deskripsi').value.trim();
-    const dokumen=document.getElementById('input-dokumen').files[0];
-    if (!nama) return showError('Nama lengkap wajib diisi!');
-    if (!email||!email.includes('@')) return showError('Email tidak valid!');
-    if (!telepon) return showError('Nomor telepon wajib diisi!');
-    if (!jenisKelamin) return showError('Jenis kelamin wajib dipilih!');
-    if (!usia) return showError('Usia wajib diisi!');
-    if (!kategori) return showError('Kategori pengguna wajib dipilih!');
-    if (!pendidikan) return showError('Tingkat pendidikan wajib dipilih!');
-    if (!kabkota) return showError('Kabupaten/Kota wajib dipilih!');
-    if (!deskripsi) return showError('Deskripsi kebutuhan data wajib diisi!');
-    if (!dokumen) return showError('Dokumen surat / KTP wajib diupload!');
-    const btn=document.getElementById('btn-submit');
-    btn.disabled=true; btn.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
-    try {
-      const fileExt=dokumen.name.split('.').pop();
-      const fileName=`konsultasi/${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
-      const uploadRes=await fetch(`${SUPABASE_URL}/storage/v1/object/dokumen/${fileName}`,{method:'POST',headers:{'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':dokumen.type,'x-upsert':'true'},body:dokumen});
-      if (!uploadRes.ok) throw new Error('Gagal upload dokumen');
-      const urlDokumen=`${SUPABASE_URL}/storage/v1/object/public/dokumen/${fileName}`;
-      const nomorTiket=generateTiket();
-      const insertRes=await fetch(`${SUPABASE_URL}/rest/v1/pengajuan`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},body:JSON.stringify({nomor_tiket:nomorTiket,jenis_layanan:JENIS_LAYANAN,nama,email,no_telepon:telepon,instansi:instansi||'-',jenis_kelamin:jenisKelamin,usia:parseInt(usia),kategori_pengguna:kategori,tingkat_pendidikan:pendidikan,kabupaten_kota:kabkota,deskripsi,nama_dokumen:dokumen.name,url_dokumen:urlDokumen})});
-      if (!insertRes.ok) throw new Error('Gagal menyimpan pengajuan');
-      currentTiket=nomorTiket;
-      document.getElementById('form-pengajuan').style.display='none';
-      document.getElementById('tiket-number').textContent=nomorTiket;
-      resetRating();
-      document.getElementById('tiket-box').classList.add('show');
-    } catch(err) { showError('Terjadi kesalahan: '+err.message+'. Silakan coba lagi.'); }
-    finally { btn.disabled=false; btn.innerHTML='<i class="bi bi-send"></i> Kirim Pengajuan'; }
-  }
-
-  function resetForm() {
-    document.getElementById('form-pengajuan').style.display='block';
-    document.getElementById('tiket-box').classList.remove('show');
-    ['input-nama','input-email','input-telepon','input-instansi','input-deskripsi'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('input-dokumen').value='';
-    document.getElementById('upload-filename').textContent='';
-    currentTiket=''; resetRating();
-  }
-
-  async function _fetchStatus(tiket,errEl,resultCard,ids) {
-    try {
-      const res=await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${tiket}&select=*`,{headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}});
-      const data=await res.json();
-      if (!data||data.length===0){errEl.textContent='Nomor tiket tidak ditemukan. Pastikan nomor tiket sudah benar.';errEl.classList.remove('d-none');return;}
-      const d=data[0];
-      const statusMap={'Menunggu Verifikasi':'status-menunggu','Sedang Diproses':'status-diproses','Selesai':'status-selesai','Ditolak':'status-ditolak'};
-      document.getElementById(ids.tiket).textContent=d.nomor_tiket;
-      document.getElementById(ids.layanan).textContent=d.jenis_layanan;
-      document.getElementById(ids.nama).textContent=d.nama;
-      document.getElementById(ids.instansi).textContent=d.instansi||'-';
-      document.getElementById(ids.deskripsi).textContent=d.deskripsi;
-      document.getElementById(ids.tanggal).textContent=new Date(d.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
-      const badge=document.getElementById(ids.badge);
-      badge.textContent=d.status; badge.className='status-badge '+(statusMap[d.status]||'status-menunggu');
-      const hasilBox=document.getElementById(ids.hasilBox);
-      if(d.url_hasil){document.getElementById(ids.hasilLink).href=d.url_hasil;hasilBox.style.display='block';}else hasilBox.style.display='none';
-      resultCard.classList.add('show');
-    } catch(err){errEl.textContent='Terjadi kesalahan saat mengambil data. Silakan coba lagi.';errEl.classList.remove('d-none');}
-  }
-
-  async function cekStatus() {
-    const tiket=document.getElementById('input-tiket-cek').value.trim().toUpperCase();
-    const errEl=document.getElementById('cek-error');
-    const resultCard=document.getElementById('result-card');
-    errEl.classList.add('d-none'); resultCard.classList.remove('show');
-    if(!tiket){errEl.textContent='Masukkan nomor tiket terlebih dahulu!';errEl.classList.remove('d-none');return;}
-    await _fetchStatus(tiket,errEl,resultCard,{tiket:'res-tiket',layanan:'res-layanan',nama:'res-nama',instansi:'res-instansi',tanggal:'res-tanggal',deskripsi:'res-deskripsi',badge:'res-status-badge',hasilBox:'res-hasil-box',hasilLink:'res-hasil-link'});
-  }
-  document.getElementById('input-tiket-cek').addEventListener('keypress',e=>{if(e.key==='Enter')cekStatus();});
-</script>
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-bottom-nav">
@@ -1073,13 +839,92 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  const SUPABASE_URL = 'https://rljhayfmfsrdtpmlqltp.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
+  const JENIS_LAYANAN = 'Pelayanan Konsultasi Statistik';
+
+  let currentTiket = '';
+
+  /* ============================================================
+     PANEL SWITCH — instant, tanpa scroll
+     Dipakai untuk: Ajukan Layanan (sidebar & mobile nav)
+  ============================================================ */
+  function showPanel(id, el) {
+    // Sembunyikan semua panel, tampilkan yang dituju
+    document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+
+    // Update sidebar active state
+    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+    if (el) el.classList.add('active');
+
+    // Reset posisi scroll ke atas — INSTAN (tidak smooth)
+    const mainArea = document.getElementById('main-area');
+    mainArea.scrollTop = 0;        // desktop: scroll container
+    window.scrollTo(0, 0);         // mobile: scroll window
+
+    // Sync mobile bottom nav
+    document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
+    const mbn = document.getElementById('mbn-' + id);
+    if (mbn) mbn.classList.add('active');
+  }
+
+  /* ============================================================
+     SCROLL TO SECTION — khusus panel info (Syarat/SOP/Waktu/Biaya)
+     Tetap pakai smooth scroll karena satu halaman
+  ============================================================ */
+  function scrollToSection(sectionId, sbEl) {
+    // Pastikan panel info aktif
+    const infoPanel   = document.getElementById('panel-info');
+    const ajukanPanel = document.getElementById('panel-ajukan');
+    if (!infoPanel.classList.contains('active')) {
+      ajukanPanel.classList.remove('active');
+      infoPanel.classList.add('active');
+    }
+
+    // Update sidebar active
+    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+    if (sbEl) sbEl.classList.add('active');
+
+    // Sync mobile bottom nav
+    const navMap = {
+      'section-persyaratan': 'persyaratan',
+      'section-sop':         'sop',
+      'section-jangka':      'jangka',
+      'section-biaya':       'biaya'
+    };
+    document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
+    const mbnEl = document.getElementById('mbn-' + navMap[sectionId]);
+    if (mbnEl) mbnEl.classList.add('active');
+
+    // Scroll setelah render
+    setTimeout(() => {
+      const target   = document.getElementById(sectionId);
+      if (!target) return;
+      const mainArea = document.getElementById('main-area');
+      const isMobile = window.innerWidth <= 768;
+
+      if (isMobile) {
+        const rect      = target.getBoundingClientRect();
+        const scrollTop = window.pageYOffset + rect.top - 80;
+        window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+      } else {
+        const containerRect = mainArea.getBoundingClientRect();
+        const targetRect    = target.getBoundingClientRect();
+        const scrollOffset  = mainArea.scrollTop + (targetRect.top - containerRect.top) - 80;
+        mainArea.scrollTo({ top: scrollOffset, behavior: 'smooth' });
+      }
+    }, 50);
+  }
+
+  /* ============================================================
+     MOBILE NAV helpers
+  ============================================================ */
   function scrollToSectionMobile(sectionId, mbnEl) {
-    // Update mobile nav active
     document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
     mbnEl.classList.add('active');
 
-    // Update sidebar - map section to sb-link index
-    const sbMap = { 'section-persyaratan': 0, 'section-sop': 1, 'section-jangka': 2, 'section-biaya': 3 };
+    const sbMap   = { 'section-persyaratan': 0, 'section-sop': 1, 'section-jangka': 2, 'section-biaya': 3 };
     const sbLinks = document.querySelectorAll('.sb-link');
     document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
     const idx = sbMap[sectionId];
@@ -1092,14 +937,250 @@
     document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
     mbnEl.classList.add('active');
 
-    // Update sidebar
     const sbLinks = document.querySelectorAll('.sb-link');
     document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
-    // Ajukan adalah index 4
+    // "Ajukan Layanan" adalah sb-link index ke-4 (0-based)
     if (sbLinks[4]) sbLinks[4].classList.add('active');
 
-    showPanel(id, sbLinks[4]);
+    showPanel(id, sbLinks[4] || null);
   }
+
+  /* ============================================================
+     TAB SWITCH (Form / Cek Status)
+  ============================================================ */
+  function switchTab(tab, el) {
+    document.querySelectorAll('.pengajuan-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+  }
+
+  /* ============================================================
+     UPLOAD FILE
+  ============================================================ */
+  function handleFileChange(input) {
+    const file     = input.files[0];
+    const filename = document.getElementById('upload-filename');
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        showError('Ukuran file maksimal 5MB!');
+        input.value = '';
+        filename.textContent = '';
+        return;
+      }
+      filename.textContent = '✓ ' + file.name;
+    }
+  }
+  const uploadArea = document.getElementById('upload-area');
+  uploadArea.addEventListener('dragover',  e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+  uploadArea.addEventListener('dragleave', ()  => uploadArea.classList.remove('dragover'));
+  uploadArea.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      document.getElementById('input-dokumen').files = e.dataTransfer.files;
+      handleFileChange(document.getElementById('input-dokumen'));
+    }
+  });
+
+  /* ============================================================
+     EMOJI RATING — untuk tab Cek Status (muncul setelah Selesai)
+  ============================================================ */
+  let cekSelectedRating = null, cekSelectedEmoji = '', cekCurrentTiket = '';
+
+  function selectEmojiCek(btn, score, emoji, label) {
+    document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    cekSelectedRating = score;
+    cekSelectedEmoji  = emoji;
+    document.getElementById('res-btn-kirim-rating').disabled = false;
+  }
+
+  async function kirimRatingCek() {
+    if (!cekSelectedRating || !cekCurrentTiket) return;
+    const btn = document.getElementById('res-btn-kirim-rating');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${cekCurrentTiket}`, {
+        method:  'PATCH',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=minimal' },
+        body:    JSON.stringify({ rating: cekSelectedRating, rating_emoji: cekSelectedEmoji })
+      });
+    } catch(e) {}
+    document.getElementById('res-rating-done-emoji').textContent = cekSelectedEmoji;
+    document.getElementById('res-rating-form').style.display = 'none';
+    document.getElementById('res-rating-done').style.display = 'block';
+  }
+
+  /* ============================================================
+     SUBMIT PENGAJUAN
+  ============================================================ */
+  function generateTiket() {
+    const now = new Date();
+    return `BPS-${now.getFullYear()}-${String(Math.floor(Math.random()*900)+100)}${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('form-error');
+    el.textContent = msg;
+    el.classList.remove('d-none');
+    setTimeout(() => el.classList.add('d-none'), 5000);
+  }
+
+  async function submitPengajuan() {
+    const nama         = document.getElementById('input-nama').value.trim();
+    const email        = document.getElementById('input-email').value.trim();
+    const telepon      = document.getElementById('input-telepon').value.trim();
+    const instansi     = document.getElementById('input-instansi').value.trim();
+    const jenisKelamin = document.getElementById('input-jenis-kelamin').value;
+    const usia         = document.getElementById('input-usia').value.trim();
+    const kategori     = document.getElementById('input-kategori').value;
+    const pendidikan   = document.getElementById('input-pendidikan').value;
+    const kabkota      = document.getElementById('input-kabkota').value;
+    const deskripsi    = document.getElementById('input-deskripsi').value.trim();
+    const dokumen      = document.getElementById('input-dokumen').files[0];
+
+    if (!nama)         return showError('Nama lengkap wajib diisi!');
+    if (!email || !email.includes('@')) return showError('Email tidak valid!');
+    if (!telepon)      return showError('Nomor telepon wajib diisi!');
+    if (!jenisKelamin) return showError('Jenis kelamin wajib dipilih!');
+    if (!usia)         return showError('Usia wajib diisi!');
+    if (!kategori)     return showError('Kategori pengguna wajib dipilih!');
+    if (!pendidikan)   return showError('Tingkat pendidikan wajib dipilih!');
+    if (!kabkota)      return showError('Kabupaten/Kota wajib dipilih!');
+    if (!deskripsi)    return showError('Deskripsi kebutuhan data wajib diisi!');
+    if (!dokumen)      return showError('Dokumen surat / KTP wajib diupload!');
+
+    const btn = document.getElementById('btn-submit');
+    btn.disabled  = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+
+    try {
+      const fileExt  = dokumen.name.split('.').pop();
+      const fileName = `konsultasi/${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const uploadRes = await fetch(`${SUPABASE_URL}/storage/v1/object/dokumen/${fileName}`, {
+        method:  'POST',
+        headers: { 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': dokumen.type, 'x-upsert': 'true' },
+        body:    dokumen
+      });
+      if (!uploadRes.ok) throw new Error('Gagal upload dokumen');
+
+      const urlDokumen  = `${SUPABASE_URL}/storage/v1/object/public/dokumen/${fileName}`;
+      const nomorTiket  = generateTiket();
+      const insertRes   = await fetch(`${SUPABASE_URL}/rest/v1/pengajuan`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=minimal' },
+        body:    JSON.stringify({
+          nomor_tiket: nomorTiket, jenis_layanan: JENIS_LAYANAN,
+          nama, email, no_telepon: telepon, instansi: instansi || '-',
+          jenis_kelamin: jenisKelamin, usia: parseInt(usia),
+          kategori_pengguna: kategori, tingkat_pendidikan: pendidikan,
+          kabupaten_kota: kabkota, deskripsi,
+          nama_dokumen: dokumen.name, url_dokumen: urlDokumen
+        })
+      });
+      if (!insertRes.ok) throw new Error('Gagal menyimpan pengajuan');
+
+      currentTiket = nomorTiket;
+      document.getElementById('form-pengajuan').style.display = 'none';
+      document.getElementById('tiket-number').textContent = nomorTiket;
+      document.getElementById('tiket-box').classList.add('show');
+    } catch(err) {
+      showError('Terjadi kesalahan: ' + err.message + '. Silakan coba lagi.');
+    } finally {
+      btn.disabled  = false;
+      btn.innerHTML = '<i class="bi bi-send"></i> Kirim Pengajuan';
+    }
+  }
+
+  function resetForm() {
+    document.getElementById('form-pengajuan').style.display = 'block';
+    document.getElementById('tiket-box').classList.remove('show');
+    ['input-nama','input-email','input-telepon','input-instansi','input-deskripsi'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('input-dokumen').value = '';
+    document.getElementById('upload-filename').textContent = '';
+    currentTiket = '';
+  }
+
+  /* ============================================================
+     CEK STATUS
+  ============================================================ */
+  async function _fetchStatus(tiket, errEl, resultCard, ids) {
+    try {
+      const res  = await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${tiket}&select=*`, {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+      });
+      const data = await res.json();
+      if (!data || data.length === 0) {
+        errEl.textContent = 'Nomor tiket tidak ditemukan. Pastikan nomor tiket sudah benar.';
+        errEl.classList.remove('d-none');
+        return;
+      }
+      const d = data[0];
+      const statusMap = { 'Menunggu Verifikasi': 'status-menunggu', 'Sedang Diproses': 'status-diproses', 'Selesai': 'status-selesai', 'Ditolak': 'status-ditolak' };
+      document.getElementById(ids.tiket).textContent    = d.nomor_tiket;
+      document.getElementById(ids.layanan).textContent  = d.jenis_layanan;
+      document.getElementById(ids.nama).textContent     = d.nama;
+      document.getElementById(ids.instansi).textContent = d.instansi || '-';
+      document.getElementById(ids.deskripsi).textContent= d.deskripsi;
+      document.getElementById(ids.tanggal).textContent  = new Date(d.created_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' });
+      const badge = document.getElementById(ids.badge);
+      badge.textContent = d.status;
+      badge.className   = 'status-badge ' + (statusMap[d.status] || 'status-menunggu');
+
+      // Tampilkan hasil download jika ada
+      const hasilBox = document.getElementById(ids.hasilBox);
+      if (d.url_hasil) { document.getElementById(ids.hasilLink).href = d.url_hasil; hasilBox.style.display = 'block'; }
+      else hasilBox.style.display = 'none';
+
+      // Tampilkan rating hanya jika: status Selesai + ada url_hasil + belum pernah rating
+      const ratingBox = document.getElementById('res-rating-box');
+      if (d.status === 'Selesai' && d.url_hasil) {
+        cekCurrentTiket = d.nomor_tiket;
+        ratingBox.style.display = 'block';
+        if (d.rating) {
+          // Sudah pernah rating sebelumnya — langsung tampilkan done
+          document.getElementById('res-rating-done-emoji').textContent = d.rating_emoji || '⭐';
+          document.getElementById('res-rating-form').style.display  = 'none';
+          document.getElementById('res-rating-done').style.display  = 'block';
+        } else {
+          // Belum rating — tampilkan form emoji
+          document.getElementById('res-rating-form').style.display  = 'block';
+          document.getElementById('res-rating-done').style.display  = 'none';
+          // Reset pilihan emoji
+          document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
+          cekSelectedRating = null; cekSelectedEmoji = '';
+          document.getElementById('res-btn-kirim-rating').disabled = true;
+          document.getElementById('res-btn-kirim-rating').innerHTML = '<i class="bi bi-send"></i> Kirim Penilaian';
+        }
+      } else {
+        ratingBox.style.display = 'none';
+      }
+
+      resultCard.classList.add('show');
+    } catch(err) {
+      errEl.textContent = 'Terjadi kesalahan saat mengambil data. Silakan coba lagi.';
+      errEl.classList.remove('d-none');
+    }
+  }
+
+  async function cekStatus() {
+    const tiket      = document.getElementById('input-tiket-cek').value.trim().toUpperCase();
+    const errEl      = document.getElementById('cek-error');
+    const resultCard = document.getElementById('result-card');
+    errEl.classList.add('d-none');
+    resultCard.classList.remove('show');
+    if (!tiket) { errEl.textContent = 'Masukkan nomor tiket terlebih dahulu!'; errEl.classList.remove('d-none'); return; }
+    await _fetchStatus(tiket, errEl, resultCard, {
+      tiket:    'res-tiket',    layanan:  'res-layanan',
+      nama:     'res-nama',    instansi: 'res-instansi',
+      tanggal:  'res-tanggal', deskripsi:'res-deskripsi',
+      badge:    'res-status-badge', hasilBox:'res-hasil-box', hasilLink:'res-hasil-link'
+    });
+  }
+  document.getElementById('input-tiket-cek').addEventListener('keypress', e => { if (e.key === 'Enter') cekStatus(); });
 </script>
 </body>
 </html>
