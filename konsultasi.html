@@ -111,7 +111,7 @@
     /* ======= SOP FLOWCHART ======= */
     .sop-flowchart { margin-bottom: 26px; }
     .sop-flowchart:last-child { margin-bottom: 0; }
-    .flowchart-title { font-weight: 700; color: white; font-size: 0.88rem; margin-bottom: 16px; padding: 11px 16px; border-radius: 8px; display: flex; align-items: center; gap: 8px; }
+    .flowchart-title { font-weight: 700; color: white; font-size: 0.88rem; margin-bottom: 16px; padding: 11px 16px; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .flowchart-title.langsung { background: linear-gradient(135deg, #0056b3, #003f7f); }
     .flowchart-title.online   { background: linear-gradient(135deg, var(--bps-accent), #ff9800); }
     .snake-grid { display:grid; gap:0; margin:12px 0; align-items:center; justify-items:center; width:100%; }
@@ -303,6 +303,19 @@
       .emoji-btn { min-width: 42px; padding: 7px 5px; }
       .emoji-btn .em { font-size: 1.3rem; }
     }
+
+    /* Info banner & cara pengajuan responsive */
+    @media (max-width:768px) {
+      .info-banner-grid { grid-template-columns: 1fr !important; }
+      .cara-grid { grid-template-columns: 1fr 1fr !important; }
+    }
+    @media (max-width:480px) {
+      .cara-grid { grid-template-columns: 1fr 1fr !important; }
+      .info-banner-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width:360px) {
+      .cara-grid { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>
@@ -426,20 +439,20 @@
           </div>
           <div class="section-body">
             <div class="sop-flowchart">
-              <div class="flowchart-title langsung"><i class="bi bi-building"></i> Layanan dengan Kunjungan Langsung</div>
+              <div class="flowchart-title langsung"><i class="bi bi-person-lines-fill"></i> Layanan dengan Kunjungan Langsung</div>
               <div class="snake-grid snake-3">
-                <div class="sg-box"><span class="sg-icon"><i class="bi bi-building"></i></span><div class="sg-label">Berkunjung ke<br>PST BPS</div></div>
+                <div class="sg-box"><span class="sg-icon"><i class="bi bi-door-open"></i></span><div class="sg-label">Berkunjung ke<br>PST BPS</div></div>
                 <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                <div class="sg-box"><span class="sg-icon"><i class="bi bi-book"></i></span><div class="sg-label">Isi Buku<br>Tamu</div></div>
+                <div class="sg-box"><span class="sg-icon"><i class="bi bi-pencil-square"></i></span><div class="sg-label">Isi Buku<br>Tamu</div></div>
                 <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                <div class="sg-box"><span class="sg-icon"><i class="bi bi-ticket-perforated"></i></span><div class="sg-label">Ambil Nomor<br>Antrian</div></div>
+                <div class="sg-box"><span class="sg-icon"><i class="bi bi-123"></i></span><div class="sg-label">Ambil Nomor<br>Antrian</div></div>
                 <div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div>
                 <div class="sg-arr sg-down"><i class="bi bi-arrow-down"></i></div>
-                <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-check-circle"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
+                <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-patch-check"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
                 <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                <div class="sg-box"><span class="sg-icon"><i class="bi bi-chat-dots"></i></span><div class="sg-label">Konsultasi<br>Petugas</div></div>
+                <div class="sg-box"><span class="sg-icon"><i class="bi bi-person-workspace"></i></span><div class="sg-label">Konsultasi<br>Petugas</div></div>
                 <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                <div class="sg-box"><span class="sg-icon"><i class="bi bi-hourglass-split"></i></span><div class="sg-label">Tunggu<br>Giliran</div></div>
+                <div class="sg-box"><span class="sg-icon"><i class="bi bi-hourglass-top"></i></span><div class="sg-label">Tunggu<br>Giliran</div></div>
               </div>
               <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
               <div class="sop-steps">
@@ -455,9 +468,9 @@
               </div>
             </div>
             <div class="sop-flowchart" style="margin-top:26px;">
-              <div class="flowchart-title online"><i class="bi bi-globe"></i> Layanan dengan Cara Online</div>
+              <div class="flowchart-title online"><i class="bi bi-laptop"></i> Layanan dengan Cara Online</div>
               <div class="snake-grid snake-4">
-                <div class="sg-box"><span class="sg-icon"><i class="bi bi-globe"></i></span><div class="sg-label">Akses<br>Portal</div></div>
+                <div class="sg-box"><span class="sg-icon"><i class="bi bi-browser-chrome"></i></span><div class="sg-label">Akses<br>Portal</div></div>
                 <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
                 <div class="sg-box"><span class="sg-icon"><i class="bi bi-search"></i></span><div class="sg-label">Cari<br>Informasi</div></div>
                 <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
@@ -467,18 +480,18 @@
                   <div style="display:flex;gap:4px;margin-top:6px;justify-content:center;"><span class="sg-badge-ya">✓ Ya</span><span class="sg-badge-tidak">✗ Tidak</span></div>
                 </div>
                 <div class="sg-arr sg-arr-tidak"><span>Tidak</span><i class="bi bi-arrow-right"></i></div>
-                <div class="sg-box"><span class="sg-icon"><i class="bi bi-file-text"></i></span><div class="sg-label">Buat<br>Konsultasi</div></div>
+                <div class="sg-box"><span class="sg-icon"><i class="bi bi-file-earmark-plus"></i></span><div class="sg-label">Buat<br>Konsultasi</div></div>
                 <div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div>
                 <div class="sg-arr sg-down sg-ya"><i class="bi bi-arrow-down"></i><span>Ya</span></div>
                 <div class="sg-empty"></div>
                 <div class="sg-arr sg-down"><i class="bi bi-arrow-down"></i></div>
-                <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-check-circle"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
+                <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-patch-check"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
                 <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                <div class="sg-box"><span class="sg-icon"><i class="bi bi-star"></i></span><div class="sg-label">Beri<br>Rating</div></div>
+                <div class="sg-box"><span class="sg-icon"><i class="bi bi-clipboard2-data"></i></span><div class="sg-label">Beri<br>Rating</div></div>
                 <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                <div class="sg-box"><span class="sg-icon"><i class="bi bi-chat-left-text"></i></span><div class="sg-label">Terima<br>Informasi</div></div>
+                <div class="sg-box"><span class="sg-icon"><i class="bi bi-envelope-open-text"></i></span><div class="sg-label">Terima<br>Informasi</div></div>
                 <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                <div class="sg-box"><span class="sg-icon"><i class="bi bi-send"></i></span><div class="sg-label">Ajukan<br>Konsultasi</div></div>
+                <div class="sg-box"><span class="sg-icon"><i class="bi bi-send-check"></i></span><div class="sg-label">Ajukan<br>Konsultasi</div></div>
               </div>
               <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
               <div class="sop-steps online-border">
@@ -603,6 +616,82 @@
 
       <!-- ===== PANEL: AJUKAN LAYANAN ===== -->
       <div id="panel-ajukan" class="content-panel">
+
+        <!-- INFO BANNER -->
+        <div style="background:linear-gradient(135deg,var(--bps-dark) 0%,var(--bps-blue) 100%);border-radius:14px;padding:28px 28px 24px;margin-bottom:18px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:-50px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none;"></div>
+          <div style="position:relative;z-index:1;">
+            <div style="display:inline-flex;align-items:center;gap:7px;background:var(--bps-accent);color:var(--bps-dark);font-size:0.72rem;font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:16px;">
+              <i class="bi bi-info-circle-fill"></i> Informasi Layanan
+            </div>
+            <h5 style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:10px;line-height:1.4;">Ajukan Permintaan Layanan Tanpa Harus Hadir Langsung ke BPS</h5>
+            <p style="color:rgba(255,255,255,0.85);font-size:0.84rem;line-height:1.75;margin-bottom:20px;">Melalui fitur ini, masyarakat dapat mengajukan permintaan <strong style="color:#fff;">Konsultasi Statistik</strong> secara daring tanpa perlu datang langsung ke kantor BPS Kota Palu. Petugas kami akan memproses permintaan Anda dan memberikan respons melalui sistem ini.</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" class="info-banner-grid">
+              <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+                <i class="bi bi-house-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i>
+                <div>
+                  <div style="color:#fff;font-weight:700;font-size:0.78rem;margin-bottom:2px;">Dari Mana Saja</div>
+                  <div style="color:rgba(255,255,255,0.65);font-size:0.72rem;line-height:1.5;">Ajukan permintaan kapan saja tanpa perlu hadir ke kantor BPS</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+                <i class="bi bi-clock-history" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i>
+                <div>
+                  <div style="color:#fff;font-weight:700;font-size:0.78rem;margin-bottom:2px;">Respons 3 Hari Kerja</div>
+                  <div style="color:rgba(255,255,255,0.65);font-size:0.72rem;line-height:1.5;">Petugas akan merespons pengajuan Anda dalam 3 hari kerja</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+                <i class="bi bi-shield-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i>
+                <div>
+                  <div style="color:#fff;font-weight:700;font-size:0.78rem;margin-bottom:2px;">Gratis & Resmi</div>
+                  <div style="color:rgba(255,255,255,0.65);font-size:0.72rem;line-height:1.5;">Layanan ini tidak dipungut biaya dan dikelola langsung oleh BPS</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARA PENGAJUAN -->
+        <div style="background:white;border-radius:14px;border:1px solid rgba(0,0,0,0.05);box-shadow:0 2px 14px rgba(0,0,0,0.07);margin-bottom:18px;overflow:hidden;">
+          <div style="padding:14px 22px;border-bottom:1px solid #eef2f8;background:linear-gradient(to right,#fafcff,#fff);display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;border-radius:9px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-list-ol"></i></div>
+            <div>
+              <p style="font-weight:800;color:var(--bps-dark);font-size:0.95rem;margin:0;">Cara Mengajukan Permohonan</p>
+              <p style="font-size:0.72rem;color:#888;font-weight:500;margin:0;">Ikuti langkah berikut untuk mengajukan layanan konsultasi statistik</p>
+            </div>
+          </div>
+          <div style="padding:18px 22px;">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;" class="cara-grid">
+              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;position:relative;">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">1</div>
+                <i class="bi bi-person-vcard" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i>
+                <div style="font-weight:700;color:var(--bps-dark);font-size:0.78rem;margin-bottom:4px;">Isi Formulir</div>
+                <div style="font-size:0.7rem;color:#888;line-height:1.5;">Lengkapi data diri dan deskripsi kebutuhan data Anda</div>
+              </div>
+              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">2</div>
+                <i class="bi bi-paperclip" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i>
+                <div style="font-weight:700;color:var(--bps-dark);font-size:0.78rem;margin-bottom:4px;">Upload Dokumen</div>
+                <div style="font-size:0.7rem;color:#888;line-height:1.5;">Lampirkan surat permohonan atau KTP sebagai identitas</div>
+              </div>
+              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">3</div>
+                <i class="bi bi-send-check" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i>
+                <div style="font-weight:700;color:var(--bps-dark);font-size:0.78rem;margin-bottom:4px;">Kirim & Simpan Tiket</div>
+                <div style="font-size:0.7rem;color:#888;line-height:1.5;">Kirim pengajuan dan simpan nomor tiket yang diberikan sistem</div>
+              </div>
+              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">4</div>
+                <i class="bi bi-envelope-open-text" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i>
+                <div style="font-weight:700;color:var(--bps-dark);font-size:0.78rem;margin-bottom:4px;">Pantau Respons</div>
+                <div style="font-size:0.7rem;color:#888;line-height:1.5;">Gunakan nomor tiket untuk memantau status dan hasil konsultasi</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="pengajuan-section">
           <div class="d-flex align-items-center gap-3 mb-4">
             <div style="width:48px;height:48px;border-radius:12px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-send-fill"></i></div>
