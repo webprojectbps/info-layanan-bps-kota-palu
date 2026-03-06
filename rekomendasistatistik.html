@@ -115,11 +115,9 @@
     .flowchart-title.langsung { background: linear-gradient(135deg, #0056b3, #003f7f); }
     .flowchart-title.online   { background: linear-gradient(135deg, var(--bps-accent), #ff9800); }
 
-    /* Snake grid — shared */
     .snake-grid { display:grid; gap:0; margin:12px 0; align-items:start; justify-items:stretch; width:100%; }
     .snake-5 { grid-template-columns: 1fr 32px 1fr 32px 1fr 32px 1fr 32px 1fr; }
 
-    /* Wrapper kotak + panah bawah — stretch penuh agar semua sel sama tinggi */
     .sg-cell { width:100%; display:flex; flex-direction:column; align-items:center; }
 
     .sg-box { border:2px solid var(--bps-blue); border-radius:10px; padding:14px 8px 12px; text-align:center; background:white; width:100%; box-shadow:0 2px 8px rgba(0,91,170,0.08); transition:all 0.25s; box-sizing:border-box; height:90px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
@@ -128,10 +126,7 @@
     .sg-icon { font-size:clamp(1.2rem,2.5vw,1.6rem); color:var(--bps-blue); display:block; margin-bottom:6px; flex-shrink:0; }
     .sg-label { font-weight:600; color:var(--bps-dark); font-size:clamp(0.55rem,1.4vw,0.72rem); line-height:1.35; }
 
-    /* Panah horizontal — tingginya sama dengan sg-box agar vertikal center */
     .sg-arr { font-size:clamp(0.8rem,1.8vw,1rem); color:var(--bps-blue); display:flex; align-items:center; justify-content:center; width:100%; height:90px; }
-
-    /* Panah ↓ di bawah kotak tertentu */
     .sg-down { font-size:clamp(0.8rem,1.8vw,1rem); color:var(--bps-blue); display:flex; justify-content:center; align-items:center; height:28px; width:100%; }
 
     .fc-selesai { text-align:center; color:#4caf50; font-weight:700; margin:8px 0 16px; font-size:0.88rem; }
@@ -198,6 +193,19 @@
     .result-label { color:#888; min-width:130px; font-weight:600; }
     .result-value { color:#333; }
 
+    /* ======= RATING EMOJI ======= */
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .emoji-row { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
+    .emoji-btn { display:flex; flex-direction:column; align-items:center; gap:5px; background:#f4f6f9; border:2px solid transparent; border-radius:12px; padding:11px 12px; cursor:pointer; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif; min-width:58px; }
+    .emoji-btn:hover { background:var(--bps-light); border-color:var(--bps-blue); transform:translateY(-3px) scale(1.06); }
+    .emoji-btn.selected { background:var(--bps-light); border-color:var(--bps-blue); box-shadow:0 4px 14px rgba(0,91,170,0.18); transform:translateY(-3px) scale(1.08); }
+    .emoji-btn .em { font-size:1.8rem; line-height:1; }
+    .emoji-btn .em-label { font-size:0.61rem; font-weight:700; color:#666; }
+    .emoji-btn.selected .em-label { color:var(--bps-blue); }
+    .btn-kirim-rating { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); color:white; border:none; border-radius:50px; padding:9px 26px; font-weight:700; font-size:0.84rem; cursor:pointer; margin-top:12px; transition:all 0.25s; font-family:'Plus Jakarta Sans',sans-serif; display:inline-flex; align-items:center; gap:7px; }
+    .btn-kirim-rating:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,91,170,0.3); }
+    .btn-kirim-rating:disabled { opacity:0.55; cursor:not-allowed; }
+
     /* ======= SCROLL ANCHOR ======= */
     .scroll-anchor { scroll-margin-top: 80px; }
 
@@ -244,6 +252,9 @@
       .sop-steps ol { font-size: 0.78rem; line-height: 1.9; }
       .flowchart-title { font-size: 0.8rem; padding: 9px 12px; }
       .tiket-number { font-size: 1.2rem; padding: 10px 16px; }
+      .emoji-row { gap: 5px; }
+      .emoji-btn { min-width: 50px; padding: 9px 8px; }
+      .emoji-btn .em { font-size: 1.5rem; }
     }
     @media (max-width:480px) {
       .hero-detail { padding: 26px 14px; }
@@ -265,6 +276,8 @@
       .hero-title { font-size: 1.2rem; }
       .snake-5 { grid-template-columns: 1fr 7px 1fr 7px 1fr 7px 1fr 7px 1fr; }
       .sg-label { font-size: 0.38rem; }
+      .emoji-btn { min-width: 42px; padding: 7px 5px; }
+      .emoji-btn .em { font-size: 1.3rem; }
     }
 
     /* ======= MOBILE BOTTOM NAV ======= */
@@ -388,7 +401,6 @@
             </div>
             <div class="section-body">
               <div class="syarat-grid">
-                <!-- Kunjungan Langsung -->
                 <div class="syarat-card">
                   <div class="syarat-card-header blue">
                     <div class="sh-icon"><i class="bi bi-building"></i></div>
@@ -403,7 +415,6 @@
                     </ul>
                   </div>
                 </div>
-                <!-- Layanan Online -->
                 <div class="syarat-card">
                   <div class="syarat-card-header gold">
                     <div class="sh-icon"><i class="bi bi-globe" style="color:var(--bps-dark);"></i></div>
@@ -434,12 +445,9 @@
             </div>
             <div class="section-body">
 
-              <!-- FLOWCHART KUNJUNGAN LANGSUNG -->
               <div class="sop-flowchart">
                 <div class="flowchart-title langsung"><i class="bi bi-building"></i> Layanan dengan Kunjungan Langsung</div>
-
                 <div class="snake-grid snake-5">
-                  <!-- ROW 1 → langkah 1–5 -->
                   <div class="sg-cell">
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-building"></i></span><div class="sg-label">Berkunjung<br>ke PST BPS</div></div>
                   </div>
@@ -456,14 +464,11 @@
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-hourglass-split"></i></span><div class="sg-label">Tunggu<br>Giliran</div></div>
                   </div>
                   <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                  <!-- Kotak ke-5: punya panah ↓ di bawahnya -->
                   <div class="sg-cell">
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-chat-dots"></i></span><div class="sg-label">Sampaikan<br>Permintaan</div></div>
                     <div class="sg-down"><i class="bi bi-arrow-down"></i></div>
                   </div>
 
-                  <!-- ROW 2 ← langkah 6–10 (HTML kiri→kanan = visual kiri→kanan, panah ←) -->
-                  <!-- Kotak ke-1 (Dampingi Pengajuan): punya panah ↓ di bawahnya -->
                   <div class="sg-cell">
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-send-plus"></i></span><div class="sg-label">Dampingi<br>Pengajuan</div></div>
                     <div class="sg-down"><i class="bi bi-arrow-down"></i></div>
@@ -485,7 +490,6 @@
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-file-earmark-text"></i></span><div class="sg-label">Berikan<br>Formulir</div></div>
                   </div>
 
-                  <!-- ROW 3 → langkah 11–15 -->
                   <div class="sg-cell">
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-clipboard-check"></i></span><div class="sg-label">Periksa<br>Rancangan</div></div>
                   </div>
@@ -502,13 +506,11 @@
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-patch-check"></i></span><div class="sg-label">Pengesahan<br>Direktur</div></div>
                   </div>
                   <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                  <!-- Kotak ke-5 (Kirim Surat): punya panah ↓ di bawahnya -->
                   <div class="sg-cell">
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-envelope-check"></i></span><div class="sg-label">Kirim Surat<br>via Portal</div></div>
                     <div class="sg-down"><i class="bi bi-arrow-down"></i></div>
                   </div>
 
-                  <!-- ROW 4 ← langkah 16–17: Beri Rating di kanan (col9), Selesai di sebelahnya (col7), col1–6 kosong -->
                   <div style="grid-column: span 6;"></div>
                   <div class="sg-cell">
                     <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-check-circle"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
@@ -518,9 +520,7 @@
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-star"></i></span><div class="sg-label">Beri<br>Rating</div></div>
                   </div>
                 </div>
-
                 <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
-
                 <div class="sop-steps">
                   <strong class="sop-steps-title">Detail Prosedur Kunjungan Langsung:</strong>
                   <ol>
@@ -545,12 +545,9 @@
                 </div>
               </div>
 
-              <!-- FLOWCHART LAYANAN ONLINE -->
               <div class="sop-flowchart" style="margin-top:26px;">
                 <div class="flowchart-title online"><i class="bi bi-globe"></i> Layanan dengan Cara Online</div>
-
                 <div class="snake-grid snake-5">
-                  <!-- ROW 1 → langkah 1–5 -->
                   <div class="sg-cell">
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-globe"></i></span><div class="sg-label">Akses Portal<br>pst.bps.go.id</div></div>
                   </div>
@@ -567,14 +564,11 @@
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-send-plus"></i></span><div class="sg-label">Ajukan<br>Rekomendasi</div></div>
                   </div>
                   <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                  <!-- Kotak ke-5 (Periksa Rancangan): panah ↓ di bawahnya -->
                   <div class="sg-cell">
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-clipboard-check"></i></span><div class="sg-label">Periksa<br>Rancangan</div></div>
                     <div class="sg-down"><i class="bi bi-arrow-down"></i></div>
                   </div>
 
-                  <!-- ROW 2 ← langkah 6–10: HTML kiri→kanan = Beri Rating(kiri) ← ... ← Evaluasi Tim(kanan) -->
-                  <!-- Kotak ke-1 (Beri Rating): panah ↓ di bawahnya -->
                   <div class="sg-cell">
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-star"></i></span><div class="sg-label">Beri<br>Rating</div></div>
                     <div class="sg-down"><i class="bi bi-arrow-down"></i></div>
@@ -596,15 +590,12 @@
                     <div class="sg-box"><span class="sg-icon"><i class="bi bi-people"></i></span><div class="sg-label">Evaluasi<br>Bersama Tim</div></div>
                   </div>
 
-                  <!-- ROW 3 → langkah 11: Selesai di kiri (col1), sisa kosong -->
                   <div class="sg-cell">
                     <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-check-circle"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
                   </div>
                   <div style="grid-column: span 8;"></div>
                 </div>
-
                 <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
-
                 <div class="sop-steps online-border">
                   <strong class="sop-steps-title">Detail Prosedur Layanan Online:</strong>
                   <ol>
@@ -638,13 +629,13 @@
               </div>
             </div>
             <div class="section-body">
-              <div class="jw-card">
-                <div class="jw-card-header">
-                  <div class="sh-icon"><i class="bi bi-clock-history"></i></div>
-                  <span class="sh-title">Notifikasi Hasil Pemeriksaan</span>
+              <div style="background:#f0f6ff; border-left:4px solid var(--bps-blue); border-radius:10px; padding:18px 20px; display:flex; align-items:flex-start; gap:16px;">
+                <div style="width:42px; height:42px; border-radius:10px; background:#daeaff; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                  <i class="bi bi-clock-history" style="font-size:1.3rem; color:var(--bps-blue);"></i>
                 </div>
-                <div class="jw-card-body">
-                  Pengguna layanan akan menerima notifikasi melalui <strong>e-mail</strong> serta <strong>nomor handphone yang masih aktif dan terhubung dengan WhatsApp</strong> tentang hasil pemeriksaan formulir rekomendasi kegiatan statistik sektoral maksimal <strong>14 (empat belas) hari kerja</strong> sejak berkas dinyatakan lengkap dan jelas oleh BPS di portal pst.bps.go.id.
+                <div>
+                  <p style="font-weight:700; color:var(--bps-blue); font-size:0.95rem; margin:0 0 8px;">Notifikasi Hasil Pemeriksaan</p>
+                  <p style="font-size:0.84rem; color:#444; line-height:1.7; margin:0;">Pengguna layanan akan menerima notifikasi melalui <strong>e-mail</strong> serta <strong>nomor handphone yang masih aktif dan terhubung dengan WhatsApp</strong> tentang hasil pemeriksaan formulir rekomendasi kegiatan statistik sektoral maksimal <strong>14 (empat belas) hari kerja</strong> sejak berkas dinyatakan lengkap dan jelas oleh BPS di portal pst.bps.go.id.</p>
                 </div>
               </div>
             </div>
@@ -683,7 +674,7 @@
               </div>
             </div>
             <div class="section-body">
-              <div class="product-grid">
+              <div style="display:flex; flex-direction:column; gap:14px;">
                 <div class="product-card">
                   <div class="product-card-icon"><i class="bi bi-lightbulb"></i></div>
                   <div class="product-card-title">Saran, Masukan, dan Rekomendasi</div>
@@ -704,7 +695,6 @@
       <!-- ===== PANEL: AJUKAN LAYANAN ===== -->
       <div id="panel-ajukan" class="content-panel">
 
-        <!-- INFO BANNER -->
         <div style="background:linear-gradient(135deg,var(--bps-dark) 0%,var(--bps-blue) 100%);border-radius:14px;padding:28px 28px 24px;margin-bottom:18px;position:relative;overflow:hidden;">
           <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;"></div>
           <div style="position:absolute;bottom:-50px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none;"></div>
@@ -732,15 +722,14 @@
               <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
                 <i class="bi bi-shield-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i>
                 <div>
-                  <div style="color:#fff;font-weight:700;font-size:0.78rem;margin-bottom:2px;">Gratis &amp; Resmi</div>
-                  <div style="color:rgba(255,255,255,0.65);font-size:0.72rem;line-height:1.5;">Layanan ini tidak dipungut biaya dan dikelola langsung oleh BPS</div>
+                  <div style="color:#fff;font-weight:700;font-size:0.78rem;margin-bottom:2px;">Resmi &amp; Terverifikasi</div>
+                  <div style="color:rgba(255,255,255,0.65);font-size:0.72rem;line-height:1.5;">Layanan dikelola langsung oleh BPS Kota Palu secara resmi</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- CARA PENGAJUAN -->
         <div style="background:white;border-radius:14px;border:1px solid rgba(0,0,0,0.05);box-shadow:0 2px 14px rgba(0,0,0,0.07);margin-bottom:18px;overflow:hidden;">
           <div style="padding:14px 22px;border-bottom:1px solid #eef2f8;background:linear-gradient(to right,#fafcff,#fff);display:flex;align-items:center;gap:12px;">
             <div style="width:36px;height:36px;border-radius:9px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-list-ol"></i></div>
@@ -851,11 +840,39 @@
                 <div class="result-row"><span class="result-label">Instansi</span><span class="result-value" id="res-instansi">-</span></div>
                 <div class="result-row"><span class="result-label">Tanggal Pengajuan</span><span class="result-value" id="res-tanggal">-</span></div>
                 <div class="result-row"><span class="result-label">Deskripsi</span><span class="result-value" id="res-deskripsi">-</span></div>
+
+                <!-- BOX HASIL / DOWNLOAD -->
                 <div id="res-hasil-box" style="display:none;margin-top:12px;padding:13px;background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border-radius:10px;border:1.5px solid #a5d6a7;">
                   <p style="margin:0 0 8px;font-weight:700;color:#2e7d32;font-size:0.86rem;"><i class="bi bi-check-circle-fill me-2"></i>Data Tersedia</p>
                   <p style="margin:0 0 10px;font-size:0.78rem;color:#555;">Petugas BPS telah mengupload data yang Anda minta.</p>
                   <a id="res-hasil-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#2e7d32;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.8rem;"><i class="bi bi-download"></i> Download Data</a>
                 </div>
+
+                <!-- RATING BOX -->
+                <div id="res-rating-box" style="display:none;margin-top:16px;">
+                  <!-- Form rating (belum dinilai) -->
+                  <div id="res-rating-form">
+                    <div style="padding:20px;background:white;border-radius:14px;border:1.5px solid #e0eaf5;text-align:center;animation:fadeInUp 0.4s ease;">
+                      <div style="font-weight:700;font-size:0.9rem;color:var(--bps-dark);margin-bottom:5px;">⭐ Bagaimana pengalaman Anda terhadap layanan ini?</div>
+                      <div style="font-size:0.77rem;color:#888;margin-bottom:16px;">Berikan penilaian untuk membantu kami meningkatkan kualitas layanan BPS</div>
+                      <div class="emoji-row" id="res-emoji-row">
+                        <button class="emoji-btn" onclick="selectEmojiCek(this,1,'😠','Sangat Buruk')"><span class="em">😠</span><span class="em-label">Sangat Buruk</span></button>
+                        <button class="emoji-btn" onclick="selectEmojiCek(this,2,'😕','Kurang Baik')"><span class="em">😕</span><span class="em-label">Kurang Baik</span></button>
+                        <button class="emoji-btn" onclick="selectEmojiCek(this,3,'😐','Cukup')"><span class="em">😐</span><span class="em-label">Cukup</span></button>
+                        <button class="emoji-btn" onclick="selectEmojiCek(this,4,'😊','Baik')"><span class="em">😊</span><span class="em-label">Baik</span></button>
+                        <button class="emoji-btn" onclick="selectEmojiCek(this,5,'🤩','Sangat Baik')"><span class="em">🤩</span><span class="em-label">Sangat Baik</span></button>
+                      </div>
+                      <div><button class="btn-kirim-rating" id="res-btn-kirim-rating" disabled onclick="kirimRatingCek()"><i class="bi bi-send"></i> Kirim Penilaian</button></div>
+                    </div>
+                  </div>
+                  <!-- Konfirmasi sudah rating -->
+                  <div id="res-rating-done" style="display:none;padding:16px 18px;background:linear-gradient(135deg,rgba(76,175,80,0.08),transparent);border-radius:12px;border:1.5px solid #a5d6a7;text-align:center;animation:fadeInUp 0.35s ease;">
+                    <div id="res-rating-done-emoji" style="font-size:2rem;margin-bottom:5px;">🤩</div>
+                    <div style="font-weight:700;color:#2e7d32;font-size:0.88rem;">Terima kasih atas penilaian Anda!</div>
+                    <div style="font-size:0.75rem;color:#555;margin-top:4px;">Masukan Anda sangat berarti bagi peningkatan layanan BPS Kota Palu.</div>
+                  </div>
+                </div>
+
               </div>
             </div></div>
           </div>
@@ -897,6 +914,18 @@
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
   const JENIS_LAYANAN = 'Pelayanan Rekomendasi Kegiatan Statistik';
 
+  /*
+   * ============================================================
+   * PERBAIKAN UTAMA: Cache rating lokal per tiket
+   * Menyimpan { emoji, score } untuk tiket yang sudah di-rating
+   * di sesi ini, sehingga tidak bergantung pada respons Supabase.
+   * ============================================================
+   */
+  const localRatingCache = {}; // { [nomorTiket]: { score, emoji } }
+
+  /* ============================================================
+     PANEL SWITCH
+  ============================================================ */
   function showPanel(id, el) {
     document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + id).classList.add('active');
@@ -910,8 +939,11 @@
     if (mbn) mbn.classList.add('active');
   }
 
+  /* ============================================================
+     SCROLL TO SECTION
+  ============================================================ */
   function scrollToSection(sectionId, sbEl) {
-    const infoPanel = document.getElementById('panel-info');
+    const infoPanel   = document.getElementById('panel-info');
     const ajukanPanel = document.getElementById('panel-ajukan');
     if (!infoPanel.classList.contains('active')) {
       ajukanPanel.classList.remove('active');
@@ -929,7 +961,7 @@
     const mbnEl = document.getElementById('mbn-' + navMap[sectionId]);
     if (mbnEl) mbnEl.classList.add('active');
     setTimeout(() => {
-      const target = document.getElementById(sectionId);
+      const target  = document.getElementById(sectionId);
       if (!target) return;
       const mainArea = document.getElementById('main-area');
       const isMobile = window.innerWidth <= 768;
@@ -945,6 +977,9 @@
     }, 50);
   }
 
+  /* ============================================================
+     MOBILE NAV helpers
+  ============================================================ */
   function scrollToSectionMobile(sectionId, mbnEl) {
     document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
     mbnEl.classList.add('active');
@@ -965,6 +1000,9 @@
     showPanel(id, sbLinks[4] || null);
   }
 
+  /* ============================================================
+     TAB SWITCH
+  ============================================================ */
   function switchTab(tab, el) {
     document.querySelectorAll('.pengajuan-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
@@ -972,6 +1010,9 @@
     document.getElementById('tab-' + tab).classList.add('active');
   }
 
+  /* ============================================================
+     UPLOAD FILE
+  ============================================================ */
   function handleFileChange(input) {
     const file     = input.files[0];
     const filename = document.getElementById('upload-filename');
@@ -999,6 +1040,61 @@
     }
   });
 
+  /* ============================================================
+     EMOJI RATING — tab Cek Status
+  ============================================================ */
+  let cekSelectedRating = null, cekSelectedEmoji = '', cekCurrentTiket = '';
+
+  function selectEmojiCek(btn, score, emoji, label) {
+    document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    cekSelectedRating = score;
+    cekSelectedEmoji  = emoji;
+    document.getElementById('res-btn-kirim-rating').disabled = false;
+  }
+
+  async function kirimRatingCek() {
+    if (!cekSelectedRating || !cekCurrentTiket) return;
+
+    const btn = document.getElementById('res-btn-kirim-rating');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${cekCurrentTiket}`, {
+        method:  'PATCH',
+        headers: {
+          'Content-Type':  'application/json',
+          'apikey':        SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer':        'return=minimal'
+        },
+        body: JSON.stringify({ rating: cekSelectedRating, rating_emoji: cekSelectedEmoji })
+      });
+    } catch(e) {
+      // Tetap lanjutkan tampilan konfirmasi meski request gagal
+    }
+
+    /*
+     * PERBAIKAN: Simpan ke cache lokal SEBELUM mengubah tampilan.
+     * Dengan ini, saat tombol Cek ditekan lagi untuk tiket yang sama,
+     * fungsi cekStatus() akan membaca cache dan langsung menampilkan
+     * konfirmasi tanpa perlu menunggu data dari Supabase ter-update.
+     */
+    localRatingCache[cekCurrentTiket] = {
+      score: cekSelectedRating,
+      emoji: cekSelectedEmoji
+    };
+
+    // Tampilkan konfirmasi sukses
+    document.getElementById('res-rating-done-emoji').textContent = cekSelectedEmoji;
+    document.getElementById('res-rating-form').style.display = 'none';
+    document.getElementById('res-rating-done').style.display = 'block';
+  }
+
+  /* ============================================================
+     SUBMIT PENGAJUAN
+  ============================================================ */
   function generateTiket() {
     const now = new Date();
     return `BPS-${now.getFullYear()}-${String(Math.floor(Math.random()*900)+100)}${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
@@ -1084,37 +1180,102 @@
     document.getElementById('upload-filename').textContent = '';
   }
 
+  /* ============================================================
+     CEK STATUS
+  ============================================================ */
   async function cekStatus() {
     const tiket      = document.getElementById('input-tiket-cek').value.trim().toUpperCase();
     const errEl      = document.getElementById('cek-error');
     const resultCard = document.getElementById('result-card');
     errEl.classList.add('d-none');
     resultCard.classList.remove('show');
-    if (!tiket) { errEl.textContent = 'Masukkan nomor tiket terlebih dahulu!'; errEl.classList.remove('d-none'); return; }
+
+    if (!tiket) {
+      errEl.textContent = 'Masukkan nomor tiket terlebih dahulu!';
+      errEl.classList.remove('d-none');
+      return;
+    }
+
     try {
       const res  = await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${tiket}&select=*`, {
         headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
       });
       const data = await res.json();
+
       if (!data || data.length === 0) {
         errEl.textContent = 'Nomor tiket tidak ditemukan. Pastikan nomor tiket sudah benar.';
         errEl.classList.remove('d-none');
         return;
       }
+
       const d = data[0];
-      const statusMap = { 'Menunggu Verifikasi': 'status-menunggu', 'Sedang Diproses': 'status-diproses', 'Selesai': 'status-selesai', 'Ditolak': 'status-ditolak' };
+      const statusMap = {
+        'Menunggu Verifikasi': 'status-menunggu',
+        'Sedang Diproses':     'status-diproses',
+        'Selesai':             'status-selesai',
+        'Ditolak':             'status-ditolak'
+      };
+
       document.getElementById('res-tiket').textContent    = d.nomor_tiket;
       document.getElementById('res-layanan').textContent  = d.jenis_layanan;
       document.getElementById('res-nama').textContent     = d.nama;
       document.getElementById('res-instansi').textContent = d.instansi || '-';
       document.getElementById('res-deskripsi').textContent= d.deskripsi;
-      document.getElementById('res-tanggal').textContent  = new Date(d.created_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' });
+      document.getElementById('res-tanggal').textContent  = new Date(d.created_at).toLocaleDateString('id-ID', {
+        day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+
       const badge = document.getElementById('res-status-badge');
       badge.textContent = d.status;
       badge.className   = 'status-badge ' + (statusMap[d.status] || 'status-menunggu');
+
+      // Tampilkan tombol download jika hasil sudah tersedia
       const hasilBox = document.getElementById('res-hasil-box');
-      if (d.url_hasil) { document.getElementById('res-hasil-link').href = d.url_hasil; hasilBox.style.display = 'block'; }
-      else hasilBox.style.display = 'none';
+      if (d.url_hasil) {
+        document.getElementById('res-hasil-link').href = d.url_hasil;
+        hasilBox.style.display = 'block';
+      } else {
+        hasilBox.style.display = 'none';
+      }
+
+      // Tampilkan rating hanya jika url_hasil sudah ada
+      const ratingBox = document.getElementById('res-rating-box');
+      if (d.url_hasil) {
+        cekCurrentTiket = d.nomor_tiket;
+        ratingBox.style.display = 'block';
+
+        /*
+         * PERBAIKAN UTAMA:
+         * Prioritaskan pengecekan dari cache lokal terlebih dahulu.
+         * Jika tiket ini sudah di-rating di sesi ini (localRatingCache),
+         * ATAU data rating sudah ada di database (d.rating & d.rating_emoji),
+         * langsung tampilkan konfirmasi — TANPA me-reset form rating.
+         */
+        const cachedRating = localRatingCache[d.nomor_tiket];
+        const sudahRating  = cachedRating || (d.rating && d.rating_emoji);
+
+        if (sudahRating) {
+          // Tampilkan emoji dari cache lokal (prioritas) atau dari database
+          const emojiToShow = cachedRating ? cachedRating.emoji : d.rating_emoji;
+          document.getElementById('res-rating-done-emoji').textContent = emojiToShow;
+          document.getElementById('res-rating-form').style.display = 'none';
+          document.getElementById('res-rating-done').style.display = 'block';
+        } else {
+          // Belum pernah rating — tampilkan form rating kosong
+          document.getElementById('res-rating-form').style.display = 'block';
+          document.getElementById('res-rating-done').style.display = 'none';
+          // Reset pilihan emoji
+          document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
+          cekSelectedRating = null;
+          cekSelectedEmoji  = '';
+          const kirimBtn = document.getElementById('res-btn-kirim-rating');
+          kirimBtn.disabled = true;
+          kirimBtn.innerHTML = '<i class="bi bi-send"></i> Kirim Penilaian';
+        }
+      } else {
+        ratingBox.style.display = 'none';
+      }
+
       resultCard.classList.add('show');
     } catch(err) {
       errEl.textContent = 'Terjadi kesalahan saat mengambil data. Silakan coba lagi.';
@@ -1122,7 +1283,9 @@
     }
   }
 
-  document.getElementById('input-tiket-cek').addEventListener('keypress', e => { if (e.key === 'Enter') cekStatus(); });
+  document.getElementById('input-tiket-cek').addEventListener('keypress', e => {
+    if (e.key === 'Enter') cekStatus();
+  });
 </script>
 </body>
 </html>
