@@ -719,10 +719,6 @@
               <p style="font-size:0.83rem;color:#555;">Simpan nomor tiket berikut untuk memantau status pengajuan Anda:</p>
               <div class="tiket-number" id="tiket-number">-</div>
               <p class="tiket-warning"><i class="bi bi-exclamation-triangle me-1"></i>Simpan nomor tiket ini! Anda membutuhkannya untuk cek status pengajuan.</p>
-              <div style="margin-top:16px;padding:14px 18px;background:rgba(0,91,170,0.07);border-radius:10px;border:1px solid rgba(0,91,170,0.15);font-size:0.8rem;color:#444;line-height:1.6;">
-                <i class="bi bi-info-circle" style="color:var(--bps-blue);margin-right:6px;"></i>
-                Setelah data Anda tersedia, Anda dapat memberikan penilaian melalui tab <strong>Cek Status</strong> menggunakan nomor tiket di atas.
-              </div>
               <button class="btn-submit mt-3" onclick="resetForm()"><i class="bi bi-plus-circle"></i> Ajukan Permintaan Baru</button>
             </div>
             <div id="form-pengajuan">
@@ -1009,9 +1005,17 @@
         body:    JSON.stringify({ rating: cekSelectedRating, rating_emoji: cekSelectedEmoji })
       });
     } catch(e) {}
+    // Tampilkan konfirmasi
     document.getElementById('res-rating-done-emoji').textContent = cekSelectedEmoji;
     document.getElementById('res-rating-form').style.display = 'none';
     document.getElementById('res-rating-done').style.display = 'block';
+    // Setelah 2.5 detik kembali ke form dengan pilihan terakhir tetap terseleksi
+    setTimeout(() => {
+      document.getElementById('res-rating-form').style.display = 'block';
+      document.getElementById('res-rating-done').style.display = 'none';
+      btn.disabled = false;
+      btn.innerHTML = '<i class="bi bi-send"></i> Kirim Penilaian';
+    }, 2500);
   }
 
   /* ============================================================
@@ -1135,26 +1139,24 @@
       if (d.url_hasil) { document.getElementById(ids.hasilLink).href = d.url_hasil; hasilBox.style.display = 'block'; }
       else hasilBox.style.display = 'none';
 
-      // Tampilkan rating hanya jika: status Selesai + ada url_hasil + belum pernah rating
+      // Tampilkan rating hanya jika ada url_hasil (data sudah diberikan)
       const ratingBox = document.getElementById('res-rating-box');
-      if (d.status === 'Selesai' && d.url_hasil) {
+      if (d.url_hasil) {
         cekCurrentTiket = d.nomor_tiket;
         ratingBox.style.display = 'block';
-        if (d.rating) {
-          // Sudah pernah rating sebelumnya — langsung tampilkan done
-          document.getElementById('res-rating-done-emoji').textContent = d.rating_emoji || '⭐';
-          document.getElementById('res-rating-form').style.display  = 'none';
-          document.getElementById('res-rating-done').style.display  = 'block';
-        } else {
-          // Belum rating — tampilkan form emoji
-          document.getElementById('res-rating-form').style.display  = 'block';
-          document.getElementById('res-rating-done').style.display  = 'none';
-          // Reset pilihan emoji
-          document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
-          cekSelectedRating = null; cekSelectedEmoji = '';
-          document.getElementById('res-btn-kirim-rating').disabled = true;
-          document.getElementById('res-btn-kirim-rating').innerHTML = '<i class="bi bi-send"></i> Kirim Penilaian';
-        }
+
+        // Selalu tampilkan form rating (bisa re-rating)
+        document.getElementById('res-rating-form').style.display = 'block';
+        document.getElementById('res-rating-done').style.display = 'none';
+
+        // Reset pilihan emoji dulu
+        document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
+        cekSelectedRating = null; cekSelectedEmoji = '';
+        const kirimBtn = document.getElementById('res-btn-kirim-rating');
+        kirimBtn.disabled = true;
+        kirimBtn.innerHTML = '<i class="bi bi-send"></i> Kirim Penilaian';
+
+        // Selalu fresh — tidak pre-select walaupun sudah pernah rating
       } else {
         ratingBox.style.display = 'none';
       }
