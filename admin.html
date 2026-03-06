@@ -66,11 +66,6 @@
     .stat-num { font-size:1.7rem; font-weight:800; color:var(--bps-dark); line-height:1; }
     .stat-lbl { font-size:0.74rem; color:#888; margin-top:3px; }
 
-    /* ===== DEBUG PANEL ===== */
-    .debug-panel { background:#fff8e1; border:1.5px solid #ffe082; border-radius:10px; padding:12px 16px; margin-bottom:16px; font-size:0.78rem; color:#7a5500; display:none; }
-    .debug-panel.show { display:block; }
-    .debug-panel strong { color:#003f7f; }
-
     /* ===== RATING SECTION ===== */
     .rating-section { margin-bottom:28px; }
 
@@ -190,6 +185,11 @@
     .rating-display-stars { color:#f4a700; font-size:1.1rem; letter-spacing:2px; }
     .rating-display-num { font-size:0.82rem; color:#888; font-weight:600; }
     .rating-display-none { color:#aaa; font-size:0.85rem; font-style:italic; }
+
+    /* ===== KOLOM TIDAK ADA — PESAN ERROR ===== */
+    .schema-error { background:#fde8e8; border:1.5px solid #f5c6c6; border-radius:10px; padding:14px 18px; margin-bottom:20px; font-size:0.84rem; color:#842029; display:none; }
+    .schema-error.show { display:flex; gap:12px; align-items:flex-start; }
+    .schema-error pre { background:#fff0f0; border-radius:6px; padding:10px 12px; font-size:0.78rem; margin-top:8px; color:#555; white-space:pre-wrap; }
   </style>
 </head>
 <body>
@@ -247,8 +247,17 @@
       </div>
     </div>
 
-    <!-- DEBUG PANEL -->
-    <div class="debug-panel" id="debug-panel"></div>
+    <!-- SCHEMA ERROR BANNER -->
+    <div class="schema-error" id="schema-error">
+      <i class="bi bi-exclamation-triangle-fill" style="font-size:1.4rem;flex-shrink:0;margin-top:2px;"></i>
+      <div>
+        <strong>Kolom rating belum ada di database!</strong>
+        <p style="margin:4px 0 8px;font-size:0.81rem;">Jalankan SQL berikut di Supabase Dashboard → SQL Editor:</p>
+        <pre>ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating integer;
+ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
+        <p style="margin:0;font-size:0.79rem;">Setelah itu klik <strong>Refresh</strong> di tabel pengajuan di bawah.</p>
+      </div>
+    </div>
 
     <!-- RATING SECTION -->
     <div class="section-label">Statistik Kepuasan Pengguna</div>
@@ -422,8 +431,22 @@
 
   let accessToken = null;
 
-  // ===== HELPER: ambil nilai rating secara aman =====
-  // Mengatasi bug: !d.rating gagal untuk nilai falsy selain null/undefined
+  // ============================================================
+  // KOLOM YANG HARUS ADA — query eksplisit agar tidak bergantung
+  // pada urutan kolom di Supabase
+  // ============================================================
+  const SELECT_COLUMNS = [
+    'id','nomor_tiket','jenis_layanan','nama','email','no_telepon','instansi',
+    'jenis_kelamin','usia','kategori_pengguna','tingkat_pendidikan','kabupaten_kota',
+    'deskripsi','nama_dokumen','url_dokumen','url_hasil','nama_hasil',
+    'status','created_at',
+    'rating',        // ← kolom rating
+    'rating_emoji'   // ← kolom rating_emoji
+  ].join(',');
+
+  // ============================================================
+  // HELPER: ambil nilai rating secara aman
+  // ============================================================
   function getRatingValue(d) {
     const raw = d.rating;
     if (raw === null || raw === undefined || raw === '') return null;
@@ -436,34 +459,28 @@
     return d.rating_emoji || '';
   }
 
-  // ===== DEBUG: tampilkan info field rating dari data =====
-  function showDebugInfo(data) {
-    const panel = document.getElementById('debug-panel');
-    if (!data || data.length === 0) { panel.classList.remove('show'); return; }
-
-    const sample      = data[0];
-    const hasRating   = 'rating' in sample;
-    const hasEmoji    = 'rating_emoji' in sample;
-    const ratedRows   = data.filter(d => getRatingValue(d) !== null);
-    const samples     = data.slice(0, 5).map(d =>
-      `${d.nomor_tiket}: rating=${JSON.stringify(d.rating)}, rating_emoji=${JSON.stringify(d.rating_emoji)}`
-    );
-
-    panel.innerHTML = `
-      <strong>🔍 Debug Info</strong> &nbsp;—&nbsp;
-      Total baris: <strong>${data.length}</strong> &nbsp;|&nbsp;
-      Kolom <code>rating</code>: <strong style="color:${hasRating?'#2e7d32':'#c62828'}">${hasRating?'ADA':'TIDAK ADA'}</strong> &nbsp;|&nbsp;
-      Kolom <code>rating_emoji</code>: <strong style="color:${hasEmoji?'#2e7d32':'#c62828'}">${hasEmoji?'ADA':'TIDAK ADA'}</strong> &nbsp;|&nbsp;
-      Baris dengan rating valid: <strong>${ratedRows.length}</strong>
-      <details style="margin-top:6px;"><summary style="cursor:pointer;font-weight:600;color:#003f7f;">Lihat 5 sample baris</summary>
-      <pre style="font-size:0.72rem;margin:6px 0 0;white-space:pre-wrap;background:#fffbf0;padding:8px;border-radius:6px;">${samples.join('\n')}</pre></details>
-    `;
-    panel.classList.add('show');
-    // Auto-hide setelah 15 detik
-    setTimeout(() => panel.classList.remove('show'), 15000);
+  // ============================================================
+  // CEK apakah kolom rating ada di response
+  // Tampilkan banner error jika tidak ada
+  // ============================================================
+  function checkSchemaAndWarn(data) {
+    const schemaErr = document.getElementById('schema-error');
+    if (!data || data.length === 0) {
+      schemaErr.classList.remove('show');
+      return;
+    }
+    const sample = data[0];
+    const hasRating = 'rating' in sample;
+    if (!hasRating) {
+      schemaErr.classList.add('show');
+    } else {
+      schemaErr.classList.remove('show');
+    }
   }
 
-  // ===== LOGIN =====
+  // ============================================================
+  // LOGIN
+  // ============================================================
   async function doLogin() {
     const email    = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
@@ -497,7 +514,9 @@
     }
   }
 
-  // ===== LOGOUT =====
+  // ============================================================
+  // LOGOUT
+  // ============================================================
   function doLogout() {
     accessToken = null;
     document.getElementById('dashboard-page').style.display = 'none';
@@ -505,14 +524,17 @@
     document.getElementById('login-password').value = '';
   }
 
-  // ===== LOAD DATA =====
+  // ============================================================
+  // LOAD DATA — gunakan SELECT_COLUMNS eksplisit
+  // ============================================================
   async function loadData() {
     const tbody         = document.getElementById('table-body');
     tbody.innerHTML     = '<tr class="loading-row"><td colspan="10"><i class="bi bi-arrow-repeat"></i> Memuat data...</td></tr>';
     const filterStatus  = document.getElementById('filter-status').value;
     const filterLayanan = document.getElementById('filter-layanan').value;
 
-    let url = `${SUPABASE_URL}/rest/v1/pengajuan?select=*&order=created_at.desc`;
+    // Query dengan kolom eksplisit — SELALU sertakan rating & rating_emoji
+    let url = `${SUPABASE_URL}/rest/v1/pengajuan?select=${encodeURIComponent(SELECT_COLUMNS)}&order=created_at.desc`;
     if (filterStatus)  url += `&status=eq.${encodeURIComponent(filterStatus)}`;
     if (filterLayanan) url += `&jenis_layanan=eq.${encodeURIComponent(filterLayanan)}`;
 
@@ -520,15 +542,19 @@
       const res  = await fetch(url, { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}` } });
       const data = await res.json();
 
+      // Untuk statistik, selalu ambil semua data (tidak terfilter)
       let allData = data;
       if (filterStatus || filterLayanan) {
-        const resAll = await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?select=*`, {
-          headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}` }
-        });
+        const resAll = await fetch(
+          `${SUPABASE_URL}/rest/v1/pengajuan?select=${encodeURIComponent(SELECT_COLUMNS)}`,
+          { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}` } }
+        );
         allData = await resAll.json();
       }
 
-      showDebugInfo(allData);
+      // Cek schema, tampilkan error banner jika kolom rating tidak ada
+      checkSchemaAndWarn(allData);
+
       updateStats(allData);
       renderCharts(allData);
       renderRatingSection(allData);
@@ -579,8 +605,9 @@
     }
   }
 
-  // ===== BUILD RATING CELL =====
-  // FIX: gunakan getRatingValue() agar tidak gagal untuk nilai 0 atau string
+  // ============================================================
+  // BUILD RATING CELL
+  // ============================================================
   function buildRatingCell(d) {
     const r = getRatingValue(d);
     if (r === null) return '<span class="rating-none"><i class="bi bi-dash"></i> Belum dinilai</span>';
@@ -593,14 +620,15 @@
     </div>`;
   }
 
-  // ===== UPDATE STATS =====
+  // ============================================================
+  // UPDATE STATS
+  // ============================================================
   function updateStats(allData) {
     document.getElementById('stat-total').textContent    = allData.length;
     document.getElementById('stat-menunggu').textContent = allData.filter(d => d.status === 'Menunggu Verifikasi').length;
     document.getElementById('stat-diproses').textContent = allData.filter(d => d.status === 'Sedang Diproses').length;
     document.getElementById('stat-selesai').textContent  = allData.filter(d => d.status === 'Selesai').length;
 
-    // FIX: filter dengan getRatingValue() bukan !d.rating
     const rated = allData.filter(d => getRatingValue(d) !== null);
     if (rated.length > 0) {
       const avg = rated.reduce((s, d) => s + getRatingValue(d), 0) / rated.length;
@@ -610,9 +638,10 @@
     }
   }
 
-  // ===== RENDER RATING SECTION =====
+  // ============================================================
+  // RENDER RATING SECTION
+  // ============================================================
   function renderRatingSection(data) {
-    // FIX: filter dengan getRatingValue() !== null
     const rated         = data.filter(d => getRatingValue(d) !== null);
     const ratingSection = document.getElementById('rating-section');
     const noRatingMsg   = document.getElementById('no-rating-msg');
@@ -658,11 +687,12 @@
     renderRatingCharts(data, rated);
   }
 
-  // ===== RENDER RATING CHARTS =====
+  // ============================================================
+  // RENDER RATING CHARTS
+  // ============================================================
   let chartRatingDist, chartRatingLayanan;
 
   function renderRatingCharts(allData, rated) {
-    // FIX: semua filter menggunakan getRatingValue()
     const distCount  = [1,2,3,4,5].map(s => rated.filter(d => getRatingValue(d) === s).length);
     const starColors = ['#ef5350','#ff7043','#ffca28','#66bb6a','#26a69a'];
 
@@ -708,7 +738,9 @@
     });
   }
 
-  // ===== RENDER CHARTS DEMOGRAFIS =====
+  // ============================================================
+  // RENDER CHARTS DEMOGRAFIS
+  // ============================================================
   let chartLayanan, chartKategori, chartKabkota, chartPendidikan;
 
   function renderCharts(data) {
@@ -752,7 +784,9 @@
     });
   }
 
-  // ===== UPDATE STATUS =====
+  // ============================================================
+  // UPDATE STATUS
+  // ============================================================
   async function updateStatus(id) {
     const newStatus = document.getElementById(`sel-${id}`).value;
     const btn = document.getElementById(`btn-${id}`);
@@ -772,7 +806,9 @@
     }
   }
 
-  // ===== TOAST =====
+  // ============================================================
+  // TOAST
+  // ============================================================
   function showToast(msg, isError=false) {
     const toast = document.getElementById('toast');
     document.getElementById('toast-text').textContent = msg;
@@ -780,7 +816,9 @@
     setTimeout(() => toast.classList.remove('show'), 3000);
   }
 
-  // ===== MODAL DETAIL =====
+  // ============================================================
+  // MODAL DETAIL
+  // ============================================================
   function showDetail(d) {
     const statusMap = { 'Menunggu Verifikasi':'badge-menunggu', 'Sedang Diproses':'badge-diproses', 'Selesai':'badge-selesai', 'Ditolak':'badge-ditolak' };
 
@@ -805,7 +843,6 @@
       ? `<a href="${d.url_hasil}" target="_blank" style="color:#2e7d32;font-weight:600;font-size:0.85rem;"><i class="bi bi-download me-1"></i>Download Data</a>`
       : '<span style="color:#aaa;">Belum diupload</span>';
 
-    // FIX: gunakan getRatingValue() di modal juga
     const ratingEl = document.getElementById('md-rating-display');
     const r = getRatingValue(d);
     if (r !== null) {
@@ -831,7 +868,9 @@
   function closeModal() { document.getElementById('modal-detail').classList.remove('show'); }
   document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
 
-  // ===== UPLOAD HASIL DATA =====
+  // ============================================================
+  // UPLOAD HASIL DATA
+  // ============================================================
   let currentUploadId = null;
 
   function triggerUploadHasil(id) {
