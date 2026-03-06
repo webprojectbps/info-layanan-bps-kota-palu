@@ -706,6 +706,10 @@
   const SUPABASE_URL = 'https://rljhayfmfsrdtpmlqltp.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
   const JENIS_LAYANAN = 'Pelayanan Produk Statistik Berbayar';
+
+  /* ====== PERBAIKAN RATING: tambah localRatingCache ====== */
+  const localRatingCache = {};
+
   let cekSelectedRating=null, cekSelectedEmoji='', cekCurrentTiket='';
 
   function showPanel(id,el) {
@@ -770,15 +774,16 @@
     document.getElementById('res-btn-kirim-rating').disabled=false;
   }
 
+  /* ====== PERBAIKAN RATING: simpan ke cache, hapus setTimeout reset ====== */
   async function kirimRatingCek() {
     if(!cekSelectedRating||!cekCurrentTiket) return;
     const btn=document.getElementById('res-btn-kirim-rating');
     btn.disabled=true; btn.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
     try { await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${cekCurrentTiket}`,{method:'PATCH',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},body:JSON.stringify({rating:cekSelectedRating,rating_emoji:cekSelectedEmoji})}); } catch(e){}
+    localRatingCache[cekCurrentTiket]={score:cekSelectedRating,emoji:cekSelectedEmoji};
     document.getElementById('res-rating-done-emoji').textContent=cekSelectedEmoji;
     document.getElementById('res-rating-form').style.display='none';
     document.getElementById('res-rating-done').style.display='block';
-    setTimeout(()=>{ document.getElementById('res-rating-form').style.display='block'; document.getElementById('res-rating-done').style.display='none'; btn.disabled=false; btn.innerHTML='<i class="bi bi-send"></i> Kirim Penilaian'; },2500);
   }
 
   function generateTiket() { const n=new Date(); return `BPS-${n.getFullYear()}-${String(Math.floor(Math.random()*900)+100)}${String(n.getHours()).padStart(2,'0')}${String(n.getMinutes()).padStart(2,'0')}`; }
@@ -847,11 +852,21 @@
       const rb=document.getElementById('res-rating-box');
       if(d.url_hasil){
         cekCurrentTiket=d.nomor_tiket; rb.style.display='block';
-        document.getElementById('res-rating-form').style.display='block';
-        document.getElementById('res-rating-done').style.display='none';
-        document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b=>b.classList.remove('selected'));
-        cekSelectedRating=null; cekSelectedEmoji='';
-        const kb=document.getElementById('res-btn-kirim-rating'); kb.disabled=true; kb.innerHTML='<i class="bi bi-send"></i> Kirim Penilaian';
+        /* ====== PERBAIKAN RATING: logika cache-first ====== */
+        const cachedRating=localRatingCache[d.nomor_tiket];
+        const sudahRating=cachedRating||(d.rating&&d.rating_emoji);
+        if(sudahRating){
+          const emojiToShow=cachedRating?cachedRating.emoji:d.rating_emoji;
+          document.getElementById('res-rating-done-emoji').textContent=emojiToShow;
+          document.getElementById('res-rating-form').style.display='none';
+          document.getElementById('res-rating-done').style.display='block';
+        } else {
+          document.getElementById('res-rating-form').style.display='block';
+          document.getElementById('res-rating-done').style.display='none';
+          document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b=>b.classList.remove('selected'));
+          cekSelectedRating=null; cekSelectedEmoji='';
+          const kb=document.getElementById('res-btn-kirim-rating'); kb.disabled=true; kb.innerHTML='<i class="bi bi-send"></i> Kirim Penilaian';
+        }
       } else rb.style.display='none';
       rc.classList.add('show');
     } catch(err){ errEl.textContent='Terjadi kesalahan saat mengambil data. Silakan coba lagi.'; errEl.classList.remove('d-none'); }
