@@ -448,7 +448,7 @@
           <div style="padding:18px 22px;">
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;" class="cara-grid">
               <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">1</div><i class="bi bi-person-vcard" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Isi Formulir</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Lengkapi data diri dan deskripsi kebutuhan pustaka Anda</div></div>
-              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">2</div><i class="bi bi-paperclip" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Upload Dokumen</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Lampirkan surat permohonan atau KTP sebagai identitas</div></div>
+              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">2</div><i class="bi bi-paperclip" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Upload Dokumen</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Lampirkan surat permohonan</div></div>
               <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">3</div><i class="bi bi-send-check" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Kirim &amp; Simpan Tiket</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Kirim pengajuan dan simpan nomor tiket yang diberikan sistem</div></div>
               <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">4</div><i class="bi bi-envelope-open-text" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Pantau Respons</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Gunakan nomor tiket untuk memantau status dan hasil permohonan</div></div>
             </div>
@@ -489,7 +489,7 @@
                 <div class="col-md-6"><label class="form-label">Kabupaten / Kota <span class="text-danger">*</span></label><select class="form-control" id="input-kabkota"><option value="">Pilih Kabupaten/Kota</option><option>Kota Palu</option><option>Banggai</option><option>Banggai Kepulauan</option><option>Banggai Laut</option><option>Buol</option><option>Donggala</option><option>Morowali</option><option>Morowali Utara</option><option>Parigi Moutong</option><option>Poso</option><option>Sigi</option><option>Tojo Una-Una</option><option>Tolitoli</option></select></div>
                 <div class="col-12"><label class="form-label">Deskripsi Kebutuhan Data <span class="text-danger">*</span></label><textarea class="form-control" id="input-deskripsi" rows="4" placeholder="Jelaskan data apa yang Anda butuhkan, untuk keperluan apa, dan periode data yang diinginkan..."></textarea></div>
                 <div class="col-12">
-                  <label class="form-label">Upload Surat / KTP <span class="text-danger">*</span></label>
+                  <label class="form-label">Upload Surat<span class="text-danger">*</span></label>
                   <div class="upload-area" id="upload-area">
                     <input type="file" id="input-dokumen" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileChange(this)">
                     <div class="upload-icon"><i class="bi bi-cloud-arrow-up"></i></div>
@@ -648,7 +648,8 @@
     document.getElementById('res-btn-kirim-rating').disabled=false;
   }
 
-  /* PERBAIKAN 4: kirimRatingCek — simpan ke localRatingCache, tidak ada setTimeout reset */
+  /* PERBAIKAN 4: 
+  kirimRatingCek — simpan ke localRatingCache, tidak ada setTimeout reset */
   async function kirimRatingCek() {
     if(!cekSelectedRating||!cekCurrentTiket) return;
     const btn=document.getElementById('res-btn-kirim-rating');
@@ -686,7 +687,7 @@
     if(!pend) return showError('Tingkat pendidikan wajib dipilih!');
     if(!kab) return showError('Kabupaten/Kota wajib dipilih!');
     if(!desk) return showError('Deskripsi kebutuhan data wajib diisi!');
-    if(!dok) return showError('Dokumen surat / KTP wajib diupload!');
+    if(!dok) return showError('Dokumen surat wajib diupload!');
     const btn=document.getElementById('btn-submit'); btn.disabled=true; btn.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
     try {
       const fn=`perpustakaan/${Date.now()}_${Math.random().toString(36).substring(2)}.${dok.name.split('.').pop()}`;
