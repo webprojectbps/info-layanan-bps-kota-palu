@@ -13,15 +13,12 @@
     html,body { height:100%; }
     body { font-family:'Plus Jakarta Sans',sans-serif; background:#f0f4f9; display:flex; flex-direction:column; }
 
-    /* ======= NAVBAR ======= */
     .navbar { background-color:var(--bps-blue)!important; padding:0; min-height:56px; position:relative; }
     .btn-back { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.35); border-radius:8px; color:#fff; font-size:1rem; text-decoration:none; transition:background .2s,border-color .2s,transform .15s; position:absolute; top:50%; left:16px; transform:translateY(-50%); }
     .btn-back:hover { background:rgba(255,255,255,.28); border-color:rgba(255,255,255,.6); color:#fff; transform:translateY(-50%) translateX(-2px); }
 
-    /* ======= PAGE WRAPPER ======= */
     .page-wrapper { display:flex; flex:1; overflow:hidden; height:calc(100vh - 56px); }
 
-    /* ======= SIDEBAR ======= */
     .sidebar { width:230px; flex-shrink:0; background:var(--sb-bg); display:flex; flex-direction:column; overflow-y:auto; overflow-x:hidden; border-right:1px solid rgba(255,255,255,.08); }
     .sb-identity { padding:20px 16px 16px; border-bottom:1px solid rgba(255,255,255,.1); }
     .sb-icon-box { width:42px; height:42px; border-radius:10px; background:var(--bps-accent); display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:var(--bps-dark); margin-bottom:12px; }
@@ -38,10 +35,8 @@
     .sb-link.active .sb-arr { opacity:1; }
     .sb-footer { margin-top:auto; padding:12px 16px; border-top:1px solid rgba(255,255,255,.1); font-size:.62rem; color:rgba(255,255,255,.3); }
 
-    /* ======= MAIN AREA ======= */
     .main-area { flex:1; display:flex; flex-direction:column; overflow-y:auto; overflow-x:hidden; min-width:0; }
 
-    /* ======= HERO ======= */
     .hero-detail { background:linear-gradient(135deg,var(--bps-dark) 0%,var(--bps-blue) 60%,#1a7fd4 100%); color:white; padding:100px 20px; position:relative; overflow:hidden; flex-shrink:0; text-align:center; }
     .hero-detail::before { content:''; position:absolute; top:-80px; right:-80px; width:350px; height:350px; border-radius:50%; background:rgba(255,255,255,.05); pointer-events:none; }
     .hero-detail::after  { content:''; position:absolute; bottom:-100px; left:-60px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,.04); pointer-events:none; }
@@ -52,13 +47,11 @@
     .hero-cta { display:inline-flex; align-items:center; gap:9px; background:var(--bps-accent); color:var(--bps-dark); font-size:.95rem; font-weight:700; padding:13px 32px; border-radius:50px; text-decoration:none; transition:all .25s; }
     .hero-cta:hover { background:#ffc107; color:var(--bps-dark); transform:translateY(-2px); box-shadow:0 6px 20px rgba(244,167,0,.45); }
 
-    /* ======= CONTENT PANELS ======= */
     .content-area { padding:22px 22px 48px; flex:1; }
     .content-panel { display:none; }
     .content-panel.active { display:block; animation:fadeIn .2s ease; }
     @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
 
-    /* ======= SECTION BOX ======= */
     .section-box { background:white; border-radius:14px; box-shadow:0 2px 14px rgba(0,0,0,.07); margin-bottom:18px; overflow:hidden; border:1px solid rgba(0,0,0,.05); }
     .section-head { display:flex; align-items:center; gap:12px; padding:16px 22px; border-bottom:1px solid #eef2f8; background:linear-gradient(to right,#fafcff,#fff); }
     .section-head-icon { width:36px; height:36px; border-radius:9px; background:var(--bps-light); display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--bps-blue); flex-shrink:0; }
@@ -66,13 +59,11 @@
     .section-head-sub { font-size:.72rem; color:#888; font-weight:500; margin:0; }
     .section-body { padding:20px 22px; }
 
-    /* ======= PERSYARATAN CARDS ======= */
     .syarat-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .syarat-card { border-radius:12px; overflow:hidden; border:1px solid rgba(0,0,0,.07); box-shadow:0 2px 8px rgba(0,0,0,.04); }
     .syarat-card-header { display:flex; align-items:center; gap:10px; padding:13px 16px; }
     .syarat-card-header.blue { background:var(--bps-blue); }
     .syarat-card-header.gold { background:var(--bps-accent); }
-    .syarat-card-header.green { background:linear-gradient(135deg,#2e7d32,#388e3c); }
     .syarat-card-header .sh-icon { width:30px; height:30px; border-radius:7px; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-size:.9rem; color:white; flex-shrink:0; }
     .syarat-card-header.gold .sh-icon { color:var(--bps-dark); }
     .syarat-card-header .sh-title { font-weight:700; font-size:.87rem; color:white; }
@@ -85,68 +76,62 @@
     .syarat-num { width:20px; height:20px; border-radius:50%; background:var(--bps-blue); color:white; font-size:.63rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
     .syarat-num.gold-num { background:var(--bps-accent); color:var(--bps-dark); }
 
-    /* ======= SOP FLOWCHART ======= */
+    /* ===== FLOWCHART ===== */
     .sop-flowchart { margin-bottom:26px; }
     .sop-flowchart:last-child { margin-bottom:0; }
     .flowchart-title { font-weight:700; color:white; font-size:.88rem; margin-bottom:16px; padding:11px 16px; border-radius:8px; display:flex; align-items:center; justify-content:center; gap:8px; }
     .flowchart-title.langsung { background:linear-gradient(135deg,#0056b3,#003f7f); }
     .flowchart-title.online   { background:linear-gradient(135deg,var(--bps-accent),#ff9800); }
 
-    /* ======= VERTICAL FLOWCHART ======= */
-    .vflow { display:flex; flex-direction:column; align-items:center; gap:0; width:100%; }
-    .vflow-row { display:flex; align-items:stretch; width:100%; gap:0; }
-    .vflow-row.reverse { flex-direction:row-reverse; }
-    .vflow-cell { flex:1; display:flex; flex-direction:column; align-items:center; }
-    .vf-box {
-      border:2px solid var(--bps-blue); border-radius:10px; padding:10px 8px 9px;
-      text-align:center; background:white; width:100%;
-      box-shadow:0 2px 8px rgba(0,91,170,.08); transition:all .25s; box-sizing:border-box;
-    }
-    .vf-box:hover { box-shadow:0 6px 16px rgba(0,91,170,.16); transform:translateY(-2px); }
-    .vf-box.end { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark))!important; border-color:var(--bps-dark)!important; }
-    .vf-box.decision { border:2px dashed var(--bps-accent)!important; background:linear-gradient(135deg,rgba(244,167,0,.04),white)!important; }
-    .vf-icon { font-size:1.5rem; color:var(--bps-blue); display:block; margin-bottom:4px; }
-    .vf-icon.white { color:white; }
+    /* Desktop flowchart grid */
+    .vf-row { display:grid; grid-template-columns:1fr 28px 1fr 28px 1fr; align-items:center; gap:0; width:100%; }
+    .vf-box { border:2px solid var(--bps-blue); border-radius:10px; padding:16px 12px 14px; text-align:center; background:white; box-shadow:0 2px 8px rgba(0,91,170,.08); transition:all .25s; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:110px; }
+    .vf-box:hover { box-shadow:0 6px 16px rgba(0,91,170,.16); transform:translateY(-3px); }
+    .vf-box.end { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); border-color:var(--bps-dark); }
+    .vf-box.dashed { border:2px dashed var(--bps-accent)!important; }
+    .vf-icon { font-size:1.5rem; color:var(--bps-blue); margin-bottom:7px; }
     .vf-icon.gold { color:var(--bps-accent); }
-    .vf-label { font-weight:600; color:var(--bps-dark); font-size:.72rem; line-height:1.35; }
+    .vf-icon.white { color:white; }
+    .vf-label { font-weight:600; color:var(--bps-dark); font-size:.76rem; line-height:1.45; }
     .vf-label.white { color:white; }
-    .vf-sublabel { font-size:.62rem; color:#888; margin-top:3px; line-height:1.3; }
-    .vf-num { display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; background:var(--bps-blue); color:white; font-size:.58rem; font-weight:700; margin-bottom:5px; }
-    .vf-num.gold { background:var(--bps-accent); color:var(--bps-dark); }
+    .vf-arrow { display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--bps-blue); width:28px; }
+    .vf-arrow.gold { color:var(--bps-accent); }
 
-    /* arrows between boxes */
-    .vf-arrow-down { display:flex; align-items:center; justify-content:center; color:var(--bps-blue); font-size:1.1rem; padding:2px 0; min-height:22px; }
-    .vf-arrow-right { display:flex; align-items:center; justify-content:center; color:var(--bps-blue); font-size:1.1rem; min-width:28px; flex-shrink:0; }
-    .vf-arrow-left { display:flex; align-items:center; justify-content:center; color:var(--bps-blue); font-size:1.1rem; min-width:28px; flex-shrink:0; }
+    /* Connector row — panah turun di bawah kotak ke-3 (kolom ke-5 dalam grid) */
+    .vf-connector-row { display:grid; grid-template-columns:1fr 28px 1fr 28px 1fr; height:30px; }
+    .vf-connector-row .vf-down { grid-column:5; display:flex; justify-content:center; align-items:center; font-size:1rem; color:var(--bps-blue); }
+    .vf-connector-row .vf-down.gold { color:var(--bps-accent); }
 
-    /* row connector: turn arrow at end of row */
-    .vf-turn { display:flex; align-items:center; justify-content:center; color:var(--bps-blue); font-size:1.1rem; min-width:28px; flex-shrink:0; }
-
-    /* grid layout for rows */
-    .vf-grid { display:grid; gap:6px; width:100%; align-items:center; }
-    .vf-grid-3 { grid-template-columns: 1fr 26px 1fr 26px 1fr; }
-    .vf-grid-4 { grid-template-columns: 1fr 26px 1fr 26px 1fr 26px 1fr; }
-    .vf-grid-3r { grid-template-columns: 1fr 26px 1fr 26px 1fr; }
-    .vf-grid-4r { grid-template-columns: 1fr 26px 1fr 26px 1fr 26px 1fr; }
-    .vf-grid-2 { grid-template-columns: 1fr 26px 1fr; }
-    .vf-grid-1 { grid-template-columns: 1fr; }
-
-    .vf-section { width:100%; margin-bottom:6px; }
-    .vf-down-row { display:flex; justify-content:flex-end; padding-right:0; width:100%; }
-    .vf-down-row.left { justify-content:flex-start; }
-    .vf-down-row.center { justify-content:center; }
-    .vf-down-cell { display:flex; flex-direction:column; align-items:center; }
-
-    .fc-selesai { text-align:center; color:#4caf50; font-weight:700; margin:4px 0 16px; font-size:.88rem; }
+    .fc-selesai { text-align:center; color:#4caf50; font-weight:700; margin:10px 0 16px; font-size:.88rem; }
     .sop-steps { padding:16px 18px; background:var(--bps-light); border-radius:10px; border-left:4px solid var(--bps-blue); }
     .sop-steps.online-border { border-left-color:var(--bps-accent); }
     .sop-steps strong.sop-steps-title { color:var(--bps-dark); display:block; margin-bottom:10px; font-size:.84rem; }
     .sop-steps ol { margin:0; padding-left:18px; font-size:.81rem; line-height:2; color:#555; }
 
-    /* ======= NOTE BOX ======= */
+    /* Desktop/mobile visibility */
+    .fc-desktop { display:block; }
+    .fc-mobile  { display:none; }
+
+    /* ===== MOBILE FLOWCHART: vertikal berurutan ===== */
+    .fc-mobile-list { display:flex; flex-direction:column; align-items:stretch; gap:0; }
+    .fc-mobile-step { display:flex; align-items:flex-start; gap:12px; padding:12px 14px; background:white; border-radius:12px; border:2px solid var(--bps-blue); box-shadow:0 2px 8px rgba(0,91,170,.07); }
+    .fc-mobile-step.gold-step { border-color:var(--bps-accent); }
+    .fc-mobile-step.gold-step.dashed-step { border-style:dashed; }
+    .fc-mobile-step.end-step { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); border-color:var(--bps-dark); }
+    .fc-mobile-step-icon { width:36px; height:36px; border-radius:9px; background:var(--bps-light); display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--bps-blue); flex-shrink:0; }
+    .fc-mobile-step.gold-step .fc-mobile-step-icon { background:#fff3cd; color:var(--bps-accent); }
+    .fc-mobile-step.end-step .fc-mobile-step-icon { background:rgba(255,255,255,.2); color:white; }
+    .fc-mobile-step-content { flex:1; }
+    .fc-mobile-step-num { font-size:.62rem; font-weight:700; color:var(--bps-blue); text-transform:uppercase; letter-spacing:.8px; margin-bottom:3px; }
+    .fc-mobile-step.gold-step .fc-mobile-step-num { color:var(--bps-accent); }
+    .fc-mobile-step.end-step .fc-mobile-step-num { color:rgba(255,255,255,.7); }
+    .fc-mobile-step-label { font-size:.82rem; font-weight:600; color:var(--bps-dark); line-height:1.45; }
+    .fc-mobile-step.end-step .fc-mobile-step-label { color:white; }
+    .fc-mobile-arrow { display:flex; justify-content:center; align-items:center; height:22px; font-size:.95rem; color:var(--bps-blue); }
+    .fc-mobile-arrow.gold { color:var(--bps-accent); }
+
     .note-box { background:linear-gradient(135deg,rgba(244,167,0,.07),rgba(244,167,0,.02)); border:1.5px solid rgba(244,167,0,.4); border-radius:8px; padding:14px 18px; font-size:.82rem; color:#7a5500; margin-top:16px; }
 
-    /* ======= JANGKA WAKTU ======= */
     .jw-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .jw-card { border-radius:12px; overflow:hidden; border:1px solid rgba(0,0,0,.07); box-shadow:0 2px 8px rgba(0,0,0,.04); }
     .jw-card-header { display:flex; align-items:center; gap:10px; padding:13px 16px; }
@@ -159,7 +144,6 @@
     .jw-card-body { padding:14px 16px; background:#fafcff; font-size:.81rem; color:#444; line-height:1.6; }
     .jw-card-body.gold-body { background:#fffdf5; }
 
-    /* ======= PRODUCT CARDS ======= */
     .product-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .product-card { border-radius:12px; overflow:hidden; border:1px solid rgba(0,0,0,.07); box-shadow:0 2px 8px rgba(0,0,0,.04); transition:all .25s; }
     .product-card:hover { box-shadow:0 6px 20px rgba(0,91,170,.12); transform:translateY(-3px); }
@@ -178,7 +162,6 @@
     .product-item-list li i { color:var(--bps-blue); font-size:1rem; flex-shrink:0; margin-top:1px; }
     .product-item-list.gold-items li i { color:var(--bps-accent); }
 
-    /* ======= PENGAJUAN FORM ======= */
     .pengajuan-section { background:white; border-radius:14px; padding:30px; box-shadow:0 2px 14px rgba(0,0,0,.07); border:1px solid rgba(0,91,170,.08); }
     .pengajuan-tabs { display:flex; gap:8px; margin-bottom:26px; border-bottom:2px solid #eef2f8; }
     .pengajuan-tab { padding:9px 22px; border-radius:8px 8px 0 0; font-weight:700; font-size:.87rem; cursor:pointer; border:none; background:transparent; color:#888; margin-bottom:-2px; border-bottom:2px solid transparent; transition:all .2s; font-family:'Plus Jakarta Sans',sans-serif; }
@@ -214,7 +197,6 @@
     .result-label { color:#888; min-width:130px; font-weight:600; }
     .result-value { color:#333; }
 
-    /* ======= RATING EMOJI ======= */
     .rating-section { margin-top:20px; padding:20px; background:white; border-radius:14px; border:1.5px solid #e0eaf5; text-align:center; animation:fadeInUp .4s ease; }
     @keyframes fadeInUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
     .rating-title { font-weight:700; font-size:.9rem; color:var(--bps-dark); margin-bottom:5px; }
@@ -230,60 +212,52 @@
     .btn-kirim-rating:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,91,170,.3); }
     .btn-kirim-rating:disabled { opacity:.55; cursor:not-allowed; }
 
-    /* ======= SCROLL ANCHOR ======= */
     .scroll-anchor { scroll-margin-top:80px; }
-
-    /* ======= FOOTER ======= */
     footer { background-color:var(--bps-dark); color:rgba(255,255,255,.8); font-size:.85rem; flex-shrink:0; }
 
-    /* ======= RESPONSIVE ======= */
+    /* ===== RESPONSIVE ===== */
     @media(max-width:1024px) { .sidebar{width:200px} .sb-title{font-size:.82rem} }
+
     @media(max-width:768px) {
       .sidebar{display:none} .page-wrapper{height:auto;overflow:visible} .main-area{overflow:visible}
       .hero-detail{padding:40px 20px} .hero-title{font-size:clamp(1.3rem,5vw,2rem)} .hero-sub{font-size:.95rem}
       .hero-cta{font-size:.88rem;padding:11px 24px} .content-area{padding:14px 14px 40px}
       .syarat-grid{grid-template-columns:1fr} .jw-grid{grid-template-columns:1fr} .product-grid{grid-template-columns:1fr}
-      .vf-label{font-size:.72rem}
       .pengajuan-section{padding:20px 14px}
       .pengajuan-tabs{flex-wrap:wrap} .pengajuan-tab{font-size:.8rem;padding:8px 14px}
       .section-head{padding:14px 16px} .section-body{padding:14px 16px}
       .result-row{flex-direction:column;gap:2px} .result-label{min-width:unset}
-      /* Flowchart: 3-col → tumpuk vertikal */
-      .vf-grid-3{grid-template-columns:1fr!important}
-      .vf-grid-3 .vf-arrow-right,.vf-grid-3 .vf-arrow-left{display:none!important}
-      .vf-grid-3 .vf-box{width:100%;max-width:100%}
-      .vf-arrow-down{display:flex!important}
-      /* Sembunyikan panah samping inline juga */
-      .sop-flowchart [style*="justify-content:flex-end"],
-      .sop-flowchart [style*="justify-content:flex-start"]{display:none!important}
-      /* Tampilkan sebagai list vertikal dengan panah bawah */
-      .vf-grid-3{display:flex!important;flex-direction:column;align-items:center;gap:6px}
-      .vf-grid-3 .vf-box{width:100%}
-      /* Tambah separator panah antar kotak */
-      .vf-grid-3 .vf-box:not(:last-child)::after{content:"↓";display:block;text-align:center;font-size:1.2rem;color:#aaa;margin-top:6px}
+      /* Sembunyikan desktop flowchart, tampilkan mobile */
+      .fc-desktop{display:none!important}
+      .fc-mobile{display:block!important}
+      .info-banner-grid{grid-template-columns:1fr!important}
+      .cara-grid{grid-template-columns:1fr 1fr!important}
     }
+
     @media(max-width:600px) {
       .hero-detail{padding:32px 16px}
       .flowchart-title{font-size:.8rem;padding:9px 12px}
       .emoji-row{gap:5px} .emoji-btn{min-width:50px;padding:9px 8px} .emoji-btn .em{font-size:1.5rem}
       .tiket-number{font-size:1.2rem;padding:10px 16px}
-      .row.g-3>[class*="col-md-6"]{flex:0 0 100%;max-width:100%}
     }
+
     @media(max-width:480px) {
       .hero-detail{padding:26px 14px} .hero-badge{font-size:.72rem;padding:6px 14px} .hero-cta{font-size:.82rem;padding:10px 20px}
       .section-box{border-radius:10px} .section-body{padding:12px} .section-head{padding:12px 14px;gap:10px}
       .section-head-title{font-size:.88rem} .syarat-card-body{padding:10px 12px} .syarat-num-list li{font-size:.78rem}
-      .tiket-number{font-size:1.1rem;letter-spacing:1px} .tiket-box{padding:20px 14px}
-      .pengajuan-section{border-radius:10px;padding:16px 12px} .btn-submit{font-size:.84rem;padding:10px 22px}
-      .vf-box{padding:10px 10px 10px;border-radius:7px} .vf-icon{font-size:1.2rem;margin-bottom:4px}
-      .vf-label{font-size:.75rem} .form-control,.form-select{font-size:.84rem;padding:9px 11px}
-    }
-    @media(max-width:360px) {
-      .hero-title{font-size:1.2rem} .vf-label{font-size:.7rem}
-      .emoji-btn{min-width:42px;padding:7px 5px} .emoji-btn .em{font-size:1.3rem}
+      .tiket-box{padding:20px 14px} .pengajuan-section{border-radius:10px;padding:16px 12px}
+      .btn-submit{font-size:.84rem;padding:10px 22px}
+      .form-control,.form-select{font-size:.84rem;padding:9px 11px}
+      .cara-grid{grid-template-columns:1fr 1fr!important}
     }
 
-    /* ======= MOBILE BOTTOM NAV ======= */
+    @media(max-width:360px) {
+      .hero-title{font-size:1.2rem}
+      .emoji-btn{min-width:42px;padding:7px 5px} .emoji-btn .em{font-size:1.3rem}
+      .cara-grid{grid-template-columns:1fr!important}
+    }
+
+    /* ===== MOBILE BOTTOM NAV ===== */
     .mobile-bottom-nav { display:none; position:fixed; bottom:0; left:0; right:0; background:var(--bps-dark); border-top:1px solid rgba(255,255,255,.1); z-index:1000; padding:0; box-shadow:0 -4px 20px rgba(0,0,0,.25); }
     .mbn-inner { display:flex; align-items:stretch; justify-content:space-around; height:60px; }
     .mbn-item { display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; gap:3px; background:none; border:none; cursor:pointer; color:rgba(255,255,255,.5); font-size:.56rem; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; padding:6px 2px; border-top:2px solid transparent; transition:all .18s; text-transform:uppercase; letter-spacing:.4px; }
@@ -291,9 +265,7 @@
     .mbn-item:hover { color:rgba(255,255,255,.8); }
     .mbn-item.active { color:var(--bps-accent); border-top-color:var(--bps-accent); }
     .mbn-item.active i { color:var(--bps-accent); }
-    @media(max-width:768px) { .mobile-bottom-nav{display:block} .main-area{padding-bottom:60px} .content-area{padding-bottom:80px} .info-banner-grid{grid-template-columns:1fr!important} .cara-grid{grid-template-columns:1fr 1fr!important} }
-    @media(max-width:480px) { .cara-grid{grid-template-columns:1fr 1fr!important} }
-    @media(max-width:360px) { .cara-grid{grid-template-columns:1fr!important} }
+    @media(max-width:768px) { .mobile-bottom-nav{display:block} .main-area{padding-bottom:60px} .content-area{padding-bottom:80px} }
   </style>
 </head>
 <body>
@@ -394,31 +366,113 @@
             </div>
             <div class="section-body">
 
-              <!-- ===== FLOWCHART KUNJUNGAN LANGSUNG ===== -->
+              <!-- ============================================================
+                   FLOWCHART KUNJUNGAN LANGSUNG
+                   Urutan:
+                   [1] Kunjungi PST → [2] Sampaikan Permintaan → [3] Petugas Buat Invoice & Siapkan Produk
+                                                                              ↓
+                   [6] Selesai & Rating ← [5] Terima Kuitansi & Unduh ← [4] Bayar & Serahkan Dokumen
+                   ============================================================ -->
               <div class="sop-flowchart">
                 <div class="flowchart-title langsung"><i class="bi bi-building"></i> Layanan dengan Kunjungan Langsung</div>
 
-                <!-- Baris 1: 3 kotak (kiri ke kanan) -->
-                <div class="vf-grid vf-grid-3" style="margin-bottom:0;">
-                  <div class="vf-box"><span class="vf-icon"><i class="bi bi-building"></i></span><div class="vf-label">Kunjungi PST BPS, Isi Buku Tamu &amp; Ambil Antrian</div></div>
-                  <div class="vf-arrow-right"><i class="bi bi-arrow-right"></i></div>
-                  <div class="vf-box"><span class="vf-icon"><i class="bi bi-chat-dots"></i></span><div class="vf-label">Sampaikan Permintaan &amp; Setujui Ketentuan PNBP</div></div>
-                  <div class="vf-arrow-right"><i class="bi bi-arrow-right"></i></div>
-                  <div class="vf-box"><span class="vf-icon"><i class="bi bi-file-earmark-text"></i></span><div class="vf-label">Petugas Buat Invoice &amp; Siapkan Produk</div></div>
-                </div>
-                <!-- Panah turun di kanan -->
-                <div style="display:flex;justify-content:flex-end;padding-right:calc(100%/6 - 13px);"><div class="vf-arrow-down"><i class="bi bi-arrow-down"></i></div></div>
+                <!-- DESKTOP -->
+                <div class="fc-desktop">
+                  <!-- Baris 1: kotak 1 → 2 → 3 -->
+                  <div class="vf-row">
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-building"></i></span>
+                      <div class="vf-label">Kunjungi PST BPS, Isi Buku Tamu &amp; Ambil Antrian</div>
+                    </div>
+                    <div class="vf-arrow"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-chat-dots"></i></span>
+                      <div class="vf-label">Sampaikan Permintaan &amp; Setujui Ketentuan PNBP</div>
+                    </div>
+                    <div class="vf-arrow"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-file-earmark-text"></i></span>
+                      <div class="vf-label">Petugas Buat Invoice &amp; Siapkan Produk</div>
+                    </div>
+                  </div>
+                  <!-- Panah turun di bawah kotak ke-3 (kolom 5) -->
+                  <div class="vf-connector-row">
+                    <div></div><div></div><div></div><div></div>
+                    <div class="vf-down"><i class="bi bi-arrow-down"></i></div>
+                  </div>
+                  <!-- Baris 2: kotak 4 ← 5 ← 6 (kanan ke kiri) -->
+                  <div class="vf-row">
+                    <div class="vf-box end">
+                      <span class="vf-icon white"><i class="bi bi-star-fill"></i></span>
+                      <div class="vf-label white">Selesai &amp; Beri Rating Pelayanan</div>
+                    </div>
+                    <div class="vf-arrow"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-download"></i></span>
+                      <div class="vf-label">Terima Kuitansi &amp; Unduh Produk, Cek Kesesuaian</div>
+                    </div>
+                    <div class="vf-arrow"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-credit-card"></i></span>
+                      <div class="vf-label">Bayar via Kode Billing &amp; Serahkan Dokumen Perjanjian</div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-desktop -->
 
-                <!-- Baris 2: 3 kotak (kanan ke kiri) -->
-                <div class="vf-grid vf-grid-3" style="margin-bottom:0;">
-                  <div class="vf-box end"><span class="vf-icon white"><i class="bi bi-star-fill"></i></span><div class="vf-label white">Selesai &amp; Beri Rating Pelayanan</div></div>
-                  <div class="vf-arrow-left"><i class="bi bi-arrow-left"></i></div>
-                  <div class="vf-box"><span class="vf-icon"><i class="bi bi-download"></i></span><div class="vf-label">Terima Kuitansi &amp; Unduh Produk, Cek Kesesuaian</div></div>
-                  <div class="vf-arrow-left"><i class="bi bi-arrow-left"></i></div>
-                  <div class="vf-box"><span class="vf-icon"><i class="bi bi-credit-card"></i></span><div class="vf-label">Bayar via Kode Billing &amp; Serahkan Dokumen Perjanjian</div></div>
-                </div>
-
-                <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                <!-- MOBILE: vertikal berurutan 1→2→3→4→5→6 -->
+                <div class="fc-mobile">
+                  <div class="fc-mobile-list">
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-building"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 1</div>
+                        <div class="fc-mobile-step-label">Kunjungi PST BPS, Isi Buku Tamu &amp; Ambil Antrian</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-chat-dots"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 2</div>
+                        <div class="fc-mobile-step-label">Sampaikan Permintaan &amp; Setujui Ketentuan PNBP</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-file-earmark-text"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 3</div>
+                        <div class="fc-mobile-step-label">Petugas Buat Invoice &amp; Siapkan Produk</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-credit-card"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 4</div>
+                        <div class="fc-mobile-step-label">Bayar via Kode Billing &amp; Serahkan Dokumen Perjanjian</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-download"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 5</div>
+                        <div class="fc-mobile-step-label">Terima Kuitansi &amp; Unduh Produk, Cek Kesesuaian</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step end-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-star-fill"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 6</div>
+                        <div class="fc-mobile-step-label">Selesai &amp; Beri Rating Pelayanan</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-mobile -->
 
                 <div class="sop-steps">
                   <strong class="sop-steps-title">Detail Prosedur Kunjungan Langsung:</strong>
@@ -445,31 +499,113 @@
                 </div>
               </div>
 
-              <!-- ===== FLOWCHART LAYANAN ONLINE ===== -->
+              <!-- ============================================================
+                   FLOWCHART LAYANAN ONLINE
+                   Urutan:
+                   [1] Akses Portal & Pilih Produk → [2] Isi Abstraksi & Verifikasi → [3] Petugas Siapkan & Kirim Invoice
+                                                                                                   ↓
+                   [6] Selesai & Rating ← [5] Terima Kuitansi & Produk ← [4] Cek Invoice, Bayar & Upload Dokumen
+                   ============================================================ -->
               <div class="sop-flowchart" style="margin-top:26px;">
                 <div class="flowchart-title online"><i class="bi bi-globe"></i> Layanan dengan Cara Online</div>
 
-                <!-- Baris 1: 3 kotak (kiri ke kanan) -->
-                <div class="vf-grid vf-grid-3" style="margin-bottom:0;">
-                  <div class="vf-box"><span class="vf-icon gold"><i class="bi bi-globe"></i></span><div class="vf-label">Akses Portal, Pilih Produk &amp; Lengkapi Formulir</div></div>
-                  <div class="vf-arrow-right" style="color:var(--bps-accent);"><i class="bi bi-arrow-right"></i></div>
-                  <div class="vf-box" style="border:2px dashed var(--bps-accent);"><span class="vf-icon gold"><i class="bi bi-pen"></i></span><div class="vf-label">Isi Abstraksi &amp; Perjanjian, Petugas Verifikasi <em>(Khusus Data Mikro/Peta)</em></div></div>
-                  <div class="vf-arrow-right" style="color:var(--bps-accent);"><i class="bi bi-arrow-right"></i></div>
-                  <div class="vf-box"><span class="vf-icon gold"><i class="bi bi-file-earmark-text"></i></span><div class="vf-label">Petugas Siapkan Produk &amp; Kirim Invoice</div></div>
-                </div>
-                <!-- Panah turun di kanan -->
-                <div style="display:flex;justify-content:flex-end;padding-right:calc(100%/6 - 13px);"><div class="vf-arrow-down" style="color:var(--bps-accent);"><i class="bi bi-arrow-down"></i></div></div>
+                <!-- DESKTOP -->
+                <div class="fc-desktop">
+                  <!-- Baris 1: kotak 1 → 2 → 3 -->
+                  <div class="vf-row">
+                    <div class="vf-box">
+                      <span class="vf-icon gold"><i class="bi bi-globe"></i></span>
+                      <div class="vf-label">Akses Portal, Pilih Produk &amp; Lengkapi Formulir</div>
+                    </div>
+                    <div class="vf-arrow gold"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box dashed">
+                      <span class="vf-icon gold"><i class="bi bi-pen"></i></span>
+                      <div class="vf-label">Isi Abstraksi &amp; Perjanjian, Petugas Verifikasi <em>(Khusus Data Mikro/Peta)</em></div>
+                    </div>
+                    <div class="vf-arrow gold"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon gold"><i class="bi bi-file-earmark-text"></i></span>
+                      <div class="vf-label">Petugas Siapkan Produk &amp; Kirim Invoice</div>
+                    </div>
+                  </div>
+                  <!-- Panah turun di bawah kotak ke-3 (kolom 5) -->
+                  <div class="vf-connector-row">
+                    <div></div><div></div><div></div><div></div>
+                    <div class="vf-down gold"><i class="bi bi-arrow-down"></i></div>
+                  </div>
+                  <!-- Baris 2: kotak 4 ← 5 ← 6 (kanan ke kiri) -->
+                  <div class="vf-row">
+                    <div class="vf-box end">
+                      <span class="vf-icon white"><i class="bi bi-star-fill"></i></span>
+                      <div class="vf-label white">Selesai &amp; Beri Rating Pelayanan</div>
+                    </div>
+                    <div class="vf-arrow gold"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon gold"><i class="bi bi-download"></i></span>
+                      <div class="vf-label">Terima Kuitansi &amp; Produk via Portal, Cek Kesesuaian</div>
+                    </div>
+                    <div class="vf-arrow gold"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon gold"><i class="bi bi-credit-card"></i></span>
+                      <div class="vf-label">Cek Invoice, Bayar &amp; Unggah Dokumen Perjanjian</div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-desktop -->
 
-                <!-- Baris 2: 3 kotak (kanan ke kiri) -->
-                <div class="vf-grid vf-grid-3" style="margin-bottom:0;">
-                  <div class="vf-box end"><span class="vf-icon white"><i class="bi bi-star-fill"></i></span><div class="vf-label white">Selesai &amp; Beri Rating Pelayanan</div></div>
-                  <div class="vf-arrow-left" style="color:var(--bps-accent);"><i class="bi bi-arrow-left"></i></div>
-                  <div class="vf-box"><span class="vf-icon gold"><i class="bi bi-download"></i></span><div class="vf-label">Terima Kuitansi &amp; Produk via Portal, Cek Kesesuaian</div></div>
-                  <div class="vf-arrow-left" style="color:var(--bps-accent);"><i class="bi bi-arrow-left"></i></div>
-                  <div class="vf-box"><span class="vf-icon gold"><i class="bi bi-credit-card"></i></span><div class="vf-label">Cek Invoice, Bayar &amp; Unggah Dokumen Perjanjian</div></div>
-                </div>
-
-                <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                <!-- MOBILE: vertikal berurutan 1→2→3→4→5→6 -->
+                <div class="fc-mobile">
+                  <div class="fc-mobile-list">
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-globe"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 1</div>
+                        <div class="fc-mobile-step-label">Akses Portal, Pilih Produk &amp; Lengkapi Formulir</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step dashed-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-pen"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 2</div>
+                        <div class="fc-mobile-step-label">Isi Abstraksi &amp; Perjanjian, Petugas Verifikasi <em>(Khusus Data Mikro/Peta)</em></div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-file-earmark-text"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 3</div>
+                        <div class="fc-mobile-step-label">Petugas Siapkan Produk &amp; Kirim Invoice</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-credit-card"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 4</div>
+                        <div class="fc-mobile-step-label">Cek Invoice, Bayar &amp; Unggah Dokumen Perjanjian</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-download"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 5</div>
+                        <div class="fc-mobile-step-label">Terima Kuitansi &amp; Produk via Portal, Cek Kesesuaian</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step end-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-star-fill"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 6</div>
+                        <div class="fc-mobile-step-label">Selesai &amp; Beri Rating Pelayanan</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-mobile -->
 
                 <div class="sop-steps online-border">
                   <strong class="sop-steps-title">Detail Prosedur Layanan Online:</strong>
@@ -584,7 +720,6 @@
       <!-- ===== PANEL AJUKAN ===== -->
       <div id="panel-ajukan" class="content-panel">
 
-        <!-- INFO BANNER -->
         <div style="background:linear-gradient(135deg,var(--bps-dark) 0%,var(--bps-blue) 100%);border-radius:14px;padding:28px 28px 24px;margin-bottom:18px;position:relative;overflow:hidden;">
           <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none;"></div>
           <div style="position:absolute;bottom:-50px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
@@ -600,7 +735,6 @@
           </div>
         </div>
 
-        <!-- CARA PENGAJUAN -->
         <div style="background:white;border-radius:14px;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 14px rgba(0,0,0,.07);margin-bottom:18px;overflow:hidden;">
           <div style="padding:14px 22px;border-bottom:1px solid #eef2f8;background:linear-gradient(to right,#fafcff,#fff);display:flex;align-items:center;gap:12px;">
             <div style="width:36px;height:36px;border-radius:9px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-list-ol"></i></div>
@@ -616,7 +750,6 @@
           </div>
         </div>
 
-        <!-- FORM SECTION -->
         <div class="pengajuan-section">
           <div class="d-flex align-items-center gap-3 mb-4">
             <div style="width:48px;height:48px;border-radius:12px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-send-fill"></i></div>
@@ -627,7 +760,6 @@
             <button class="pengajuan-tab" onclick="switchTab('cek',this)"><i class="bi bi-search me-2"></i>Cek Status</button>
           </div>
 
-          <!-- TAB FORM -->
           <div id="tab-form" class="tab-content-panel active">
             <div class="tiket-box" id="tiket-box">
               <i class="bi bi-check-circle-fill" style="font-size:2.4rem;color:#4caf50;"></i>
@@ -650,7 +782,7 @@
                 <div class="col-md-6"><label class="form-label">Kabupaten / Kota <span class="text-danger">*</span></label><select class="form-control" id="input-kabkota"><option value="">Pilih Kabupaten/Kota</option><option value="Kota Palu">Kota Palu</option><option value="Banggai">Banggai</option><option value="Banggai Kepulauan">Banggai Kepulauan</option><option value="Banggai Laut">Banggai Laut</option><option value="Buol">Buol</option><option value="Donggala">Donggala</option><option value="Morowali">Morowali</option><option value="Morowali Utara">Morowali Utara</option><option value="Parigi Moutong">Parigi Moutong</option><option value="Poso">Poso</option><option value="Sigi">Sigi</option><option value="Tojo Una-Una">Tojo Una-Una</option><option value="Tolitoli">Tolitoli</option></select></div>
                 <div class="col-12"><label class="form-label">Deskripsi Kebutuhan Data <span class="text-danger">*</span></label><textarea class="form-control" id="input-deskripsi" rows="4" placeholder="Jelaskan data apa yang Anda butuhkan, untuk keperluan apa, dan periode data yang diinginkan..."></textarea></div>
                 <div class="col-12">
-                  <label class="form-label">Upload Surat<span class="text-danger">*</span></label>
+                  <label class="form-label">Upload Surat <span class="text-danger">*</span></label>
                   <div class="upload-area" id="upload-area">
                     <input type="file" id="input-dokumen" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileChange(this)">
                     <div class="upload-icon"><i class="bi bi-cloud-arrow-up"></i></div>
@@ -665,7 +797,6 @@
             </div>
           </div>
 
-          <!-- TAB CEK STATUS -->
           <div id="tab-cek" class="tab-content-panel">
             <div class="row justify-content-center"><div class="col-lg-8">
               <p style="font-size:.87rem;color:#666;margin-bottom:16px;">Masukkan nomor tiket yang Anda terima saat pengajuan untuk melihat status terkini.</p>
@@ -690,7 +821,6 @@
                   <p style="margin:0 0 10px;font-size:.78rem;color:#555;">Petugas BPS telah mengupload data yang Anda minta.</p>
                   <a id="res-hasil-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#2e7d32;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.8rem;"><i class="bi bi-download"></i> Download Data</a>
                 </div>
-                <!-- RATING -->
                 <div id="res-rating-box" style="display:none;margin-top:16px;">
                   <div id="res-rating-form">
                     <div class="rating-section">
@@ -716,7 +846,7 @@
             </div></div>
           </div>
 
-        </div><!-- /pengajuan-section -->
+        </div>
       </div><!-- /panel-ajukan -->
 
     </div><!-- /content-area -->
@@ -740,7 +870,6 @@
   const SUPABASE_URL = 'https://rljhayfmfsrdtpmlqltp.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
   const JENIS_LAYANAN = 'Pelayanan Produk Statistik Berbayar';
-
   const localRatingCache = {};
   let cekSelectedRating=null, cekSelectedEmoji='', cekCurrentTiket='';
 
