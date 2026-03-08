@@ -74,9 +74,21 @@
     .flowchart-title{font-weight:700;color:white;font-size:.88rem;margin-bottom:16px;padding:11px 16px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
     .flowchart-title.langsung{background:linear-gradient(135deg,#0056b3,#003f7f);}
     .flowchart-title.online{background:linear-gradient(135deg,var(--bps-accent),#ff9800);}
-    .vf-grid{display:grid;align-items:center;gap:0;width:100%;}
-    .vf-grid-3{grid-template-columns:1fr 22px 1fr 22px 1fr;}
-    .vf-box{border:2px solid var(--bps-blue);border-radius:10px;padding:16px 12px 14px;text-align:center;background:white;box-shadow:0 2px 8px rgba(0,91,170,.08);transition:all .25s;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100px;}
+
+    /*
+     * FLOWCHART DESKTOP: zig-zag 2 baris (3+3)
+     * Baris 1: Kotak1 → Kotak2 → Kotak3
+     *                               ↓
+     * Baris 2: Kotak4 ← Kotak5 ← Kotak6
+     *
+     * Panah bawah HARUS ada di bawah Kotak3 (kolom kanan),
+     * sehingga padding-right = 0 (rata kanan kolom ke-3).
+     */
+    .fc-desktop{display:block;}
+    .fc-mobile{display:none;}
+
+    .vf-row{display:grid;grid-template-columns:1fr 28px 1fr 28px 1fr;align-items:center;gap:0;width:100%;}
+    .vf-box{border:2px solid var(--bps-blue);border-radius:10px;padding:16px 12px 14px;text-align:center;background:white;box-shadow:0 2px 8px rgba(0,91,170,.08);transition:all .25s;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:110px;}
     .vf-box:hover{box-shadow:0 6px 16px rgba(0,91,170,.16);transform:translateY(-3px);}
     .vf-box.end{background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark));border-color:var(--bps-dark);}
     .vf-box.gold-box{border-color:var(--bps-accent);}
@@ -85,15 +97,36 @@
     .vf-icon.white{color:white;}
     .vf-label{font-weight:600;color:var(--bps-dark);font-size:.76rem;line-height:1.45;}
     .vf-label.white{color:white;}
-    .vf-arrow-right,.vf-arrow-left{display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--bps-blue);width:22px;}
-    .vf-arrow-right.gold,.vf-arrow-left.gold{color:var(--bps-accent);}
-    .vf-arrow-down{display:flex;justify-content:center;align-items:center;height:28px;width:100%;font-size:1rem;color:var(--bps-blue);}
-    .vf-arrow-down.gold{color:var(--bps-accent);}
-    .fc-selesai{text-align:center;color:#4caf50;font-weight:700;margin:8px 0 16px;font-size:.88rem;}
+    .vf-arrow{display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--bps-blue);width:28px;}
+    .vf-arrow.gold{color:var(--bps-accent);}
+
+    /* Baris connector: panah bawah di bawah kotak ke-3 (kolom 5) */
+    .vf-connector-row{display:grid;grid-template-columns:1fr 28px 1fr 28px 1fr;height:30px;}
+    .vf-connector-row .vf-down{grid-column:5;display:flex;justify-content:center;align-items:center;font-size:1rem;color:var(--bps-blue);}
+    .vf-connector-row .vf-down.gold{color:var(--bps-accent);}
+
+    .fc-selesai{text-align:center;color:#4caf50;font-weight:700;margin:10px 0 16px;font-size:.88rem;}
     .sop-steps{padding:16px 18px;background:var(--bps-light);border-radius:10px;border-left:4px solid var(--bps-blue);}
     .sop-steps.online-border{border-left-color:var(--bps-accent);}
     .sop-steps strong.sop-steps-title{color:var(--bps-dark);display:block;margin-bottom:10px;font-size:.84rem;}
     .sop-steps ol{margin:0;padding-left:18px;font-size:.81rem;line-height:2;color:#555;}
+
+    /* ===== MOBILE FLOWCHART: vertikal berurutan ===== */
+    .fc-mobile-list{display:flex;flex-direction:column;align-items:stretch;gap:0;}
+    .fc-mobile-step{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:white;border-radius:12px;border:2px solid var(--bps-blue);box-shadow:0 2px 8px rgba(0,91,170,.07);}
+    .fc-mobile-step.gold-step{border-color:var(--bps-accent);}
+    .fc-mobile-step.end-step{background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark));border-color:var(--bps-dark);}
+    .fc-mobile-step-icon{width:36px;height:36px;border-radius:9px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--bps-blue);flex-shrink:0;}
+    .fc-mobile-step.gold-step .fc-mobile-step-icon{background:#fff3cd;color:var(--bps-accent);}
+    .fc-mobile-step.end-step .fc-mobile-step-icon{background:rgba(255,255,255,.2);color:white;}
+    .fc-mobile-step-content{flex:1;}
+    .fc-mobile-step-num{font-size:.62rem;font-weight:700;color:var(--bps-blue);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px;}
+    .fc-mobile-step.gold-step .fc-mobile-step-num{color:var(--bps-accent);}
+    .fc-mobile-step.end-step .fc-mobile-step-num{color:rgba(255,255,255,.7);}
+    .fc-mobile-step-label{font-size:.82rem;font-weight:600;color:var(--bps-dark);line-height:1.45;}
+    .fc-mobile-step.end-step .fc-mobile-step-label{color:white;}
+    .fc-mobile-arrow{display:flex;justify-content:center;align-items:center;height:22px;font-size:.95rem;color:var(--bps-blue);}
+    .fc-mobile-arrow.gold{color:var(--bps-accent);}
 
     .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
     .product-card{border:2px solid var(--bps-blue);border-radius:12px;padding:18px;background:white;transition:all .25s;}
@@ -151,6 +184,7 @@
 
     /* ===== RESPONSIVE ===== */
     @media(max-width:1024px){.sidebar{width:200px;}.sb-title{font-size:.82rem;}}
+
     @media(max-width:768px){
       .sidebar{display:none;}
       .page-wrapper{height:auto;overflow:visible;}
@@ -162,11 +196,11 @@
       .content-area{padding:14px 14px 40px;}
       .syarat-grid{grid-template-columns:1fr;}
       .product-grid{grid-template-columns:1fr;}
-      /* Flowchart tumpuk vertikal di mobile */
-      .vf-grid-3{display:flex!important;flex-direction:column;align-items:stretch;gap:6px;}
-      .vf-grid-3 .vf-arrow-right,.vf-grid-3 .vf-arrow-left{display:none!important;}
-      .vf-grid-3 .vf-box:not(.end):not(:last-child)::after{content:"↓";display:block;text-align:center;font-size:1.1rem;color:#aaa;margin-top:6px;}
-      .vf-arrow-down{display:none!important;}
+
+      /* Sembunyikan desktop flowchart, tampilkan mobile */
+      .fc-desktop{display:none!important;}
+      .fc-mobile{display:block!important;}
+
       .pengajuan-section{padding:20px 14px;}
       .pengajuan-tabs{flex-wrap:wrap;}
       .pengajuan-tab{font-size:.8rem;padding:8px 14px;}
@@ -174,7 +208,10 @@
       .section-body{padding:14px 16px;}
       .result-row{flex-direction:column;gap:2px;}
       .result-label{min-width:unset;}
+      .info-banner-grid{grid-template-columns:1fr!important;}
+      .cara-grid{grid-template-columns:1fr 1fr!important;}
     }
+
     @media(max-width:600px){
       .hero-detail{padding:32px 16px;}
       .flowchart-title{font-size:.8rem;padding:9px 12px;}
@@ -184,6 +221,7 @@
       .emoji-btn{min-width:50px;padding:9px 8px;}
       .emoji-btn .em{font-size:1.5rem;}
     }
+
     @media(max-width:480px){
       .hero-detail{padding:26px 14px;}
       .hero-badge{font-size:.72rem;padding:6px 14px;}
@@ -197,16 +235,15 @@
       .tiket-box{padding:20px 14px;}
       .pengajuan-section{border-radius:10px;padding:16px 12px;}
       .btn-submit{font-size:.84rem;padding:10px 22px;}
-      .vf-box{padding:12px 8px;border-radius:8px;min-height:unset;}
-      .vf-label{font-size:.72rem;}
-      .vf-icon{font-size:1.25rem;}
       .form-control,.form-select{font-size:.84rem;padding:9px 11px;}
+      .cara-grid{grid-template-columns:1fr 1fr!important;}
     }
+
     @media(max-width:360px){
       .hero-title{font-size:1.2rem;}
-      .vf-label{font-size:.68rem;}
       .emoji-btn{min-width:42px;padding:7px 5px;}
       .emoji-btn .em{font-size:1.3rem;}
+      .cara-grid{grid-template-columns:1fr!important;}
     }
 
     /* ===== MOBILE BOTTOM NAV ===== */
@@ -221,11 +258,7 @@
       .mobile-bottom-nav{display:block;}
       .main-area{padding-bottom:60px;}
       .content-area{padding-bottom:80px;}
-      .info-banner-grid{grid-template-columns:1fr!important;}
-      .cara-grid{grid-template-columns:1fr 1fr!important;}
     }
-    @media(max-width:480px){.cara-grid{grid-template-columns:1fr 1fr!important;}}
-    @media(max-width:360px){.cara-grid{grid-template-columns:1fr!important;}}
   </style>
 </head>
 <body>
@@ -318,28 +351,117 @@
             </div>
             <div class="section-body">
 
-              <!-- FLOWCHART KUNJUNGAN LANGSUNG -->
+              <!-- ============================================
+                   FLOWCHART KUNJUNGAN LANGSUNG
+                   Urutan benar:
+                   [1] Kunjungi PST → [2] Petugas Bantu Akses → [3] Petugas Periksa & Evaluasi
+                                                                            ↓
+                   [6] Selesai & Rating ← [5] Direktur Sahkan & Kirim ← [4] Pengesahan Direktur
+                   ============================================ -->
               <div class="sop-flowchart">
                 <div class="flowchart-title langsung"><i class="bi bi-building"></i> Layanan dengan Kunjungan Langsung</div>
-                <!-- Baris 1 kiri ke kanan -->
-                <div class="vf-grid vf-grid-3" style="margin-bottom:0;">
-                  <div class="vf-box"><span class="vf-icon"><i class="bi bi-building"></i></span><div class="vf-label">Kunjungi PST, Isi Buku Tamu, Ambil Antrian &amp; Sampaikan Permintaan</div></div>
-                  <div class="vf-arrow-right"><i class="bi bi-arrow-right"></i></div>
-                  <div class="vf-box"><span class="vf-icon"><i class="bi bi-headset"></i></span><div class="vf-label">Petugas Bantu Akses Portal, Buat Akun &amp; Dampingi Pengajuan Rekomendasi</div></div>
-                  <div class="vf-arrow-right"><i class="bi bi-arrow-right"></i></div>
-                  <div class="vf-box"><span class="vf-icon"><i class="bi bi-people"></i></span><div class="vf-label">Petugas Periksa, Evaluasi &amp; Susun Naskah Rekomendasi</div></div>
-                </div>
-                <!-- Panah turun kanan -->
-                <div style="display:flex;justify-content:flex-end;padding-right:calc(100%/6 - 13px);"><div class="vf-arrow-down"><i class="bi bi-arrow-down"></i></div></div>
-                <!-- Baris 2 kanan ke kiri -->
-                <div class="vf-grid vf-grid-3" style="margin-bottom:0;">
-                  <div class="vf-box end"><span class="vf-icon white"><i class="bi bi-star-fill"></i></span><div class="vf-label white">Selesai &amp; Beri Rating Pelayanan</div></div>
-                  <div class="vf-arrow-left"><i class="bi bi-arrow-left"></i></div>
-                  <div class="vf-box"><span class="vf-icon"><i class="bi bi-envelope-check"></i></span><div class="vf-label">Direktur Sahkan &amp; Petugas Kirim Surat Rekomendasi via Portal</div></div>
-                  <div class="vf-arrow-left"><i class="bi bi-arrow-left"></i></div>
-                  <div class="vf-box"><span class="vf-icon"><i class="bi bi-patch-check"></i></span><div class="vf-label">Pengesahan Surat Rekomendasi oleh Direktur Diseminasi Statistik</div></div>
-                </div>
-                <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+
+                <!-- DESKTOP FLOWCHART -->
+                <div class="fc-desktop">
+                  <!-- Baris 1: kotak 1 → 2 → 3 -->
+                  <div class="vf-row">
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-building"></i></span>
+                      <div class="vf-label">Kunjungi PST, Isi Buku Tamu, Ambil Antrian &amp; Sampaikan Permintaan</div>
+                    </div>
+                    <div class="vf-arrow"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-headset"></i></span>
+                      <div class="vf-label">Petugas Bantu Akses Portal, Buat Akun &amp; Dampingi Pengajuan Rekomendasi</div>
+                    </div>
+                    <div class="vf-arrow"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-people"></i></span>
+                      <div class="vf-label">Petugas Periksa, Evaluasi &amp; Susun Naskah Rekomendasi</div>
+                    </div>
+                  </div>
+                  <!-- Panah turun di bawah kotak ke-3 (kolom ke-5) -->
+                  <div class="vf-connector-row">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div class="vf-down"><i class="bi bi-arrow-down"></i></div>
+                  </div>
+                  <!-- Baris 2: kotak 4 ← 5 ← 6, urutan HTML kanan ke kiri supaya visual sesuai -->
+                  <div class="vf-row">
+                    <div class="vf-box end">
+                      <span class="vf-icon white"><i class="bi bi-star-fill"></i></span>
+                      <div class="vf-label white">Selesai &amp; Beri Rating Pelayanan</div>
+                    </div>
+                    <div class="vf-arrow"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-envelope-check"></i></span>
+                      <div class="vf-label">Direktur Sahkan &amp; Petugas Kirim Surat Rekomendasi via Portal</div>
+                    </div>
+                    <div class="vf-arrow"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-patch-check"></i></span>
+                      <div class="vf-label">Pengesahan Surat Rekomendasi oleh Direktur Diseminasi Statistik</div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-desktop -->
+
+                <!-- MOBILE FLOWCHART: vertikal berurutan 1→2→3→4→5→6 -->
+                <div class="fc-mobile">
+                  <div class="fc-mobile-list">
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-building"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 1</div>
+                        <div class="fc-mobile-step-label">Kunjungi PST, Isi Buku Tamu, Ambil Antrian &amp; Sampaikan Permintaan</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-headset"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 2</div>
+                        <div class="fc-mobile-step-label">Petugas Bantu Akses Portal, Buat Akun &amp; Dampingi Pengajuan Rekomendasi</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-people"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 3</div>
+                        <div class="fc-mobile-step-label">Petugas Periksa, Evaluasi &amp; Susun Naskah Rekomendasi</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-patch-check"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 4</div>
+                        <div class="fc-mobile-step-label">Pengesahan Surat Rekomendasi oleh Direktur Diseminasi Statistik</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-envelope-check"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 5</div>
+                        <div class="fc-mobile-step-label">Direktur Sahkan &amp; Petugas Kirim Surat Rekomendasi via Portal</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step end-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-star-fill"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 6</div>
+                        <div class="fc-mobile-step-label">Selesai &amp; Beri Rating Pelayanan</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-mobile -->
+
                 <div class="sop-steps">
                   <strong class="sop-steps-title">Detail Prosedur Kunjungan Langsung:</strong>
                   <ol>
@@ -364,28 +486,117 @@
                 </div>
               </div>
 
-              <!-- FLOWCHART LAYANAN ONLINE -->
+              <!-- ============================================
+                   FLOWCHART LAYANAN ONLINE
+                   Urutan benar:
+                   [1] Akses Portal & Login → [2] Ajukan Rekomendasi → [3] Petugas Periksa & Evaluasi
+                                                                                  ↓
+                   [6] Selesai & Rating ← [5] Direktur Sahkan & Kirim ← [4] Pengesahan Direktur
+                   ============================================ -->
               <div class="sop-flowchart" style="margin-top:26px;">
                 <div class="flowchart-title online"><i class="bi bi-globe"></i> Layanan dengan Cara Online</div>
-                <!-- Baris 1 kiri ke kanan -->
-                <div class="vf-grid vf-grid-3" style="margin-bottom:0;">
-                  <div class="vf-box gold-box"><span class="vf-icon gold"><i class="bi bi-globe"></i></span><div class="vf-label">Akses Portal, Login &amp; Cari Referensi Kegiatan Statistik</div></div>
-                  <div class="vf-arrow-right gold"><i class="bi bi-arrow-right"></i></div>
-                  <div class="vf-box gold-box"><span class="vf-icon gold"><i class="bi bi-send-plus"></i></span><div class="vf-label">Ajukan Rekomendasi melalui Portal pst.bps.go.id</div></div>
-                  <div class="vf-arrow-right gold"><i class="bi bi-arrow-right"></i></div>
-                  <div class="vf-box gold-box"><span class="vf-icon gold"><i class="bi bi-people"></i></span><div class="vf-label">Petugas Periksa, Evaluasi &amp; Susun Naskah Rekomendasi</div></div>
-                </div>
-                <!-- Panah turun kanan -->
-                <div style="display:flex;justify-content:flex-end;padding-right:calc(100%/6 - 13px);"><div class="vf-arrow-down gold"><i class="bi bi-arrow-down"></i></div></div>
-                <!-- Baris 2 kanan ke kiri -->
-                <div class="vf-grid vf-grid-3" style="margin-bottom:0;">
-                  <div class="vf-box end"><span class="vf-icon white"><i class="bi bi-star-fill"></i></span><div class="vf-label white">Selesai &amp; Beri Rating Pelayanan</div></div>
-                  <div class="vf-arrow-left gold"><i class="bi bi-arrow-left"></i></div>
-                  <div class="vf-box gold-box"><span class="vf-icon gold"><i class="bi bi-envelope-check"></i></span><div class="vf-label">Direktur Sahkan &amp; Petugas Kirim Surat Rekomendasi via Portal</div></div>
-                  <div class="vf-arrow-left gold"><i class="bi bi-arrow-left"></i></div>
-                  <div class="vf-box gold-box"><span class="vf-icon gold"><i class="bi bi-patch-check"></i></span><div class="vf-label">Pengesahan Surat Rekomendasi oleh Direktur Diseminasi Statistik</div></div>
-                </div>
-                <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+
+                <!-- DESKTOP FLOWCHART -->
+                <div class="fc-desktop">
+                  <!-- Baris 1: kotak 1 → 2 → 3 -->
+                  <div class="vf-row">
+                    <div class="vf-box gold-box">
+                      <span class="vf-icon gold"><i class="bi bi-globe"></i></span>
+                      <div class="vf-label">Akses Portal, Login &amp; Cari Referensi Kegiatan Statistik</div>
+                    </div>
+                    <div class="vf-arrow gold"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box gold-box">
+                      <span class="vf-icon gold"><i class="bi bi-send-plus"></i></span>
+                      <div class="vf-label">Ajukan Rekomendasi melalui Portal pst.bps.go.id</div>
+                    </div>
+                    <div class="vf-arrow gold"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box gold-box">
+                      <span class="vf-icon gold"><i class="bi bi-people"></i></span>
+                      <div class="vf-label">Petugas Periksa, Evaluasi &amp; Susun Naskah Rekomendasi</div>
+                    </div>
+                  </div>
+                  <!-- Panah turun di bawah kotak ke-3 (kolom ke-5) -->
+                  <div class="vf-connector-row">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div class="vf-down gold"><i class="bi bi-arrow-down"></i></div>
+                  </div>
+                  <!-- Baris 2: kanan ke kiri -->
+                  <div class="vf-row">
+                    <div class="vf-box end">
+                      <span class="vf-icon white"><i class="bi bi-star-fill"></i></span>
+                      <div class="vf-label white">Selesai &amp; Beri Rating Pelayanan</div>
+                    </div>
+                    <div class="vf-arrow gold"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box gold-box">
+                      <span class="vf-icon gold"><i class="bi bi-envelope-check"></i></span>
+                      <div class="vf-label">Direktur Sahkan &amp; Petugas Kirim Surat Rekomendasi via Portal</div>
+                    </div>
+                    <div class="vf-arrow gold"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box gold-box">
+                      <span class="vf-icon gold"><i class="bi bi-patch-check"></i></span>
+                      <div class="vf-label">Pengesahan Surat Rekomendasi oleh Direktur Diseminasi Statistik</div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-desktop -->
+
+                <!-- MOBILE FLOWCHART: vertikal berurutan 1→2→3→4→5→6 -->
+                <div class="fc-mobile">
+                  <div class="fc-mobile-list">
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-globe"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 1</div>
+                        <div class="fc-mobile-step-label">Akses Portal, Login &amp; Cari Referensi Kegiatan Statistik</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-send-plus"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 2</div>
+                        <div class="fc-mobile-step-label">Ajukan Rekomendasi melalui Portal pst.bps.go.id</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-people"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 3</div>
+                        <div class="fc-mobile-step-label">Petugas Periksa, Evaluasi &amp; Susun Naskah Rekomendasi</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-patch-check"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 4</div>
+                        <div class="fc-mobile-step-label">Pengesahan Surat Rekomendasi oleh Direktur Diseminasi Statistik</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-envelope-check"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 5</div>
+                        <div class="fc-mobile-step-label">Direktur Sahkan &amp; Petugas Kirim Surat Rekomendasi via Portal</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step end-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-star-fill"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 6</div>
+                        <div class="fc-mobile-step-label">Selesai &amp; Beri Rating Pelayanan</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-mobile -->
+
                 <div class="sop-steps online-border">
                   <strong class="sop-steps-title">Detail Prosedur Layanan Online:</strong>
                   <ol>
@@ -521,7 +732,7 @@
                 <div class="col-md-6"><label class="form-label">Kabupaten / Kota <span class="text-danger">*</span></label><select class="form-control" id="input-kabkota"><option value="">Pilih Kabupaten/Kota</option><option value="Kota Palu">Kota Palu</option><option value="Banggai">Banggai</option><option value="Banggai Kepulauan">Banggai Kepulauan</option><option value="Banggai Laut">Banggai Laut</option><option value="Buol">Buol</option><option value="Donggala">Donggala</option><option value="Morowali">Morowali</option><option value="Morowali Utara">Morowali Utara</option><option value="Parigi Moutong">Parigi Moutong</option><option value="Poso">Poso</option><option value="Sigi">Sigi</option><option value="Tojo Una-Una">Tojo Una-Una</option><option value="Tolitoli">Tolitoli</option></select></div>
                 <div class="col-12"><label class="form-label">Deskripsi Kebutuhan Data <span class="text-danger">*</span></label><textarea class="form-control" id="input-deskripsi" rows="4" placeholder="Jelaskan data apa yang Anda butuhkan, untuk keperluan apa, dan periode data yang diinginkan..."></textarea></div>
                 <div class="col-12">
-                  <label class="form-label">Upload Surat<span class="text-danger">*</span></label>
+                  <label class="form-label">Upload Surat <span class="text-danger">*</span></label>
                   <div class="upload-area" id="upload-area">
                     <input type="file" id="input-dokumen" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileChange(this)">
                     <div class="upload-icon"><i class="bi bi-cloud-arrow-up"></i></div>
@@ -608,24 +819,251 @@
   const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
   const JENIS_LAYANAN='Pelayanan Rekomendasi Kegiatan Statistik';
   const localRatingCache={};
-  function showPanel(id,el){document.querySelectorAll('.content-panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));if(el)el.classList.add('active');const mainArea=document.getElementById('main-area');mainArea.scrollTop=0;window.scrollTo(0,0);document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active'));const mbn=document.getElementById('mbn-'+id);if(mbn)mbn.classList.add('active');}
-  function scrollToSection(sectionId,sbEl){const infoPanel=document.getElementById('panel-info');const ajukanPanel=document.getElementById('panel-ajukan');if(!infoPanel.classList.contains('active')){ajukanPanel.classList.remove('active');infoPanel.classList.add('active');}document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));if(sbEl)sbEl.classList.add('active');const navMap={'section-persyaratan':'persyaratan','section-sop':'sop','section-jangka':'jangka','section-biaya':'biaya'};document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active'));const mbnEl=document.getElementById('mbn-'+navMap[sectionId]);if(mbnEl)mbnEl.classList.add('active');setTimeout(()=>{const target=document.getElementById(sectionId);if(!target)return;const mainArea=document.getElementById('main-area');const isMobile=window.innerWidth<=768;if(isMobile){const rect=target.getBoundingClientRect();window.scrollTo({top:window.pageYOffset+rect.top-80,behavior:'smooth'});}else{const containerRect=mainArea.getBoundingClientRect();const targetRect=target.getBoundingClientRect();const scrollOffset=mainArea.scrollTop+(targetRect.top-containerRect.top)-80;mainArea.scrollTo({top:scrollOffset,behavior:'smooth'});}},50);}
-  function scrollToSectionMobile(sectionId,mbnEl){document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active'));mbnEl.classList.add('active');const sbMap={'section-persyaratan':0,'section-sop':1,'section-jangka':2,'section-biaya':3};const sbLinks=document.querySelectorAll('.sb-link');document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));const idx=sbMap[sectionId];if(idx!==undefined&&sbLinks[idx])sbLinks[idx].classList.add('active');scrollToSection(sectionId,null);}
-  function showPanelMobile(id,mbnEl){document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active'));mbnEl.classList.add('active');const sbLinks=document.querySelectorAll('.sb-link');document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));if(sbLinks[4])sbLinks[4].classList.add('active');showPanel(id,sbLinks[4]||null);}
-  function switchTab(tab,el){document.querySelectorAll('.pengajuan-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-content-panel').forEach(p=>p.classList.remove('active'));el.classList.add('active');document.getElementById('tab-'+tab).classList.add('active');}
-  function handleFileChange(input){const file=input.files[0];const filename=document.getElementById('upload-filename');if(file){if(file.size>5*1024*1024){showError('Ukuran file maksimal 5MB!');input.value='';filename.textContent='';return;}filename.textContent='✓ '+file.name;}}
+
+  function showPanel(id,el){
+    document.querySelectorAll('.content-panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById('panel-'+id).classList.add('active');
+    document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+    if(el)el.classList.add('active');
+    const mainArea=document.getElementById('main-area');
+    mainArea.scrollTop=0;
+    window.scrollTo(0,0);
+    document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active'));
+    const mbn=document.getElementById('mbn-'+id);
+    if(mbn)mbn.classList.add('active');
+  }
+
+  function scrollToSection(sectionId,sbEl){
+    const infoPanel=document.getElementById('panel-info');
+    const ajukanPanel=document.getElementById('panel-ajukan');
+    if(!infoPanel.classList.contains('active')){
+      ajukanPanel.classList.remove('active');
+      infoPanel.classList.add('active');
+    }
+    document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+    if(sbEl)sbEl.classList.add('active');
+    const navMap={'section-persyaratan':'persyaratan','section-sop':'sop','section-jangka':'jangka','section-biaya':'biaya'};
+    document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active'));
+    const mbnEl=document.getElementById('mbn-'+navMap[sectionId]);
+    if(mbnEl)mbnEl.classList.add('active');
+    setTimeout(()=>{
+      const target=document.getElementById(sectionId);
+      if(!target)return;
+      const mainArea=document.getElementById('main-area');
+      const isMobile=window.innerWidth<=768;
+      if(isMobile){
+        const rect=target.getBoundingClientRect();
+        window.scrollTo({top:window.pageYOffset+rect.top-80,behavior:'smooth'});
+      }else{
+        const containerRect=mainArea.getBoundingClientRect();
+        const targetRect=target.getBoundingClientRect();
+        const scrollOffset=mainArea.scrollTop+(targetRect.top-containerRect.top)-80;
+        mainArea.scrollTo({top:scrollOffset,behavior:'smooth'});
+      }
+    },50);
+  }
+
+  function scrollToSectionMobile(sectionId,mbnEl){
+    document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active'));
+    mbnEl.classList.add('active');
+    const sbMap={'section-persyaratan':0,'section-sop':1,'section-jangka':2,'section-biaya':3};
+    const sbLinks=document.querySelectorAll('.sb-link');
+    document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+    const idx=sbMap[sectionId];
+    if(idx!==undefined&&sbLinks[idx])sbLinks[idx].classList.add('active');
+    scrollToSection(sectionId,null);
+  }
+
+  function showPanelMobile(id,mbnEl){
+    document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active'));
+    mbnEl.classList.add('active');
+    const sbLinks=document.querySelectorAll('.sb-link');
+    document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+    if(sbLinks[4])sbLinks[4].classList.add('active');
+    showPanel(id,sbLinks[4]||null);
+  }
+
+  function switchTab(tab,el){
+    document.querySelectorAll('.pengajuan-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.tab-content-panel').forEach(p=>p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-'+tab).classList.add('active');
+  }
+
+  function handleFileChange(input){
+    const file=input.files[0];
+    const filename=document.getElementById('upload-filename');
+    if(file){
+      if(file.size>5*1024*1024){showError('Ukuran file maksimal 5MB!');input.value='';filename.textContent='';return;}
+      filename.textContent='✓ '+file.name;
+    }
+  }
+
   const uploadArea=document.getElementById('upload-area');
   uploadArea.addEventListener('dragover',e=>{e.preventDefault();uploadArea.classList.add('dragover');});
   uploadArea.addEventListener('dragleave',()=>uploadArea.classList.remove('dragover'));
-  uploadArea.addEventListener('drop',e=>{e.preventDefault();uploadArea.classList.remove('dragover');const file=e.dataTransfer.files[0];if(file){document.getElementById('input-dokumen').files=e.dataTransfer.files;handleFileChange(document.getElementById('input-dokumen'));}});
+  uploadArea.addEventListener('drop',e=>{
+    e.preventDefault();uploadArea.classList.remove('dragover');
+    const file=e.dataTransfer.files[0];
+    if(file){document.getElementById('input-dokumen').files=e.dataTransfer.files;handleFileChange(document.getElementById('input-dokumen'));}
+  });
+
   let cekSelectedRating=null,cekSelectedEmoji='',cekCurrentTiket='';
-  function selectEmojiCek(btn,score,emoji,label){document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');cekSelectedRating=score;cekSelectedEmoji=emoji;document.getElementById('res-btn-kirim-rating').disabled=false;}
-  async function kirimRatingCek(){if(!cekSelectedRating||!cekCurrentTiket)return;const btn=document.getElementById('res-btn-kirim-rating');btn.disabled=true;btn.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';try{await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${cekCurrentTiket}`,{method:'PATCH',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},body:JSON.stringify({rating:cekSelectedRating,rating_emoji:cekSelectedEmoji})});}catch(e){}localRatingCache[cekCurrentTiket]={score:cekSelectedRating,emoji:cekSelectedEmoji};document.getElementById('res-rating-done-emoji').textContent=cekSelectedEmoji;document.getElementById('res-rating-form').style.display='none';document.getElementById('res-rating-done').style.display='block';}
-  function generateTiket(){const now=new Date();return `BPS-${now.getFullYear()}-${String(Math.floor(Math.random()*900)+100)}${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;}
-  function showError(msg){const el=document.getElementById('form-error');el.textContent=msg;el.classList.remove('d-none');setTimeout(()=>el.classList.add('d-none'),5000);}
-  async function submitPengajuan(){const nama=document.getElementById('input-nama').value.trim();const email=document.getElementById('input-email').value.trim();const telepon=document.getElementById('input-telepon').value.trim();const instansi=document.getElementById('input-instansi').value.trim();const jenisKelamin=document.getElementById('input-jenis-kelamin').value;const usia=document.getElementById('input-usia').value.trim();const kategori=document.getElementById('input-kategori').value;const pendidikan=document.getElementById('input-pendidikan').value;const kabkota=document.getElementById('input-kabkota').value;const deskripsi=document.getElementById('input-deskripsi').value.trim();const dokumen=document.getElementById('input-dokumen').files[0];if(!nama)return showError('Nama lengkap wajib diisi!');if(!email||!email.includes('@'))return showError('Email tidak valid!');if(!telepon)return showError('Nomor telepon wajib diisi!');if(!jenisKelamin)return showError('Jenis kelamin wajib dipilih!');if(!usia)return showError('Usia wajib diisi!');if(!kategori)return showError('Kategori pengguna wajib dipilih!');if(!pendidikan)return showError('Tingkat pendidikan wajib dipilih!');if(!kabkota)return showError('Kabupaten/Kota wajib dipilih!');if(!deskripsi)return showError('Deskripsi kebutuhan data wajib diisi!');if(!dokumen)return showError('Dokumen surat wajib diupload!');const btn=document.getElementById('btn-submit');btn.disabled=true;btn.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';try{const fileExt=dokumen.name.split('.').pop();const fileName=`rekomendasi/${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;const uploadRes=await fetch(`${SUPABASE_URL}/storage/v1/object/dokumen/${fileName}`,{method:'POST',headers:{'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':dokumen.type,'x-upsert':'true'},body:dokumen});if(!uploadRes.ok)throw new Error('Gagal upload dokumen');const urlDokumen=`${SUPABASE_URL}/storage/v1/object/public/dokumen/${fileName}`;const nomorTiket=generateTiket();const insertRes=await fetch(`${SUPABASE_URL}/rest/v1/pengajuan`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},body:JSON.stringify({nomor_tiket:nomorTiket,jenis_layanan:JENIS_LAYANAN,nama,email,no_telepon:telepon,instansi:instansi||'-',jenis_kelamin:jenisKelamin,usia:parseInt(usia),kategori_pengguna:kategori,tingkat_pendidikan:pendidikan,kabupaten_kota:kabkota,deskripsi,nama_dokumen:dokumen.name,url_dokumen:urlDokumen})});if(!insertRes.ok)throw new Error('Gagal menyimpan pengajuan');document.getElementById('form-pengajuan').style.display='none';document.getElementById('tiket-number').textContent=nomorTiket;document.getElementById('tiket-box').classList.add('show');}catch(err){showError('Terjadi kesalahan: '+err.message+'. Silakan coba lagi.');}finally{btn.disabled=false;btn.innerHTML='<i class="bi bi-send"></i> Kirim Pengajuan';}}
-  function resetForm(){document.getElementById('form-pengajuan').style.display='block';document.getElementById('tiket-box').classList.remove('show');['input-nama','input-email','input-telepon','input-instansi','input-deskripsi'].forEach(id=>document.getElementById(id).value='');document.getElementById('input-dokumen').value='';document.getElementById('upload-filename').textContent='';}
-  async function cekStatus(){const tiket=document.getElementById('input-tiket-cek').value.trim().toUpperCase();const errEl=document.getElementById('cek-error');const resultCard=document.getElementById('result-card');errEl.classList.add('d-none');resultCard.classList.remove('show');if(!tiket){errEl.textContent='Masukkan nomor tiket terlebih dahulu!';errEl.classList.remove('d-none');return;}try{const res=await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${tiket}&select=*`,{headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}});const data=await res.json();if(!data||data.length===0){errEl.textContent='Nomor tiket tidak ditemukan. Pastikan nomor tiket sudah benar.';errEl.classList.remove('d-none');return;}const d=data[0];const statusMap={'Menunggu Verifikasi':'status-menunggu','Sedang Diproses':'status-diproses','Selesai':'status-selesai','Ditolak':'status-ditolak'};document.getElementById('res-tiket').textContent=d.nomor_tiket;document.getElementById('res-layanan').textContent=d.jenis_layanan;document.getElementById('res-nama').textContent=d.nama;document.getElementById('res-instansi').textContent=d.instansi||'-';document.getElementById('res-deskripsi').textContent=d.deskripsi;document.getElementById('res-tanggal').textContent=new Date(d.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});const badge=document.getElementById('res-status-badge');badge.textContent=d.status;badge.className='status-badge '+(statusMap[d.status]||'status-menunggu');const hasilBox=document.getElementById('res-hasil-box');if(d.url_hasil){document.getElementById('res-hasil-link').href=d.url_hasil;hasilBox.style.display='block';}else{hasilBox.style.display='none';}const ratingBox=document.getElementById('res-rating-box');if(d.url_hasil){cekCurrentTiket=d.nomor_tiket;ratingBox.style.display='block';const cachedRating=localRatingCache[d.nomor_tiket];const sudahRating=cachedRating||(d.rating&&d.rating_emoji);if(sudahRating){const emojiToShow=cachedRating?cachedRating.emoji:d.rating_emoji;document.getElementById('res-rating-done-emoji').textContent=emojiToShow;document.getElementById('res-rating-form').style.display='none';document.getElementById('res-rating-done').style.display='block';}else{document.getElementById('res-rating-form').style.display='block';document.getElementById('res-rating-done').style.display='none';document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b=>b.classList.remove('selected'));cekSelectedRating=null;cekSelectedEmoji='';const kirimBtn=document.getElementById('res-btn-kirim-rating');kirimBtn.disabled=true;kirimBtn.innerHTML='<i class="bi bi-send"></i> Kirim Penilaian';}}else{ratingBox.style.display='none';}resultCard.classList.add('show');}catch(err){errEl.textContent='Terjadi kesalahan saat mengambil data. Silakan coba lagi.';errEl.classList.remove('d-none');}}
+
+  function selectEmojiCek(btn,score,emoji,label){
+    document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    cekSelectedRating=score;
+    cekSelectedEmoji=emoji;
+    document.getElementById('res-btn-kirim-rating').disabled=false;
+  }
+
+  async function kirimRatingCek(){
+    if(!cekSelectedRating||!cekCurrentTiket)return;
+    const btn=document.getElementById('res-btn-kirim-rating');
+    btn.disabled=true;
+    btn.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+    try{
+      await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${cekCurrentTiket}`,{
+        method:'PATCH',
+        headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},
+        body:JSON.stringify({rating:cekSelectedRating,rating_emoji:cekSelectedEmoji})
+      });
+    }catch(e){}
+    localRatingCache[cekCurrentTiket]={score:cekSelectedRating,emoji:cekSelectedEmoji};
+    document.getElementById('res-rating-done-emoji').textContent=cekSelectedEmoji;
+    document.getElementById('res-rating-form').style.display='none';
+    document.getElementById('res-rating-done').style.display='block';
+  }
+
+  function generateTiket(){
+    const now=new Date();
+    return `BPS-${now.getFullYear()}-${String(Math.floor(Math.random()*900)+100)}${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
+  }
+
+  function showError(msg){
+    const el=document.getElementById('form-error');
+    el.textContent=msg;
+    el.classList.remove('d-none');
+    setTimeout(()=>el.classList.add('d-none'),5000);
+  }
+
+  async function submitPengajuan(){
+    const nama=document.getElementById('input-nama').value.trim();
+    const email=document.getElementById('input-email').value.trim();
+    const telepon=document.getElementById('input-telepon').value.trim();
+    const instansi=document.getElementById('input-instansi').value.trim();
+    const jenisKelamin=document.getElementById('input-jenis-kelamin').value;
+    const usia=document.getElementById('input-usia').value.trim();
+    const kategori=document.getElementById('input-kategori').value;
+    const pendidikan=document.getElementById('input-pendidikan').value;
+    const kabkota=document.getElementById('input-kabkota').value;
+    const deskripsi=document.getElementById('input-deskripsi').value.trim();
+    const dokumen=document.getElementById('input-dokumen').files[0];
+    if(!nama)return showError('Nama lengkap wajib diisi!');
+    if(!email||!email.includes('@'))return showError('Email tidak valid!');
+    if(!telepon)return showError('Nomor telepon wajib diisi!');
+    if(!jenisKelamin)return showError('Jenis kelamin wajib dipilih!');
+    if(!usia)return showError('Usia wajib diisi!');
+    if(!kategori)return showError('Kategori pengguna wajib dipilih!');
+    if(!pendidikan)return showError('Tingkat pendidikan wajib dipilih!');
+    if(!kabkota)return showError('Kabupaten/Kota wajib dipilih!');
+    if(!deskripsi)return showError('Deskripsi kebutuhan data wajib diisi!');
+    if(!dokumen)return showError('Dokumen surat wajib diupload!');
+    const btn=document.getElementById('btn-submit');
+    btn.disabled=true;
+    btn.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+    try{
+      const fileExt=dokumen.name.split('.').pop();
+      const fileName=`rekomendasi/${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const uploadRes=await fetch(`${SUPABASE_URL}/storage/v1/object/dokumen/${fileName}`,{
+        method:'POST',
+        headers:{'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':dokumen.type,'x-upsert':'true'},
+        body:dokumen
+      });
+      if(!uploadRes.ok)throw new Error('Gagal upload dokumen');
+      const urlDokumen=`${SUPABASE_URL}/storage/v1/object/public/dokumen/${fileName}`;
+      const nomorTiket=generateTiket();
+      const insertRes=await fetch(`${SUPABASE_URL}/rest/v1/pengajuan`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},
+        body:JSON.stringify({nomor_tiket:nomorTiket,jenis_layanan:JENIS_LAYANAN,nama,email,no_telepon:telepon,instansi:instansi||'-',jenis_kelamin:jenisKelamin,usia:parseInt(usia),kategori_pengguna:kategori,tingkat_pendidikan:pendidikan,kabupaten_kota:kabkota,deskripsi,nama_dokumen:dokumen.name,url_dokumen:urlDokumen})
+      });
+      if(!insertRes.ok)throw new Error('Gagal menyimpan pengajuan');
+      document.getElementById('form-pengajuan').style.display='none';
+      document.getElementById('tiket-number').textContent=nomorTiket;
+      document.getElementById('tiket-box').classList.add('show');
+    }catch(err){
+      showError('Terjadi kesalahan: '+err.message+'. Silakan coba lagi.');
+    }finally{
+      btn.disabled=false;
+      btn.innerHTML='<i class="bi bi-send"></i> Kirim Pengajuan';
+    }
+  }
+
+  function resetForm(){
+    document.getElementById('form-pengajuan').style.display='block';
+    document.getElementById('tiket-box').classList.remove('show');
+    ['input-nama','input-email','input-telepon','input-instansi','input-deskripsi'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('input-dokumen').value='';
+    document.getElementById('upload-filename').textContent='';
+  }
+
+  async function cekStatus(){
+    const tiket=document.getElementById('input-tiket-cek').value.trim().toUpperCase();
+    const errEl=document.getElementById('cek-error');
+    const resultCard=document.getElementById('result-card');
+    errEl.classList.add('d-none');
+    resultCard.classList.remove('show');
+    if(!tiket){errEl.textContent='Masukkan nomor tiket terlebih dahulu!';errEl.classList.remove('d-none');return;}
+    try{
+      const res=await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${tiket}&select=*`,{
+        headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}
+      });
+      const data=await res.json();
+      if(!data||data.length===0){errEl.textContent='Nomor tiket tidak ditemukan. Pastikan nomor tiket sudah benar.';errEl.classList.remove('d-none');return;}
+      const d=data[0];
+      const statusMap={'Menunggu Verifikasi':'status-menunggu','Sedang Diproses':'status-diproses','Selesai':'status-selesai','Ditolak':'status-ditolak'};
+      document.getElementById('res-tiket').textContent=d.nomor_tiket;
+      document.getElementById('res-layanan').textContent=d.jenis_layanan;
+      document.getElementById('res-nama').textContent=d.nama;
+      document.getElementById('res-instansi').textContent=d.instansi||'-';
+      document.getElementById('res-deskripsi').textContent=d.deskripsi;
+      document.getElementById('res-tanggal').textContent=new Date(d.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      const badge=document.getElementById('res-status-badge');
+      badge.textContent=d.status;
+      badge.className='status-badge '+(statusMap[d.status]||'status-menunggu');
+      const hasilBox=document.getElementById('res-hasil-box');
+      if(d.url_hasil){document.getElementById('res-hasil-link').href=d.url_hasil;hasilBox.style.display='block';}
+      else{hasilBox.style.display='none';}
+      const ratingBox=document.getElementById('res-rating-box');
+      if(d.url_hasil){
+        cekCurrentTiket=d.nomor_tiket;
+        ratingBox.style.display='block';
+        const cachedRating=localRatingCache[d.nomor_tiket];
+        const sudahRating=cachedRating||(d.rating&&d.rating_emoji);
+        if(sudahRating){
+          const emojiToShow=cachedRating?cachedRating.emoji:d.rating_emoji;
+          document.getElementById('res-rating-done-emoji').textContent=emojiToShow;
+          document.getElementById('res-rating-form').style.display='none';
+          document.getElementById('res-rating-done').style.display='block';
+        }else{
+          document.getElementById('res-rating-form').style.display='block';
+          document.getElementById('res-rating-done').style.display='none';
+          document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b=>b.classList.remove('selected'));
+          cekSelectedRating=null;cekSelectedEmoji='';
+          const kirimBtn=document.getElementById('res-btn-kirim-rating');
+          kirimBtn.disabled=true;
+          kirimBtn.innerHTML='<i class="bi bi-send"></i> Kirim Penilaian';
+        }
+      }else{ratingBox.style.display='none';}
+      resultCard.classList.add('show');
+    }catch(err){
+      errEl.textContent='Terjadi kesalahan saat mengambil data. Silakan coba lagi.';
+      errEl.classList.remove('d-none');
+    }
+  }
+
   document.getElementById('input-tiket-cek').addEventListener('keypress',e=>{if(e.key==='Enter')cekStatus();});
 </script>
 </body>
