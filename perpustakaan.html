@@ -306,18 +306,7 @@
             </div>
             <div class="section-body">
 
-              <!-- ======================================================
-                FLOWCHART 1: KUNJUNGAN LANGSUNG
-                Urutan 6 langkah (snake-3, 2 baris):
-                Baris 1 (kiri→kanan): [1]Kunjungi PST → [2]Isi Buku Tamu → [3]Titip Tas di Loker
-                                                                                      ↓
-                Baris 2 (kanan→kiri): [6]Selesai ← [5]Beri Rating ← [4]Akses Pustaka
-
-                Perbaikan label:
-                  - "Simpan Tas di Loker" → "Titip Tas di Loker" + sublabel
-                  - "Akses Pustaka" dipertahankan (sudah 1 langkah di prosedur)
-                    tapi diberi sublabel agar lebih jelas
-              ====================================================== -->
+              <!-- FLOWCHART 1: KUNJUNGAN LANGSUNG — tidak diubah -->
               <div class="sop-flowchart">
                 <div class="flowchart-title langsung"><i class="bi bi-building"></i> Layanan dengan Kunjungan Langsung</div>
 
@@ -342,7 +331,6 @@
                       <div class="vf-sublabel">Sebelum masuk ruang pustaka</div>
                     </div>
                   </div>
-                  <!-- Panah turun di bawah kotak ke-3 (kolom ke-5) -->
                   <div class="vf-conn">
                     <div></div><div></div><div></div><div></div>
                     <div class="vf-down"><i class="bi bi-arrow-down"></i></div>
@@ -368,7 +356,7 @@
                   <div class="fc-selesai mt-2"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
                 </div><!-- /fc-desktop -->
 
-                <!-- MOBILE: vertikal berurutan langkah 1→6 -->
+                <!-- MOBILE -->
                 <div class="fc-mobile">
                   <div class="fc-mobile-list">
                     <div class="fc-mobile-step">
@@ -452,33 +440,11 @@
                 </div>
               </div>
 
-              <!-- ======================================================
-                FLOWCHART 2: LAYANAN ONLINE
-                Detail prosedur (7 langkah):
-                  1. Akses portal pst.bps.go.id
-                  2. Registrasi akun
-                  3. Cari pustaka
-                  4. Baca pustaka softcopy
-                  5. Peroleh softcopy berwatermark melalui menu unduh  ← 1 LANGKAH
-                  6. Beri rating
-                  7. Selesai
-
-                PERBAIKAN UTAMA:
-                  Kotak "Peroleh Pustaka" dan "Unduh Watermark" di kode asli
-                  adalah DUA kotak untuk langkah yang SAMA (langkah 5).
-                  Keduanya digabung menjadi SATU kotak:
-                  "Unduh Softcopy Berwatermark" (via menu unduh portal)
-                  → snake-4 (8 kotak) menjadi snake-3 (6 kotak)
-
-                Susunan baru (snake-3):
-                Baris 1 (kiri→kanan): [1]Akses Portal & Registrasi → [2]Cari Pustaka → [3]Baca Softcopy
-                                                                                               ↓
-                Baris 2 (kanan→kiri): [6]Selesai ← [5]Beri Rating ← [4]Unduh Softcopy Berwatermark
-
-                (Langkah "Akses Portal" dan "Registrasi Akun" digabung karena
-                 keduanya adalah prasyarat awal sebelum mengakses pustaka,
-                 bukan dua langkah operasional yang terpisah)
-              ====================================================== -->
+              <!-- FLOWCHART 2: LAYANAN ONLINE
+                   PERUBAHAN: Hapus kotak "Cek Kesesuaian Pustaka" (tidak ada di detail prosedur)
+                   Sehingga baris 2 menjadi: [Selesai] ← [Beri Rating] ← [Unduh Softcopy Berwatermark]
+                   Nomor mobile disesuaikan: maks langkah 5 (selesai)
+              -->
               <div class="sop-flowchart" style="margin-top:26px;">
                 <div class="flowchart-title online"><i class="bi bi-globe"></i> Layanan dengan Cara Online</div>
 
@@ -509,6 +475,8 @@
                     <div class="vf-down gold"><i class="bi bi-arrow-down"></i></div>
                   </div>
                   <div class="vf-row">
+                    <div class="vf-box" style="visibility:hidden;pointer-events:none;border-color:transparent;background:transparent;box-shadow:none;"></div>
+                    <div class="vf-arr gold"><i class="bi bi-arrow-left"></i></div>
                     <div class="vf-box vf-end">
                       <span class="vf-icon white"><i class="bi bi-check-circle"></i></span>
                       <div class="vf-label white">Selesai Layanan</div>
@@ -519,17 +487,11 @@
                       <div class="vf-label">Beri Rating Pelayanan</div>
                       <div class="vf-sublabel">Nilai kepuasan layanan</div>
                     </div>
-                    <div class="vf-arr gold"><i class="bi bi-arrow-left"></i></div>
-                    <div class="vf-box">
-                      <span class="vf-icon gold"><i class="bi bi-file-earmark-check"></i></span>
-                      <div class="vf-label">Cek Kesesuaian Pustaka</div>
-                      <div class="vf-sublabel">Pastikan file sesuai kebutuhan</div>
-                    </div>
                   </div>
                   <div class="fc-selesai mt-2"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
                 </div><!-- /fc-desktop -->
 
-                <!-- MOBILE: vertikal berurutan langkah 1→6 -->
+                <!-- MOBILE: vertikal berurutan langkah 1→5 -->
                 <div class="fc-mobile">
                   <div class="fc-mobile-list">
                     <div class="fc-mobile-step gold-step">
@@ -560,18 +522,9 @@
                     </div>
                     <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
                     <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-file-earmark-check"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 4</div>
-                        <div class="fc-mobile-step-label">Cek Kesesuaian Pustaka</div>
-                        <div class="fc-mobile-step-sub">Pastikan file sesuai kebutuhan</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step gold-step">
                       <div class="fc-mobile-step-icon"><i class="bi bi-star"></i></div>
                       <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 5</div>
+                        <div class="fc-mobile-step-num">Langkah 4</div>
                         <div class="fc-mobile-step-label">Beri Rating Pelayanan</div>
                         <div class="fc-mobile-step-sub">Nilai kepuasan layanan</div>
                       </div>
@@ -580,7 +533,7 @@
                     <div class="fc-mobile-step end-step">
                       <div class="fc-mobile-step-icon"><i class="bi bi-check-circle"></i></div>
                       <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 6</div>
+                        <div class="fc-mobile-step-num">Langkah 5</div>
                         <div class="fc-mobile-step-label">Selesai Layanan</div>
                       </div>
                     </div>
