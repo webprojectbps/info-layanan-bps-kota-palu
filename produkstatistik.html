@@ -243,15 +243,27 @@
       .hero-detail{padding:40px 20px} .hero-title{font-size:clamp(1.3rem,5vw,2rem)} .hero-sub{font-size:.95rem}
       .hero-cta{font-size:.88rem;padding:11px 24px} .content-area{padding:14px 14px 40px}
       .syarat-grid{grid-template-columns:1fr} .jw-grid{grid-template-columns:1fr} .product-grid{grid-template-columns:1fr}
-      .vf-grid-4{grid-template-columns:1fr 22px 1fr 22px 1fr 22px 1fr}
-      .vf-label{font-size:.66rem} .pengajuan-section{padding:20px 14px}
+      .vf-label{font-size:.72rem}
+      .pengajuan-section{padding:20px 14px}
       .pengajuan-tabs{flex-wrap:wrap} .pengajuan-tab{font-size:.8rem;padding:8px 14px}
       .section-head{padding:14px 16px} .section-body{padding:14px 16px}
       .result-row{flex-direction:column;gap:2px} .result-label{min-width:unset}
+      /* Flowchart: 3-col → tumpuk vertikal */
+      .vf-grid-3{grid-template-columns:1fr!important}
+      .vf-grid-3 .vf-arrow-right,.vf-grid-3 .vf-arrow-left{display:none!important}
+      .vf-grid-3 .vf-box{width:100%;max-width:100%}
+      .vf-arrow-down{display:flex!important}
+      /* Sembunyikan panah samping inline juga */
+      .sop-flowchart [style*="justify-content:flex-end"],
+      .sop-flowchart [style*="justify-content:flex-start"]{display:none!important}
+      /* Tampilkan sebagai list vertikal dengan panah bawah */
+      .vf-grid-3{display:flex!important;flex-direction:column;align-items:center;gap:6px}
+      .vf-grid-3 .vf-box{width:100%}
+      /* Tambah separator panah antar kotak */
+      .vf-grid-3 .vf-box:not(:last-child)::after{content:"↓";display:block;text-align:center;font-size:1.2rem;color:#aaa;margin-top:6px}
     }
     @media(max-width:600px) {
       .hero-detail{padding:32px 16px}
-      .vf-grid-4{grid-template-columns:1fr 18px 1fr 18px 1fr 18px 1fr}
       .flowchart-title{font-size:.8rem;padding:9px 12px}
       .emoji-row{gap:5px} .emoji-btn{min-width:50px;padding:9px 8px} .emoji-btn .em{font-size:1.5rem}
       .tiket-number{font-size:1.2rem;padding:10px 16px}
@@ -263,12 +275,13 @@
       .section-head-title{font-size:.88rem} .syarat-card-body{padding:10px 12px} .syarat-num-list li{font-size:.78rem}
       .tiket-number{font-size:1.1rem;letter-spacing:1px} .tiket-box{padding:20px 14px}
       .pengajuan-section{border-radius:10px;padding:16px 12px} .btn-submit{font-size:.84rem;padding:10px 22px}
-      .vf-box{padding:7px 3px 6px;border-radius:7px} .vf-icon{font-size:1.1rem;margin-bottom:2px}
-      .vf-label{font-size:.58rem} .form-control,.form-select{font-size:.84rem;padding:9px 11px}
-      .vf-grid-3{grid-template-columns:1fr 18px 1fr 18px 1fr}
-      .vf-grid-4{grid-template-columns:1fr 16px 1fr 16px 1fr 16px 1fr}
+      .vf-box{padding:10px 10px 10px;border-radius:7px} .vf-icon{font-size:1.2rem;margin-bottom:4px}
+      .vf-label{font-size:.75rem} .form-control,.form-select{font-size:.84rem;padding:9px 11px}
     }
-    @media(max-width:360px) { .hero-title{font-size:1.2rem} .vf-label{font-size:.52rem} .emoji-btn{min-width:42px;padding:7px 5px} .emoji-btn .em{font-size:1.3rem} }
+    @media(max-width:360px) {
+      .hero-title{font-size:1.2rem} .vf-label{font-size:.7rem}
+      .emoji-btn{min-width:42px;padding:7px 5px} .emoji-btn .em{font-size:1.3rem}
+    }
 
     /* ======= MOBILE BOTTOM NAV ======= */
     .mobile-bottom-nav { display:none; position:fixed; bottom:0; left:0; right:0; background:var(--bps-dark); border-top:1px solid rgba(255,255,255,.1); z-index:1000; padding:0; box-shadow:0 -4px 20px rgba(0,0,0,.25); }
