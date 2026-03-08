@@ -3,265 +3,387 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pelayanan Perpustakaan - BPS Kota Palu</title>
+  <title>Pelayanan Konsultasi Statistik - BPS Kota Palu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    :root { --bps-blue:#005baa; --bps-dark:#003f7f; --bps-light:#e8f1fb; --bps-accent:#f4a700; --sb-bg:#003f7f; }
-    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-    html,body { height:100%; }
-    body { font-family:'Plus Jakarta Sans',sans-serif; background:#f0f4f9; display:flex; flex-direction:column; }
-    .navbar { background-color:var(--bps-blue)!important; padding:0; min-height:56px; position:relative; }
-    .btn-back { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.35); border-radius:8px; color:#fff; font-size:1rem; text-decoration:none; transition:background .2s,border-color .2s,transform .15s; position:absolute; top:50%; left:16px; transform:translateY(-50%); }
-    .btn-back:hover { background:rgba(255,255,255,.28); border-color:rgba(255,255,255,.6); color:#fff; transform:translateY(-50%) translateX(-2px); }
-    .page-wrapper { display:flex; flex:1; overflow:hidden; height:calc(100vh - 56px); }
-    .sidebar { width:230px; flex-shrink:0; background:var(--sb-bg); display:flex; flex-direction:column; overflow-y:auto; overflow-x:hidden; border-right:1px solid rgba(255,255,255,.08); }
-    .sb-identity { padding:20px 16px 16px; border-bottom:1px solid rgba(255,255,255,.1); }
-    .sb-icon-box { width:42px; height:42px; border-radius:10px; background:var(--bps-accent); display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:var(--bps-dark); margin-bottom:12px; }
-    .sb-title { font-size:.9rem; font-weight:800; color:#fff; line-height:1.3; margin-bottom:4px; }
-    .sb-sub { font-size:.67rem; color:rgba(255,255,255,.5); line-height:1.5; }
-    .sb-group { padding:14px 12px 6px; }
-    .sb-group-label { font-size:.58rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:6px; padding-left:8px; }
-    .sb-link { display:flex; align-items:center; gap:9px; width:100%; padding:9px 10px 9px 12px; border-radius:8px; font-size:.82rem; font-weight:600; color:rgba(255,255,255,.6); background:none; border:none; text-align:left; cursor:pointer; transition:all .15s; margin-bottom:2px; }
-    .sb-link .sb-ico { font-size:.9rem; flex-shrink:0; }
-    .sb-link .sb-arr { margin-left:auto; font-size:.6rem; color:var(--bps-accent); opacity:0; transition:opacity .15s; flex-shrink:0; }
-    .sb-link:hover { background:rgba(255,255,255,.1); color:#fff; }
-    .sb-link.active { background:rgba(255,255,255,.13); color:#fff; border-left:3px solid var(--bps-accent); padding-left:9px; }
-    .sb-link.active .sb-ico { color:var(--bps-accent); }
-    .sb-link.active .sb-arr { opacity:1; }
-    .sb-footer { margin-top:auto; padding:12px 16px; border-top:1px solid rgba(255,255,255,.1); font-size:.62rem; color:rgba(255,255,255,.3); }
-    .main-area { flex:1; display:flex; flex-direction:column; overflow-y:auto; overflow-x:hidden; min-width:0; }
-    .hero-detail { background:linear-gradient(135deg,var(--bps-dark) 0%,var(--bps-blue) 60%,#1a7fd4 100%); color:white; padding:100px 20px; position:relative; overflow:hidden; flex-shrink:0; text-align:center; }
-    .hero-detail::before { content:''; position:absolute; top:-80px; right:-80px; width:350px; height:350px; border-radius:50%; background:rgba(255,255,255,.05); pointer-events:none; }
-    .hero-detail::after  { content:''; position:absolute; bottom:-100px; left:-60px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,.04); pointer-events:none; }
-    .hero-inner { position:relative; z-index:1; }
-    .hero-badge { display:inline-flex; align-items:center; gap:6px; background:var(--bps-accent); color:var(--bps-dark); font-size:.8rem; font-weight:600; padding:7px 18px; border-radius:50px; margin-bottom:24px; }
-    .hero-title { font-size:clamp(1.6rem,3.5vw,2.8rem); font-weight:800; color:#fff; line-height:1.2; margin-bottom:16px; text-transform:uppercase; letter-spacing:.5px; }
-    .hero-sub { font-size:1.05rem; color:rgba(255,255,255,.85); margin-bottom:32px; line-height:1.65; max-width:560px; margin-left:auto; margin-right:auto; }
-    .hero-cta { display:inline-flex; align-items:center; gap:9px; background:var(--bps-accent); color:var(--bps-dark); font-size:.95rem; font-weight:700; padding:13px 32px; border-radius:50px; text-decoration:none; transition:all .25s; }
-    .hero-cta:hover { background:#ffc107; color:var(--bps-dark); transform:translateY(-2px); box-shadow:0 6px 20px rgba(244,167,0,.45); }
-    .content-area { padding:22px 22px 48px; flex:1; }
-    .content-panel { display:none; }
-    .content-panel.active { display:block; animation:fadeIn .2s ease; }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-    .section-box { background:white; border-radius:14px; box-shadow:0 2px 14px rgba(0,0,0,.07); margin-bottom:18px; overflow:hidden; border:1px solid rgba(0,0,0,.05); }
-    .section-head { display:flex; align-items:center; gap:12px; padding:16px 22px; border-bottom:1px solid #eef2f8; background:linear-gradient(to right,#fafcff,#fff); }
-    .section-head-icon { width:36px; height:36px; border-radius:9px; background:var(--bps-light); display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--bps-blue); flex-shrink:0; }
-    .section-head-title { font-weight:800; color:var(--bps-dark); font-size:.98rem; margin:0; }
-    .section-head-sub { font-size:.72rem; color:#888; font-weight:500; margin:0; }
-    .section-body { padding:20px 22px; }
-    .syarat-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .syarat-card { border-radius:12px; overflow:hidden; border:1px solid rgba(0,0,0,.07); box-shadow:0 2px 8px rgba(0,0,0,.04); }
-    .syarat-card-header { display:flex; align-items:center; gap:10px; padding:13px 16px; }
-    .syarat-card-header.blue { background:var(--bps-blue); }
-    .syarat-card-header.gold { background:var(--bps-accent); }
-    .syarat-card-header.green { background:linear-gradient(135deg,#2e7d32,#388e3c); }
-    .syarat-card-header .sh-icon { width:30px; height:30px; border-radius:7px; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-size:.9rem; color:white; flex-shrink:0; }
-    .syarat-card-header.gold .sh-icon { color:var(--bps-dark); }
-    .syarat-card-header .sh-title { font-weight:700; font-size:.87rem; color:white; }
-    .syarat-card-header.gold .sh-title { color:var(--bps-dark); }
-    .syarat-card-body { padding:14px 16px; background:#fafcff; }
-    .syarat-card-body.gold-body { background:#fffdf5; }
-    .syarat-num-list { list-style:none; padding:0; margin:0; }
-    .syarat-num-list li { display:flex; gap:10px; align-items:flex-start; padding:7px 0; border-bottom:1px solid rgba(0,0,0,.05); font-size:.81rem; color:#444; line-height:1.5; }
-    .syarat-num-list li:last-child { border-bottom:none; padding-bottom:0; }
-    .syarat-num { width:20px; height:20px; border-radius:50%; background:var(--bps-blue); color:white; font-size:.63rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
-    .syarat-num.gold-num { background:var(--bps-accent); color:var(--bps-dark); }
-    .sop-flowchart { margin-bottom:26px; }
-    .sop-flowchart:last-child { margin-bottom:0; }
-    .flowchart-title { font-weight:700; color:white; font-size:.88rem; margin-bottom:16px; padding:11px 16px; border-radius:8px; display:flex; align-items:center; justify-content:center; gap:8px; }
-    .flowchart-title.langsung { background:linear-gradient(135deg,#0056b3,#003f7f); }
-    .flowchart-title.online   { background:linear-gradient(135deg,var(--bps-accent),#ff9800); }
-
-    /* ============================================================
-       DESKTOP FLOWCHART — vf-row + vf-connector-row
-       (pola sama persis dengan rekomendasi & produk berbayar)
-    ============================================================ */
-    .vf-row { display:grid; grid-template-columns:1fr 28px 1fr 28px 1fr; align-items:stretch; gap:0; width:100%; }
-    .vf-box { border:2px solid var(--bps-blue); border-radius:10px; padding:14px 8px 12px; text-align:center; background:white; box-shadow:0 2px 8px rgba(0,91,170,.08); transition:all .25s; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:108px; }
-    .vf-box:hover { box-shadow:0 6px 16px rgba(0,91,170,.16); transform:translateY(-3px); }
-    .vf-box.vf-end { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); border-color:var(--bps-dark); }
-    .vf-icon { font-size:1.5rem; color:var(--bps-blue); margin-bottom:7px; display:block; }
-    .vf-icon.gold { color:var(--bps-accent); }
-    .vf-icon.white { color:#fff; }
-    .vf-label { font-weight:700; color:var(--bps-dark); font-size:.74rem; line-height:1.4; }
-    .vf-label.white { color:#fff; }
-    .vf-sublabel { font-size:.63rem; color:#888; margin-top:3px; line-height:1.3; }
-    .vf-sublabel.white { color:rgba(255,255,255,.75); }
-    .vf-arr { display:flex; align-items:center; justify-content:center; font-size:.95rem; color:var(--bps-blue); width:28px; }
-    .vf-arr.gold { color:var(--bps-accent); }
-    /* Connector row: panah turun tepat di bawah kotak ke-3 (kolom ke-5) */
-    .vf-conn { display:grid; grid-template-columns:1fr 28px 1fr 28px 1fr; height:28px; }
-    .vf-conn .vf-down { grid-column:5; display:flex; justify-content:center; align-items:center; font-size:.95rem; color:var(--bps-blue); }
-    .vf-conn .vf-down.gold { color:var(--bps-accent); }
-
-    .fc-desktop { display:block; }
-    .fc-mobile  { display:none; }
-
-    /* ============================================================
-       MOBILE FLOWCHART — vertikal berurutan
-       (sama persis dengan rekomendasi & produk berbayar)
-    ============================================================ */
-    .fc-mobile-list { display:flex; flex-direction:column; align-items:stretch; }
-    .fc-mobile-step { display:flex; align-items:flex-start; gap:12px; padding:12px 14px; background:white; border-radius:12px; border:2px solid var(--bps-blue); box-shadow:0 2px 8px rgba(0,91,170,.07); }
-    .fc-mobile-step.gold-step { border-color:var(--bps-accent); }
-    .fc-mobile-step.end-step  { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); border-color:var(--bps-dark); }
-    .fc-mobile-step-icon { width:36px; height:36px; border-radius:9px; background:var(--bps-light); display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--bps-blue); flex-shrink:0; }
-    .fc-mobile-step.gold-step .fc-mobile-step-icon { background:#fff3cd; color:var(--bps-accent); }
-    .fc-mobile-step.end-step  .fc-mobile-step-icon { background:rgba(255,255,255,.2); color:#fff; }
-    .fc-mobile-step-content { flex:1; }
-    .fc-mobile-step-num   { font-size:.62rem; font-weight:700; color:var(--bps-blue); text-transform:uppercase; letter-spacing:.8px; margin-bottom:3px; }
-    .fc-mobile-step.gold-step .fc-mobile-step-num { color:var(--bps-accent); }
-    .fc-mobile-step.end-step  .fc-mobile-step-num { color:rgba(255,255,255,.7); }
-    .fc-mobile-step-label { font-size:.82rem; font-weight:700; color:var(--bps-dark); line-height:1.4; }
-    .fc-mobile-step-sub   { font-size:.72rem; color:#888; margin-top:2px; line-height:1.35; }
-    .fc-mobile-step.end-step .fc-mobile-step-label { color:#fff; }
-    .fc-mobile-step.end-step .fc-mobile-step-sub   { color:rgba(255,255,255,.7); }
-    .fc-mobile-arrow { display:flex; justify-content:center; align-items:center; height:22px; font-size:.95rem; color:var(--bps-blue); }
-    .fc-mobile-arrow.gold { color:var(--bps-accent); }
-
-    /* Sembunyikan desktop / tampilkan mobile pada layar kecil */
-    @media(max-width:768px) {
-      .fc-desktop { display:none!important; }
-      .fc-mobile  { display:block!important; }
+    :root {
+      --bps-blue:   #005baa;
+      --bps-dark:   #003f7f;
+      --bps-light:  #e8f1fb;
+      --bps-accent: #f4a700;
+      --sb-bg:      #003f7f;
     }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f0f4f9; display: flex; flex-direction: column; }
 
-    /* ============================================================
-       SISA CSS ASLI — tidak diubah sama sekali
-    ============================================================ */
-    .fc-selesai { text-align:center; color:#4caf50; font-weight:700; margin:4px 0 16px; font-size:.88rem; }
+    /* ======= NAVBAR ======= */
+    .navbar { background-color: var(--bps-blue) !important; padding: 0; min-height: 56px; position: relative; }
+    .btn-back {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 8px; color: #fff; font-size: 1rem; text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      position: absolute; top: 50%; left: 16px; transform: translateY(-50%);
+    }
+    .btn-back:hover { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.6); color: #fff; transform: translateY(-50%) translateX(-2px); }
+
+    /* ======= PAGE WRAPPER ======= */
+    .page-wrapper { display: flex; flex: 1; overflow: hidden; height: calc(100vh - 56px); }
+
+    /* ======= SIDEBAR ======= */
+    .sidebar {
+      width: 230px; flex-shrink: 0; background: var(--sb-bg);
+      display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .sb-identity { padding: 20px 16px 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sb-icon-box { width: 42px; height: 42px; border-radius: 10px; background: var(--bps-accent); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--bps-dark); margin-bottom: 12px; }
+    .sb-title { font-size: 0.9rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 4px; }
+    .sb-sub { font-size: 0.67rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+    .sb-group { padding: 14px 12px 6px; }
+    .sb-group-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 6px; padding-left: 8px; }
+    .sb-link { display: flex; align-items: center; gap: 9px; width: 100%; padding: 9px 10px 9px 12px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.6); background: none; border: none; text-align: left; cursor: pointer; transition: all 0.15s; margin-bottom: 2px; }
+    .sb-link .sb-ico { font-size: 0.9rem; flex-shrink: 0; }
+    .sb-link .sb-arr { margin-left: auto; font-size: 0.6rem; color: var(--bps-accent); opacity: 0; transition: opacity 0.15s; flex-shrink: 0; }
+    .sb-link:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .sb-link.active { background: rgba(255,255,255,0.13); color: #fff; border-left: 3px solid var(--bps-accent); padding-left: 9px; }
+    .sb-link.active .sb-ico { color: var(--bps-accent); }
+    .sb-link.active .sb-arr { opacity: 1; }
+    .sb-footer { margin-top: auto; padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.62rem; color: rgba(255,255,255,0.3); }
+
+    /* ======= MAIN AREA ======= */
+    .main-area { flex: 1; display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; min-width: 0; }
+
+    /* ======= HERO ======= */
+    .hero-detail {
+      background: linear-gradient(135deg, var(--bps-dark) 0%, var(--bps-blue) 60%, #1a7fd4 100%);
+      color: white; padding: 100px 20px;
+      position: relative; overflow: hidden; flex-shrink: 0;
+      text-align: center;
+    }
+    .hero-detail::before { content:''; position:absolute; top:-80px; right:-80px; width:350px; height:350px; border-radius:50%; background:rgba(255,255,255,0.05); pointer-events:none; }
+    .hero-detail::after  { content:''; position:absolute; bottom:-100px; left:-60px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,0.04); pointer-events:none; }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--bps-accent); color: var(--bps-dark); font-size: 0.8rem; font-weight: 600; padding: 7px 18px; border-radius: 50px; margin-bottom: 24px; }
+    .hero-title { font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.85); margin-bottom: 32px; line-height: 1.65; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 9px; background: var(--bps-accent); color: var(--bps-dark); font-size: 0.95rem; font-weight: 700; padding: 13px 32px; border-radius: 50px; text-decoration: none; transition: all 0.25s; }
+    .hero-cta:hover { background: #ffc107; color: var(--bps-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(244,167,0,0.45); }
+
+    /* ======= CONTENT PANELS ======= */
+    .content-area { padding: 22px 22px 48px; flex: 1; }
+    .content-panel { display: none; }
+    .content-panel.active { display: block; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ======= SECTION BOX ======= */
+    .section-box { background: white; border-radius: 14px; box-shadow: 0 2px 14px rgba(0,0,0,0.07); margin-bottom: 18px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); }
+    .section-head { display: flex; align-items: center; gap: 12px; padding: 16px 22px; border-bottom: 1px solid #eef2f8; background: linear-gradient(to right, #fafcff, #fff); }
+    .section-head-icon { width: 36px; height: 36px; border-radius: 9px; background: var(--bps-light); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--bps-blue); flex-shrink: 0; }
+    .section-head-title { font-weight: 800; color: var(--bps-dark); font-size: 0.98rem; margin: 0; }
+    .section-head-sub { font-size: 0.72rem; color: #888; font-weight: 500; margin: 0; }
+    .section-body { padding: 20px 22px; }
+
+    /* ======= PERSYARATAN CARDS ======= */
+    .syarat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .syarat-card { border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.07); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .syarat-card-header { display: flex; align-items: center; gap: 10px; padding: 13px 16px; }
+    .syarat-card-header.blue { background: var(--bps-blue); }
+    .syarat-card-header.gold { background: var(--bps-accent); }
+    .syarat-card-header.green { background: linear-gradient(135deg, #2e7d32, #388e3c); }
+    .syarat-card-header .sh-icon { width: 30px; height: 30px; border-radius: 7px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: white; flex-shrink: 0; }
+    .syarat-card-header.gold .sh-icon { color: var(--bps-dark); }
+    .syarat-card-header .sh-title { font-weight: 700; font-size: 0.87rem; color: white; }
+    .syarat-card-header.gold .sh-title { color: var(--bps-dark); }
+    .syarat-card-body { padding: 14px 16px; background: #fafcff; }
+    .syarat-card-body.gold-body { background: #fffdf5; }
+    .syarat-num-list { list-style: none; padding: 0; margin: 0; }
+    .syarat-num-list li { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.81rem; color: #444; line-height: 1.5; }
+    .syarat-num-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .syarat-num { width: 20px; height: 20px; border-radius: 50%; background: var(--bps-blue); color: white; font-size: 0.63rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .syarat-num.gold-num { background: var(--bps-accent); color: var(--bps-dark); }
+
+    /* ======= SOP FLOWCHART ======= */
+    .sop-flowchart { margin-bottom: 26px; }
+    .sop-flowchart:last-child { margin-bottom: 0; }
+    .flowchart-title { font-weight: 700; color: white; font-size: 0.88rem; margin-bottom: 16px; padding: 11px 16px; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .flowchart-title.langsung { background: linear-gradient(135deg, #0056b3, #003f7f); }
+    .flowchart-title.online   { background: linear-gradient(135deg, var(--bps-accent), #ff9800); }
+    .snake-grid { display:grid; gap:0; margin:12px 0; align-items:center; justify-items:stretch; width:100%; }
+    .snake-3 { grid-template-columns:1fr 32px 1fr 32px 1fr; }
+    .snake-4 { grid-template-columns:1fr 32px 1fr 32px 1fr 32px 1fr; }
+    .sg-box { border:2px solid var(--bps-blue); border-radius:10px; padding:12px 6px 10px; text-align:center; background:white; width:100%; min-width:0; align-self:stretch; justify-self:stretch; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,91,170,0.08); transition:all 0.25s; box-sizing:border-box; }
+    .sg-box:hover { box-shadow:0 6px 16px rgba(0,91,170,0.16); transform:translateY(-3px); }
+    .sg-end { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark))!important; border-color:var(--bps-dark)!important; }
+    .sg-decision { border:2px dashed var(--bps-accent)!important; background:linear-gradient(135deg,rgba(244,167,0,0.04),white)!important; }
+    .sg-icon { font-size:clamp(1.3rem,3vw,1.8rem); color:var(--bps-blue); display:block; margin-bottom:5px; }
+    .sg-label { font-weight:600; color:var(--bps-dark); font-size:clamp(0.58rem,1.7vw,0.76rem); line-height:1.3; }
+    .sg-arr { font-size:clamp(0.9rem,2.5vw,1.3rem); color:var(--bps-blue); display:flex; align-items:center; justify-content:center; width:100%; }
+    .sg-arr-tidak { flex-direction:column; }
+    .sg-arr-tidak span { font-size:clamp(0.5rem,1.4vw,0.62rem); font-weight:700; color:#b87800; display:block; text-align:center; margin-bottom:2px; }
+    .sg-down { flex-direction:column; align-self:stretch; justify-content:center; padding:2px 0; }
+    .sg-ya { color:#2e7d32!important; }
+    .sg-ya span { font-size:clamp(0.5rem,1.4vw,0.62rem); font-weight:700; color:#2e7d32; display:block; text-align:center; margin-top:2px; }
+    .sg-empty { width:100%; }
+    .sg-badge-ya { font-size:clamp(0.5rem,1.4vw,0.62rem); font-weight:700; background:rgba(76,175,80,0.1); color:#2e7d32; border:1px solid rgba(76,175,80,0.4); border-radius:4px; padding:2px 5px; }
+    .sg-badge-tidak { font-size:clamp(0.5rem,1.4vw,0.62rem); font-weight:700; background:rgba(244,167,0,0.12); color:#b87800; border:1px solid rgba(244,167,0,0.4); border-radius:4px; padding:2px 5px; }
+    .fc-selesai { text-align:center; color:#4caf50; font-weight:700; margin:4px 0 16px; font-size:0.88rem; }
     .sop-steps { padding:16px 18px; background:var(--bps-light); border-radius:10px; border-left:4px solid var(--bps-blue); }
     .sop-steps.online-border { border-left-color:var(--bps-accent); }
-    .sop-steps strong.sop-steps-title { color:var(--bps-dark); display:block; margin-bottom:10px; font-size:.84rem; }
-    .sop-steps ol { margin:0; padding-left:18px; font-size:.81rem; line-height:2; color:#555; }
-    .sub-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0; }
-    .sub-card { background:white; border:1.5px solid #dde8f5; border-radius:10px; padding:12px 14px; }
-    .sub-card-title { font-weight:700; color:var(--bps-dark); font-size:.8rem; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
-    .sub-card ol { margin:0; padding-left:16px; font-size:.78rem; line-height:1.75; color:#555; }
-    .jw-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .jw-card { border-radius:12px; overflow:hidden; border:1px solid rgba(0,0,0,.07); box-shadow:0 2px 8px rgba(0,0,0,.04); }
-    .jw-card-header { display:flex; align-items:center; gap:10px; padding:13px 16px; }
-    .jw-card-header.blue { background:var(--bps-blue); }
-    .jw-card-header.gold { background:var(--bps-accent); }
-    .jw-card-header .sh-icon { width:30px; height:30px; border-radius:7px; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-size:.9rem; color:white; flex-shrink:0; }
-    .jw-card-header.gold .sh-icon { color:var(--bps-dark); }
-    .jw-card-header .sh-title { font-weight:700; font-size:.87rem; color:white; }
-    .jw-card-header.gold .sh-title { color:var(--bps-dark); }
-    .jw-card-body { padding:14px 16px; background:#fafcff; font-size:.81rem; color:#444; line-height:1.6; }
-    .jw-card-body.gold-body { background:#fffdf5; }
-    .product-card { border:2px solid var(--bps-blue); border-radius:12px; padding:18px; background:white; transition:all .25s; margin-bottom:14px; }
-    .product-card:last-child { margin-bottom:0; }
-    .product-card:hover { box-shadow:0 6px 20px rgba(0,91,170,.15); transform:translateY(-4px); }
-    .product-card-icon { width:40px; height:40px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:12px; background:rgba(0,91,170,.1); color:var(--bps-blue); }
-    .product-card-title { font-weight:700; color:var(--bps-dark); font-size:.85rem; margin-bottom:6px; }
-    .product-card-sub { font-size:.77rem; color:#666; line-height:1.65; }
-    .pengajuan-section { background:white; border-radius:14px; padding:30px; box-shadow:0 2px 14px rgba(0,0,0,.07); border:1px solid rgba(0,91,170,.08); }
+    .sop-steps strong.sop-steps-title { color:var(--bps-dark); display:block; margin-bottom:10px; font-size:0.84rem; }
+    .sop-steps ol { margin:0; padding-left:18px; font-size:0.81rem; line-height:2; color:#555; }
+
+    /* ======= PRODUCT CARDS (dari rekomendasi) ======= */
+    .product-card { border: 2px solid var(--bps-blue); border-radius: 12px; padding: 18px; background: white; transition: all 0.25s; }
+    .product-card:hover { box-shadow: 0 6px 20px rgba(0,91,170,0.15); transform: translateY(-4px); }
+    .product-card-icon { width: 40px; height: 40px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 12px; background: rgba(0,91,170,0.1); color: var(--bps-blue); }
+    .product-card-title { font-weight: 700; color: var(--bps-dark); font-size: 0.85rem; margin-bottom: 6px; }
+    .product-card-sub { font-size: 0.77rem; color: #666; line-height: 1.65; }
+
+    /* ======= PENGAJUAN FORM ======= */
+    .pengajuan-section { background:white; border-radius:14px; padding:30px; box-shadow:0 2px 14px rgba(0,0,0,0.07); border:1px solid rgba(0,91,170,0.08); }
     .pengajuan-tabs { display:flex; gap:8px; margin-bottom:26px; border-bottom:2px solid #eef2f8; }
-    .pengajuan-tab { padding:9px 22px; border-radius:8px 8px 0 0; font-weight:700; font-size:.87rem; cursor:pointer; border:none; background:transparent; color:#888; margin-bottom:-2px; border-bottom:2px solid transparent; transition:all .2s; font-family:'Plus Jakarta Sans',sans-serif; }
+    .pengajuan-tab { padding:9px 22px; border-radius:8px 8px 0 0; font-weight:700; font-size:0.87rem; cursor:pointer; border:none; background:transparent; color:#888; margin-bottom:-2px; border-bottom:2px solid transparent; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif; }
     .pengajuan-tab.active { color:var(--bps-blue); border-bottom:2px solid var(--bps-blue); background:var(--bps-light); }
     .pengajuan-tab:hover:not(.active) { color:var(--bps-blue); background:#f4f6f9; }
     .tab-content-panel { display:none; }
     .tab-content-panel.active { display:block; }
-    .form-label { font-weight:600; font-size:.84rem; color:var(--bps-dark); margin-bottom:5px; }
-    .form-control,.form-select { border:1.5px solid #e0eaf5; border-radius:10px; padding:10px 14px; font-size:.88rem; transition:border-color .2s; font-family:'Plus Jakarta Sans',sans-serif; }
-    .form-control:focus,.form-select:focus { border-color:var(--bps-blue); box-shadow:0 0 0 3px rgba(0,91,170,.1); }
-    .upload-area { border:2px dashed #c8dff5; border-radius:12px; padding:26px; text-align:center; cursor:pointer; transition:all .2s; background:#f8fafd; position:relative; }
-    .upload-area:hover,.upload-area.dragover { border-color:var(--bps-blue); background:var(--bps-light); }
+    .form-label { font-weight:600; font-size:0.84rem; color:var(--bps-dark); margin-bottom:5px; }
+    .form-control, .form-select { border:1.5px solid #e0eaf5; border-radius:10px; padding:10px 14px; font-size:0.88rem; transition:border-color 0.2s; font-family:'Plus Jakarta Sans',sans-serif; }
+    .form-control:focus, .form-select:focus { border-color:var(--bps-blue); box-shadow:0 0 0 3px rgba(0,91,170,0.1); }
+    .upload-area { border:2px dashed #c8dff5; border-radius:12px; padding:26px; text-align:center; cursor:pointer; transition:all 0.2s; background:#f8fafd; position:relative; }
+    .upload-area:hover, .upload-area.dragover { border-color:var(--bps-blue); background:var(--bps-light); }
     .upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
     .upload-icon { font-size:2rem; color:var(--bps-blue); margin-bottom:8px; }
-    .upload-text { font-size:.85rem; color:#666; }
-    .upload-hint { font-size:.75rem; color:#aaa; margin-top:4px; }
-    .upload-filename { font-size:.82rem; color:var(--bps-blue); font-weight:600; margin-top:8px; }
-    .btn-submit { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); color:white; border:none; border-radius:50px; padding:11px 32px; font-weight:700; font-size:.9rem; cursor:pointer; transition:all .25s; display:inline-flex; align-items:center; gap:8px; font-family:'Plus Jakarta Sans',sans-serif; }
-    .btn-submit:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,91,170,.3); }
-    .btn-submit:disabled { opacity:.7; cursor:not-allowed; }
+    .upload-text { font-size:0.85rem; color:#666; }
+    .upload-hint { font-size:0.75rem; color:#aaa; margin-top:4px; }
+    .upload-filename { font-size:0.82rem; color:var(--bps-blue); font-weight:600; margin-top:8px; }
+    .btn-submit { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); color:white; border:none; border-radius:50px; padding:11px 32px; font-weight:700; font-size:0.9rem; cursor:pointer; transition:all 0.25s; display:inline-flex; align-items:center; gap:8px; font-family:'Plus Jakarta Sans',sans-serif; }
+    .btn-submit:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,91,170,0.3); }
+    .btn-submit:disabled { opacity:0.7; cursor:not-allowed; }
     .tiket-box { background:linear-gradient(135deg,#e8f5e9,#f1f8e9); border:2px solid #a5d6a7; border-radius:16px; padding:30px; text-align:center; display:none; }
     .tiket-box.show { display:block; }
     .tiket-number { font-size:1.8rem; font-weight:800; color:#2e7d32; letter-spacing:2px; margin:12px 0; padding:13px 22px; background:white; border-radius:12px; border:2px dashed #a5d6a7; display:inline-block; }
-    .tiket-warning { font-size:.79rem; color:#666; margin-top:10px; }
-    .status-badge { display:inline-block; padding:6px 16px; border-radius:20px; font-weight:700; font-size:.82rem; }
+    .tiket-warning { font-size:0.79rem; color:#666; margin-top:10px; }
+    .status-badge { display:inline-block; padding:6px 16px; border-radius:20px; font-weight:700; font-size:0.82rem; }
     .status-menunggu { background:#fff3cd; color:#856404; }
     .status-diproses { background:#cff4fc; color:#055160; }
     .status-selesai  { background:#d1e7dd; color:#0a3622; }
     .status-ditolak  { background:#f8d7da; color:#842029; }
     .result-card { background:#f8fafd; border:1px solid #e0eaf5; border-radius:12px; padding:20px; display:none; }
     .result-card.show { display:block; }
-    .result-row { display:flex; gap:12px; margin-bottom:8px; font-size:.84rem; }
+    .result-row { display:flex; gap:12px; margin-bottom:8px; font-size:0.84rem; }
     .result-label { color:#888; min-width:130px; font-weight:600; }
     .result-value { color:#333; }
-    @keyframes fadeInUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ======= RATING EMOJI ======= */
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
     .emoji-row { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
-    .emoji-btn { display:flex; flex-direction:column; align-items:center; gap:5px; background:#f4f6f9; border:2px solid transparent; border-radius:12px; padding:11px 12px; cursor:pointer; transition:all .2s; font-family:'Plus Jakarta Sans',sans-serif; min-width:58px; }
+    .emoji-btn { display:flex; flex-direction:column; align-items:center; gap:5px; background:#f4f6f9; border:2px solid transparent; border-radius:12px; padding:11px 12px; cursor:pointer; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif; min-width:58px; }
     .emoji-btn:hover { background:var(--bps-light); border-color:var(--bps-blue); transform:translateY(-3px) scale(1.06); }
-    .emoji-btn.selected { background:var(--bps-light); border-color:var(--bps-blue); box-shadow:0 4px 14px rgba(0,91,170,.18); transform:translateY(-3px) scale(1.08); }
+    .emoji-btn.selected { background:var(--bps-light); border-color:var(--bps-blue); box-shadow:0 4px 14px rgba(0,91,170,0.18); transform:translateY(-3px) scale(1.08); }
     .emoji-btn .em { font-size:1.8rem; line-height:1; }
-    .emoji-btn .em-label { font-size:.61rem; font-weight:700; color:#666; }
+    .emoji-btn .em-label { font-size:0.61rem; font-weight:700; color:#666; }
     .emoji-btn.selected .em-label { color:var(--bps-blue); }
-    .btn-kirim-rating { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); color:white; border:none; border-radius:50px; padding:9px 26px; font-weight:700; font-size:.84rem; cursor:pointer; margin-top:12px; transition:all .25s; font-family:'Plus Jakarta Sans',sans-serif; display:inline-flex; align-items:center; gap:7px; }
-    .btn-kirim-rating:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,91,170,.3); }
-    .btn-kirim-rating:disabled { opacity:.55; cursor:not-allowed; }
-    .scroll-anchor { scroll-margin-top:80px; }
-    footer { background-color:var(--bps-dark); color:rgba(255,255,255,.8); font-size:.85rem; flex-shrink:0; }
-    @media(max-width:1024px){.sidebar{width:200px}.sb-title{font-size:.82rem}}
-    @media(max-width:768px){.sidebar{display:none}.page-wrapper{height:auto;overflow:visible}.main-area{overflow:visible}.hero-detail{padding:40px 20px}.hero-title{font-size:clamp(1.3rem,5vw,2rem)}.hero-sub{font-size:.95rem}.hero-cta{font-size:.88rem;padding:11px 24px}.content-area{padding:14px 14px 40px}.syarat-grid{grid-template-columns:1fr}.jw-grid{grid-template-columns:1fr}.sub-grid{grid-template-columns:1fr}.pengajuan-section{padding:20px 14px}.pengajuan-tabs{flex-wrap:wrap}.pengajuan-tab{font-size:.8rem;padding:8px 14px}.section-head{padding:14px 16px}.section-body{padding:14px 16px}.result-row{flex-direction:column;gap:2px}.result-label{min-width:unset}}
-    @media(max-width:600px){.hero-detail{padding:32px 16px}.sop-steps ol{font-size:.78rem;line-height:1.9}.flowchart-title{font-size:.8rem;padding:9px 12px}.emoji-row{gap:5px}.emoji-btn{min-width:50px;padding:9px 8px}.emoji-btn .em{font-size:1.5rem}.tiket-number{font-size:1.2rem;padding:10px 16px}.row.g-3>[class*="col-md-6"]{flex:0 0 100%;max-width:100%}}
-    @media(max-width:480px){.hero-detail{padding:26px 14px}.hero-badge{font-size:.72rem;padding:6px 14px}.hero-cta{font-size:.82rem;padding:10px 20px}.section-box{border-radius:10px}.section-body{padding:12px}.section-head{padding:12px 14px;gap:10px}.section-head-title{font-size:.88rem}.syarat-card-body{padding:10px 12px}.syarat-num-list li{font-size:.78rem}.tiket-number{font-size:1.1rem;letter-spacing:1px}.tiket-box{padding:20px 14px}.pengajuan-section{border-radius:10px;padding:16px 12px}.btn-submit{font-size:.84rem;padding:10px 22px}.form-control,.form-select{font-size:.84rem;padding:9px 11px}}
-    @media(max-width:360px){.hero-title{font-size:1.2rem}.emoji-btn{min-width:42px;padding:7px 5px}.emoji-btn .em{font-size:1.3rem}}
-    .mobile-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bps-dark);border-top:1px solid rgba(255,255,255,.1);z-index:1000;padding:0;box-shadow:0 -4px 20px rgba(0,0,0,.25)}
-    .mbn-inner{display:flex;align-items:stretch;justify-content:space-around;height:60px}
-    .mbn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:3px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.5);font-size:.56rem;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;padding:6px 2px;border-top:2px solid transparent;transition:all .18s;text-transform:uppercase;letter-spacing:.4px}
-    .mbn-item i{font-size:1.15rem;display:block}
-    .mbn-item:hover{color:rgba(255,255,255,.8)}
-    .mbn-item.active{color:var(--bps-accent);border-top-color:var(--bps-accent)}
-    .mbn-item.active i{color:var(--bps-accent)}
-    @media(max-width:768px){.mobile-bottom-nav{display:block}.main-area{padding-bottom:60px}.content-area{padding-bottom:80px}.info-banner-grid{grid-template-columns:1fr!important}.cara-grid{grid-template-columns:1fr 1fr!important}}
-    @media(max-width:480px){.cara-grid{grid-template-columns:1fr 1fr!important}.info-banner-grid{grid-template-columns:1fr!important}}
-    @media(max-width:360px){.cara-grid{grid-template-columns:1fr!important}}
+    .btn-kirim-rating { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); color:white; border:none; border-radius:50px; padding:9px 26px; font-weight:700; font-size:0.84rem; cursor:pointer; margin-top:12px; transition:all 0.25s; font-family:'Plus Jakarta Sans',sans-serif; display:inline-flex; align-items:center; gap:7px; }
+    .btn-kirim-rating:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,91,170,0.3); }
+    .btn-kirim-rating:disabled { opacity:0.55; cursor:not-allowed; }
+
+    /* ======= SCROLL ANCHOR OFFSET ======= */
+    .scroll-anchor { scroll-margin-top: 80px; }
+
+    /* ======= FOOTER ======= */
+    footer { background-color:var(--bps-dark); color:rgba(255,255,255,0.8); font-size:0.85rem; flex-shrink:0; }
+
+    /* ======= RESPONSIVE ======= */
+    @media (max-width:1024px) {
+      .sidebar { width: 200px; }
+      .sb-title { font-size: 0.82rem; }
+      .snake-4 { grid-template-columns:1fr 28px 1fr 28px 1fr 28px 1fr; }
+    }
+    @media (max-width:768px) {
+      .sidebar { display:none; }
+      .page-wrapper { height: auto; overflow: visible; }
+      .main-area { overflow: visible; }
+      .hero-detail { padding: 40px 20px; }
+      .hero-title { font-size: clamp(1.3rem, 5vw, 2rem); }
+      .hero-sub { font-size: 0.95rem; }
+      .hero-cta { font-size: 0.88rem; padding: 11px 24px; }
+      .content-area { padding: 14px 14px 40px; }
+      .syarat-grid { grid-template-columns: 1fr; }
+      .snake-3 { grid-template-columns: 1fr 22px 1fr 22px 1fr; }
+      .snake-4 { grid-template-columns: 1fr 18px 1fr 18px 1fr 18px 1fr; }
+      .sg-label { font-size: clamp(0.52rem, 1.5vw, 0.68rem); }
+      .pengajuan-section { padding: 20px 14px; }
+      .pengajuan-tabs { flex-wrap: wrap; }
+      .pengajuan-tab { font-size: 0.8rem; padding: 8px 14px; }
+      .section-head { padding: 14px 16px; }
+      .section-body { padding: 14px 16px; }
+      .result-row { flex-direction: column; gap: 2px; }
+      .result-label { min-width: unset; }
+    }
+    @media (max-width:600px) {
+      .hero-detail { padding: 32px 16px; }
+      .snake-3 { grid-template-columns: 1fr 18px 1fr 18px 1fr; }
+      .snake-4 { grid-template-columns: 1fr 14px 1fr 14px 1fr 14px 1fr; }
+      .sop-steps ol { font-size: 0.78rem; line-height: 1.9; }
+      .flowchart-title { font-size: 0.8rem; padding: 9px 12px; }
+      .emoji-row { gap: 5px; }
+      .emoji-btn { min-width: 50px; padding: 9px 8px; }
+      .emoji-btn .em { font-size: 1.5rem; }
+      .tiket-number { font-size: 1.2rem; padding: 10px 16px; }
+      .row.g-3 > [class*="col-md-6"] { flex: 0 0 100%; max-width: 100%; }
+    }
+    @media (max-width:480px) {
+      .hero-detail { padding: 26px 14px; }
+      .hero-badge { font-size: 0.72rem; padding: 6px 14px; }
+      .hero-cta { font-size: 0.82rem; padding: 10px 20px; }
+      .section-box { border-radius: 10px; }
+      .section-body { padding: 12px; }
+      .section-head { padding: 12px 14px; gap: 10px; }
+      .section-head-title { font-size: 0.88rem; }
+      .syarat-card-body { padding: 10px 12px; }
+      .syarat-num-list li { font-size: 0.78rem; }
+      .tiket-number { font-size: 1.1rem; letter-spacing: 1px; }
+      .tiket-box { padding: 20px 14px; }
+      .pengajuan-section { border-radius: 10px; padding: 16px 12px; }
+      .btn-submit { font-size: 0.84rem; padding: 10px 22px; }
+      .snake-3 { grid-template-columns: 1fr 14px 1fr 14px 1fr; gap: 0; }
+      .snake-4 { grid-template-columns: 1fr 11px 1fr 11px 1fr 11px 1fr; }
+      .sg-box { padding: 8px 3px 7px; border-radius: 7px; }
+      .sg-icon { font-size: 1.1rem; margin-bottom: 3px; }
+      .sg-label { font-size: 0.5rem; }
+      .sg-arr { font-size: 0.8rem; }
+      .form-control, .form-select { font-size: 0.84rem; padding: 9px 11px; }
+    }
+    @media (max-width:360px) {
+      .hero-title { font-size: 1.2rem; }
+      .snake-4 { grid-template-columns: 1fr 9px 1fr 9px 1fr 9px 1fr; }
+      .sg-label { font-size: 0.46rem; }
+      .emoji-btn { min-width: 42px; padding: 7px 5px; }
+      .emoji-btn .em { font-size: 1.3rem; }
+    }
+
+    /* ======= MOBILE BOTTOM NAV ======= */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--bps-dark);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      z-index: 1000;
+      padding: 0;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    }
+    .mbn-inner {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-around;
+      height: 60px;
+    }
+    .mbn-item {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      flex: 1; gap: 3px; background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.5); font-size: 0.56rem; font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif; padding: 6px 2px;
+      border-top: 2px solid transparent; transition: all 0.18s;
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .mbn-item i { font-size: 1.15rem; display: block; }
+    .mbn-item:hover { color: rgba(255,255,255,0.8); }
+    .mbn-item.active { color: var(--bps-accent); border-top-color: var(--bps-accent); }
+    .mbn-item.active i { color: var(--bps-accent); }
+
+    @media (max-width:768px) {
+      .mobile-bottom-nav { display: block; }
+      .main-area { padding-bottom: 60px; }
+      .content-area { padding-bottom: 80px; }
+    }
+    @media (max-width:768px) {
+      .info-banner-grid { grid-template-columns: 1fr !important; }
+      .cara-grid { grid-template-columns: 1fr 1fr !important; }
+    }
+    @media (max-width:480px) {
+      .cara-grid { grid-template-columns: 1fr 1fr !important; }
+      .info-banner-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width:360px) {
+      .cara-grid { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container">
-    <a class="btn-back" href="index.html" title="Kembali"><i class="bi bi-arrow-left"></i></a>
+    <a class="btn-back" href="index.html" title="Kembali">
+      <i class="bi bi-arrow-left"></i>
+    </a>
   </div>
 </nav>
 
 <div class="page-wrapper">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sb-identity">
-      <div class="sb-icon-box"><i class="bi bi-book"></i></div>
-      <div class="sb-title">Pelayanan Perpustakaan</div>
+      <div class="sb-icon-box"><i class="bi bi-bar-chart-steps"></i></div>
+      <div class="sb-title">Konsultasi Statistik</div>
       <div class="sb-sub">BPS Kota Palu — Pelayanan Terpadu Statistik</div>
     </div>
     <div class="sb-group">
       <div class="sb-group-label">Informasi Layanan</div>
-      <button class="sb-link active" onclick="scrollToSection('section-persyaratan',this)"><i class="bi bi-clipboard-check sb-ico"></i> Persyaratan<i class="bi bi-chevron-right sb-arr"></i></button>
-      <button class="sb-link" onclick="scrollToSection('section-sop',this)"><i class="bi bi-diagram-3 sb-ico"></i> SOP &amp; Prosedur<i class="bi bi-chevron-right sb-arr"></i></button>
-      <button class="sb-link" onclick="scrollToSection('section-jangka',this)"><i class="bi bi-clock sb-ico"></i> Jangka Waktu<i class="bi bi-chevron-right sb-arr"></i></button>
-      <button class="sb-link" onclick="scrollToSection('section-biaya',this)"><i class="bi bi-tag sb-ico"></i> Biaya &amp; Produk<i class="bi bi-chevron-right sb-arr"></i></button>
+      <button class="sb-link active" onclick="scrollToSection('section-persyaratan', this)">
+        <i class="bi bi-clipboard-check sb-ico"></i> Persyaratan
+        <i class="bi bi-chevron-right sb-arr"></i>
+      </button>
+      <button class="sb-link" onclick="scrollToSection('section-sop', this)">
+        <i class="bi bi-diagram-3 sb-ico"></i> SOP &amp; Prosedur
+        <i class="bi bi-chevron-right sb-arr"></i>
+      </button>
+      <button class="sb-link" onclick="scrollToSection('section-jangka', this)">
+        <i class="bi bi-clock sb-ico"></i> Jangka Waktu
+        <i class="bi bi-chevron-right sb-arr"></i>
+      </button>
+      <button class="sb-link" onclick="scrollToSection('section-biaya', this)">
+        <i class="bi bi-tag sb-ico"></i> Biaya &amp; Produk
+        <i class="bi bi-chevron-right sb-arr"></i>
+      </button>
     </div>
     <div class="sb-group">
       <div class="sb-group-label">Pengajuan</div>
-      <button class="sb-link" onclick="showPanel('ajukan',this)"><i class="bi bi-send sb-ico"></i> Ajukan Layanan<i class="bi bi-chevron-right sb-arr"></i></button>
+      <button class="sb-link" onclick="showPanel('ajukan', this)">
+        <i class="bi bi-send sb-ico"></i> Ajukan Layanan
+        <i class="bi bi-chevron-right sb-arr"></i>
+      </button>
     </div>
     <div class="sb-footer">© 2026 BPS Kota Palu</div>
   </aside>
 
+  <!-- MAIN AREA -->
   <div class="main-area" id="main-area">
+
+    <!-- HERO -->
     <section class="hero-detail">
       <div class="hero-inner">
         <div class="hero-badge"><i class="bi bi-patch-check-fill"></i> Layanan Resmi Pemerintah</div>
-        <h1 class="hero-title">Pelayanan Perpustakaan</h1>
-        <p class="hero-sub">Layanan akses pustaka tercetak dan digital BPS Kota Palu</p>
-        <a class="hero-cta" href="#" onclick="scrollToSection('section-persyaratan',document.querySelector('.sb-link'));return false;"><i class="bi bi-grid-fill"></i> Jelajahi Informasi Layanan</a>
+        <h1 class="hero-title">Pelayanan Konsultasi Statistik</h1>
+        <p class="hero-sub">Layanan Konsultasi data, metadata, dan klasifikasi statistik</p>
+        <a class="hero-cta" href="#" onclick="scrollToSection('section-persyaratan', document.querySelector('.sb-link')); return false;">
+          <i class="bi bi-grid-fill"></i> Jelajahi Informasi Layanan
+        </a>
       </div>
     </section>
 
     <div class="content-area">
 
-      <!-- PANEL INFO -->
+      <!-- ===== PANEL: INFORMASI LAYANAN ===== -->
       <div id="panel-info" class="content-panel active">
 
         <!-- PERSYARATAN -->
@@ -269,26 +391,36 @@
           <div class="section-box">
             <div class="section-head">
               <div class="section-head-icon"><i class="bi bi-clipboard-check"></i></div>
-              <div><p class="section-head-title">Persyaratan</p><p class="section-head-sub">Ketentuan yang diperlukan untuk mengakses layanan</p></div>
+              <div>
+                <p class="section-head-title">Persyaratan</p>
+                <p class="section-head-sub">Ketentuan yang diperlukan untuk mengakses layanan</p>
+              </div>
             </div>
             <div class="section-body">
               <div class="syarat-grid">
                 <div class="syarat-card">
-                  <div class="syarat-card-header blue"><div class="sh-icon"><i class="bi bi-building"></i></div><span class="sh-title">Kunjungan Langsung</span></div>
+                  <div class="syarat-card-header blue">
+                    <div class="sh-icon"><i class="bi bi-building"></i></div>
+                    <span class="sh-title">Kunjungan Langsung</span>
+                  </div>
                   <div class="syarat-card-body">
                     <ul class="syarat-num-list">
-                      <li><span class="syarat-num">1</span><span>Pengguna layanan berkunjung ke unit Pelayanan Statistik Terpadu (PST) BPS</span></li>
-                      <li><span class="syarat-num">2</span><span>Pengguna layanan memiliki alamat email yang masih aktif</span></li>
-                      <li><span class="syarat-num">3</span><span>Pengguna layanan mengisi buku tamu</span></li>
+                      <li><span class="syarat-num">1</span><span>Berkunjung ke unit Pelayanan Terpadu Statistik (PST) BPS</span></li>
+                      <li><span class="syarat-num">2</span><span>Memiliki alamat email aktif</span></li>
+                      <li><span class="syarat-num">3</span><span>Mengisi buku tamu</span></li>
+                      <li><span class="syarat-num">4</span><span>Mengajukan permintaan konsultasi statistik kepada petugas</span></li>
                     </ul>
                   </div>
                 </div>
                 <div class="syarat-card">
-                  <div class="syarat-card-header gold"><div class="sh-icon"><i class="bi bi-globe" style="color:var(--bps-dark);"></i></div><span class="sh-title">Layanan Online</span></div>
+                  <div class="syarat-card-header gold">
+                    <div class="sh-icon"><i class="bi bi-globe" style="color:var(--bps-dark);"></i></div>
+                    <span class="sh-title">Layanan Online</span>
+                  </div>
                   <div class="syarat-card-body gold-body">
                     <ul class="syarat-num-list">
-                      <li><span class="syarat-num gold-num">1</span><span>Pengguna layanan memiliki alamat email yang masih aktif</span></li>
-                      <li><span class="syarat-num gold-num">2</span><span>Pengguna layanan memiliki akun pada portal <strong>pst.bps.go.id</strong></span></li>
+                      <li><span class="syarat-num gold-num">1</span><span>Memiliki akun pada portal <strong>pst.bps.go.id</strong></span></li>
+                      <li><span class="syarat-num gold-num">2</span><span>Mengajukan permintaan konsultasi melalui portal pst.bps.go.id</span></li>
                     </ul>
                   </div>
                 </div>
@@ -302,272 +434,81 @@
           <div class="section-box">
             <div class="section-head">
               <div class="section-head-icon"><i class="bi bi-diagram-3"></i></div>
-              <div><p class="section-head-title">SOP &amp; Prosedur</p><p class="section-head-sub">Alur standar operasional pelayanan perpustakaan</p></div>
+              <div>
+                <p class="section-head-title">SOP &amp; Prosedur</p>
+                <p class="section-head-sub">Alur standar operasional pelayanan konsultasi statistik</p>
+              </div>
             </div>
             <div class="section-body">
-
-              <!-- FLOWCHART 1: KUNJUNGAN LANGSUNG — tidak diubah -->
               <div class="sop-flowchart">
-                <div class="flowchart-title langsung"><i class="bi bi-building"></i> Layanan dengan Kunjungan Langsung</div>
-
-                <!-- DESKTOP -->
-                <div class="fc-desktop">
-                  <div class="vf-row">
-                    <div class="vf-box">
-                      <span class="vf-icon"><i class="bi bi-building"></i></span>
-                      <div class="vf-label">Kunjungi PST BPS</div>
-                      <div class="vf-sublabel">Datang ke unit layanan statistik</div>
-                    </div>
-                    <div class="vf-arr"><i class="bi bi-arrow-right"></i></div>
-                    <div class="vf-box">
-                      <span class="vf-icon"><i class="bi bi-pencil-square"></i></span>
-                      <div class="vf-label">Isi Buku Tamu</div>
-                      <div class="vf-sublabel">Lengkapi data kunjungan</div>
-                    </div>
-                    <div class="vf-arr"><i class="bi bi-arrow-right"></i></div>
-                    <div class="vf-box">
-                      <span class="vf-icon"><i class="bi bi-bag-check"></i></span>
-                      <div class="vf-label">Titip Tas di Loker</div>
-                      <div class="vf-sublabel">Sebelum masuk ruang pustaka</div>
-                    </div>
-                  </div>
-                  <div class="vf-conn">
-                    <div></div><div></div><div></div><div></div>
-                    <div class="vf-down"><i class="bi bi-arrow-down"></i></div>
-                  </div>
-                  <div class="vf-row">
-                    <div class="vf-box vf-end">
-                      <span class="vf-icon white"><i class="bi bi-check-circle"></i></span>
-                      <div class="vf-label white">Selesai Layanan</div>
-                    </div>
-                    <div class="vf-arr"><i class="bi bi-arrow-left"></i></div>
-                    <div class="vf-box">
-                      <span class="vf-icon"><i class="bi bi-star"></i></span>
-                      <div class="vf-label">Beri Rating Pelayanan</div>
-                      <div class="vf-sublabel">Nilai kepuasan layanan</div>
-                    </div>
-                    <div class="vf-arr"><i class="bi bi-arrow-left"></i></div>
-                    <div class="vf-box">
-                      <span class="vf-icon"><i class="bi bi-journal-richtext"></i></span>
-                      <div class="vf-label">Akses Pustaka</div>
-                      <div class="vf-sublabel">Baca hardcopy atau unduh softcopy berwatermark</div>
-                    </div>
-                  </div>
-                  <div class="fc-selesai mt-2"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
-                </div><!-- /fc-desktop -->
-
-                <!-- MOBILE -->
-                <div class="fc-mobile">
-                  <div class="fc-mobile-list">
-                    <div class="fc-mobile-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-building"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 1</div>
-                        <div class="fc-mobile-step-label">Kunjungi PST BPS</div>
-                        <div class="fc-mobile-step-sub">Datang ke unit layanan statistik</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-pencil-square"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 2</div>
-                        <div class="fc-mobile-step-label">Isi Buku Tamu</div>
-                        <div class="fc-mobile-step-sub">Lengkapi data kunjungan</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-bag-check"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 3</div>
-                        <div class="fc-mobile-step-label">Titip Tas di Loker</div>
-                        <div class="fc-mobile-step-sub">Sebelum masuk ruang pustaka</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-journal-richtext"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 4</div>
-                        <div class="fc-mobile-step-label">Akses Pustaka</div>
-                        <div class="fc-mobile-step-sub">Baca hardcopy atau unduh softcopy berwatermark</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-star"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 5</div>
-                        <div class="fc-mobile-step-label">Beri Rating Pelayanan</div>
-                        <div class="fc-mobile-step-sub">Nilai kepuasan layanan</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step end-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-check-circle"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 6</div>
-                        <div class="fc-mobile-step-label">Selesai Layanan</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
-                </div><!-- /fc-mobile -->
-
+                <div class="flowchart-title langsung"><i class="bi bi-person-lines-fill"></i> Layanan dengan Kunjungan Langsung</div>
+                <div class="snake-grid snake-3">
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-door-open"></i></span><div class="sg-label">Berkunjung ke<br>PST BPS</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-pencil-square"></i></span><div class="sg-label">Isi Buku<br>Tamu</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-123"></i></span><div class="sg-label">Ambil Nomor<br>Antrian</div></div>
+                  <div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div>
+                  <div class="sg-arr sg-down"><i class="bi bi-arrow-down"></i></div>
+                  <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-patch-check"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-person-workspace"></i></span><div class="sg-label">Konsultasi<br>Petugas</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-hourglass-top"></i></span><div class="sg-label">Tunggu<br>Giliran</div></div>
+                </div>
+                <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
                 <div class="sop-steps">
                   <strong class="sop-steps-title">Detail Prosedur Kunjungan Langsung:</strong>
                   <ol>
-                    <li>Pengguna layanan mengunjungi unit PST BPS</li>
-                    <li>Pengguna layanan mengisi buku tamu</li>
-                    <li>Pengguna layanan meletakkan tas pada loker</li>
-                    <li>Pengguna layanan mengakses layanan perpustakaan:</li>
-                  </ol>
-                  <div class="sub-grid">
-                    <div class="sub-card">
-                      <div class="sub-card-title"><i class="bi bi-file-earmark-text" style="color:var(--bps-blue);"></i> Perpustakaan Tercetak</div>
-                      <ol><li>Membaca pustaka hardcopy pada ruang layanan</li><li>Dapat memanfaatkan alat pemindai secara mandiri</li></ol>
-                    </div>
-                    <div class="sub-card">
-                      <div class="sub-card-title"><i class="bi bi-laptop" style="color:var(--bps-accent);"></i> Perpustakaan Digital</div>
-                      <ol><li>Membaca pustaka softcopy via portal pst.bps.go.id</li><li>Memperoleh pustaka softcopy via portal pst.bps.go.id</li></ol>
-                    </div>
-                  </div>
-                  <ol start="5">
-                    <li>Memberikan penilaian/rating terhadap kualitas pelayanan</li>
-                    <li>Selesai mengakses layanan perpustakaan</li>
+                    <li>Berkunjung ke unit Pelayanan Terpadu Statistik (PST) BPS</li>
+                    <li>Mengisi buku tamu dengan lengkap</li>
+                    <li>Mengambil nomor antrian</li>
+                    <li>Menunggu giliran sesuai nomor antrian (maksimal 10 menit)</li>
+                    <li>Menyampaikan kebutuhan konsultasi kepada petugas</li>
+                    <li>Menerima informasi dan penjelasan dari petugas BPS</li>
                   </ol>
                 </div>
               </div>
-
-              <!-- FLOWCHART 2: LAYANAN ONLINE
-                   PERUBAHAN: Hapus kotak "Cek Kesesuaian Pustaka" (tidak ada di detail prosedur)
-                   Sehingga baris 2 menjadi: [Selesai] ← [Beri Rating] ← [Unduh Softcopy Berwatermark]
-                   Nomor mobile disesuaikan: maks langkah 5 (selesai)
-              -->
               <div class="sop-flowchart" style="margin-top:26px;">
-                <div class="flowchart-title online"><i class="bi bi-globe"></i> Layanan dengan Cara Online</div>
-
-                <!-- DESKTOP -->
-                <div class="fc-desktop">
-                  <div class="vf-row">
-                    <div class="vf-box">
-                      <span class="vf-icon gold"><i class="bi bi-globe"></i></span>
-                      <div class="vf-label">Akses Portal</div>
-                      <div class="vf-sublabel">Buka pst.bps.go.id</div>
-                    </div>
-                    <div class="vf-arr gold"><i class="bi bi-arrow-right"></i></div>
-                    <div class="vf-box">
-                      <span class="vf-icon gold"><i class="bi bi-person-plus"></i></span>
-                      <div class="vf-label">Registrasi Akun</div>
-                      <div class="vf-sublabel">Buat akun di pst.bps.go.id</div>
-                    </div>
-                    <div class="vf-arr gold"><i class="bi bi-arrow-right"></i></div>
-                    <div class="vf-box">
-                      <span class="vf-icon gold"><i class="bi bi-search"></i></span>
-                      <div class="vf-label">Cari &amp; Baca Pustaka Softcopy</div>
-                      <div class="vf-sublabel">Telusuri dan baca koleksi digital</div>
-                    </div>
+                <div class="flowchart-title online"><i class="bi bi-laptop"></i> Layanan dengan Cara Online</div>
+                <div class="snake-grid snake-4">
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-browser-chrome"></i></span><div class="sg-label">Akses<br>Portal</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-search"></i></span><div class="sg-label">Cari<br>Informasi</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
+                  <div class="sg-box sg-decision">
+                    <span class="sg-icon" style="color:var(--bps-accent);"><i class="bi bi-question-circle"></i></span>
+                    <div class="sg-label">Informasi<br>Ditemukan?</div>
+                    <div style="display:flex;gap:4px;margin-top:6px;justify-content:center;"><span class="sg-badge-ya">✓ Ya</span><span class="sg-badge-tidak">✗ Tidak</span></div>
                   </div>
-                  <!-- Panah turun di bawah kotak ke-3 (kolom ke-5) -->
-                  <div class="vf-conn">
-                    <div></div><div></div><div></div><div></div>
-                    <div class="vf-down gold"><i class="bi bi-arrow-down"></i></div>
-                  </div>
-                  <div class="vf-row">
-                    <div class="vf-box vf-end">
-                      <span class="vf-icon white"><i class="bi bi-check-circle"></i></span>
-                      <div class="vf-label white">Selesai Layanan</div>
-                    </div>
-                    <div class="vf-arr gold"><i class="bi bi-arrow-left"></i></div>
-                    <div class="vf-box">
-                      <span class="vf-icon gold"><i class="bi bi-star"></i></span>
-                      <div class="vf-label">Beri Rating Pelayanan</div>
-                      <div class="vf-sublabel">Nilai kepuasan layanan</div>
-                    </div>
-                    <div class="vf-arr gold"><i class="bi bi-arrow-left"></i></div>
-                    <div class="vf-box">
-                      <span class="vf-icon gold"><i class="bi bi-download"></i></span>
-                      <div class="vf-label">Unduh Softcopy Berwatermark</div>
-                      <div class="vf-sublabel">Peroleh file via menu unduh portal</div>
-                    </div>
-                  </div>
-                  <div class="fc-selesai mt-2"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
-                </div><!-- /fc-desktop -->
-
-                <!-- MOBILE: vertikal berurutan langkah 1→5 -->
-                <div class="fc-mobile">
-                  <div class="fc-mobile-list">
-                    <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-globe"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 1</div>
-                        <div class="fc-mobile-step-label">Akses Portal</div>
-                        <div class="fc-mobile-step-sub">Buka pst.bps.go.id</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-person-plus"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 2</div>
-                        <div class="fc-mobile-step-label">Registrasi Akun</div>
-                        <div class="fc-mobile-step-sub">Buat akun di pst.bps.go.id</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-search"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 3</div>
-                        <div class="fc-mobile-step-label">Cari &amp; Baca Pustaka Softcopy</div>
-                        <div class="fc-mobile-step-sub">Telusuri dan baca koleksi digital</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-download"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 4</div>
-                        <div class="fc-mobile-step-label">Unduh Softcopy Berwatermark</div>
-                        <div class="fc-mobile-step-sub">Peroleh file via menu unduh portal</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-star"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 5</div>
-                        <div class="fc-mobile-step-label">Beri Rating Pelayanan</div>
-                        <div class="fc-mobile-step-sub">Nilai kepuasan layanan</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step end-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-check-circle"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 6</div>
-                        <div class="fc-mobile-step-label">Selesai Layanan</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
-                </div><!-- /fc-mobile -->
-
+                  <div class="sg-arr sg-arr-tidak"><span>Tidak</span><i class="bi bi-arrow-right"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-file-earmark-plus"></i></span><div class="sg-label">Buat<br>Konsultasi</div></div>
+                  <div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div>
+                  <div class="sg-arr sg-down sg-ya"><i class="bi bi-arrow-down"></i><span>Ya</span></div>
+                  <div class="sg-empty"></div>
+                  <div class="sg-arr sg-down"><i class="bi bi-arrow-down"></i></div>
+                  <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-patch-check"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-clipboard2-data"></i></span><div class="sg-label">Beri<br>Rating</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-inbox-fill"></i></span><div class="sg-label">Terima<br>Informasi</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-send-check"></i></span><div class="sg-label">Ajukan<br>Konsultasi</div></div>
+                </div>
+                <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
                 <div class="sop-steps online-border">
                   <strong class="sop-steps-title">Detail Prosedur Layanan Online:</strong>
                   <ol>
-                    <li>Mengakses layanan perpustakaan melalui portal pst.bps.go.id</li>
-                    <li>Melakukan registrasi akun</li>
-                    <li>Mencari/searching pustaka yang dibutuhkan</li>
-                    <li>Membaca pustaka softcopy</li>
-                    <li>Memperoleh pustaka softcopy berwatermark melalui menu unduh</li>
-                    <li>Memberikan penilaian/rating terhadap kualitas pelayanan</li>
-                    <li>Selesai mengakses layanan perpustakaan</li>
+                    <li>Mengakses portal pst.bps.go.id dengan akun Anda</li>
+                    <li>Mencari informasi statistik yang diinginkan melalui fitur pencarian</li>
+                    <li>Jika informasi tidak ditemukan, membuat konsultasi baru</li>
+                    <li>Mengajukan konsultasi statistik melalui portal</li>
+                    <li>Menunggu respons dari petugas BPS (maksimal 3 hari kerja)</li>
+                    <li>Menerima informasi dan penjelasan statistik melalui portal</li>
+                    <li>Memberikan penilaian (rating) terhadap kualitas pelayanan</li>
                   </ol>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -577,39 +518,64 @@
           <div class="section-box">
             <div class="section-head">
               <div class="section-head-icon"><i class="bi bi-clock"></i></div>
-              <div><p class="section-head-title">Jangka Waktu Pelayanan</p><p class="section-head-sub">Estimasi waktu penyelesaian layanan perpustakaan</p></div>
+              <div>
+                <p class="section-head-title">Jangka Waktu Pelayanan</p>
+                <p class="section-head-sub">Estimasi waktu penyelesaian layanan konsultasi statistik</p>
+              </div>
             </div>
             <div class="section-body">
-              <div class="jw-grid">
-                <div class="jw-card">
-                  <div class="jw-card-header blue"><div class="sh-icon"><i class="bi bi-building"></i></div><span class="sh-title">Kunjungan Langsung</span></div>
-                  <div class="jw-card-body">Pustaka <strong>hardcopy</strong> dan <strong>softcopy berwatermark</strong> tersedia langsung saat kunjungan.</div>
+              <div class="syarat-grid">
+                <div class="syarat-card">
+                  <div class="syarat-card-header blue">
+                    <div class="sh-icon"><i class="bi bi-building"></i></div>
+                    <span class="sh-title">Kunjungan Langsung</span>
+                  </div>
+                  <div class="syarat-card-body">
+                    <ul class="syarat-num-list">
+                      <li>
+                        <span class="syarat-num" style="font-size:0.55rem;width:22px;height:22px;"><i class="bi bi-clock"></i></span>
+                        <span>Maksimal <strong>10 menit</strong> setelah antrian sebelumnya selesai dilayani oleh petugas BPS.</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div class="jw-card">
-                  <div class="jw-card-header gold"><div class="sh-icon"><i class="bi bi-globe" style="color:var(--bps-dark);"></i></div><span class="sh-title">Layanan Online</span></div>
-                  <div class="jw-card-body gold-body">Pengguna dapat langsung mencari pustaka secara mandiri setelah <strong>registrasi</strong> pada portal pst.bps.go.id.</div>
+                <div class="syarat-card">
+                  <div class="syarat-card-header gold">
+                    <div class="sh-icon"><i class="bi bi-globe" style="color:var(--bps-dark);"></i></div>
+                    <span class="sh-title">Layanan Online</span>
+                  </div>
+                  <div class="syarat-card-body gold-body">
+                    <ul class="syarat-num-list">
+                      <li>
+                        <span class="syarat-num gold-num" style="font-size:0.55rem;width:22px;height:22px;"><i class="bi bi-clock"></i></span>
+                        <span>Maksimal <strong>3 hari kerja</strong> — otomatis tertutup jika tidak ada respons dalam jangka waktu yang ditentukan.</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- BIAYA & PRODUK -->
+        <!-- BIAYA & PRODUK — UI disamakan dengan halaman rekomendasi -->
         <div id="section-biaya" class="scroll-anchor">
-
           <div class="section-box">
             <div class="section-head">
               <div class="section-head-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="bi bi-cash-coin"></i></div>
-              <div><p class="section-head-title">Biaya / Tarif</p><p class="section-head-sub">Informasi biaya penggunaan layanan</p></div>
+              <div>
+                <p class="section-head-title">Biaya / Tarif</p>
+                <p class="section-head-sub">Informasi biaya penggunaan layanan</p>
+              </div>
             </div>
             <div class="section-body">
-              <div style="background:#f0faf0; border-left:4px solid #4caf50; border-radius:10px; padding:18px 20px; display:flex; align-items:flex-start; gap:16px;">
-                <div style="width:42px; height:42px; border-radius:10px; background:#e8f5e9; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                  <i class="bi bi-check-circle-fill" style="font-size:1.3rem; color:#4caf50;"></i>
+              <div style="background:#f0fff4; border-left:4px solid #4caf50; border-radius:10px; padding:18px 20px; display:flex; align-items:flex-start; gap:16px;">
+                <div style="width:42px; height:42px; border-radius:10px; background:#c8e6c9; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                  <i class="bi bi-cash-coin" style="font-size:1.3rem; color:#2e7d32;"></i>
                 </div>
                 <div>
                   <p style="font-weight:700; color:#2e7d32; font-size:0.95rem; margin:0 0 8px;">Tidak Dipungut Biaya (Gratis)</p>
-                  <p style="font-size:0.84rem; color:#444; line-height:1.7; margin:0;">Semua layanan perpustakaan BPS Kota Palu disediakan secara <strong>gratis</strong> untuk publik. Tidak ada biaya yang dikenakan kepada pengguna layanan.</p>
+                  <p style="font-size:0.84rem; color:#444; line-height:1.7; margin:0;">Semua layanan konsultasi statistik disediakan secara <strong>gratis</strong> untuk seluruh lapisan masyarakat tanpa dipungut biaya apapun.</p>
                 </div>
               </div>
             </div>
@@ -618,80 +584,121 @@
           <div class="section-box">
             <div class="section-head">
               <div class="section-head-icon"><i class="bi bi-gift"></i></div>
-              <div><p class="section-head-title">Produk Pelayanan</p><p class="section-head-sub">Hasil layanan yang diberikan kepada pengguna</p></div>
+              <div>
+                <p class="section-head-title">Produk Pelayanan</p>
+                <p class="section-head-sub">Hasil layanan yang diberikan kepada pengguna</p>
+              </div>
             </div>
             <div class="section-body">
               <div style="display:flex; flex-direction:column; gap:14px;">
                 <div class="product-card">
-                  <div class="product-card-icon"><i class="bi bi-file-earmark-text"></i></div>
-                  <div class="product-card-title">Pustaka Hardcopy (Kunjungan Langsung)</div>
-                  <div class="product-card-sub">Akses membaca pustaka hardcopy pada ruang layanan PST BPS, serta pemanfaatan alat pemindai secara mandiri.</div>
-                </div>
-                <div class="product-card">
-                  <div class="product-card-icon"><i class="bi bi-file-earmark-pdf"></i></div>
-                  <div class="product-card-title">Pustaka Softcopy Berwatermark</div>
-                  <div class="product-card-sub">Pustaka softcopy berwatermark yang dapat diakses dan diunduh melalui portal pst.bps.go.id, tersedia untuk kunjungan langsung maupun layanan online.</div>
+                  <div class="product-card-icon"><i class="bi bi-bar-chart-steps"></i></div>
+                  <div class="product-card-title">Jasa Konsultasi Statistik</div>
+                  <div class="product-card-sub">Konsultasi informasi data, metadata, dan klasifikasi statistik dari berbagai sumber data resmi BPS Kota Palu.</div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
 
       </div><!-- /panel-info -->
 
-      <!-- PANEL AJUKAN -->
+      <!-- ===== PANEL: AJUKAN LAYANAN ===== -->
       <div id="panel-ajukan" class="content-panel">
 
         <!-- INFO BANNER -->
         <div style="background:linear-gradient(135deg,var(--bps-dark) 0%,var(--bps-blue) 100%);border-radius:14px;padding:28px 28px 24px;margin-bottom:18px;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none;"></div>
-          <div style="position:absolute;bottom:-50px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
+          <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:-50px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none;"></div>
           <div style="position:relative;z-index:1;">
-            <div style="display:inline-flex;align-items:center;gap:7px;background:var(--bps-accent);color:var(--bps-dark);font-size:.72rem;font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:16px;"><i class="bi bi-info-circle-fill"></i> Informasi Layanan</div>
+            <div style="display:inline-flex;align-items:center;gap:7px;background:var(--bps-accent);color:var(--bps-dark);font-size:0.72rem;font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:16px;">
+              <i class="bi bi-info-circle-fill"></i> Informasi Layanan
+            </div>
             <h5 style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:10px;line-height:1.4;">Ajukan Permintaan Layanan Tanpa Harus Hadir Langsung ke BPS</h5>
-            <p style="color:rgba(255,255,255,.85);font-size:.84rem;line-height:1.75;margin-bottom:20px;">Melalui fitur ini, masyarakat dapat mengajukan permintaan <strong style="color:#fff;">Layanan Perpustakaan</strong> secara daring tanpa perlu datang langsung ke kantor BPS Kota Palu. Petugas kami akan memproses permintaan Anda.</p>
+            <p style="color:rgba(255,255,255,0.85);font-size:0.84rem;line-height:1.75;margin-bottom:20px;">Melalui fitur ini, masyarakat dapat mengajukan permintaan <strong style="color:#fff;">Konsultasi Statistik</strong> secara daring tanpa perlu datang langsung ke kantor BPS Kota Palu. Petugas kami akan memproses permintaan Anda dan memberikan respons melalui sistem ini.</p>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" class="info-banner-grid">
-              <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-house-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i><div><div style="color:#fff;font-weight:700;font-size:.78rem;margin-bottom:2px;">Dari Mana Saja</div><div style="color:rgba(255,255,255,.65);font-size:.72rem;line-height:1.5;">Ajukan permintaan kapan saja tanpa perlu hadir ke kantor BPS</div></div></div>
-              <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-clock-history" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i><div><div style="color:#fff;font-weight:700;font-size:.78rem;margin-bottom:2px;">Layanan Cepat</div><div style="color:rgba(255,255,255,.65);font-size:.72rem;line-height:1.5;">Pustaka tersedia langsung setelah pengajuan diproses petugas</div></div></div>
-              <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-shield-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i><div><div style="color:#fff;font-weight:700;font-size:.78rem;margin-bottom:2px;">Gratis &amp; Resmi</div><div style="color:rgba(255,255,255,.65);font-size:.72rem;line-height:1.5;">Layanan ini tidak dipungut biaya dan dikelola langsung oleh BPS</div></div></div>
+              <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+                <i class="bi bi-house-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i>
+                <div>
+                  <div style="color:#fff;font-weight:700;font-size:0.78rem;margin-bottom:2px;">Dari Mana Saja</div>
+                  <div style="color:rgba(255,255,255,0.65);font-size:0.72rem;line-height:1.5;">Ajukan permintaan kapan saja tanpa perlu hadir ke kantor BPS</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+                <i class="bi bi-clock-history" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i>
+                <div>
+                  <div style="color:#fff;font-weight:700;font-size:0.78rem;margin-bottom:2px;">Respons 3 Hari Kerja</div>
+                  <div style="color:rgba(255,255,255,0.65);font-size:0.72rem;line-height:1.5;">Petugas akan merespons pengajuan Anda dalam 3 hari kerja</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;">
+                <i class="bi bi-shield-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i>
+                <div>
+                  <div style="color:#fff;font-weight:700;font-size:0.78rem;margin-bottom:2px;">Gratis &amp; Resmi</div>
+                  <div style="color:rgba(255,255,255,0.65);font-size:0.72rem;line-height:1.5;">Layanan ini tidak dipungut biaya dan dikelola langsung oleh BPS</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- CARA PENGAJUAN -->
-        <div style="background:white;border-radius:14px;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 14px rgba(0,0,0,.07);margin-bottom:18px;overflow:hidden;">
+        <div style="background:white;border-radius:14px;border:1px solid rgba(0,0,0,0.05);box-shadow:0 2px 14px rgba(0,0,0,0.07);margin-bottom:18px;overflow:hidden;">
           <div style="padding:14px 22px;border-bottom:1px solid #eef2f8;background:linear-gradient(to right,#fafcff,#fff);display:flex;align-items:center;gap:12px;">
             <div style="width:36px;height:36px;border-radius:9px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-list-ol"></i></div>
-            <div><p style="font-weight:800;color:var(--bps-dark);font-size:.95rem;margin:0;">Cara Mengajukan Permohonan</p><p style="font-size:.72rem;color:#888;font-weight:500;margin:0;">Ikuti langkah berikut untuk mengajukan layanan perpustakaan</p></div>
+            <div>
+              <p style="font-weight:800;color:var(--bps-dark);font-size:0.95rem;margin:0;">Cara Mengajukan Permohonan</p>
+              <p style="font-size:0.72rem;color:#888;font-weight:500;margin:0;">Ikuti langkah berikut untuk mengajukan layanan konsultasi statistik</p>
+            </div>
           </div>
           <div style="padding:18px 22px;">
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;" class="cara-grid">
-              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">1</div><i class="bi bi-person-vcard" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Isi Formulir</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Lengkapi data diri dan deskripsi kebutuhan pustaka Anda</div></div>
-              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">2</div><i class="bi bi-paperclip" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Upload Dokumen</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Lampirkan surat permohonan</div></div>
-              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">3</div><i class="bi bi-send-check" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Kirim &amp; Simpan Tiket</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Kirim pengajuan dan simpan nomor tiket yang diberikan sistem</div></div>
-              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">4</div><i class="bi bi-envelope-open-text" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Pantau Respons</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Gunakan nomor tiket untuk memantau status dan hasil permohonan</div></div>
+              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;position:relative;">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">1</div>
+                <i class="bi bi-person-vcard" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i>
+                <div style="font-weight:700;color:var(--bps-dark);font-size:0.78rem;margin-bottom:4px;">Isi Formulir</div>
+                <div style="font-size:0.7rem;color:#888;line-height:1.5;">Lengkapi data diri dan deskripsi kebutuhan data Anda</div>
+              </div>
+              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">2</div>
+                <i class="bi bi-paperclip" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i>
+                <div style="font-weight:700;color:var(--bps-dark);font-size:0.78rem;margin-bottom:4px;">Upload Dokumen</div>
+                <div style="font-size:0.7rem;color:#888;line-height:1.5;">Lampirkan surat permohonan</div>
+              </div>
+              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">3</div>
+                <i class="bi bi-send-check" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i>
+                <div style="font-weight:700;color:var(--bps-dark);font-size:0.78rem;margin-bottom:4px;">Kirim &amp; Simpan Tiket</div>
+                <div style="font-size:0.7rem;color:#888;line-height:1.5;">Kirim pengajuan dan simpan nomor tiket yang diberikan sistem</div>
+              </div>
+              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">4</div>
+                <i class="bi bi-envelope-open-text" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i>
+                <div style="font-weight:700;color:var(--bps-dark);font-size:0.78rem;margin-bottom:4px;">Pantau Respons</div>
+                <div style="font-size:0.7rem;color:#888;line-height:1.5;">Gunakan nomor tiket untuk memantau status dan hasil konsultasi</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- FORM SECTION -->
         <div class="pengajuan-section">
           <div class="d-flex align-items-center gap-3 mb-4">
             <div style="width:48px;height:48px;border-radius:12px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-send-fill"></i></div>
-            <div><h4 class="mb-0 fw-bold" style="color:var(--bps-dark);font-size:.97rem;">Ajukan Permintaan Layanan</h4><p class="mb-0" style="font-size:.8rem;color:#888;">Isi form di bawah untuk mengajukan permintaan secara online</p></div>
+            <div>
+              <h4 class="mb-0 fw-bold" style="color:var(--bps-dark);font-size:0.97rem;">Ajukan Permintaan Layanan</h4>
+              <p class="mb-0" style="font-size:0.8rem;color:#888;">Isi form di bawah untuk mengajukan permintaan secara online</p>
+            </div>
           </div>
           <div class="pengajuan-tabs">
             <button class="pengajuan-tab active" onclick="switchTab('form',this)"><i class="bi bi-file-earmark-text me-2"></i>Form Pengajuan</button>
             <button class="pengajuan-tab" onclick="switchTab('cek',this)"><i class="bi bi-search me-2"></i>Cek Status</button>
           </div>
-
           <!-- TAB FORM -->
           <div id="tab-form" class="tab-content-panel active">
             <div class="tiket-box" id="tiket-box">
               <i class="bi bi-check-circle-fill" style="font-size:2.4rem;color:#4caf50;"></i>
               <p class="fw-bold mt-3 mb-1" style="font-size:1.05rem;color:#2e7d32;">Pengajuan Berhasil Dikirim!</p>
-              <p style="font-size:.83rem;color:#555;">Simpan nomor tiket berikut untuk memantau status pengajuan Anda:</p>
+              <p style="font-size:0.83rem;color:#555;">Simpan nomor tiket berikut untuk memantau status pengajuan Anda:</p>
               <div class="tiket-number" id="tiket-number">-</div>
               <p class="tiket-warning"><i class="bi bi-exclamation-triangle me-1"></i>Simpan nomor tiket ini! Anda membutuhkannya untuk cek status pengajuan.</p>
               <button class="btn-submit mt-3" onclick="resetForm()"><i class="bi bi-plus-circle"></i> Ajukan Permintaan Baru</button>
@@ -702,11 +709,11 @@
                 <div class="col-md-6"><label class="form-label">Email Aktif <span class="text-danger">*</span></label><input type="email" class="form-control" id="input-email" placeholder="contoh@email.com"></div>
                 <div class="col-md-6"><label class="form-label">Nomor Telepon <span class="text-danger">*</span></label><input type="tel" class="form-control" id="input-telepon" placeholder="08xxxxxxxxxx"></div>
                 <div class="col-md-6"><label class="form-label">Instansi / Universitas <span style="color:#aaa;font-weight:400;">(opsional)</span></label><input type="text" class="form-control" id="input-instansi" placeholder="Nama instansi atau universitas"></div>
-                <div class="col-md-6"><label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label><select class="form-control" id="input-jenis-kelamin"><option value="">Pilih Jenis Kelamin</option><option>Laki-laki</option><option>Perempuan</option></select></div>
+                <div class="col-md-6"><label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label><select class="form-control" id="input-jenis-kelamin"><option value="">Pilih Jenis Kelamin</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
                 <div class="col-md-6"><label class="form-label">Usia <span class="text-danger">*</span></label><input type="number" class="form-control" id="input-usia" placeholder="Contoh: 22" min="10" max="100"></div>
-                <div class="col-md-6"><label class="form-label">Kategori Pengguna <span class="text-danger">*</span></label><select class="form-control" id="input-kategori"><option value="">Pilih Kategori</option><option>Mahasiswa</option><option>Pelajar (SD/SMP/SMA)</option><option>Dosen / Peneliti</option><option>ASN / Instansi Pemerintah</option><option>Swasta / Pelaku Usaha</option><option>Media / Jurnalis</option><option>Umum / Masyarakat</option></select></div>
-                <div class="col-md-6"><label class="form-label">Tingkat Pendidikan <span class="text-danger">*</span></label><select class="form-control" id="input-pendidikan"><option value="">Pilih Pendidikan</option><option>SD / Sederajat</option><option>SMP / Sederajat</option><option>SMA / Sederajat</option><option>Diploma (D1/D2/D3)</option><option>Sarjana (S1)</option><option>Pascasarjana (S2/S3)</option></select></div>
-                <div class="col-md-6"><label class="form-label">Kabupaten / Kota <span class="text-danger">*</span></label><select class="form-control" id="input-kabkota"><option value="">Pilih Kabupaten/Kota</option><option>Kota Palu</option><option>Banggai</option><option>Banggai Kepulauan</option><option>Banggai Laut</option><option>Buol</option><option>Donggala</option><option>Morowali</option><option>Morowali Utara</option><option>Parigi Moutong</option><option>Poso</option><option>Sigi</option><option>Tojo Una-Una</option><option>Tolitoli</option></select></div>
+                <div class="col-md-6"><label class="form-label">Kategori Pengguna <span class="text-danger">*</span></label><select class="form-control" id="input-kategori"><option value="">Pilih Kategori</option><option value="Mahasiswa">Mahasiswa</option><option value="Pelajar (SD/SMP/SMA)">Pelajar (SD/SMP/SMA)</option><option value="Dosen / Peneliti">Dosen / Peneliti</option><option value="ASN / Instansi Pemerintah">ASN / Instansi Pemerintah</option><option value="Swasta / Pelaku Usaha">Swasta / Pelaku Usaha</option><option value="Media / Jurnalis">Media / Jurnalis</option><option value="Umum / Masyarakat">Umum / Masyarakat</option></select></div>
+                <div class="col-md-6"><label class="form-label">Tingkat Pendidikan <span class="text-danger">*</span></label><select class="form-control" id="input-pendidikan"><option value="">Pilih Pendidikan</option><option value="SD / Sederajat">SD / Sederajat</option><option value="SMP / Sederajat">SMP / Sederajat</option><option value="SMA / Sederajat">SMA / Sederajat</option><option value="Diploma (D1/D2/D3)">Diploma (D1/D2/D3)</option><option value="Sarjana (S1)">Sarjana (S1)</option><option value="Pascasarjana (S2/S3)">Pascasarjana (S2/S3)</option></select></div>
+                <div class="col-md-6"><label class="form-label">Kabupaten / Kota <span class="text-danger">*</span></label><select class="form-control" id="input-kabkota"><option value="">Pilih Kabupaten/Kota</option><option value="Kota Palu">Kota Palu</option><option value="Banggai">Banggai</option><option value="Banggai Kepulauan">Banggai Kepulauan</option><option value="Banggai Laut">Banggai Laut</option><option value="Buol">Buol</option><option value="Donggala">Donggala</option><option value="Morowali">Morowali</option><option value="Morowali Utara">Morowali Utara</option><option value="Parigi Moutong">Parigi Moutong</option><option value="Poso">Poso</option><option value="Sigi">Sigi</option><option value="Tojo Una-Una">Tojo Una-Una</option><option value="Tolitoli">Tolitoli</option></select></div>
                 <div class="col-12"><label class="form-label">Deskripsi Kebutuhan Data <span class="text-danger">*</span></label><textarea class="form-control" id="input-deskripsi" rows="4" placeholder="Jelaskan data apa yang Anda butuhkan, untuk keperluan apa, dan periode data yang diinginkan..."></textarea></div>
                 <div class="col-12">
                   <label class="form-label">Upload Surat<span class="text-danger">*</span></label>
@@ -718,24 +725,23 @@
                     <div class="upload-filename" id="upload-filename"></div>
                   </div>
                 </div>
-                <div class="col-12"><div id="form-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:.83rem;border-radius:10px;"></div></div>
+                <div class="col-12"><div id="form-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:0.83rem;border-radius:10px;"></div></div>
                 <div class="col-12 text-end"><button class="btn-submit" id="btn-submit" onclick="submitPengajuan()"><i class="bi bi-send"></i> Kirim Pengajuan</button></div>
               </div>
             </div>
           </div>
-
           <!-- TAB CEK STATUS -->
           <div id="tab-cek" class="tab-content-panel">
             <div class="row justify-content-center"><div class="col-lg-8">
-              <p style="font-size:.87rem;color:#666;margin-bottom:16px;">Masukkan nomor tiket yang Anda terima saat pengajuan untuk melihat status terkini.</p>
+              <p style="font-size:0.87rem;color:#666;margin-bottom:16px;">Masukkan nomor tiket yang Anda terima saat pengajuan untuk melihat status terkini.</p>
               <div class="d-flex gap-2 mb-4">
                 <input type="text" class="form-control" id="input-tiket-cek" placeholder="Contoh: BPS-2026-001" style="text-transform:uppercase;">
                 <button class="btn-submit px-4" onclick="cekStatus()" style="border-radius:10px;white-space:nowrap;"><i class="bi bi-search"></i> Cek</button>
               </div>
-              <div id="cek-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:.83rem;border-radius:10px;"></div>
+              <div id="cek-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:0.83rem;border-radius:10px;"></div>
               <div class="result-card" id="result-card">
                 <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
-                  <div><p class="mb-1" style="font-size:.73rem;color:#aaa;font-weight:600;">NOMOR TIKET</p><p class="mb-0 fw-bold" style="color:var(--bps-dark);font-size:1rem;" id="res-tiket">-</p></div>
+                  <div><p class="mb-1" style="font-size:0.73rem;color:#aaa;font-weight:600;">NOMOR TIKET</p><p class="mb-0 fw-bold" style="color:var(--bps-dark);font-size:1rem;" id="res-tiket">-</p></div>
                   <span class="status-badge" id="res-status-badge">-</span>
                 </div>
                 <hr style="border-color:#e8edf5;">
@@ -745,12 +751,14 @@
                 <div class="result-row"><span class="result-label">Tanggal Pengajuan</span><span class="result-value" id="res-tanggal">-</span></div>
                 <div class="result-row"><span class="result-label">Deskripsi</span><span class="result-value" id="res-deskripsi">-</span></div>
                 <div id="res-hasil-box" style="display:none;margin-top:12px;padding:13px;background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border-radius:10px;border:1.5px solid #a5d6a7;">
-                  <p style="margin:0 0 8px;font-weight:700;color:#2e7d32;font-size:.86rem;"><i class="bi bi-check-circle-fill me-2"></i>Data Tersedia</p>
-                  <p style="margin:0 0 10px;font-size:.78rem;color:#555;">Petugas BPS telah mengupload data yang Anda minta.</p>
-                  <a id="res-hasil-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#2e7d32;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.8rem;"><i class="bi bi-download"></i> Download Data</a>
+                  <p style="margin:0 0 8px;font-weight:700;color:#2e7d32;font-size:0.86rem;"><i class="bi bi-check-circle-fill me-2"></i>Data Tersedia</p>
+                  <p style="margin:0 0 10px;font-size:0.78rem;color:#555;">Petugas BPS telah mengupload data yang Anda minta.</p>
+                  <a id="res-hasil-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#2e7d32;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.8rem;"><i class="bi bi-download"></i> Download Data</a>
                 </div>
 
+                <!-- RATING — logika sama persis dengan halaman rekomendasi (localRatingCache) -->
                 <div id="res-rating-box" style="display:none;margin-top:16px;">
+                  <!-- Belum rating -->
                   <div id="res-rating-form">
                     <div style="padding:20px;background:white;border-radius:14px;border:1.5px solid #e0eaf5;text-align:center;animation:fadeInUp 0.4s ease;">
                       <div style="font-weight:700;font-size:0.9rem;color:var(--bps-dark);margin-bottom:5px;">⭐ Bagaimana pengalaman Anda terhadap layanan ini?</div>
@@ -765,32 +773,45 @@
                       <div><button class="btn-kirim-rating" id="res-btn-kirim-rating" disabled onclick="kirimRatingCek()"><i class="bi bi-send"></i> Kirim Penilaian</button></div>
                     </div>
                   </div>
-                  <div id="res-rating-done" style="display:none;padding:16px 18px;background:linear-gradient(135deg,rgba(76,175,80,.08),transparent);border-radius:12px;border:1.5px solid #a5d6a7;text-align:center;animation:fadeInUp .35s ease;">
+                  <!-- Sudah rating -->
+                  <div id="res-rating-done" style="display:none;padding:16px 18px;background:linear-gradient(135deg,rgba(76,175,80,0.08),transparent);border-radius:12px;border:1.5px solid #a5d6a7;text-align:center;animation:fadeInUp 0.35s ease;">
                     <div id="res-rating-done-emoji" style="font-size:2rem;margin-bottom:5px;">🤩</div>
-                    <div style="font-weight:700;color:#2e7d32;font-size:.88rem;">Terima kasih atas penilaian Anda!</div>
-                    <div style="font-size:.75rem;color:#555;margin-top:4px;">Masukan Anda sangat berarti bagi peningkatan layanan BPS Kota Palu.</div>
+                    <div style="font-weight:700;color:#2e7d32;font-size:0.88rem;">Terima kasih atas penilaian Anda!</div>
+                    <div style="font-size:0.75rem;color:#555;margin-top:4px;">Masukan Anda sangat berarti bagi peningkatan layanan BPS Kota Palu.</div>
                   </div>
                 </div>
 
               </div>
             </div></div>
           </div>
-
         </div>
-      </div><!-- /panel-ajukan -->
+      </div>
 
     </div><!-- /content-area -->
+
     <footer class="py-4 text-center">© 2026 BPS Kota Palu</footer>
+
   </div><!-- /main-area -->
 </div><!-- /page-wrapper -->
 
+<!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-bottom-nav">
   <div class="mbn-inner">
-    <button class="mbn-item active" id="mbn-persyaratan" onclick="scrollToSectionMobile('section-persyaratan',this)"><i class="bi bi-clipboard-check"></i>Syarat</button>
-    <button class="mbn-item" id="mbn-sop" onclick="scrollToSectionMobile('section-sop',this)"><i class="bi bi-diagram-3"></i>SOP</button>
-    <button class="mbn-item" id="mbn-jangka" onclick="scrollToSectionMobile('section-jangka',this)"><i class="bi bi-clock"></i>Waktu</button>
-    <button class="mbn-item" id="mbn-biaya" onclick="scrollToSectionMobile('section-biaya',this)"><i class="bi bi-tag"></i>Biaya</button>
-    <button class="mbn-item" id="mbn-ajukan" onclick="showPanelMobile('ajukan',this)"><i class="bi bi-send"></i>Ajukan</button>
+    <button class="mbn-item active" id="mbn-persyaratan" onclick="scrollToSectionMobile('section-persyaratan', this)">
+      <i class="bi bi-clipboard-check"></i>Syarat
+    </button>
+    <button class="mbn-item" id="mbn-sop" onclick="scrollToSectionMobile('section-sop', this)">
+      <i class="bi bi-diagram-3"></i>SOP
+    </button>
+    <button class="mbn-item" id="mbn-jangka" onclick="scrollToSectionMobile('section-jangka', this)">
+      <i class="bi bi-clock"></i>Waktu
+    </button>
+    <button class="mbn-item" id="mbn-biaya" onclick="scrollToSectionMobile('section-biaya', this)">
+      <i class="bi bi-tag"></i>Biaya
+    </button>
+    <button class="mbn-item" id="mbn-ajukan" onclick="showPanelMobile('ajukan', this)">
+      <i class="bi bi-send"></i>Ajukan
+    </button>
   </div>
 </nav>
 
@@ -798,177 +819,360 @@
 <script>
   const SUPABASE_URL = 'https://rljhayfmfsrdtpmlqltp.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
-  const JENIS_LAYANAN = 'Pelayanan Perpustakaan';
+  const JENIS_LAYANAN = 'Pelayanan Konsultasi Statistik';
 
-  const localRatingCache = {};
+  /*
+   * Cache rating lokal per tiket (sama dengan halaman rekomendasi).
+   * Menyimpan { score, emoji } agar tidak bergantung pada respons Supabase
+   * saat pengguna menekan Cek lagi setelah submit rating.
+   */
+  const localRatingCache = {}; // { [nomorTiket]: { score, emoji } }
 
-  let cekSelectedRating=null, cekSelectedEmoji='', cekCurrentTiket='';
+  let currentTiket = '';
 
-  function showPanel(id,el) {
-    document.querySelectorAll('.content-panel').forEach(p=>p.classList.remove('active'));
-    document.getElementById('panel-'+id).classList.add('active');
-    document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
-    if(el) el.classList.add('active');
-    document.getElementById('main-area').scrollTop=0; window.scrollTo(0,0);
-    document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active'));
-    const mbn=document.getElementById('mbn-'+id); if(mbn) mbn.classList.add('active');
+  /* ============================================================
+     PANEL SWITCH
+  ============================================================ */
+  function showPanel(id, el) {
+    document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+    if (el) el.classList.add('active');
+    const mainArea = document.getElementById('main-area');
+    mainArea.scrollTop = 0;
+    window.scrollTo(0, 0);
+    document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
+    const mbn = document.getElementById('mbn-' + id);
+    if (mbn) mbn.classList.add('active');
   }
 
-  function scrollToSection(sectionId,sbEl) {
-    const ip=document.getElementById('panel-info'), ap=document.getElementById('panel-ajukan');
-    if(!ip.classList.contains('active')){ ap.classList.remove('active'); ip.classList.add('active'); }
-    document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
-    if(sbEl) sbEl.classList.add('active');
-    const nm={'section-persyaratan':'persyaratan','section-sop':'sop','section-jangka':'jangka','section-biaya':'biaya'};
-    document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active'));
-    const me=document.getElementById('mbn-'+nm[sectionId]); if(me) me.classList.add('active');
-    setTimeout(()=>{
-      const t=document.getElementById(sectionId); if(!t) return;
-      const ma=document.getElementById('main-area');
-      if(window.innerWidth<=768){ const r=t.getBoundingClientRect(); window.scrollTo({top:window.pageYOffset+r.top-80,behavior:'smooth'}); }
-      else { ma.scrollTo({top:ma.scrollTop+(t.getBoundingClientRect().top-ma.getBoundingClientRect().top)-80,behavior:'smooth'}); }
-    },50);
+  /* ============================================================
+     SCROLL TO SECTION
+  ============================================================ */
+  function scrollToSection(sectionId, sbEl) {
+    const infoPanel   = document.getElementById('panel-info');
+    const ajukanPanel = document.getElementById('panel-ajukan');
+    if (!infoPanel.classList.contains('active')) {
+      ajukanPanel.classList.remove('active');
+      infoPanel.classList.add('active');
+    }
+    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+    if (sbEl) sbEl.classList.add('active');
+    const navMap = {
+      'section-persyaratan': 'persyaratan',
+      'section-sop':         'sop',
+      'section-jangka':      'jangka',
+      'section-biaya':       'biaya'
+    };
+    document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
+    const mbnEl = document.getElementById('mbn-' + navMap[sectionId]);
+    if (mbnEl) mbnEl.classList.add('active');
+    setTimeout(() => {
+      const target   = document.getElementById(sectionId);
+      if (!target) return;
+      const mainArea = document.getElementById('main-area');
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        const rect = target.getBoundingClientRect();
+        window.scrollTo({ top: window.pageYOffset + rect.top - 80, behavior: 'smooth' });
+      } else {
+        const containerRect = mainArea.getBoundingClientRect();
+        const targetRect    = target.getBoundingClientRect();
+        const scrollOffset  = mainArea.scrollTop + (targetRect.top - containerRect.top) - 80;
+        mainArea.scrollTo({ top: scrollOffset, behavior: 'smooth' });
+      }
+    }, 50);
   }
 
-  function scrollToSectionMobile(sid,mbnEl) {
-    document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active')); mbnEl.classList.add('active');
-    const sm={'section-persyaratan':0,'section-sop':1,'section-jangka':2,'section-biaya':3};
-    document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
-    const idx=sm[sid],lks=document.querySelectorAll('.sb-link'); if(idx!==undefined&&lks[idx]) lks[idx].classList.add('active');
-    scrollToSection(sid,null);
+  /* ============================================================
+     MOBILE NAV helpers
+  ============================================================ */
+  function scrollToSectionMobile(sectionId, mbnEl) {
+    document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
+    mbnEl.classList.add('active');
+    const sbMap   = { 'section-persyaratan': 0, 'section-sop': 1, 'section-jangka': 2, 'section-biaya': 3 };
+    const sbLinks = document.querySelectorAll('.sb-link');
+    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+    const idx = sbMap[sectionId];
+    if (idx !== undefined && sbLinks[idx]) sbLinks[idx].classList.add('active');
+    scrollToSection(sectionId, null);
   }
 
-  function showPanelMobile(id,mbnEl) {
-    document.querySelectorAll('.mbn-item').forEach(b=>b.classList.remove('active')); mbnEl.classList.add('active');
-    document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
-    const lks=document.querySelectorAll('.sb-link'); if(lks[4]) lks[4].classList.add('active');
-    showPanel(id,lks[4]||null);
+  function showPanelMobile(id, mbnEl) {
+    document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
+    mbnEl.classList.add('active');
+    const sbLinks = document.querySelectorAll('.sb-link');
+    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+    if (sbLinks[4]) sbLinks[4].classList.add('active');
+    showPanel(id, sbLinks[4] || null);
   }
 
-  function switchTab(tab,el) {
-    document.querySelectorAll('.pengajuan-tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.tab-content-panel').forEach(p=>p.classList.remove('active'));
-    el.classList.add('active'); document.getElementById('tab-'+tab).classList.add('active');
+  /* ============================================================
+     TAB SWITCH
+  ============================================================ */
+  function switchTab(tab, el) {
+    document.querySelectorAll('.pengajuan-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
   }
 
+  /* ============================================================
+     UPLOAD FILE
+  ============================================================ */
   function handleFileChange(input) {
-    const f=input.files[0],fn=document.getElementById('upload-filename');
-    if(f){ if(f.size>5*1024*1024){ showError('Ukuran file maksimal 5MB!'); input.value=''; fn.textContent=''; return; } fn.textContent='✓ '+f.name; }
+    const file     = input.files[0];
+    const filename = document.getElementById('upload-filename');
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        showError('Ukuran file maksimal 5MB!');
+        input.value = '';
+        filename.textContent = '';
+        return;
+      }
+      filename.textContent = '✓ ' + file.name;
+    }
   }
-  const ua=document.getElementById('upload-area');
-  ua.addEventListener('dragover',e=>{e.preventDefault();ua.classList.add('dragover')});
-  ua.addEventListener('dragleave',()=>ua.classList.remove('dragover'));
-  ua.addEventListener('drop',e=>{e.preventDefault();ua.classList.remove('dragover');const f=e.dataTransfer.files[0];if(f){document.getElementById('input-dokumen').files=e.dataTransfer.files;handleFileChange(document.getElementById('input-dokumen'));}});
+  const uploadArea = document.getElementById('upload-area');
+  uploadArea.addEventListener('dragover',  e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+  uploadArea.addEventListener('dragleave', ()  => uploadArea.classList.remove('dragover'));
+  uploadArea.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      document.getElementById('input-dokumen').files = e.dataTransfer.files;
+      handleFileChange(document.getElementById('input-dokumen'));
+    }
+  });
 
-  function selectEmojiCek(btn,score,emoji) {
-    document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b=>b.classList.remove('selected'));
-    btn.classList.add('selected'); cekSelectedRating=score; cekSelectedEmoji=emoji;
-    document.getElementById('res-btn-kirim-rating').disabled=false;
+  /* ============================================================
+     EMOJI RATING — tab Cek Status
+  ============================================================ */
+  let cekSelectedRating = null, cekSelectedEmoji = '', cekCurrentTiket = '';
+
+  function selectEmojiCek(btn, score, emoji, label) {
+    document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    cekSelectedRating = score;
+    cekSelectedEmoji  = emoji;
+    document.getElementById('res-btn-kirim-rating').disabled = false;
   }
 
   async function kirimRatingCek() {
-    if(!cekSelectedRating||!cekCurrentTiket) return;
-    const btn=document.getElementById('res-btn-kirim-rating');
-    btn.disabled=true; btn.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+    if (!cekSelectedRating || !cekCurrentTiket) return;
+    const btn = document.getElementById('res-btn-kirim-rating');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
     try {
-      await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${cekCurrentTiket}`,{
-        method:'PATCH',
-        headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},
-        body:JSON.stringify({rating:cekSelectedRating,rating_emoji:cekSelectedEmoji})
+      await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${cekCurrentTiket}`, {
+        method:  'PATCH',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=minimal' },
+        body:    JSON.stringify({ rating: cekSelectedRating, rating_emoji: cekSelectedEmoji })
       });
-    } catch(e) {}
-    localRatingCache[cekCurrentTiket] = { score: cekSelectedRating, emoji: cekSelectedEmoji };
-    document.getElementById('res-rating-done-emoji').textContent=cekSelectedEmoji;
-    document.getElementById('res-rating-form').style.display='none';
-    document.getElementById('res-rating-done').style.display='block';
+    } catch(e) {
+      // Tetap lanjut tampilkan konfirmasi meski request gagal
+    }
+
+    // Simpan ke cache lokal SEBELUM mengubah tampilan
+    localRatingCache[cekCurrentTiket] = {
+      score: cekSelectedRating,
+      emoji: cekSelectedEmoji
+    };
+
+    document.getElementById('res-rating-done-emoji').textContent = cekSelectedEmoji;
+    document.getElementById('res-rating-form').style.display = 'none';
+    document.getElementById('res-rating-done').style.display = 'block';
   }
 
-  function generateTiket() { const n=new Date(); return `BPS-${n.getFullYear()}-${String(Math.floor(Math.random()*900)+100)}${String(n.getHours()).padStart(2,'0')}${String(n.getMinutes()).padStart(2,'0')}`; }
-  function showError(msg) { const el=document.getElementById('form-error'); el.textContent=msg; el.classList.remove('d-none'); setTimeout(()=>el.classList.add('d-none'),5000); }
+  /* ============================================================
+     SUBMIT PENGAJUAN
+  ============================================================ */
+  function generateTiket() {
+    const now = new Date();
+    return `BPS-${now.getFullYear()}-${String(Math.floor(Math.random()*900)+100)}${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('form-error');
+    el.textContent = msg;
+    el.classList.remove('d-none');
+    setTimeout(() => el.classList.add('d-none'), 5000);
+  }
 
   async function submitPengajuan() {
-    const nama=document.getElementById('input-nama').value.trim(),email=document.getElementById('input-email').value.trim(),
-      telepon=document.getElementById('input-telepon').value.trim(),instansi=document.getElementById('input-instansi').value.trim(),
-      jk=document.getElementById('input-jenis-kelamin').value,usia=document.getElementById('input-usia').value.trim(),
-      kat=document.getElementById('input-kategori').value,pend=document.getElementById('input-pendidikan').value,
-      kab=document.getElementById('input-kabkota').value,desk=document.getElementById('input-deskripsi').value.trim(),
-      dok=document.getElementById('input-dokumen').files[0];
-    if(!nama) return showError('Nama lengkap wajib diisi!');
-    if(!email||!email.includes('@')) return showError('Email tidak valid!');
-    if(!telepon) return showError('Nomor telepon wajib diisi!');
-    if(!jk) return showError('Jenis kelamin wajib dipilih!');
-    if(!usia) return showError('Usia wajib diisi!');
-    if(!kat) return showError('Kategori pengguna wajib dipilih!');
-    if(!pend) return showError('Tingkat pendidikan wajib dipilih!');
-    if(!kab) return showError('Kabupaten/Kota wajib dipilih!');
-    if(!desk) return showError('Deskripsi kebutuhan data wajib diisi!');
-    if(!dok) return showError('Dokumen surat wajib diupload!');
-    const btn=document.getElementById('btn-submit'); btn.disabled=true; btn.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+    const nama         = document.getElementById('input-nama').value.trim();
+    const email        = document.getElementById('input-email').value.trim();
+    const telepon      = document.getElementById('input-telepon').value.trim();
+    const instansi     = document.getElementById('input-instansi').value.trim();
+    const jenisKelamin = document.getElementById('input-jenis-kelamin').value;
+    const usia         = document.getElementById('input-usia').value.trim();
+    const kategori     = document.getElementById('input-kategori').value;
+    const pendidikan   = document.getElementById('input-pendidikan').value;
+    const kabkota      = document.getElementById('input-kabkota').value;
+    const deskripsi    = document.getElementById('input-deskripsi').value.trim();
+    const dokumen      = document.getElementById('input-dokumen').files[0];
+
+    if (!nama)         return showError('Nama lengkap wajib diisi!');
+    if (!email || !email.includes('@')) return showError('Email tidak valid!');
+    if (!telepon)      return showError('Nomor telepon wajib diisi!');
+    if (!jenisKelamin) return showError('Jenis kelamin wajib dipilih!');
+    if (!usia)         return showError('Usia wajib diisi!');
+    if (!kategori)     return showError('Kategori pengguna wajib dipilih!');
+    if (!pendidikan)   return showError('Tingkat pendidikan wajib dipilih!');
+    if (!kabkota)      return showError('Kabupaten/Kota wajib dipilih!');
+    if (!deskripsi)    return showError('Deskripsi kebutuhan data wajib diisi!');
+    if (!dokumen)      return showError('Dokumen surat wajib diupload!');
+
+    const btn = document.getElementById('btn-submit');
+    btn.disabled  = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+
     try {
-      const fn=`perpustakaan/${Date.now()}_${Math.random().toString(36).substring(2)}.${dok.name.split('.').pop()}`;
-      const ur=await fetch(`${SUPABASE_URL}/storage/v1/object/dokumen/${fn}`,{method:'POST',headers:{'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':dok.type,'x-upsert':'true'},body:dok});
-      if(!ur.ok) throw new Error('Gagal upload dokumen');
-      const urlD=`${SUPABASE_URL}/storage/v1/object/public/dokumen/${fn}`;
-      const tiket=generateTiket();
-      const ir=await fetch(`${SUPABASE_URL}/rest/v1/pengajuan`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},body:JSON.stringify({nomor_tiket:tiket,jenis_layanan:JENIS_LAYANAN,nama,email,no_telepon:telepon,instansi:instansi||'-',jenis_kelamin:jk,usia:parseInt(usia),kategori_pengguna:kat,tingkat_pendidikan:pend,kabupaten_kota:kab,deskripsi:desk,nama_dokumen:dok.name,url_dokumen:urlD})});
-      if(!ir.ok) throw new Error('Gagal menyimpan pengajuan');
-      document.getElementById('form-pengajuan').style.display='none';
-      document.getElementById('tiket-number').textContent=tiket;
+      const fileExt  = dokumen.name.split('.').pop();
+      const fileName = `konsultasi/${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const uploadRes = await fetch(`${SUPABASE_URL}/storage/v1/object/dokumen/${fileName}`, {
+        method:  'POST',
+        headers: { 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': dokumen.type, 'x-upsert': 'true' },
+        body:    dokumen
+      });
+      if (!uploadRes.ok) throw new Error('Gagal upload dokumen');
+
+      const urlDokumen  = `${SUPABASE_URL}/storage/v1/object/public/dokumen/${fileName}`;
+      const nomorTiket  = generateTiket();
+      const insertRes   = await fetch(`${SUPABASE_URL}/rest/v1/pengajuan`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=minimal' },
+        body:    JSON.stringify({
+          nomor_tiket: nomorTiket, jenis_layanan: JENIS_LAYANAN,
+          nama, email, no_telepon: telepon, instansi: instansi || '-',
+          jenis_kelamin: jenisKelamin, usia: parseInt(usia),
+          kategori_pengguna: kategori, tingkat_pendidikan: pendidikan,
+          kabupaten_kota: kabkota, deskripsi,
+          nama_dokumen: dokumen.name, url_dokumen: urlDokumen
+        })
+      });
+      if (!insertRes.ok) throw new Error('Gagal menyimpan pengajuan');
+
+      currentTiket = nomorTiket;
+      document.getElementById('form-pengajuan').style.display = 'none';
+      document.getElementById('tiket-number').textContent = nomorTiket;
       document.getElementById('tiket-box').classList.add('show');
-    } catch(err) { showError('Terjadi kesalahan: '+err.message+'. Silakan coba lagi.'); }
-    finally { btn.disabled=false; btn.innerHTML='<i class="bi bi-send"></i> Kirim Pengajuan'; }
+    } catch(err) {
+      showError('Terjadi kesalahan: ' + err.message + '. Silakan coba lagi.');
+    } finally {
+      btn.disabled  = false;
+      btn.innerHTML = '<i class="bi bi-send"></i> Kirim Pengajuan';
+    }
   }
 
   function resetForm() {
-    document.getElementById('form-pengajuan').style.display='block';
+    document.getElementById('form-pengajuan').style.display = 'block';
     document.getElementById('tiket-box').classList.remove('show');
-    ['input-nama','input-email','input-telepon','input-instansi','input-deskripsi'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('input-dokumen').value=''; document.getElementById('upload-filename').textContent='';
+    ['input-nama','input-email','input-telepon','input-instansi','input-deskripsi'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('input-dokumen').value = '';
+    document.getElementById('upload-filename').textContent = '';
+    currentTiket = '';
   }
 
+  /* ============================================================
+     CEK STATUS — logika rating sama dengan halaman rekomendasi
+  ============================================================ */
   async function cekStatus() {
-    const tiket=document.getElementById('input-tiket-cek').value.trim().toUpperCase();
-    const errEl=document.getElementById('cek-error'),rc=document.getElementById('result-card');
-    errEl.classList.add('d-none'); rc.classList.remove('show');
-    if(!tiket){ errEl.textContent='Masukkan nomor tiket terlebih dahulu!'; errEl.classList.remove('d-none'); return; }
+    const tiket      = document.getElementById('input-tiket-cek').value.trim().toUpperCase();
+    const errEl      = document.getElementById('cek-error');
+    const resultCard = document.getElementById('result-card');
+    errEl.classList.add('d-none');
+    resultCard.classList.remove('show');
+
+    if (!tiket) {
+      errEl.textContent = 'Masukkan nomor tiket terlebih dahulu!';
+      errEl.classList.remove('d-none');
+      return;
+    }
+
     try {
-      const res=await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${tiket}&select=*`,{headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}});
-      const data=await res.json();
-      if(!data||data.length===0){ errEl.textContent='Nomor tiket tidak ditemukan. Pastikan nomor tiket sudah benar.'; errEl.classList.remove('d-none'); return; }
-      const d=data[0];
-      const sm={'Menunggu Verifikasi':'status-menunggu','Sedang Diproses':'status-diproses','Selesai':'status-selesai','Ditolak':'status-ditolak'};
-      document.getElementById('res-tiket').textContent=d.nomor_tiket;
-      document.getElementById('res-layanan').textContent=d.jenis_layanan;
-      document.getElementById('res-nama').textContent=d.nama;
-      document.getElementById('res-instansi').textContent=d.instansi||'-';
-      document.getElementById('res-deskripsi').textContent=d.deskripsi;
-      document.getElementById('res-tanggal').textContent=new Date(d.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
-      const badge=document.getElementById('res-status-badge'); badge.textContent=d.status; badge.className='status-badge '+(sm[d.status]||'status-menunggu');
-      const hb=document.getElementById('res-hasil-box');
-      if(d.url_hasil){ document.getElementById('res-hasil-link').href=d.url_hasil; hb.style.display='block'; } else hb.style.display='none';
-      const rb=document.getElementById('res-rating-box');
-      if(d.url_hasil){
-        cekCurrentTiket=d.nomor_tiket; rb.style.display='block';
-        const cachedRating=localRatingCache[d.nomor_tiket];
-        const sudahRating=cachedRating||(d.rating&&d.rating_emoji);
-        if(sudahRating){
-          const emojiToShow=cachedRating?cachedRating.emoji:d.rating_emoji;
-          document.getElementById('res-rating-done-emoji').textContent=emojiToShow;
-          document.getElementById('res-rating-form').style.display='none';
-          document.getElementById('res-rating-done').style.display='block';
+      const res  = await fetch(`${SUPABASE_URL}/rest/v1/pengajuan?nomor_tiket=eq.${tiket}&select=*`, {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+      });
+      const data = await res.json();
+
+      if (!data || data.length === 0) {
+        errEl.textContent = 'Nomor tiket tidak ditemukan. Pastikan nomor tiket sudah benar.';
+        errEl.classList.remove('d-none');
+        return;
+      }
+
+      const d = data[0];
+      const statusMap = {
+        'Menunggu Verifikasi': 'status-menunggu',
+        'Sedang Diproses':     'status-diproses',
+        'Selesai':             'status-selesai',
+        'Ditolak':             'status-ditolak'
+      };
+
+      document.getElementById('res-tiket').textContent    = d.nomor_tiket;
+      document.getElementById('res-layanan').textContent  = d.jenis_layanan;
+      document.getElementById('res-nama').textContent     = d.nama;
+      document.getElementById('res-instansi').textContent = d.instansi || '-';
+      document.getElementById('res-deskripsi').textContent= d.deskripsi;
+      document.getElementById('res-tanggal').textContent  = new Date(d.created_at).toLocaleDateString('id-ID', {
+        day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+
+      const badge = document.getElementById('res-status-badge');
+      badge.textContent = d.status;
+      badge.className   = 'status-badge ' + (statusMap[d.status] || 'status-menunggu');
+
+      // Tampilkan download jika hasil tersedia
+      const hasilBox = document.getElementById('res-hasil-box');
+      if (d.url_hasil) {
+        document.getElementById('res-hasil-link').href = d.url_hasil;
+        hasilBox.style.display = 'block';
+      } else {
+        hasilBox.style.display = 'none';
+      }
+
+      // Rating — muncul hanya jika url_hasil ada
+      const ratingBox = document.getElementById('res-rating-box');
+      if (d.url_hasil) {
+        cekCurrentTiket = d.nomor_tiket;
+        ratingBox.style.display = 'block';
+
+        // Cek cache lokal terlebih dahulu, baru cek database
+        const cachedRating = localRatingCache[d.nomor_tiket];
+        const sudahRating  = cachedRating || (d.rating && d.rating_emoji);
+
+        if (sudahRating) {
+          const emojiToShow = cachedRating ? cachedRating.emoji : d.rating_emoji;
+          document.getElementById('res-rating-done-emoji').textContent = emojiToShow;
+          document.getElementById('res-rating-form').style.display = 'none';
+          document.getElementById('res-rating-done').style.display = 'block';
         } else {
-          document.getElementById('res-rating-form').style.display='block';
-          document.getElementById('res-rating-done').style.display='none';
-          document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b=>b.classList.remove('selected'));
-          cekSelectedRating=null; cekSelectedEmoji='';
-          const kb=document.getElementById('res-btn-kirim-rating'); kb.disabled=true; kb.innerHTML='<i class="bi bi-send"></i> Kirim Penilaian';
+          // Belum pernah rating — tampilkan form rating kosong
+          document.getElementById('res-rating-form').style.display = 'block';
+          document.getElementById('res-rating-done').style.display = 'none';
+          document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
+          cekSelectedRating = null;
+          cekSelectedEmoji  = '';
+          const kirimBtn = document.getElementById('res-btn-kirim-rating');
+          kirimBtn.disabled = true;
+          kirimBtn.innerHTML = '<i class="bi bi-send"></i> Kirim Penilaian';
         }
-      } else rb.style.display='none';
-      rc.classList.add('show');
-    } catch(err){ errEl.textContent='Terjadi kesalahan saat mengambil data. Silakan coba lagi.'; errEl.classList.remove('d-none'); }
+      } else {
+        ratingBox.style.display = 'none';
+      }
+
+      resultCard.classList.add('show');
+    } catch(err) {
+      errEl.textContent = 'Terjadi kesalahan saat mengambil data. Silakan coba lagi.';
+      errEl.classList.remove('d-none');
+    }
   }
 
-  document.getElementById('input-tiket-cek').addEventListener('keypress',e=>{ if(e.key==='Enter') cekStatus(); });
+  document.getElementById('input-tiket-cek').addEventListener('keypress', e => {
+    if (e.key === 'Enter') cekStatus();
+  });
 </script>
 </body>
 </html>
