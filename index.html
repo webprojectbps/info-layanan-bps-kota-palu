@@ -16,9 +16,12 @@
       --bps-accent: #f4a700;
     }
 
+    * { box-sizing: border-box; }
+
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #f4f6f9;
+      overflow-x: hidden;
     }
 
     /* NAVBAR */
@@ -110,18 +113,53 @@
     .stat-highlight { background: linear-gradient(135deg, var(--bps-blue), var(--bps-dark)); border-radius: 12px; padding: 20px; text-align: center; color: white; }
     .stat-highlight .num { font-size: 2rem; font-weight: 800; line-height: 1; }
     .stat-highlight .lbl { font-size: 0.75rem; opacity: 0.85; margin-top: 4px; }
-    @media (max-width: 768px) { 
-      .stat-pub-grid { grid-template-columns: 1fr; } 
-      .stat-highlight-grid { grid-template-columns: 1fr; }
-      .statistik-section { padding: 20px 16px; }
-    }
 
     /* FOOTER */
     footer { background-color: var(--bps-dark); color: rgba(255,255,255,0.8); font-size: 0.88rem; }
 
+    /* ===================== RESPONSIVE ===================== */
+
+    /* Tablet (max 992px) */
+    @media (max-width: 992px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero { padding: 80px 20px; }
+      .stat-highlight .num { font-size: 1.6rem; }
+    }
+
+    /* Mobile (max 768px) */
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
+      .hero { padding: 60px 16px; }
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 0.95rem; }
+      .btn-hero { padding: 11px 24px; font-size: 0.9rem; }
+
       .stat-divider { border-right: none; border-bottom: 1px solid #e0e7f0; }
+      .stat-item { padding: 18px 12px; }
+      .stat-number { font-size: 1.6rem; }
+
+      .section-title { font-size: 1.4rem; }
+
+      .preview-card { padding: 24px 16px; }
+
+      .stat-pub-grid { grid-template-columns: 1fr; }
+      .stat-highlight-grid { grid-template-columns: 1fr; }
+      .statistik-section { padding: 20px 16px; }
+      .stat-highlight .num { font-size: 1.6rem; }
+
+      .chart-wrap-pub { height: 220px; }
+
+      footer p { font-size: 0.8rem; }
+    }
+
+    /* Small mobile (max 480px) */
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.5rem; }
+      .hero p { font-size: 0.88rem; }
+      .navbar-brand { font-size: 1rem; }
+      .navbar-brand img { height: 28px; }
+      .section-title { font-size: 1.2rem; }
+      .stat-number { font-size: 1.4rem; }
+      .preview-card h5 { font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -138,12 +176,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html"><i class="bi bi-house-fill me-1"></i>Beranda</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="layanan.html"><i class="bi bi-grid-fill me-1"></i>Jenis Layanan</a>
-          </li>
         </ul>
       </div>
     </div>
@@ -159,7 +191,7 @@
       </div>
       <h1>Selamat Datang di<br><span style="color: var(--bps-accent);">BPS Kota Palu</span></h1>
       <p>Portal informasi layanan statistik dan pelayanan publik resmi Badan Pusat Statistik Kota Palu.</p>
-      <a href="layanan.html" class="btn-hero">
+      <a href="#layanan-utama" class="btn-hero">
         <i class="bi bi-grid-fill me-2"></i>Jelajahi Layanan Kami
       </a>
     </div>
@@ -221,7 +253,7 @@
   </section>
 
   <!-- PREVIEW LAYANAN -->
-  <section class="py-5 mt-2">
+  <section id="layanan-utama" class="py-5 mt-2">
     <div class="container">
       <div class="text-center mb-2">
         <h2 class="section-title">Layanan Utama</h2>
