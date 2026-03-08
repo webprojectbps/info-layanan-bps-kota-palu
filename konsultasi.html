@@ -138,35 +138,7 @@
     .sop-steps strong.sop-steps-title { color:var(--bps-dark); display:block; margin-bottom:10px; font-size:0.84rem; }
     .sop-steps ol { margin:0; padding-left:18px; font-size:0.81rem; line-height:2; color:#555; }
 
-    /* ======= DESKTOP / MOBILE FLOWCHART TOGGLE ======= */
-    .fc-desktop { display: block; }
-    .fc-mobile  { display: none; }
-
-    /* ======= MOBILE FLOWCHART — vertikal berurutan ======= */
-    .fc-mobile-list { display:flex; flex-direction:column; align-items:stretch; }
-    .fc-mobile-step { display:flex; align-items:flex-start; gap:12px; padding:12px 14px; background:white; border-radius:12px; border:2px solid var(--bps-blue); box-shadow:0 2px 8px rgba(0,91,170,.07); }
-    .fc-mobile-step.gold-step { border-color:var(--bps-accent); }
-    .fc-mobile-step.end-step  { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); border-color:var(--bps-dark); }
-    .fc-mobile-step-icon { width:36px; height:36px; border-radius:9px; background:var(--bps-light); display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--bps-blue); flex-shrink:0; }
-    .fc-mobile-step.gold-step .fc-mobile-step-icon { background:#fff3cd; color:var(--bps-accent); }
-    .fc-mobile-step.end-step  .fc-mobile-step-icon { background:rgba(255,255,255,.2); color:#fff; }
-    .fc-mobile-step-content { flex:1; }
-    .fc-mobile-step-num   { font-size:.62rem; font-weight:700; color:var(--bps-blue); text-transform:uppercase; letter-spacing:.8px; margin-bottom:3px; }
-    .fc-mobile-step.gold-step .fc-mobile-step-num { color:var(--bps-accent); }
-    .fc-mobile-step.end-step  .fc-mobile-step-num { color:rgba(255,255,255,.7); }
-    .fc-mobile-step-label { font-size:.82rem; font-weight:700; color:var(--bps-dark); line-height:1.4; }
-    .fc-mobile-step-sub   { font-size:.72rem; color:#888; margin-top:2px; line-height:1.35; }
-    .fc-mobile-step.end-step .fc-mobile-step-label { color:#fff; }
-    .fc-mobile-step.end-step .fc-mobile-step-sub   { color:rgba(255,255,255,.7); }
-    .fc-mobile-arrow { display:flex; justify-content:center; align-items:center; height:22px; font-size:.95rem; color:var(--bps-blue); }
-    .fc-mobile-arrow.gold { color:var(--bps-accent); }
-
-    @media (max-width:768px) {
-      .fc-desktop { display: none !important; }
-      .fc-mobile  { display: block !important; }
-    }
-
-    /* ======= PRODUCT CARDS ======= */
+    /* ======= PRODUCT CARDS (dari rekomendasi) ======= */
     .product-card { border: 2px solid var(--bps-blue); border-radius: 12px; padding: 18px; background: white; transition: all 0.25s; }
     .product-card:hover { box-shadow: 0 6px 20px rgba(0,91,170,0.15); transform: translateY(-4px); }
     .product-card-icon { width: 40px; height: 40px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 12px; background: rgba(0,91,170,0.1); color: var(--bps-blue); }
@@ -468,90 +440,23 @@
               </div>
             </div>
             <div class="section-body">
-
-              <!-- FLOWCHART 1: KUNJUNGAN LANGSUNG -->
               <div class="sop-flowchart">
                 <div class="flowchart-title langsung"><i class="bi bi-person-lines-fill"></i> Layanan dengan Kunjungan Langsung</div>
-
-                <!-- DESKTOP -->
-                <div class="fc-desktop">
-                  <div class="snake-grid snake-3">
-                    <div class="sg-box"><span class="sg-icon"><i class="bi bi-door-open"></i></span><div class="sg-label">Berkunjung ke<br>PST BPS</div></div>
-                    <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                    <div class="sg-box"><span class="sg-icon"><i class="bi bi-pencil-square"></i></span><div class="sg-label">Isi Buku<br>Tamu</div></div>
-                    <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                    <div class="sg-box"><span class="sg-icon"><i class="bi bi-123"></i></span><div class="sg-label">Ambil Nomor<br>Antrian</div></div>
-                    <div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div>
-                    <div class="sg-arr sg-down"><i class="bi bi-arrow-down"></i></div>
-                    <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-patch-check"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
-                    <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                    <div class="sg-box"><span class="sg-icon"><i class="bi bi-person-workspace"></i></span><div class="sg-label">Konsultasi<br>Petugas</div></div>
-                    <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                    <div class="sg-box"><span class="sg-icon"><i class="bi bi-hourglass-top"></i></span><div class="sg-label">Tunggu<br>Giliran</div></div>
-                  </div>
-                  <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
-                </div><!-- /fc-desktop -->
-
-                <!-- MOBILE -->
-                <div class="fc-mobile">
-                  <div class="fc-mobile-list">
-                    <div class="fc-mobile-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-door-open"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 1</div>
-                        <div class="fc-mobile-step-label">Berkunjung ke PST BPS</div>
-                        <div class="fc-mobile-step-sub">Datang ke unit Pelayanan Terpadu Statistik</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-pencil-square"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 2</div>
-                        <div class="fc-mobile-step-label">Isi Buku Tamu</div>
-                        <div class="fc-mobile-step-sub">Lengkapi data kunjungan dengan lengkap</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-123"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 3</div>
-                        <div class="fc-mobile-step-label">Ambil Nomor Antrian</div>
-                        <div class="fc-mobile-step-sub">Ambil nomor antrian layanan konsultasi</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-hourglass-top"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 4</div>
-                        <div class="fc-mobile-step-label">Tunggu Giliran</div>
-                        <div class="fc-mobile-step-sub">Tunggu sesuai nomor antrian (maks. 10 menit)</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-person-workspace"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 5</div>
-                        <div class="fc-mobile-step-label">Konsultasi Petugas</div>
-                        <div class="fc-mobile-step-sub">Sampaikan kebutuhan konsultasi kepada petugas</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step end-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-patch-check"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 6</div>
-                        <div class="fc-mobile-step-label">Selesai Layanan</div>
-                        <div class="fc-mobile-step-sub">Terima informasi dan penjelasan dari petugas BPS</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
-                </div><!-- /fc-mobile -->
-
+                <div class="snake-grid snake-3">
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-door-open"></i></span><div class="sg-label">Berkunjung ke<br>PST BPS</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-pencil-square"></i></span><div class="sg-label">Isi Buku<br>Tamu</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-123"></i></span><div class="sg-label">Ambil Nomor<br>Antrian</div></div>
+                  <div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div>
+                  <div class="sg-arr sg-down"><i class="bi bi-arrow-down"></i></div>
+                  <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-patch-check"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-person-workspace"></i></span><div class="sg-label">Konsultasi<br>Petugas</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-hourglass-top"></i></span><div class="sg-label">Tunggu<br>Giliran</div></div>
+                </div>
+                <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
                 <div class="sop-steps">
                   <strong class="sop-steps-title">Detail Prosedur Kunjungan Langsung:</strong>
                   <ol>
@@ -564,89 +469,33 @@
                   </ol>
                 </div>
               </div>
-
-              <!-- FLOWCHART 2: ONLINE -->
               <div class="sop-flowchart" style="margin-top:26px;">
                 <div class="flowchart-title online"><i class="bi bi-laptop"></i> Layanan dengan Cara Online</div>
-
-                <!-- DESKTOP -->
-                <div class="fc-desktop">
-                  <div class="snake-grid snake-3">
-                    <div class="sg-box"><span class="sg-icon"><i class="bi bi-browser-chrome"></i></span><div class="sg-label">Akses<br>Portal</div></div>
-                    <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                    <div class="sg-box"><span class="sg-icon"><i class="bi bi-person-plus"></i></span><div class="sg-label">Registrasi<br>Akun</div></div>
-                    <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                    <div class="sg-box"><span class="sg-icon"><i class="bi bi-search"></i></span><div class="sg-label">Cari<br>Informasi</div></div>
-                    <div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div>
-                    <div class="sg-arr sg-down"><i class="bi bi-arrow-down"></i></div>
-                    <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-patch-check"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
-                    <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                    <div class="sg-box"><span class="sg-icon"><i class="bi bi-star"></i></span><div class="sg-label">Beri<br>Rating</div></div>
-                    <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                    <div class="sg-box"><span class="sg-icon"><i class="bi bi-inbox-fill"></i></span><div class="sg-label">Terima<br>Informasi</div></div>
+                <div class="snake-grid snake-4">
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-browser-chrome"></i></span><div class="sg-label">Akses<br>Portal</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-search"></i></span><div class="sg-label">Cari<br>Informasi</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
+                  <div class="sg-box sg-decision">
+                    <span class="sg-icon" style="color:var(--bps-accent);"><i class="bi bi-question-circle"></i></span>
+                    <div class="sg-label">Informasi<br>Ditemukan?</div>
+                    <div style="display:flex;gap:4px;margin-top:6px;justify-content:center;"><span class="sg-badge-ya">✓ Ya</span><span class="sg-badge-tidak">✗ Tidak</span></div>
                   </div>
-                  <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
-                </div><!-- /fc-desktop -->
-
-                <!-- MOBILE -->
-                <div class="fc-mobile">
-                  <div class="fc-mobile-list">
-                    <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-browser-chrome"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 1</div>
-                        <div class="fc-mobile-step-label">Akses Portal</div>
-                        <div class="fc-mobile-step-sub">Login ke portal pst.bps.go.id</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-person-plus"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 2</div>
-                        <div class="fc-mobile-step-label">Registrasi Akun</div>
-                        <div class="fc-mobile-step-sub">Daftar akun di portal pst.bps.go.id</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-search"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 3</div>
-                        <div class="fc-mobile-step-label">Cari Informasi</div>
-                        <div class="fc-mobile-step-sub">Cari informasi statistik melalui fitur pencarian</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-inbox-fill"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 4</div>
-                        <div class="fc-mobile-step-label">Terima Informasi</div>
-                        <div class="fc-mobile-step-sub">Terima penjelasan statistik dari petugas BPS</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step gold-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-star"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 5</div>
-                        <div class="fc-mobile-step-label">Beri Rating</div>
-                        <div class="fc-mobile-step-sub">Berikan penilaian kualitas layanan</div>
-                      </div>
-                    </div>
-                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
-                    <div class="fc-mobile-step end-step">
-                      <div class="fc-mobile-step-icon"><i class="bi bi-patch-check"></i></div>
-                      <div class="fc-mobile-step-content">
-                        <div class="fc-mobile-step-num">Langkah 6</div>
-                        <div class="fc-mobile-step-label">Selesai Layanan</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
-                </div><!-- /fc-mobile -->
-
+                  <div class="sg-arr sg-arr-tidak"><span>Tidak</span><i class="bi bi-arrow-right"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-file-earmark-plus"></i></span><div class="sg-label">Buat<br>Konsultasi</div></div>
+                  <div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div>
+                  <div class="sg-arr sg-down sg-ya"><i class="bi bi-arrow-down"></i><span>Ya</span></div>
+                  <div class="sg-empty"></div>
+                  <div class="sg-arr sg-down"><i class="bi bi-arrow-down"></i></div>
+                  <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-patch-check"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-clipboard2-data"></i></span><div class="sg-label">Beri<br>Rating</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-inbox-fill"></i></span><div class="sg-label">Terima<br>Informasi</div></div>
+                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
+                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-send-check"></i></span><div class="sg-label">Ajukan<br>Konsultasi</div></div>
+                </div>
+                <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
                 <div class="sop-steps online-border">
                   <strong class="sop-steps-title">Detail Prosedur Layanan Online:</strong>
                   <ol>
@@ -660,7 +509,6 @@
                   </ol>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -710,7 +558,7 @@
           </div>
         </div>
 
-        <!-- BIAYA & PRODUK -->
+        <!-- BIAYA & PRODUK — UI disamakan dengan halaman rekomendasi -->
         <div id="section-biaya" class="scroll-anchor">
           <div class="section-box">
             <div class="section-head">
@@ -908,8 +756,9 @@
                   <a id="res-hasil-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#2e7d32;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.8rem;"><i class="bi bi-download"></i> Download Data</a>
                 </div>
 
-                <!-- RATING -->
+                <!-- RATING — logika sama persis dengan halaman rekomendasi (localRatingCache) -->
                 <div id="res-rating-box" style="display:none;margin-top:16px;">
+                  <!-- Belum rating -->
                   <div id="res-rating-form">
                     <div style="padding:20px;background:white;border-radius:14px;border:1.5px solid #e0eaf5;text-align:center;animation:fadeInUp 0.4s ease;">
                       <div style="font-weight:700;font-size:0.9rem;color:var(--bps-dark);margin-bottom:5px;">⭐ Bagaimana pengalaman Anda terhadap layanan ini?</div>
@@ -924,6 +773,7 @@
                       <div><button class="btn-kirim-rating" id="res-btn-kirim-rating" disabled onclick="kirimRatingCek()"><i class="bi bi-send"></i> Kirim Penilaian</button></div>
                     </div>
                   </div>
+                  <!-- Sudah rating -->
                   <div id="res-rating-done" style="display:none;padding:16px 18px;background:linear-gradient(135deg,rgba(76,175,80,0.08),transparent);border-radius:12px;border:1.5px solid #a5d6a7;text-align:center;animation:fadeInUp 0.35s ease;">
                     <div id="res-rating-done-emoji" style="font-size:2rem;margin-bottom:5px;">🤩</div>
                     <div style="font-weight:700;color:#2e7d32;font-size:0.88rem;">Terima kasih atas penilaian Anda!</div>
@@ -971,9 +821,18 @@
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
   const JENIS_LAYANAN = 'Pelayanan Konsultasi Statistik';
 
-  const localRatingCache = {};
+  /*
+   * Cache rating lokal per tiket (sama dengan halaman rekomendasi).
+   * Menyimpan { score, emoji } agar tidak bergantung pada respons Supabase
+   * saat pengguna menekan Cek lagi setelah submit rating.
+   */
+  const localRatingCache = {}; // { [nomorTiket]: { score, emoji } }
+
   let currentTiket = '';
 
+  /* ============================================================
+     PANEL SWITCH
+  ============================================================ */
   function showPanel(id, el) {
     document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + id).classList.add('active');
@@ -987,6 +846,9 @@
     if (mbn) mbn.classList.add('active');
   }
 
+  /* ============================================================
+     SCROLL TO SECTION
+  ============================================================ */
   function scrollToSection(sectionId, sbEl) {
     const infoPanel   = document.getElementById('panel-info');
     const ajukanPanel = document.getElementById('panel-ajukan');
@@ -1022,6 +884,9 @@
     }, 50);
   }
 
+  /* ============================================================
+     MOBILE NAV helpers
+  ============================================================ */
   function scrollToSectionMobile(sectionId, mbnEl) {
     document.querySelectorAll('.mbn-item').forEach(b => b.classList.remove('active'));
     mbnEl.classList.add('active');
@@ -1042,6 +907,9 @@
     showPanel(id, sbLinks[4] || null);
   }
 
+  /* ============================================================
+     TAB SWITCH
+  ============================================================ */
   function switchTab(tab, el) {
     document.querySelectorAll('.pengajuan-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
@@ -1049,6 +917,9 @@
     document.getElementById('tab-' + tab).classList.add('active');
   }
 
+  /* ============================================================
+     UPLOAD FILE
+  ============================================================ */
   function handleFileChange(input) {
     const file     = input.files[0];
     const filename = document.getElementById('upload-filename');
@@ -1075,6 +946,9 @@
     }
   });
 
+  /* ============================================================
+     EMOJI RATING — tab Cek Status
+  ============================================================ */
   let cekSelectedRating = null, cekSelectedEmoji = '', cekCurrentTiket = '';
 
   function selectEmojiCek(btn, score, emoji, label) {
@@ -1096,13 +970,24 @@
         headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=minimal' },
         body:    JSON.stringify({ rating: cekSelectedRating, rating_emoji: cekSelectedEmoji })
       });
-    } catch(e) {}
-    localRatingCache[cekCurrentTiket] = { score: cekSelectedRating, emoji: cekSelectedEmoji };
+    } catch(e) {
+      // Tetap lanjut tampilkan konfirmasi meski request gagal
+    }
+
+    // Simpan ke cache lokal SEBELUM mengubah tampilan
+    localRatingCache[cekCurrentTiket] = {
+      score: cekSelectedRating,
+      emoji: cekSelectedEmoji
+    };
+
     document.getElementById('res-rating-done-emoji').textContent = cekSelectedEmoji;
     document.getElementById('res-rating-form').style.display = 'none';
     document.getElementById('res-rating-done').style.display = 'block';
   }
 
+  /* ============================================================
+     SUBMIT PENGAJUAN
+  ============================================================ */
   function generateTiket() {
     const now = new Date();
     return `BPS-${now.getFullYear()}-${String(Math.floor(Math.random()*900)+100)}${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
@@ -1190,6 +1075,9 @@
     currentTiket = '';
   }
 
+  /* ============================================================
+     CEK STATUS — logika rating sama dengan halaman rekomendasi
+  ============================================================ */
   async function cekStatus() {
     const tiket      = document.getElementById('input-tiket-cek').value.trim().toUpperCase();
     const errEl      = document.getElementById('cek-error');
@@ -1236,6 +1124,7 @@
       badge.textContent = d.status;
       badge.className   = 'status-badge ' + (statusMap[d.status] || 'status-menunggu');
 
+      // Tampilkan download jika hasil tersedia
       const hasilBox = document.getElementById('res-hasil-box');
       if (d.url_hasil) {
         document.getElementById('res-hasil-link').href = d.url_hasil;
@@ -1244,18 +1133,23 @@
         hasilBox.style.display = 'none';
       }
 
+      // Rating — muncul hanya jika url_hasil ada
       const ratingBox = document.getElementById('res-rating-box');
       if (d.url_hasil) {
         cekCurrentTiket = d.nomor_tiket;
         ratingBox.style.display = 'block';
+
+        // Cek cache lokal terlebih dahulu, baru cek database
         const cachedRating = localRatingCache[d.nomor_tiket];
         const sudahRating  = cachedRating || (d.rating && d.rating_emoji);
+
         if (sudahRating) {
           const emojiToShow = cachedRating ? cachedRating.emoji : d.rating_emoji;
           document.getElementById('res-rating-done-emoji').textContent = emojiToShow;
           document.getElementById('res-rating-form').style.display = 'none';
           document.getElementById('res-rating-done').style.display = 'block';
         } else {
+          // Belum pernah rating — tampilkan form rating kosong
           document.getElementById('res-rating-form').style.display = 'block';
           document.getElementById('res-rating-done').style.display = 'none';
           document.querySelectorAll('#res-emoji-row .emoji-btn').forEach(b => b.classList.remove('selected'));
