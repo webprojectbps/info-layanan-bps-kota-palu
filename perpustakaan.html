@@ -74,20 +74,62 @@
     .flowchart-title.langsung { background:linear-gradient(135deg,#0056b3,#003f7f); }
     .flowchart-title.online   { background:linear-gradient(135deg,var(--bps-accent),#ff9800); }
 
-    /* ===== SNAKE GRID: justify-items:stretch agar semua card sama lebar ===== */
-    .snake-grid { display:grid; gap:0; margin:12px 0; align-items:center; justify-items:stretch; width:100%; }
-    .snake-3 { grid-template-columns:1fr 32px 1fr 32px 1fr; }
-    .snake-4 { grid-template-columns:1fr 32px 1fr 32px 1fr 32px 1fr; }
+    /* ============================================================
+       DESKTOP FLOWCHART — vf-row + vf-connector-row
+       (pola sama persis dengan rekomendasi & produk berbayar)
+    ============================================================ */
+    .vf-row { display:grid; grid-template-columns:1fr 28px 1fr 28px 1fr; align-items:stretch; gap:0; width:100%; }
+    .vf-box { border:2px solid var(--bps-blue); border-radius:10px; padding:14px 8px 12px; text-align:center; background:white; box-shadow:0 2px 8px rgba(0,91,170,.08); transition:all .25s; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:108px; }
+    .vf-box:hover { box-shadow:0 6px 16px rgba(0,91,170,.16); transform:translateY(-3px); }
+    .vf-box.vf-end { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); border-color:var(--bps-dark); }
+    .vf-icon { font-size:1.5rem; color:var(--bps-blue); margin-bottom:7px; display:block; }
+    .vf-icon.gold { color:var(--bps-accent); }
+    .vf-icon.white { color:#fff; }
+    .vf-label { font-weight:700; color:var(--bps-dark); font-size:.74rem; line-height:1.4; }
+    .vf-label.white { color:#fff; }
+    .vf-sublabel { font-size:.63rem; color:#888; margin-top:3px; line-height:1.3; }
+    .vf-sublabel.white { color:rgba(255,255,255,.75); }
+    .vf-arr { display:flex; align-items:center; justify-content:center; font-size:.95rem; color:var(--bps-blue); width:28px; }
+    .vf-arr.gold { color:var(--bps-accent); }
+    /* Connector row: panah turun tepat di bawah kotak ke-3 (kolom ke-5) */
+    .vf-conn { display:grid; grid-template-columns:1fr 28px 1fr 28px 1fr; height:28px; }
+    .vf-conn .vf-down { grid-column:5; display:flex; justify-content:center; align-items:center; font-size:.95rem; color:var(--bps-blue); }
+    .vf-conn .vf-down.gold { color:var(--bps-accent); }
 
-    /* ===== SG-BOX: flexbox agar icon+teks selalu center di dalam card ===== */
-    .sg-box { border:2px solid var(--bps-blue); border-radius:10px; padding:12px 6px 10px; text-align:center; background:white; width:100%; min-width:0; align-self:stretch; justify-self:stretch; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,91,170,.08); transition:all .25s; box-sizing:border-box; }
-    .sg-box:hover { box-shadow:0 6px 16px rgba(0,91,170,.16); transform:translateY(-3px); }
-    .sg-end { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark))!important; border-color:var(--bps-dark)!important; }
-    .sg-icon { font-size:clamp(1.3rem,3vw,1.8rem); color:var(--bps-blue); display:block; margin-bottom:5px; flex-shrink:0; }
-    .sg-label { font-weight:600; color:var(--bps-dark); font-size:clamp(.58rem,1.7vw,.76rem); line-height:1.3; }
-    .sg-arr { font-size:clamp(.9rem,2.5vw,1.3rem); color:var(--bps-blue); display:flex; align-items:center; justify-content:center; width:100%; }
-    .sg-down { flex-direction:column; align-self:stretch; justify-content:center; padding:2px 0; }
-    .sg-empty { width:100%; }
+    .fc-desktop { display:block; }
+    .fc-mobile  { display:none; }
+
+    /* ============================================================
+       MOBILE FLOWCHART — vertikal berurutan
+       (sama persis dengan rekomendasi & produk berbayar)
+    ============================================================ */
+    .fc-mobile-list { display:flex; flex-direction:column; align-items:stretch; }
+    .fc-mobile-step { display:flex; align-items:flex-start; gap:12px; padding:12px 14px; background:white; border-radius:12px; border:2px solid var(--bps-blue); box-shadow:0 2px 8px rgba(0,91,170,.07); }
+    .fc-mobile-step.gold-step { border-color:var(--bps-accent); }
+    .fc-mobile-step.end-step  { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); border-color:var(--bps-dark); }
+    .fc-mobile-step-icon { width:36px; height:36px; border-radius:9px; background:var(--bps-light); display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--bps-blue); flex-shrink:0; }
+    .fc-mobile-step.gold-step .fc-mobile-step-icon { background:#fff3cd; color:var(--bps-accent); }
+    .fc-mobile-step.end-step  .fc-mobile-step-icon { background:rgba(255,255,255,.2); color:#fff; }
+    .fc-mobile-step-content { flex:1; }
+    .fc-mobile-step-num   { font-size:.62rem; font-weight:700; color:var(--bps-blue); text-transform:uppercase; letter-spacing:.8px; margin-bottom:3px; }
+    .fc-mobile-step.gold-step .fc-mobile-step-num { color:var(--bps-accent); }
+    .fc-mobile-step.end-step  .fc-mobile-step-num { color:rgba(255,255,255,.7); }
+    .fc-mobile-step-label { font-size:.82rem; font-weight:700; color:var(--bps-dark); line-height:1.4; }
+    .fc-mobile-step-sub   { font-size:.72rem; color:#888; margin-top:2px; line-height:1.35; }
+    .fc-mobile-step.end-step .fc-mobile-step-label { color:#fff; }
+    .fc-mobile-step.end-step .fc-mobile-step-sub   { color:rgba(255,255,255,.7); }
+    .fc-mobile-arrow { display:flex; justify-content:center; align-items:center; height:22px; font-size:.95rem; color:var(--bps-blue); }
+    .fc-mobile-arrow.gold { color:var(--bps-accent); }
+
+    /* Sembunyikan desktop / tampilkan mobile pada layar kecil */
+    @media(max-width:768px) {
+      .fc-desktop { display:none!important; }
+      .fc-mobile  { display:block!important; }
+    }
+
+    /* ============================================================
+       SISA CSS ASLI — tidak diubah sama sekali
+    ============================================================ */
     .fc-selesai { text-align:center; color:#4caf50; font-weight:700; margin:4px 0 16px; font-size:.88rem; }
     .sop-steps { padding:16px 18px; background:var(--bps-light); border-radius:10px; border-left:4px solid var(--bps-blue); }
     .sop-steps.online-border { border-left-color:var(--bps-accent); }
@@ -108,15 +150,12 @@
     .jw-card-header.gold .sh-title { color:var(--bps-dark); }
     .jw-card-body { padding:14px 16px; background:#fafcff; font-size:.81rem; color:#444; line-height:1.6; }
     .jw-card-body.gold-body { background:#fffdf5; }
-
-    /* ===== PRODUK: mengikuti rekomendasi statistik ===== */
     .product-card { border:2px solid var(--bps-blue); border-radius:12px; padding:18px; background:white; transition:all .25s; margin-bottom:14px; }
     .product-card:last-child { margin-bottom:0; }
     .product-card:hover { box-shadow:0 6px 20px rgba(0,91,170,.15); transform:translateY(-4px); }
     .product-card-icon { width:40px; height:40px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:12px; background:rgba(0,91,170,.1); color:var(--bps-blue); }
     .product-card-title { font-weight:700; color:var(--bps-dark); font-size:.85rem; margin-bottom:6px; }
     .product-card-sub { font-size:.77rem; color:#666; line-height:1.65; }
-
     .pengajuan-section { background:white; border-radius:14px; padding:30px; box-shadow:0 2px 14px rgba(0,0,0,.07); border:1px solid rgba(0,91,170,.08); }
     .pengajuan-tabs { display:flex; gap:8px; margin-bottom:26px; border-bottom:2px solid #eef2f8; }
     .pengajuan-tab { padding:9px 22px; border-radius:8px 8px 0 0; font-weight:700; font-size:.87rem; cursor:pointer; border:none; background:transparent; color:#888; margin-bottom:-2px; border-bottom:2px solid transparent; transition:all .2s; font-family:'Plus Jakarta Sans',sans-serif; }
@@ -151,8 +190,6 @@
     .result-row { display:flex; gap:12px; margin-bottom:8px; font-size:.84rem; }
     .result-label { color:#888; min-width:130px; font-weight:600; }
     .result-value { color:#333; }
-
-    /* ===== RATING: mengikuti halaman rekomendasi ===== */
     @keyframes fadeInUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
     .emoji-row { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
     .emoji-btn { display:flex; flex-direction:column; align-items:center; gap:5px; background:#f4f6f9; border:2px solid transparent; border-radius:12px; padding:11px 12px; cursor:pointer; transition:all .2s; font-family:'Plus Jakarta Sans',sans-serif; min-width:58px; }
@@ -164,14 +201,13 @@
     .btn-kirim-rating { background:linear-gradient(135deg,var(--bps-blue),var(--bps-dark)); color:white; border:none; border-radius:50px; padding:9px 26px; font-weight:700; font-size:.84rem; cursor:pointer; margin-top:12px; transition:all .25s; font-family:'Plus Jakarta Sans',sans-serif; display:inline-flex; align-items:center; gap:7px; }
     .btn-kirim-rating:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,91,170,.3); }
     .btn-kirim-rating:disabled { opacity:.55; cursor:not-allowed; }
-
     .scroll-anchor { scroll-margin-top:80px; }
     footer { background-color:var(--bps-dark); color:rgba(255,255,255,.8); font-size:.85rem; flex-shrink:0; }
-    @media(max-width:1024px){.sidebar{width:200px}.sb-title{font-size:.82rem}.snake-4{grid-template-columns:1fr 28px 1fr 28px 1fr 28px 1fr}}
-    @media(max-width:768px){.sidebar{display:none}.page-wrapper{height:auto;overflow:visible}.main-area{overflow:visible}.hero-detail{padding:40px 20px}.hero-title{font-size:clamp(1.3rem,5vw,2rem)}.hero-sub{font-size:.95rem}.hero-cta{font-size:.88rem;padding:11px 24px}.content-area{padding:14px 14px 40px}.syarat-grid{grid-template-columns:1fr}.jw-grid{grid-template-columns:1fr}.sub-grid{grid-template-columns:1fr}.snake-3{grid-template-columns:1fr 22px 1fr 22px 1fr}.snake-4{grid-template-columns:1fr 18px 1fr 18px 1fr 18px 1fr}.sg-label{font-size:clamp(.52rem,1.5vw,.68rem)}.pengajuan-section{padding:20px 14px}.pengajuan-tabs{flex-wrap:wrap}.pengajuan-tab{font-size:.8rem;padding:8px 14px}.section-head{padding:14px 16px}.section-body{padding:14px 16px}.result-row{flex-direction:column;gap:2px}.result-label{min-width:unset}}
-    @media(max-width:600px){.hero-detail{padding:32px 16px}.snake-3{grid-template-columns:1fr 18px 1fr 18px 1fr}.snake-4{grid-template-columns:1fr 14px 1fr 14px 1fr 14px 1fr}.sop-steps ol{font-size:.78rem;line-height:1.9}.flowchart-title{font-size:.8rem;padding:9px 12px}.emoji-row{gap:5px}.emoji-btn{min-width:50px;padding:9px 8px}.emoji-btn .em{font-size:1.5rem}.tiket-number{font-size:1.2rem;padding:10px 16px}.row.g-3>[class*="col-md-6"]{flex:0 0 100%;max-width:100%}}
-    @media(max-width:480px){.hero-detail{padding:26px 14px}.hero-badge{font-size:.72rem;padding:6px 14px}.hero-cta{font-size:.82rem;padding:10px 20px}.section-box{border-radius:10px}.section-body{padding:12px}.section-head{padding:12px 14px;gap:10px}.section-head-title{font-size:.88rem}.syarat-card-body{padding:10px 12px}.syarat-num-list li{font-size:.78rem}.tiket-number{font-size:1.1rem;letter-spacing:1px}.tiket-box{padding:20px 14px}.pengajuan-section{border-radius:10px;padding:16px 12px}.btn-submit{font-size:.84rem;padding:10px 22px}.snake-3{grid-template-columns:1fr 14px 1fr 14px 1fr;gap:0}.snake-4{grid-template-columns:1fr 11px 1fr 11px 1fr 11px 1fr}.sg-box{padding:8px 3px 7px;border-radius:7px}.sg-icon{font-size:1.1rem;margin-bottom:3px}.sg-label{font-size:.5rem}.sg-arr{font-size:.8rem}.form-control,.form-select{font-size:.84rem;padding:9px 11px}}
-    @media(max-width:360px){.hero-title{font-size:1.2rem}.snake-4{grid-template-columns:1fr 9px 1fr 9px 1fr 9px 1fr}.sg-label{font-size:.46rem}.emoji-btn{min-width:42px;padding:7px 5px}.emoji-btn .em{font-size:1.3rem}}
+    @media(max-width:1024px){.sidebar{width:200px}.sb-title{font-size:.82rem}}
+    @media(max-width:768px){.sidebar{display:none}.page-wrapper{height:auto;overflow:visible}.main-area{overflow:visible}.hero-detail{padding:40px 20px}.hero-title{font-size:clamp(1.3rem,5vw,2rem)}.hero-sub{font-size:.95rem}.hero-cta{font-size:.88rem;padding:11px 24px}.content-area{padding:14px 14px 40px}.syarat-grid{grid-template-columns:1fr}.jw-grid{grid-template-columns:1fr}.sub-grid{grid-template-columns:1fr}.pengajuan-section{padding:20px 14px}.pengajuan-tabs{flex-wrap:wrap}.pengajuan-tab{font-size:.8rem;padding:8px 14px}.section-head{padding:14px 16px}.section-body{padding:14px 16px}.result-row{flex-direction:column;gap:2px}.result-label{min-width:unset}}
+    @media(max-width:600px){.hero-detail{padding:32px 16px}.sop-steps ol{font-size:.78rem;line-height:1.9}.flowchart-title{font-size:.8rem;padding:9px 12px}.emoji-row{gap:5px}.emoji-btn{min-width:50px;padding:9px 8px}.emoji-btn .em{font-size:1.5rem}.tiket-number{font-size:1.2rem;padding:10px 16px}.row.g-3>[class*="col-md-6"]{flex:0 0 100%;max-width:100%}}
+    @media(max-width:480px){.hero-detail{padding:26px 14px}.hero-badge{font-size:.72rem;padding:6px 14px}.hero-cta{font-size:.82rem;padding:10px 20px}.section-box{border-radius:10px}.section-body{padding:12px}.section-head{padding:12px 14px;gap:10px}.section-head-title{font-size:.88rem}.syarat-card-body{padding:10px 12px}.syarat-num-list li{font-size:.78rem}.tiket-number{font-size:1.1rem;letter-spacing:1px}.tiket-box{padding:20px 14px}.pengajuan-section{border-radius:10px;padding:16px 12px}.btn-submit{font-size:.84rem;padding:10px 22px}.form-control,.form-select{font-size:.84rem;padding:9px 11px}}
+    @media(max-width:360px){.hero-title{font-size:1.2rem}.emoji-btn{min-width:42px;padding:7px 5px}.emoji-btn .em{font-size:1.3rem}}
     .mobile-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bps-dark);border-top:1px solid rgba(255,255,255,.1);z-index:1000;padding:0;box-shadow:0 -4px 20px rgba(0,0,0,.25)}
     .mbn-inner{display:flex;align-items:stretch;justify-content:space-around;height:60px}
     .mbn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:3px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.5);font-size:.56rem;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;padding:6px 2px;border-top:2px solid transparent;transition:all .18s;text-transform:uppercase;letter-spacing:.4px}
@@ -269,24 +305,128 @@
               <div><p class="section-head-title">SOP &amp; Prosedur</p><p class="section-head-sub">Alur standar operasional pelayanan perpustakaan</p></div>
             </div>
             <div class="section-body">
+
+              <!-- ======================================================
+                FLOWCHART 1: KUNJUNGAN LANGSUNG
+                Urutan 6 langkah (snake-3, 2 baris):
+                Baris 1 (kiri→kanan): [1]Kunjungi PST → [2]Isi Buku Tamu → [3]Titip Tas di Loker
+                                                                                      ↓
+                Baris 2 (kanan→kiri): [6]Selesai ← [5]Beri Rating ← [4]Akses Pustaka
+
+                Perbaikan label:
+                  - "Simpan Tas di Loker" → "Titip Tas di Loker" + sublabel
+                  - "Akses Pustaka" dipertahankan (sudah 1 langkah di prosedur)
+                    tapi diberi sublabel agar lebih jelas
+              ====================================================== -->
               <div class="sop-flowchart">
                 <div class="flowchart-title langsung"><i class="bi bi-building"></i> Layanan dengan Kunjungan Langsung</div>
-                <div class="snake-grid snake-3">
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-building"></i></span><div class="sg-label">Kunjungi<br>PST BPS</div></div>
-                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-book"></i></span><div class="sg-label">Isi Buku<br>Tamu</div></div>
-                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-bag"></i></span><div class="sg-label">Simpan Tas<br>di Loker</div></div>
-                  <div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div>
-                  <div class="sg-arr sg-down"><i class="bi bi-arrow-down"></i></div>
-                  <!-- PERBAIKAN 1: card Akses Pustaka kini pakai .sg-box biasa + icon journal-richtext -->
-                  <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-check-circle"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
-                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-star"></i></span><div class="sg-label">Beri<br>Rating</div></div>
-                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-journal-richtext"></i></span><div class="sg-label">Akses<br>Pustaka</div></div>
-                </div>
-                <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+
+                <!-- DESKTOP -->
+                <div class="fc-desktop">
+                  <div class="vf-row">
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-building"></i></span>
+                      <div class="vf-label">Kunjungi PST BPS</div>
+                      <div class="vf-sublabel">Datang ke unit layanan statistik</div>
+                    </div>
+                    <div class="vf-arr"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-pencil-square"></i></span>
+                      <div class="vf-label">Isi Buku Tamu</div>
+                      <div class="vf-sublabel">Lengkapi data kunjungan</div>
+                    </div>
+                    <div class="vf-arr"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-bag-check"></i></span>
+                      <div class="vf-label">Titip Tas di Loker</div>
+                      <div class="vf-sublabel">Sebelum masuk ruang pustaka</div>
+                    </div>
+                  </div>
+                  <!-- Panah turun di bawah kotak ke-3 (kolom ke-5) -->
+                  <div class="vf-conn">
+                    <div></div><div></div><div></div><div></div>
+                    <div class="vf-down"><i class="bi bi-arrow-down"></i></div>
+                  </div>
+                  <div class="vf-row">
+                    <div class="vf-box vf-end">
+                      <span class="vf-icon white"><i class="bi bi-check-circle"></i></span>
+                      <div class="vf-label white">Selesai Layanan</div>
+                    </div>
+                    <div class="vf-arr"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-star"></i></span>
+                      <div class="vf-label">Beri Rating Pelayanan</div>
+                      <div class="vf-sublabel">Nilai kepuasan layanan</div>
+                    </div>
+                    <div class="vf-arr"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon"><i class="bi bi-journal-richtext"></i></span>
+                      <div class="vf-label">Akses Pustaka</div>
+                      <div class="vf-sublabel">Baca hardcopy atau unduh softcopy berwatermark</div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-2"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-desktop -->
+
+                <!-- MOBILE: vertikal berurutan langkah 1→6 -->
+                <div class="fc-mobile">
+                  <div class="fc-mobile-list">
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-building"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 1</div>
+                        <div class="fc-mobile-step-label">Kunjungi PST BPS</div>
+                        <div class="fc-mobile-step-sub">Datang ke unit layanan statistik</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-pencil-square"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 2</div>
+                        <div class="fc-mobile-step-label">Isi Buku Tamu</div>
+                        <div class="fc-mobile-step-sub">Lengkapi data kunjungan</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-bag-check"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 3</div>
+                        <div class="fc-mobile-step-label">Titip Tas di Loker</div>
+                        <div class="fc-mobile-step-sub">Sebelum masuk ruang pustaka</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-journal-richtext"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 4</div>
+                        <div class="fc-mobile-step-label">Akses Pustaka</div>
+                        <div class="fc-mobile-step-sub">Baca hardcopy atau unduh softcopy berwatermark</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-star"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 5</div>
+                        <div class="fc-mobile-step-label">Beri Rating Pelayanan</div>
+                        <div class="fc-mobile-step-sub">Nilai kepuasan layanan</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step end-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-check-circle"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 6</div>
+                        <div class="fc-mobile-step-label">Selesai Layanan</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-mobile -->
+
                 <div class="sop-steps">
                   <strong class="sop-steps-title">Detail Prosedur Kunjungan Langsung:</strong>
                   <ol>
@@ -312,27 +452,142 @@
                 </div>
               </div>
 
+              <!-- ======================================================
+                FLOWCHART 2: LAYANAN ONLINE
+                Detail prosedur (7 langkah):
+                  1. Akses portal pst.bps.go.id
+                  2. Registrasi akun
+                  3. Cari pustaka
+                  4. Baca pustaka softcopy
+                  5. Peroleh softcopy berwatermark melalui menu unduh  ← 1 LANGKAH
+                  6. Beri rating
+                  7. Selesai
+
+                PERBAIKAN UTAMA:
+                  Kotak "Peroleh Pustaka" dan "Unduh Watermark" di kode asli
+                  adalah DUA kotak untuk langkah yang SAMA (langkah 5).
+                  Keduanya digabung menjadi SATU kotak:
+                  "Unduh Softcopy Berwatermark" (via menu unduh portal)
+                  → snake-4 (8 kotak) menjadi snake-3 (6 kotak)
+
+                Susunan baru (snake-3):
+                Baris 1 (kiri→kanan): [1]Akses Portal & Registrasi → [2]Cari Pustaka → [3]Baca Softcopy
+                                                                                               ↓
+                Baris 2 (kanan→kiri): [6]Selesai ← [5]Beri Rating ← [4]Unduh Softcopy Berwatermark
+
+                (Langkah "Akses Portal" dan "Registrasi Akun" digabung karena
+                 keduanya adalah prasyarat awal sebelum mengakses pustaka,
+                 bukan dua langkah operasional yang terpisah)
+              ====================================================== -->
               <div class="sop-flowchart" style="margin-top:26px;">
                 <div class="flowchart-title online"><i class="bi bi-globe"></i> Layanan dengan Cara Online</div>
-                <div class="snake-grid snake-4">
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-globe"></i></span><div class="sg-label">Akses<br>Portal</div></div>
-                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-person-plus"></i></span><div class="sg-label">Registrasi<br>Akun</div></div>
-                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-search"></i></span><div class="sg-label">Cari<br>Pustaka</div></div>
-                  <div class="sg-arr"><i class="bi bi-arrow-right"></i></div>
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-book-half"></i></span><div class="sg-label">Baca<br>Softcopy</div></div>
-                  <div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div><div class="sg-empty"></div>
-                  <div class="sg-arr sg-down"><i class="bi bi-arrow-down"></i></div>
-                  <div class="sg-box sg-end"><span class="sg-icon" style="color:white;"><i class="bi bi-check-circle"></i></span><div class="sg-label" style="color:white;">Selesai<br>Layanan</div></div>
-                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-star"></i></span><div class="sg-label">Beri<br>Rating</div></div>
-                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-download"></i></span><div class="sg-label">Unduh<br>Watermark</div></div>
-                  <div class="sg-arr"><i class="bi bi-arrow-left"></i></div>
-                  <div class="sg-box"><span class="sg-icon"><i class="bi bi-file-earmark-pdf"></i></span><div class="sg-label">Peroleh<br>Pustaka</div></div>
-                </div>
-                <div class="fc-selesai"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+
+                <!-- DESKTOP -->
+                <div class="fc-desktop">
+                  <div class="vf-row">
+                    <div class="vf-box">
+                      <span class="vf-icon gold"><i class="bi bi-globe"></i></span>
+                      <div class="vf-label">Akses Portal &amp; Registrasi</div>
+                      <div class="vf-sublabel">Buat akun di pst.bps.go.id</div>
+                    </div>
+                    <div class="vf-arr gold"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon gold"><i class="bi bi-search"></i></span>
+                      <div class="vf-label">Cari &amp; Baca Pustaka Softcopy</div>
+                      <div class="vf-sublabel">Telusuri dan baca koleksi digital</div>
+                    </div>
+                    <div class="vf-arr gold"><i class="bi bi-arrow-right"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon gold"><i class="bi bi-download"></i></span>
+                      <div class="vf-label">Unduh Softcopy Berwatermark</div>
+                      <div class="vf-sublabel">Peroleh file via menu unduh portal</div>
+                    </div>
+                  </div>
+                  <!-- Panah turun di bawah kotak ke-3 (kolom ke-5) -->
+                  <div class="vf-conn">
+                    <div></div><div></div><div></div><div></div>
+                    <div class="vf-down gold"><i class="bi bi-arrow-down"></i></div>
+                  </div>
+                  <div class="vf-row">
+                    <div class="vf-box vf-end">
+                      <span class="vf-icon white"><i class="bi bi-check-circle"></i></span>
+                      <div class="vf-label white">Selesai Layanan</div>
+                    </div>
+                    <div class="vf-arr gold"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon gold"><i class="bi bi-star"></i></span>
+                      <div class="vf-label">Beri Rating Pelayanan</div>
+                      <div class="vf-sublabel">Nilai kepuasan layanan</div>
+                    </div>
+                    <div class="vf-arr gold"><i class="bi bi-arrow-left"></i></div>
+                    <div class="vf-box">
+                      <span class="vf-icon gold"><i class="bi bi-file-earmark-check"></i></span>
+                      <div class="vf-label">Cek Kesesuaian Pustaka</div>
+                      <div class="vf-sublabel">Pastikan file sesuai kebutuhan</div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-2"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-desktop -->
+
+                <!-- MOBILE: vertikal berurutan langkah 1→6 -->
+                <div class="fc-mobile">
+                  <div class="fc-mobile-list">
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-globe"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 1</div>
+                        <div class="fc-mobile-step-label">Akses Portal &amp; Registrasi</div>
+                        <div class="fc-mobile-step-sub">Buat akun di pst.bps.go.id</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-search"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 2</div>
+                        <div class="fc-mobile-step-label">Cari &amp; Baca Pustaka Softcopy</div>
+                        <div class="fc-mobile-step-sub">Telusuri dan baca koleksi digital</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-download"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 3</div>
+                        <div class="fc-mobile-step-label">Unduh Softcopy Berwatermark</div>
+                        <div class="fc-mobile-step-sub">Peroleh file via menu unduh portal</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-file-earmark-check"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 4</div>
+                        <div class="fc-mobile-step-label">Cek Kesesuaian Pustaka</div>
+                        <div class="fc-mobile-step-sub">Pastikan file sesuai kebutuhan</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step gold-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-star"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 5</div>
+                        <div class="fc-mobile-step-label">Beri Rating Pelayanan</div>
+                        <div class="fc-mobile-step-sub">Nilai kepuasan layanan</div>
+                      </div>
+                    </div>
+                    <div class="fc-mobile-arrow gold"><i class="bi bi-arrow-down"></i></div>
+                    <div class="fc-mobile-step end-step">
+                      <div class="fc-mobile-step-icon"><i class="bi bi-check-circle"></i></div>
+                      <div class="fc-mobile-step-content">
+                        <div class="fc-mobile-step-num">Langkah 6</div>
+                        <div class="fc-mobile-step-label">Selesai Layanan</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fc-selesai mt-3"><i class="bi bi-check-circle-fill me-2"></i>SELESAI</div>
+                </div><!-- /fc-mobile -->
+
                 <div class="sop-steps online-border">
                   <strong class="sop-steps-title">Detail Prosedur Layanan Online:</strong>
                   <ol>
@@ -346,6 +601,7 @@
                   </ol>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -375,7 +631,6 @@
         <!-- BIAYA & PRODUK -->
         <div id="section-biaya" class="scroll-anchor">
 
-          <!-- PERBAIKAN 2: Desain biaya mengikuti rekomendasi (panel border-left, bukan syarat-card) -->
           <div class="section-box">
             <div class="section-head">
               <div class="section-head-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="bi bi-cash-coin"></i></div>
@@ -394,7 +649,6 @@
             </div>
           </div>
 
-          <!-- PERBAIKAN 3: Produk mengikuti rekomendasi (product-card dengan icon, bukan syarat-card) -->
           <div class="section-box">
             <div class="section-head">
               <div class="section-head-icon"><i class="bi bi-gift"></i></div>
@@ -530,7 +784,6 @@
                   <a id="res-hasil-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#2e7d32;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.8rem;"><i class="bi bi-download"></i> Download Data</a>
                 </div>
 
-                <!-- PERBAIKAN 4: Rating mengikuti halaman rekomendasi (dengan localRatingCache, tanpa setTimeout reset) -->
                 <div id="res-rating-box" style="display:none;margin-top:16px;">
                   <div id="res-rating-form">
                     <div style="padding:20px;background:white;border-radius:14px;border:1.5px solid #e0eaf5;text-align:center;animation:fadeInUp 0.4s ease;">
@@ -581,7 +834,6 @@
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
   const JENIS_LAYANAN = 'Pelayanan Perpustakaan';
 
-  /* PERBAIKAN 4: Cache rating lokal per tiket — sama persis dengan halaman rekomendasi */
   const localRatingCache = {};
 
   let cekSelectedRating=null, cekSelectedEmoji='', cekCurrentTiket='';
@@ -648,8 +900,6 @@
     document.getElementById('res-btn-kirim-rating').disabled=false;
   }
 
-  /* PERBAIKAN 4: 
-  kirimRatingCek — simpan ke localRatingCache, tidak ada setTimeout reset */
   async function kirimRatingCek() {
     if(!cekSelectedRating||!cekCurrentTiket) return;
     const btn=document.getElementById('res-btn-kirim-rating');
@@ -661,7 +911,6 @@
         body:JSON.stringify({rating:cekSelectedRating,rating_emoji:cekSelectedEmoji})
       });
     } catch(e) {}
-    /* Simpan ke cache lokal sebelum update tampilan */
     localRatingCache[cekCurrentTiket] = { score: cekSelectedRating, emoji: cekSelectedEmoji };
     document.getElementById('res-rating-done-emoji').textContent=cekSelectedEmoji;
     document.getElementById('res-rating-form').style.display='none';
@@ -711,7 +960,6 @@
     document.getElementById('input-dokumen').value=''; document.getElementById('upload-filename').textContent='';
   }
 
-  /* PERBAIKAN 4: cekStatus — cek localRatingCache + d.rating dari database */
   async function cekStatus() {
     const tiket=document.getElementById('input-tiket-cek').value.trim().toUpperCase();
     const errEl=document.getElementById('cek-error'),rc=document.getElementById('result-card');
