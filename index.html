@@ -120,14 +120,17 @@
 
     /* ===================== RESPONSIVE ===================== */
 
+    /* ===================== RESPONSIVE ===================== */
+
     /* Tablet (max 992px) */
     @media (max-width: 992px) {
       .hero h1 { font-size: 2.2rem; }
       .hero { padding: 80px 20px; }
       .stat-highlight .num { font-size: 1.6rem; }
+      .stat-highlight-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
-    /* Mobile (max 768px) */
+    /* Tablet kecil (max 768px) */
     @media (max-width: 768px) {
       .hero { padding: 60px 16px; }
       .hero h1 { font-size: 1.8rem; }
@@ -139,28 +142,63 @@
       .stat-number { font-size: 1.6rem; }
 
       .section-title { font-size: 1.4rem; }
-
-      .preview-card { padding: 24px 16px; }
+      .preview-card { padding: 20px 14px; }
 
       .stat-pub-grid { grid-template-columns: 1fr; }
-      .stat-highlight-grid { grid-template-columns: 1fr; }
+      .stat-highlight-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
       .statistik-section { padding: 20px 16px; }
-      .stat-highlight .num { font-size: 1.6rem; }
+      .stat-highlight .num { font-size: 1.5rem; }
+      .stat-highlight .lbl { font-size: 0.7rem; }
 
       .chart-wrap-pub { height: 220px; }
-
       footer p { font-size: 0.8rem; }
+    }
+
+    /* Mobile (max 576px) */
+    @media (max-width: 576px) {
+      .hero { padding: 48px 14px; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero p { font-size: 0.9rem; }
+      .btn-hero { font-size: 0.86rem; padding: 10px 22px; }
+
+      .stat-highlight-grid { grid-template-columns: 1fr; gap: 8px; }
+      .stat-highlight .num { font-size: 1.6rem; }
+
+      .preview-card { padding: 20px 14px; }
+      .preview-card h5 { font-size: 0.92rem; }
+      .card-icon { width: 54px; height: 54px; font-size: 1.4rem; }
+
+      .section-title { font-size: 1.25rem; }
+      .section-divider { margin-bottom: 28px; }
+
+      .stat-pub-card { padding: 14px 12px; }
+      .chart-wrap-pub { height: 200px; }
     }
 
     /* Small mobile (max 480px) */
     @media (max-width: 480px) {
-      .hero h1 { font-size: 1.5rem; }
-      .hero p { font-size: 0.88rem; }
       .navbar-brand { font-size: 1rem; }
       .navbar-brand img { height: 28px; }
-      .section-title { font-size: 1.2rem; }
       .stat-number { font-size: 1.4rem; }
+      .stat-label { font-size: 0.76rem; }
+      .stat-item { padding: 14px 8px; }
+      .preview-card { padding: 16px 12px; }
       .preview-card h5 { font-size: 0.9rem; }
+      .statistik-section { border-radius: 12px; }
+      footer p { font-size: 0.78rem; line-height: 1.7; }
+    }
+
+    /* Extra small (max 360px) */
+    @media (max-width: 360px) {
+      .hero h1 { font-size: 1.3rem; }
+      .hero p { font-size: 0.82rem; }
+      .btn-hero { font-size: 0.8rem; padding: 9px 18px; }
+      .navbar-brand { font-size: 0.88rem; }
+      .navbar-brand img { height: 24px; }
+      .section-title { font-size: 1.1rem; }
+      .stat-number { font-size: 1.2rem; }
+      .preview-card h5 { font-size: 0.85rem; }
+      .card-icon { width: 46px; height: 46px; font-size: 1.2rem; }
     }
   </style>
 </head>
