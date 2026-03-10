@@ -886,79 +886,98 @@
     const d = window._tiketData;
     if (!d) return;
 
-    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-      * { margin:0; padding:0; box-sizing:border-box; }
-      body { font-family:'Plus Jakarta Sans',sans-serif; background:#f4f6f9; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
-      .card { background:white; border-radius:20px; width:100%; max-width:480px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.12); }
-      .card-head { background:linear-gradient(135deg,#003f7f,#005baa); padding:28px 32px; text-align:center; }
-      .card-head .badge { display:inline-block; background:#f4a700; color:#003f7f; font-size:0.7rem; font-weight:700; padding:4px 14px; border-radius:50px; margin-bottom:14px; }
-      .card-head h2 { color:white; font-size:1rem; font-weight:800; margin-bottom:4px; }
-      .card-head p { color:rgba(255,255,255,0.7); font-size:0.75rem; }
-      .tiket-num { margin:24px 32px; text-align:center; }
-      .tiket-num .label { font-size:0.72rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
-      .tiket-num .num { font-size:1.8rem; font-weight:800; color:#005baa; letter-spacing:3px; padding:14px 20px; border:2px dashed #c8dff5; border-radius:12px; background:#f0f7ff; display:inline-block; }
-      .info-grid { padding:0 32px 24px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-      .info-item { background:#f8fafd; border-radius:10px; padding:12px 14px; border:1px solid #e0eaf5; }
-      .info-item .lbl { font-size:0.68rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
-      .info-item .val { font-size:0.82rem; font-weight:600; color:#333; }
-      .info-full { grid-column:1/-1; }
-      .card-foot { background:#f8fafd; border-top:1px solid #e0eaf5; padding:16px 32px; text-align:center; }
-      .card-foot p { font-size:0.75rem; color:#888; line-height:1.6; }
-      .status-badge { display:inline-block; background:#fff3cd; color:#856404; font-weight:700; font-size:0.75rem; padding:4px 14px; border-radius:20px; margin-top:8px; }
-    </style></head><body>
-    <div class="card">
-      <div class="card-head">
-        <div class="badge">✓ PENGAJUAN BERHASIL</div>
-        <h2>BPS Kota Palu</h2>
-        <p>Tanda Terima Pengajuan Layanan</p>
-      </div>
-      <div class="tiket-num">
-        <div class="label">Nomor Tiket</div>
-        <div class="num">${d.tiket}</div>
-      </div>
-      <div class="info-grid">
-        <div class="info-item info-full">
-          <div class="lbl">Jenis Layanan</div>
-          <div class="val">${d.jenis_layanan}</div>
-        </div>
-        <div class="info-item">
-          <div class="lbl">Nama</div>
-          <div class="val">${d.nama}</div>
-        </div>
-        <div class="info-item">
-          <div class="lbl">Email</div>
-          <div class="val">${d.email}</div>
-        </div>
-        <div class="info-item">
-          <div class="lbl">No. Telepon</div>
-          <div class="val">${d.telepon}</div>
-        </div>
-        <div class="info-item">
-          <div class="lbl">Instansi</div>
-          <div class="val">${d.instansi}</div>
-        </div>
-        <div class="info-item info-full">
-          <div class="lbl">Tanggal Pengajuan</div>
-          <div class="val">${d.tanggal}</div>
-        </div>
-        <div class="info-item info-full" style="text-align:center;">
-          <div class="lbl">Status Awal</div>
-          <div><span class="status-badge">⏳ Menunggu Verifikasi</span></div>
-        </div>
-      </div>
-      <div class="card-foot">
-        <p>Simpan nomor tiket ini untuk memantau status pengajuan Anda.<br>Cek status melalui halaman layanan BPS Kota Palu.</p>
-      </div>
-    </div>
-    <script>window.onload=()=>window.print();<\/script>
-    </body></html>`;
+    // Load jsPDF lalu langsung download tanpa preview
+    if (window.jspdf && window.jspdf.jsPDF) { _buatPDF(d); return; }
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    script.onload = () => _buatPDF(d);
+    document.head.appendChild(script);
+  }
 
-    const blob = new Blob([html], { type: 'text/html' });
-    const url  = URL.createObjectURL(blob);
-    const win  = window.open(url, '_blank');
-    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  function _buatPDF(d) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+    const W = 210, mg = 20, cw = W - mg * 2;
+
+    // Header biru
+    doc.setFillColor(0,63,127);
+    doc.roundedRect(mg, 14, cw, 40, 4, 4, 'F');
+
+    // Badge kuning
+    doc.setFillColor(244,167,0);
+    doc.roundedRect(mg + cw/2 - 38, 19, 76, 9, 3, 3, 'F');
+    doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(0,63,127);
+    doc.text('\u2713 PENGAJUAN BERHASIL', W/2, 24.8, { align:'center' });
+
+    doc.setFontSize(14); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text('BPS Kota Palu', W/2, 37, { align:'center' });
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(200,220,255);
+    doc.text('Tanda Terima Pengajuan Layanan', W/2, 44, { align:'center' });
+
+    // Label nomor tiket
+    doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(160,160,160);
+    doc.text('NOMOR TIKET', W/2, 62, { align:'center' });
+
+    // Kotak tiket dashed
+    doc.setDrawColor(180,215,245); doc.setFillColor(237,246,255); doc.setLineWidth(0.6);
+    doc.setLineDashPattern([2,1.5], 0);
+    doc.roundedRect(mg+14, 65, cw-28, 17, 3, 3, 'FD');
+    doc.setLineDashPattern([], 0);
+    doc.setFontSize(19); doc.setFont('helvetica','bold'); doc.setTextColor(0,91,170);
+    doc.text(d.tiket, W/2, 77, { align:'center' });
+
+    // Info fields
+    const fields = [
+      { lbl:'JENIS LAYANAN', val: d.jenis_layanan, full:true },
+      { lbl:'NAMA', val: d.nama },
+      { lbl:'EMAIL', val: d.email },
+      { lbl:'NO. TELEPON', val: d.telepon },
+      { lbl:'INSTANSI', val: d.instansi },
+      { lbl:'TANGGAL PENGAJUAN', val: d.tanggal, full:true },
+    ];
+    let y = 91, half = (cw-5)/2, pending = null;
+
+    fields.forEach(f => {
+      if (!f.full && pending === null) { pending = f; return; }
+      if (!f.full && pending !== null) {
+        [pending, f].forEach((fi, i) => {
+          const bx = i === 0 ? mg : mg + half + 5;
+          doc.setFillColor(248,250,253); doc.setDrawColor(220,232,245); doc.setLineWidth(0.25);
+          doc.roundedRect(bx, y, half, 18, 2, 2, 'FD');
+          doc.setFontSize(6); doc.setFont('helvetica','bold'); doc.setTextColor(170,170,170);
+          doc.text(fi.lbl, bx+4, y+5.5);
+          doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(40,40,40);
+          doc.text(String(fi.val||'-'), bx+4, y+12.5, { maxWidth: half-8 });
+        });
+        y += 22; pending = null; return;
+      }
+      doc.setFillColor(248,250,253); doc.setDrawColor(220,232,245); doc.setLineWidth(0.25);
+      doc.roundedRect(mg, y, cw, 18, 2, 2, 'FD');
+      doc.setFontSize(6); doc.setFont('helvetica','bold'); doc.setTextColor(170,170,170);
+      doc.text(f.lbl, mg+4, y+5.5);
+      doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(40,40,40);
+      doc.text(String(f.val||'-'), mg+4, y+12.5, { maxWidth: cw-8 });
+      y += 22;
+    });
+
+    // Status
+    doc.setFillColor(255,243,205); doc.setDrawColor(255,200,0); doc.setLineWidth(0.25);
+    doc.roundedRect(mg, y, cw, 17, 2, 2, 'FD');
+    doc.setFontSize(6); doc.setFont('helvetica','bold'); doc.setTextColor(160,160,160);
+    doc.text('STATUS AWAL', W/2, y+5.5, { align:'center' });
+    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(133,100,4);
+    doc.text('\u23F3 Menunggu Verifikasi', W/2, y+13, { align:'center' });
+    y += 22;
+
+    // Footer
+    doc.setFillColor(248,250,253); doc.setDrawColor(220,232,245); doc.setLineWidth(0.25);
+    doc.roundedRect(mg, y, cw, 19, 2, 2, 'FD');
+    doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(130,130,130);
+    doc.text('Simpan nomor tiket ini untuk memantau status pengajuan Anda.', W/2, y+8, { align:'center' });
+    doc.text('Cek status melalui halaman layanan BPS Kota Palu.', W/2, y+14.5, { align:'center' });
+
+    // Auto-download langsung
+    doc.save('Tiket-' + d.tiket + '.pdf');
   }
 
   // ===== KIRIM PENGADUAN VIA WHATSAPP =====
