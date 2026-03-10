@@ -1139,6 +1139,7 @@
         body:JSON.stringify({nomor_tiket:nomorTiket,jenis_layanan:JENIS_LAYANAN,nama,email,no_telepon:telepon,instansi:instansi||'-',jenis_kelamin:jenisKelamin,usia:parseInt(usia),kategori_pengguna:kategori,tingkat_pendidikan:pendidikan,kabupaten_kota:kabkota,deskripsi,nama_dokumen:dokumen.name,url_dokumen:urlDokumen})
       });
       if(!insertRes.ok)throw new Error('Gagal menyimpan pengajuan');
+      window._tiketData = { tiket: nomorTiket, nama, email, telepon, instansi: instansi||'-', jenis_layanan: JENIS_LAYANAN, tanggal: new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) };
       document.getElementById('form-pengajuan').style.display='none';
       document.getElementById('tiket-number').textContent=nomorTiket;
       document.getElementById('tiket-box').classList.add('show');
