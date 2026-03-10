@@ -762,6 +762,7 @@
           <div class="pengajuan-tabs">
             <button class="pengajuan-tab active" onclick="switchTab('form',this)"><i class="bi bi-file-earmark-text me-2"></i>Form Pengajuan</button>
             <button class="pengajuan-tab" onclick="switchTab('cek',this)"><i class="bi bi-search me-2"></i>Cek Status</button>
+            <button class="pengajuan-tab" onclick="switchTab('pengaduan',this)"><i class="bi bi-headset me-2"></i>Pengaduan</button>
           </div>
 
           <!-- TAB FORM -->
@@ -772,7 +773,10 @@
               <p style="font-size:.83rem;color:#555;">Simpan nomor tiket berikut untuk memantau status pengajuan Anda:</p>
               <div class="tiket-number" id="tiket-number">-</div>
               <p class="tiket-warning"><i class="bi bi-exclamation-triangle me-1"></i>Simpan nomor tiket ini! Anda membutuhkannya untuk cek status pengajuan.</p>
-              <button class="btn-submit mt-3" onclick="resetForm()"><i class="bi bi-plus-circle"></i> Ajukan Permintaan Baru</button>
+              <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+                <button class="btn-submit" onclick="downloadTiketPDF()" style="background:linear-gradient(135deg,#2e7d32,#1b5e20);"><i class="bi bi-file-earmark-pdf"></i> Simpan Tiket (PDF)</button>
+                <button class="btn-submit" onclick="resetForm()" style="background:linear-gradient(135deg,#005baa,#003f7f);"><i class="bi bi-plus-circle"></i> Ajukan Permintaan Baru</button>
+              </div>
             </div>
             <div id="form-pengajuan">
               <div class="row g-3">
@@ -850,6 +854,53 @@
                 </div>
               </div>
             </div></div>
+          </div>
+
+          <!-- TAB PENGADUAN -->
+          <div id="tab-pengaduan" class="tab-content-panel">
+            <div style="background:linear-gradient(135deg,var(--bps-dark),var(--bps-blue));border-radius:14px;padding:28px;margin-bottom:18px;position:relative;overflow:hidden;">
+              <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;"></div>
+              <div style="position:relative;z-index:1;">
+                <div style="display:inline-flex;align-items:center;gap:7px;background:var(--bps-accent);color:var(--bps-dark);font-size:0.72rem;font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:14px;">
+                  <i class="bi bi-headset"></i> Layanan Pengaduan
+                </div>
+                <h5 style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:8px;">Sampaikan Pengaduan Anda</h5>
+                <p style="color:rgba(255,255,255,0.85);font-size:0.84rem;line-height:1.7;margin:0;">Jika Anda mengalami kendala atau memiliki keluhan terkait layanan BPS Kota Palu, silakan hubungi kami langsung melalui WhatsApp. Tim kami siap membantu Anda.</p>
+              </div>
+            </div>
+
+            <div style="background:white;border-radius:14px;border:1px solid rgba(0,91,170,0.08);box-shadow:0 2px 14px rgba(0,0,0,0.07);padding:24px;">
+              <p style="font-size:0.87rem;color:#555;margin-bottom:20px;line-height:1.7;">Sebelum mengirim pengaduan, lengkapi informasi berikut agar petugas dapat memproses laporan Anda dengan lebih cepat:</p>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="aduan-nama" placeholder="Masukkan nama lengkap">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Nomor Tiket <span style="color:#aaa;font-weight:400;">(jika ada)</span></label>
+                  <input type="text" class="form-control" id="aduan-tiket" placeholder="Contoh: BPS-2026-XXXXX" style="text-transform:uppercase;">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Isi Pengaduan <span class="text-danger">*</span></label>
+                  <textarea class="form-control" id="aduan-isi" rows="4" placeholder="Jelaskan kendala atau keluhan Anda secara detail..."></textarea>
+                </div>
+                <div class="col-12">
+                  <div id="aduan-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:0.83rem;border-radius:10px;"></div>
+                </div>
+                <div class="col-12">
+                  <button class="btn-submit" onclick="kirimPengaduan()" style="background:linear-gradient(135deg,#25D366,#128C7E);">
+                    <i class="bi bi-whatsapp"></i> Kirim via WhatsApp
+                  </button>
+                </div>
+                <div class="col-12">
+                  <div style="background:#f8fafd;border-radius:10px;padding:14px 16px;border:1px solid #e0eaf5;display:flex;align-items:flex-start;gap:10px;">
+                    <i class="bi bi-info-circle-fill" style="color:var(--bps-blue);font-size:1rem;flex-shrink:0;margin-top:2px;"></i>
+                    <p style="font-size:0.78rem;color:#666;margin:0;line-height:1.6;">Pengaduan akan diteruskan langsung ke WhatsApp petugas BPS Kota Palu. Pastikan aplikasi WhatsApp sudah terinstal di perangkat Anda. Jam layanan: <strong>Senin–Kamis 08.00–16.00 WITA</strong>, <strong>Jumat 08.00–16.30 WITA</strong>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -987,6 +1038,8 @@
       const tiket=generateTiket();
       const ir=await fetch(`${SUPABASE_URL}/rest/v1/pengajuan`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},body:JSON.stringify({nomor_tiket:tiket,jenis_layanan:JENIS_LAYANAN,nama,email,no_telepon:telepon,instansi:instansi||'-',jenis_kelamin:jk,usia:parseInt(usia),kategori_pengguna:kat,tingkat_pendidikan:pend,kabupaten_kota:kab,deskripsi:desk,nama_dokumen:dok.name,url_dokumen:urlD})});
       if(!ir.ok) throw new Error('Gagal menyimpan pengajuan');
+      // Simpan data untuk PDF tiket
+      window._tiketData = { tiket, nama, email, telepon, instansi: instansi||'-', jenis_layanan: JENIS_LAYANAN, tanggal: new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) };
       document.getElementById('form-pengajuan').style.display='none';
       document.getElementById('tiket-number').textContent=tiket;
       document.getElementById('tiket-box').classList.add('show');
@@ -1044,6 +1097,105 @@
   }
 
   document.getElementById('input-tiket-cek').addEventListener('keypress',e=>{ if(e.key==='Enter') cekStatus(); });
+
+  // ===== DOWNLOAD TIKET PDF =====
+  function downloadTiketPDF() {
+    const d = window._tiketData;
+    if (!d) return;
+
+    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+      * { margin:0; padding:0; box-sizing:border-box; }
+      body { font-family:'Plus Jakarta Sans',sans-serif; background:#f4f6f9; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
+      .card { background:white; border-radius:20px; width:100%; max-width:480px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.12); }
+      .card-head { background:linear-gradient(135deg,#003f7f,#005baa); padding:28px 32px; text-align:center; }
+      .card-head .badge { display:inline-block; background:#f4a700; color:#003f7f; font-size:0.7rem; font-weight:700; padding:4px 14px; border-radius:50px; margin-bottom:14px; }
+      .card-head h2 { color:white; font-size:1rem; font-weight:800; margin-bottom:4px; }
+      .card-head p { color:rgba(255,255,255,0.7); font-size:0.75rem; }
+      .tiket-num { margin:24px 32px; text-align:center; }
+      .tiket-num .label { font-size:0.72rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+      .tiket-num .num { font-size:1.8rem; font-weight:800; color:#005baa; letter-spacing:3px; padding:14px 20px; border:2px dashed #c8dff5; border-radius:12px; background:#f0f7ff; display:inline-block; }
+      .info-grid { padding:0 32px 24px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+      .info-item { background:#f8fafd; border-radius:10px; padding:12px 14px; border:1px solid #e0eaf5; }
+      .info-item .lbl { font-size:0.68rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+      .info-item .val { font-size:0.82rem; font-weight:600; color:#333; }
+      .info-full { grid-column:1/-1; }
+      .card-foot { background:#f8fafd; border-top:1px solid #e0eaf5; padding:16px 32px; text-align:center; }
+      .card-foot p { font-size:0.75rem; color:#888; line-height:1.6; }
+      .status-badge { display:inline-block; background:#fff3cd; color:#856404; font-weight:700; font-size:0.75rem; padding:4px 14px; border-radius:20px; margin-top:8px; }
+    </style></head><body>
+    <div class="card">
+      <div class="card-head">
+        <div class="badge">✓ PENGAJUAN BERHASIL</div>
+        <h2>BPS Kota Palu</h2>
+        <p>Tanda Terima Pengajuan Layanan</p>
+      </div>
+      <div class="tiket-num">
+        <div class="label">Nomor Tiket</div>
+        <div class="num">${d.tiket}</div>
+      </div>
+      <div class="info-grid">
+        <div class="info-item info-full">
+          <div class="lbl">Jenis Layanan</div>
+          <div class="val">${d.jenis_layanan}</div>
+        </div>
+        <div class="info-item">
+          <div class="lbl">Nama</div>
+          <div class="val">${d.nama}</div>
+        </div>
+        <div class="info-item">
+          <div class="lbl">Email</div>
+          <div class="val">${d.email}</div>
+        </div>
+        <div class="info-item">
+          <div class="lbl">No. Telepon</div>
+          <div class="val">${d.telepon}</div>
+        </div>
+        <div class="info-item">
+          <div class="lbl">Instansi</div>
+          <div class="val">${d.instansi}</div>
+        </div>
+        <div class="info-item info-full">
+          <div class="lbl">Tanggal Pengajuan</div>
+          <div class="val">${d.tanggal}</div>
+        </div>
+        <div class="info-item info-full" style="text-align:center;">
+          <div class="lbl">Status Awal</div>
+          <div><span class="status-badge">⏳ Menunggu Verifikasi</span></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        <p>Simpan nomor tiket ini untuk memantau status pengajuan Anda.<br>Cek status melalui halaman layanan BPS Kota Palu.</p>
+      </div>
+    </div>
+    <script>window.onload=()=>window.print();<\/script>
+    </body></html>`;
+
+    const blob = new Blob([html], { type: 'text/html' });
+    const url  = URL.createObjectURL(blob);
+    const win  = window.open(url, '_blank');
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  }
+
+  // ===== KIRIM PENGADUAN VIA WHATSAPP =====
+  const WA_NUMBER = '6281527683764'; // Format: 628xxxxxxxxxx (tanpa + atau spasi)
+
+  function kirimPengaduan() {
+    const nama  = document.getElementById('aduan-nama').value.trim();
+    const tiket = document.getElementById('aduan-tiket').value.trim();
+    const isi   = document.getElementById('aduan-isi').value.trim();
+    const errEl = document.getElementById('aduan-error');
+    errEl.classList.add('d-none');
+
+    if (!nama) { errEl.textContent = 'Nama lengkap wajib diisi!'; errEl.classList.remove('d-none'); return; }
+    if (!isi)  { errEl.textContent = 'Isi pengaduan wajib diisi!'; errEl.classList.remove('d-none'); return; }
+
+    const tiketInfo = tiket ? `\nNomor Tiket: ${tiket}` : '';
+    const pesan = `*PENGADUAN LAYANAN BPS Kota Palu*\n\nNama: ${nama}${tiketInfo}\n\nKeterangan:\n${isi}\n\n_Dikirim melalui portal layanan BPS Kota Palu_`;
+    const url   = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pesan)}`;
+    window.open(url, '_blank');
+  }
 </script>
 </body>
 </html>
