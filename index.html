@@ -32,6 +32,27 @@
     .nav-link { font-weight: 500; font-size: 0.9rem; transition: color 0.2s; }
     .nav-link:hover, .nav-link.active { color: var(--bps-accent) !important; }
 
+    /* NAV DROPDOWN (sama persis seperti konsultasi.html) */
+    .nav-links-home { display:flex; align-items:center; gap:4px; }
+    .nav-link-home { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; font-weight:700; color:rgba(255,255,255,.75); text-decoration:none; padding:6px 14px; border-radius:7px; white-space:nowrap; transition:background .18s,color .18s; }
+    .nav-link-home:hover { background:rgba(255,255,255,.15); color:#fff; }
+    .nav-link-home i { font-size:.9rem; }
+    .nav-sep { color:rgba(255,255,255,.25); font-size:.7rem; user-select:none; }
+    .nav-dropdown { position:relative; }
+    .nav-dropdown-trigger { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; font-weight:700; color:rgba(255,255,255,.75); background:none; border:none; padding:6px 14px; border-radius:7px; cursor:pointer; white-space:nowrap; transition:background .18s,color .18s; font-family:'Plus Jakarta Sans',sans-serif; }
+    .nav-dropdown-trigger:hover, .nav-dropdown.open .nav-dropdown-trigger { background:rgba(255,255,255,.15); color:#fff; }
+    .nav-dropdown-trigger .caret { font-size:.58rem; transition:transform .2s; opacity:.7; }
+    .nav-dropdown.open .nav-dropdown-trigger .caret { transform:rotate(180deg); }
+    .nav-dropdown-panel { display:none; position:absolute; top:calc(100% + 10px); right:0; background:#fff; border:1px solid #dce8f5; border-radius:14px; box-shadow:0 10px 40px rgba(0,63,127,.18); min-width:310px; z-index:2000; padding:10px; animation:dropIn .18s ease; }
+    .nav-dropdown.open .nav-dropdown-panel { display:block; }
+    @keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+    .snd-group-label { font-size:.6rem; font-weight:800; letter-spacing:1.1px; text-transform:uppercase; color:#aabcce; padding:8px 10px 4px; }
+    .snd-item { display:flex; align-items:center; gap:11px; padding:9px 10px; border-radius:9px; text-decoration:none; transition:background .15s; cursor:pointer; }
+    .snd-item:hover { background:var(--bps-light); }
+    .snd-icon { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:.95rem; flex-shrink:0; background:var(--bps-light); color:var(--bps-blue); }
+    .snd-text-title { font-size:.8rem; font-weight:700; color:var(--bps-dark); line-height:1.3; }
+    .snd-text-sub { font-size:.68rem; color:#999; line-height:1.3; }
+
     /* HERO */
     .hero {
       background: linear-gradient(135deg, var(--bps-dark) 0%, var(--bps-blue) 60%, #1a7fd4 100%);
@@ -120,8 +141,6 @@
 
     /* ===================== RESPONSIVE ===================== */
 
-    /* ===================== RESPONSIVE ===================== */
-
     /* Tablet (max 992px) */
     @media (max-width: 992px) {
       .hero h1 { font-size: 2.2rem; }
@@ -152,6 +171,8 @@
 
       .chart-wrap-pub { height: 220px; }
       footer p { font-size: 0.8rem; }
+
+      .nav-links-home { display: none; }
     }
 
     /* Mobile (max 576px) */
@@ -215,7 +236,68 @@
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto">
+          <!-- Mobile menu (tampil saat collapse terbuka) -->
+          <li class="nav-item d-lg-none">
+            <a class="nav-link text-white" href="index.html"><i class="bi bi-house-fill me-1"></i> Beranda</a>
+          </li>
+          <li class="nav-item d-lg-none">
+            <a class="nav-link text-white" href="konsultasi.html"><i class="bi bi-bar-chart-steps me-1"></i> Konsultasi Statistik</a>
+          </li>
+          <li class="nav-item d-lg-none">
+            <a class="nav-link text-white" href="perpustakaan.html"><i class="bi bi-book-fill me-1"></i> Perpustakaan BPS</a>
+          </li>
+          <li class="nav-item d-lg-none">
+            <a class="nav-link text-white" href="produkstatistik.html"><i class="bi bi-shop me-1"></i> Produk Statistik Berbayar</a>
+          </li>
+          <li class="nav-item d-lg-none">
+            <a class="nav-link text-white" href="rekomendasistatistik.html"><i class="bi bi-file-earmark-check-fill me-1"></i> Rekomendasi Statistik</a>
+          </li>
         </ul>
+      </div>
+      <!-- Desktop nav links (kanan navbar, sembunyikan di mobile) -->
+      <div class="nav-links-home">
+        <a class="nav-link-home" href="index.html">
+          <i class="bi bi-house-fill"></i> Beranda
+        </a>
+        <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
+        <div class="nav-dropdown" id="layanan-dropdown">
+          <button class="nav-dropdown-trigger" onclick="toggleDropdown()">
+            <i class="bi bi-grid-3x3-gap-fill"></i>
+            Jenis Layanan
+            <i class="bi bi-chevron-down caret"></i>
+          </button>
+          <div class="nav-dropdown-panel">
+            <div class="snd-group-label">Jenis Layanan</div>
+            <a class="snd-item" href="konsultasi.html">
+              <div class="snd-icon"><i class="bi bi-bar-chart-steps"></i></div>
+              <div>
+                <div class="snd-text-title">Konsultasi Statistik</div>
+                <div class="snd-text-sub">Konsultasi data, metadata &amp; klasifikasi statistik</div>
+              </div>
+            </a>
+            <a class="snd-item" href="perpustakaan.html">
+              <div class="snd-icon"><i class="bi bi-book-fill"></i></div>
+              <div>
+                <div class="snd-text-title">Perpustakaan BPS</div>
+                <div class="snd-text-sub">Akses koleksi publikasi &amp; referensi statistik</div>
+              </div>
+            </a>
+            <a class="snd-item" href="produkstatistik.html">
+              <div class="snd-icon"><i class="bi bi-shop"></i></div>
+              <div>
+                <div class="snd-text-title">Produk Statistik Berbayar</div>
+                <div class="snd-text-sub">Publikasi, data mikro, dan peta digital statistik</div>
+              </div>
+            </a>
+            <a class="snd-item" href="rekomendasistatistik.html">
+              <div class="snd-icon"><i class="bi bi-file-earmark-check-fill"></i></div>
+              <div>
+                <div class="snd-text-title">Rekomendasi Statistik</div>
+                <div class="snd-text-sub">Permohonan surat rekomendasi kegiatan statistik</div>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -411,6 +493,16 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Dropdown toggle
+    function toggleDropdown() {
+      const dd = document.getElementById('layanan-dropdown');
+      dd.classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      const dd = document.getElementById('layanan-dropdown');
+      if (dd && !dd.contains(e.target)) dd.classList.remove('open');
+    });
+
     const SUPABASE_URL = 'https://rljhayfmfsrdtpmlqltp.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
   
