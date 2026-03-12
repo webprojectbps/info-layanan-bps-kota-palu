@@ -94,29 +94,29 @@
       filter: brightness(0.90) saturate(1.05);
     }
 
-    /* Poster kiri: fade ke kanan & bawah */
+    /* Poster kiri: fade halus ke kanan (sisi dalam dekat teks) & bawah */
     .poster-left img {
       object-position: top right;
       -webkit-mask-image:
-        linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%),
-        linear-gradient(to right, rgba(0,0,0,0.2) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 100%);
+        linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 100%),
+        linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.9) 18%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.6) 72%, rgba(0,0,0,0) 100%);
       -webkit-mask-composite: source-in;
       mask-image:
-        linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%),
-        linear-gradient(to right, rgba(0,0,0,0.2) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 100%);
+        linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 100%),
+        linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.9) 18%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.6) 72%, rgba(0,0,0,0) 100%);
       mask-composite: intersect;
     }
 
-    /* Poster kanan: fade ke kiri & bawah */
+    /* Poster kanan: fade halus ke kiri (sisi dalam dekat teks) & bawah */
     .poster-right img {
       object-position: top left;
       -webkit-mask-image:
-        linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%),
-        linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 80%, rgba(0,0,0,0.2) 100%);
+        linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 100%),
+        linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 28%, rgba(0,0,0,1) 60%, rgba(0,0,0,0.9) 82%, rgba(0,0,0,0.1) 100%);
       -webkit-mask-composite: source-in;
       mask-image:
-        linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%),
-        linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 80%, rgba(0,0,0,0.2) 100%);
+        linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 100%),
+        linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 28%, rgba(0,0,0,1) 60%, rgba(0,0,0,0.9) 82%, rgba(0,0,0,0.1) 100%);
       mask-composite: intersect;
     }
 
