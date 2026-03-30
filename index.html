@@ -48,16 +48,20 @@
     .hero-carousel {
       position: relative;
       overflow: hidden;
+      max-width: 100%;
+      width: 100%;
     }
     .hero-carousel-track {
       display: flex;
       transition: transform 0.65s cubic-bezier(.77,0,.18,1);
       will-change: transform;
-      width: 200%; /* 2 slides x 100% */
+      width: 200%;
     }
     .hero-slide {
-      min-width: 50%; /* 50% of 200% track = 100vw */
+      width: 50%;
+      min-width: 50%;
       flex-shrink: 0;
+      overflow: hidden;
     }
     /* Slide 1 - Selamat Datang */
     .hero-slide-welcome {
@@ -67,6 +71,7 @@
       position: relative;
       overflow: hidden;
       text-align: center;
+      box-sizing: border-box;
     }
     .hero-slide-welcome::before { content:''; position:absolute; top:-80px; right:-80px; width:350px; height:350px; border-radius:50%; background:rgba(255,255,255,0.05); pointer-events:none; }
     .hero-slide-welcome::after  { content:''; position:absolute; bottom:-100px; left:-60px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,0.04); pointer-events:none; }
@@ -82,6 +87,41 @@
       max-height: 420px;
       object-fit: cover;
       object-position: center;
+    }
+    /* ===== MOBILE CAROUSEL FIX ===== */
+    @media (max-width: 768px) {
+      .hero-slide-welcome {
+        padding: 56px 20px 68px;
+      }
+      .hero-slide-welcome h1 {
+        font-size: 1.8rem !important;
+      }
+      .hero-slide-welcome p {
+        font-size: 0.93rem !important;
+      }
+      .btn-hero {
+        padding: 11px 24px;
+        font-size: 0.9rem;
+      }
+      .hero-slide-poster img {
+        max-height: 260px;
+        object-position: center top;
+      }
+      .carousel-arrow { display: none; }
+    }
+    @media (max-width: 480px) {
+      .hero-slide-welcome {
+        padding: 44px 16px 64px;
+      }
+      .hero-slide-welcome h1 {
+        font-size: 1.5rem !important;
+      }
+      .hero-slide-welcome p {
+        font-size: 0.88rem !important;
+      }
+      .hero-slide-poster img {
+        max-height: 220px;
+      }
     }
 
     /* Dots */
@@ -208,8 +248,6 @@
       <div class="nav-links-home">
         <a class="nav-link-home" href="index.html"><i class="bi bi-house-fill"></i> Beranda</a>
         <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
-        <a class="nav-link-home" href="index.html#statistik-pengunjung"><i class="bi bi-bar-chart-fill"></i> Statistik Pengunjung</a>
-        <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
         <div class="nav-dropdown" id="layanan-dropdown">
           <button class="nav-dropdown-trigger" onclick="toggleDropdown()">
             <i class="bi bi-grid-3x3-gap-fill"></i> Jenis Layanan <i class="bi bi-chevron-down caret"></i>
@@ -234,7 +272,7 @@
       <div class="hero-slide hero-slide-welcome">
         <div class="container position-relative" style="z-index:1;">
           <div class="mb-3">
-            <span class="badge fw-semibold px-3 py-2 rounded-pill" style="font-size:0.8rem;background:rgba(255,255,255,0.15);color:white;border:1.5px solid rgba(255,255,255,0.4);backdrop-filter:blur(8px);">
+            <span class="badge bg-warning text-dark fw-semibold px-3 py-2 rounded-pill" style="font-size:0.8rem;">
               <i class="bi bi-patch-check-fill me-1"></i> Layanan Resmi Pemerintah
             </span>
           </div>
@@ -329,7 +367,7 @@
   </section>
 
   <!-- STATISTIK PENGUNJUNG -->
-  <section class="py-5" id="statistik-pengunjung" style="scroll-margin-top:70px;">
+  <section class="py-5">
     <div class="container">
       <div class="text-center mb-2"><h2 class="section-title">Statistik Pengunjung Layanan</h2><p style="color:#888;font-size:.92rem;margin-top:6px;">Data agregat pengguna layanan BPS Kota Palu</p></div>
       <div class="section-divider"></div>
