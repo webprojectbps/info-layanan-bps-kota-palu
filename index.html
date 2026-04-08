@@ -48,17 +48,24 @@
     .hero-carousel {
       position: relative;
       overflow: hidden;
+      /* Fix: ensure carousel has defined height context */
+      display: block;
+      width: 100%;
     }
     .hero-carousel-track {
       display: flex;
       transition: transform 0.65s cubic-bezier(.77,0,.18,1);
       will-change: transform;
-      width: 200%; /* 2 slides x 100% */
+      /* each slide is 100% wide, track holds 2 slides side by side */
+      width: 200%;
     }
     .hero-slide {
-      min-width: 50%; /* 50% of 200% track = 100vw */
+      /* each slide takes half of 200% track = 100vw */
+      width: 50%;
       flex-shrink: 0;
+      min-width: 0;
     }
+
     /* Slide 1 - Selamat Datang */
     .hero-slide-welcome {
       background: linear-gradient(135deg, var(--bps-dark) 0%, var(--bps-blue) 60%, #1a7fd4 100%);
@@ -67,6 +74,8 @@
       position: relative;
       overflow: hidden;
       text-align: center;
+      /* Fix: make sure it fills full width properly */
+      box-sizing: border-box;
     }
     .hero-slide-welcome::before { content:''; position:absolute; top:-80px; right:-80px; width:350px; height:350px; border-radius:50%; background:rgba(255,255,255,0.05); pointer-events:none; }
     .hero-slide-welcome::after  { content:''; position:absolute; bottom:-100px; left:-60px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,0.04); pointer-events:none; }
@@ -75,21 +84,50 @@
     .btn-hero { background-color:var(--bps-accent); color:#003f7f; font-weight:700; padding:13px 32px; border-radius:50px; text-decoration:none; transition:all 0.25s; display:inline-block; }
     .btn-hero:hover { background-color:#ffc107; color:#003f7f; transform:translateY(-2px); box-shadow:0 6px 20px rgba(244,167,0,0.45); }
 
-    /* Slide 2 - Poster */
+    /* Slide 2 - Poster: full bleed gradient background matching poster colors */
     .hero-slide-poster {
-      min-height: 420px;
+      /* Match the height of slide 1 */
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #e06500 0%, #f4a700 50%, #ffb800 100%);
+      /* Gradient that blends seamlessly with the poster's orange-yellow tones */
+      background: linear-gradient(180deg,
+        #e06000 0%,
+        #f07800 15%,
+        #f4a700 35%,
+        #ffb800 50%,
+        #f4a700 65%,
+        #f07800 85%,
+        #e06000 100%
+      );
+      /* Ensure same height as slide 1 */
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+      padding: 24px 0;
+    }
+    /* Subtle radial glow in center so poster appears to emerge naturally */
+    .hero-slide-poster::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%,
+        rgba(255,220,80,0.35) 0%,
+        rgba(244,167,0,0.0) 70%
+      );
+      pointer-events: none;
     }
     .hero-slide-poster img {
       display: block;
-      max-width: 100%;
-      max-height: 380px;
+      position: relative;
+      z-index: 1;
+      /* Let the image be as tall as the slide, no forced small size */
+      max-height: 100%;
       width: auto;
-      height: auto;
+      max-width: 100%;
       object-fit: contain;
+      /* No drop shadow — poster should look blended, not pasted */
     }
 
     /* Dots */
@@ -166,8 +204,9 @@
     @media (max-width:768px) {
       .hero-slide-welcome { padding:60px 16px; }
       .hero-slide-welcome h1 { font-size:1.8rem; }
-      .hero-slide-poster { min-height:260px; }
-      .hero-slide-poster img { max-height:220px; width:100%; }
+      /* Poster slide mobile: shorter but still full-width */
+      .hero-slide-poster { min-height: 0; padding: 20px 0; }
+      .hero-slide-poster img { width: 100%; max-height: none; }
       .carousel-arrow { display:none; }
       .stat-divider { border-right:none; border-bottom:1px solid #e0e7f0; }
       .stat-item { padding:18px 12px; } .stat-number{font-size:1.6rem;}
@@ -182,6 +221,7 @@
       .hero-slide-welcome h1 { font-size:1.6rem; }
       .stat-highlight-grid { grid-template-columns:1fr; gap:8px; }
       .section-title { font-size:1.25rem; }
+      .hero-slide-poster { padding: 16px 0; }
     }
     @media (max-width:480px) {
       .navbar-brand{font-size:1rem;} .navbar-brand img{height:28px;}
@@ -253,7 +293,7 @@
         </div>
       </div>
 
-      <!-- SLIDE 2: Poster SE 2026 -->
+      <!-- SLIDE 2: Poster SE 2026 — full bleed, blended background -->
       <div class="hero-slide hero-slide-poster">
         <img src="img/posterbps.png" alt="Ayo Sukseskan Sensus Ekonomi 2026">
       </div>
@@ -382,6 +422,20 @@
       let cur      = 0;
       let timer    = setInterval(next, 4500);
 
+      // KEY FIX: sync slide heights so carousel looks correct on all devices
+      function syncHeights() {
+        const slides = track.querySelectorAll('.hero-slide');
+        // Reset heights first
+        slides.forEach(function(s) { s.style.height = ''; });
+        // Find the tallest slide
+        let maxH = 0;
+        slides.forEach(function(s) { maxH = Math.max(maxH, s.offsetHeight); });
+        // Apply uniform height to all slides
+        if (maxH > 0) {
+          slides.forEach(function(s) { s.style.height = maxH + 'px'; });
+        }
+      }
+
       function goTo(n) {
         cur = (n + total) % total;
         track.style.transform = 'translateX(-' + (cur * 50) + '%)';
@@ -393,6 +447,12 @@
 
       window.carouselGo   = goTo;
       window.carouselMove = function(dir) { goTo(cur + dir); };
+
+      // Sync on load and resize
+      window.addEventListener('load', syncHeights);
+      window.addEventListener('resize', syncHeights);
+      // Also sync after a short delay in case fonts/images shift layout
+      setTimeout(syncHeights, 300);
 
       // Swipe support
       let tx = 0;
