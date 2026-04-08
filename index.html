@@ -25,10 +25,13 @@
     .navbar-brand span { color: var(--bps-accent); }
     .nav-link { font-weight: 500; font-size: 0.9rem; transition: color 0.2s; }
     .nav-link:hover, .nav-link.active { color: var(--bps-accent) !important; }
+    
+    /* Breadcrumb Style Nav */
     .nav-links-home { display:flex; align-items:center; gap:4px; }
     .nav-link-home { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; font-weight:700; color:rgba(255,255,255,.75); text-decoration:none; padding:6px 14px; border-radius:7px; white-space:nowrap; transition:background .18s,color .18s; }
     .nav-link-home:hover { background:rgba(255,255,255,.15); color:#fff; }
     .nav-sep { color:rgba(255,255,255,.25); font-size:.7rem; user-select:none; }
+    
     .nav-dropdown { position:relative; }
     .nav-dropdown-trigger { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; font-weight:700; color:rgba(255,255,255,.75); background:none; border:none; padding:6px 14px; border-radius:7px; cursor:pointer; white-space:nowrap; transition:background .18s,color .18s; font-family:'Plus Jakarta Sans',sans-serif; }
     .nav-dropdown-trigger:hover, .nav-dropdown.open .nav-dropdown-trigger { background:rgba(255,255,255,.15); color:#fff; }
@@ -37,6 +40,7 @@
     .nav-dropdown-panel { display:none; position:absolute; top:calc(100% + 10px); right:0; background:#fff; border:1px solid #dce8f5; border-radius:14px; box-shadow:0 10px 40px rgba(0,63,127,.18); min-width:310px; z-index:2000; padding:10px; animation:dropIn .18s ease; }
     .nav-dropdown.open .nav-dropdown-panel { display:block; }
     @keyframes dropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+    
     .snd-group-label { font-size:.6rem; font-weight:800; letter-spacing:1.1px; text-transform:uppercase; color:#aabcce; padding:8px 10px 4px; }
     .snd-item { display:flex; align-items:center; gap:11px; padding:9px 10px; border-radius:9px; text-decoration:none; transition:background .15s; cursor:pointer; }
     .snd-item:hover { background:var(--bps-light); }
@@ -45,37 +49,14 @@
     .snd-text-sub { font-size:.68rem; color:#999; line-height:1.3; }
 
     /* HERO CAROUSEL */
-    .hero-carousel {
-      position: relative;
-      overflow: hidden;
-      /* Fix: ensure carousel has defined height context */
-      display: block;
-      width: 100%;
-    }
-    .hero-carousel-track {
-      display: flex;
-      transition: transform 0.65s cubic-bezier(.77,0,.18,1);
-      will-change: transform;
-      /* each slide is 100% wide, track holds 2 slides side by side */
-      width: 200%;
-    }
-    .hero-slide {
-      /* each slide takes half of 200% track = 100vw */
-      width: 50%;
-      flex-shrink: 0;
-      min-width: 0;
-    }
+    .hero-carousel { position: relative; overflow: hidden; display: block; width: 100%; }
+    .hero-carousel-track { display: flex; transition: transform 0.65s cubic-bezier(.77,0,.18,1); will-change: transform; width: 200%; }
+    .hero-slide { width: 50%; flex-shrink: 0; min-width: 0; }
 
     /* Slide 1 - Selamat Datang */
     .hero-slide-welcome {
       background: linear-gradient(135deg, var(--bps-dark) 0%, var(--bps-blue) 60%, #1a7fd4 100%);
-      color: white;
-      padding: 100px 20px;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      /* Fix: make sure it fills full width properly */
-      box-sizing: border-box;
+      color: white; padding: 100px 20px; position: relative; overflow: hidden; text-align: center; box-sizing: border-box;
     }
     .hero-slide-welcome::before { content:''; position:absolute; top:-80px; right:-80px; width:350px; height:350px; border-radius:50%; background:rgba(255,255,255,0.05); pointer-events:none; }
     .hero-slide-welcome::after  { content:''; position:absolute; bottom:-100px; left:-60px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,0.04); pointer-events:none; }
@@ -84,85 +65,29 @@
     .btn-hero { background-color:var(--bps-accent); color:#003f7f; font-weight:700; padding:13px 32px; border-radius:50px; text-decoration:none; transition:all 0.25s; display:inline-block; }
     .btn-hero:hover { background-color:#ffc107; color:#003f7f; transform:translateY(-2px); box-shadow:0 6px 20px rgba(244,167,0,0.45); }
 
-    /* Slide 2 - Poster: full bleed gradient background matching poster colors */
+    /* Badge Transparan di Slide sesuai contoh gambar */
+    .badge-official {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 20px; border-radius: 50px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff; font-size: 0.8rem; font-weight: 600;
+      backdrop-filter: blur(4px); margin-bottom: 24px;
+    }
+
+    /* Slide 2 - Poster */
     .hero-slide-poster {
-      /* Match the height of slide 1 */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* Gradient that blends seamlessly with the poster's orange-yellow tones */
-      background: linear-gradient(180deg,
-        #e06000 0%,
-        #f07800 15%,
-        #f4a700 35%,
-        #ffb800 50%,
-        #f4a700 65%,
-        #f07800 85%,
-        #e06000 100%
-      );
-      /* Ensure same height as slide 1 */
-      min-height: 420px;
-      position: relative;
-      overflow: hidden;
-      box-sizing: border-box;
-      padding: 24px 0;
-    }
-    /* Subtle radial glow in center so poster appears to emerge naturally */
-    .hero-slide-poster::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 50% 50%,
-        rgba(255,220,80,0.35) 0%,
-        rgba(244,167,0,0.0) 70%
-      );
-      pointer-events: none;
-    }
-    .hero-slide-poster img {
-      display: block;
-      position: relative;
-      z-index: 1;
-      /* Let the image be as tall as the slide, no forced small size */
-      max-height: 100%;
-      width: auto;
-      max-width: 100%;
-      object-fit: contain;
-      /* No drop shadow — poster should look blended, not pasted */
-    }
-
-    /* Dots */
-    .carousel-dots {
-      position: absolute;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-      z-index: 10;
-    }
-    .carousel-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: rgba(255,255,255,0.45);
-      border: none; cursor: pointer; padding: 0;
-      transition: all 0.3s;
-    }
-    .carousel-dot.active { background: var(--bps-accent); width: 24px; border-radius: 4px; }
-
-    /* Arrows */
-    .carousel-arrow {
-      position: absolute;
-      top: 50%; transform: translateY(-50%);
-      background: rgba(255,255,255,0.18);
-      border: 1.5px solid rgba(255,255,255,0.4);
-      color: white; border-radius: 50%;
-      width: 40px; height: 40px;
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 1rem;
-      backdrop-filter: blur(6px);
-      transition: background 0.2s;
-      z-index: 10;
+      background: linear-gradient(180deg, #e06000 0%, #f07800 15%, #f4a700 35%, #ffb800 50%, #f4a700 65%, #f07800 85%, #e06000 100%);
+      min-height: 420px; position: relative; overflow: hidden; box-sizing: border-box; padding: 24px 0;
     }
-    .carousel-arrow:hover { background: rgba(255,255,255,0.32); }
+    .hero-slide-poster img { display: block; position: relative; z-index: 1; max-height: 100%; width: auto; max-width: 100%; object-fit: contain; }
+
+    /* Dots & Arrows */
+    .carousel-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.45); border: none; cursor: pointer; padding: 0; transition: all 0.3s; }
+    .carousel-dot.active { background: var(--bps-accent); width: 24px; border-radius: 4px; }
+    .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.4); color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; backdrop-filter: blur(6px); transition: background 0.2s; z-index: 10; }
     .carousel-arrow-left  { left: 16px; }
     .carousel-arrow-right { right: 16px; }
 
@@ -202,109 +127,66 @@
     /* RESPONSIVE */
     @media (max-width:992px) { .hero-slide-welcome { padding:80px 20px; } .hero-slide-welcome h1{font-size:2.2rem;} }
     @media (max-width:768px) {
-      .hero-slide-welcome { padding:60px 16px; }
-      .hero-slide-welcome h1 { font-size:1.8rem; }
-      /* Poster slide mobile: shorter but still full-width */
-      .hero-slide-poster { min-height: 0; padding: 20px 0; }
-      .hero-slide-poster img { width: 100%; max-height: none; }
-      .carousel-arrow { display:none; }
-      .stat-divider { border-right:none; border-bottom:1px solid #e0e7f0; }
-      .stat-item { padding:18px 12px; } .stat-number{font-size:1.6rem;}
-      .section-title { font-size:1.4rem; } .preview-card{padding:20px 14px;}
-      .stat-pub-grid { grid-template-columns:1fr; }
-      .stat-highlight-grid { grid-template-columns:1fr 1fr; gap:10px; }
-      .statistik-section { padding:20px 16px; } .chart-wrap-pub{height:220px;}
-      .nav-links-home { display:none; }
-    }
-    @media (max-width:576px) {
-      .hero-slide-welcome { padding:48px 14px; }
-      .hero-slide-welcome h1 { font-size:1.6rem; }
-      .stat-highlight-grid { grid-template-columns:1fr; gap:8px; }
-      .section-title { font-size:1.25rem; }
-      .hero-slide-poster { padding: 16px 0; }
-    }
-    @media (max-width:480px) {
-      .navbar-brand{font-size:1rem;} .navbar-brand img{height:28px;}
-      .stat-number{font-size:1.4rem;} .stat-item{padding:14px 8px;}
-      .preview-card{padding:16px 12px;}
-    }
-    @media (max-width:360px) {
-      .hero-slide-welcome h1{font-size:1.3rem;}
-      .navbar-brand{font-size:.88rem;} .navbar-brand img{height:24px;}
+      .hero-slide-welcome { padding:60px 16px; } .hero-slide-welcome h1 { font-size:1.8rem; }
+      .carousel-arrow { display:none; } .stat-divider { border-right:none; border-bottom:1px solid #e0e7f0; }
+      .stat-pub-grid { grid-template-columns:1fr; } .stat-highlight-grid { grid-template-columns:1fr 1fr; gap:10px; }
+      .statistik-section { padding:20px 16px; } .nav-links-home { display:none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">
-      <img src="img/logoBPS.png" alt="Logo BPS" height="35" class="me-2">BPS <span>Kota Palu</span>
-    </a>
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="img/logoBPS.png" alt="Logo BPS" height="35" class="me-2">BPS <span>Kota Palu</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item d-lg-none"><a class="nav-link text-white" href="index.html"><i class="bi bi-house-fill me-1"></i> Beranda</a></li>
+          <li class="nav-item d-lg-none"><a class="nav-link text-white" href="#statistik-pengunjung"><i class="bi bi-bar-chart-fill me-1"></i> Statistik Pengunjung</a></li>
+          <li class="nav-item d-lg-none"><a class="nav-link text-white" href="konsultasi.html"><i class="bi bi-bar-chart-steps me-1"></i> Konsultasi Statistik</a></li>
+        </ul>
+      </div>
 
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <div class="nav-links-home">
+        <a class="nav-link-home" href="index.html">
+          <i class="bi bi-house-fill"></i> Beranda
+        </a>
+        <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
+        
+        <a class="nav-link-home" href="#statistik-pengunjung">
+          <i class="bi bi-bar-chart-fill"></i> Statistik Pengunjung
+        </a>
+        <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
 
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item d-lg-none">
-          <a class="nav-link text-white" href="index.html"><i class="bi bi-house-fill me-1"></i> Beranda</a>
-        </li>
-
-        <!-- TAMBAHAN MENU STATISTIK -->
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#statistik-pengunjung">
-            <i class="bi bi-bar-chart-fill me-1"></i> Statistik Pengunjung
-          </a>
-        </li>
-
-      </ul>
+        <div class="nav-dropdown" id="layanan-dropdown">
+          <button class="nav-dropdown-trigger" onclick="toggleDropdown()">
+            <i class="bi bi-grid-3x3-gap-fill"></i> Jenis Layanan <i class="bi bi-chevron-down caret"></i>
+          </button>
+          <div class="nav-dropdown-panel">
+            <div class="snd-group-label">Jenis Layanan</div>
+            <a class="snd-item" href="konsultasi.html"><div class="snd-icon"><i class="bi bi-bar-chart-steps"></i></div><div><div class="snd-text-title">Konsultasi Statistik</div><div class="snd-text-sub">Konsultasi data, metadata &amp; klasifikasi statistik</div></div></a>
+            <a class="snd-item" href="perpustakaan.html"><div class="snd-icon"><i class="bi bi-book-fill"></i></div><div><div class="snd-text-title">Perpustakaan BPS</div><div class="snd-text-sub">Akses koleksi publikasi &amp; referensi statistik</div></div></a>
+            <a class="snd-item" href="produkstatistik.html"><div class="snd-icon"><i class="bi bi-shop"></i></div><div><div class="snd-text-title">Produk Statistik Berbayar</div><div class="snd-text-sub">Publikasi, data mikro, dan peta digital statistik</div></div></a>
+            <a class="snd-item" href="rekomendasistatistik.html"><div class="snd-icon"><i class="bi bi-file-earmark-check-fill"></i></div><div><div class="snd-text-title">Rekomendasi Statistik</div><div class="snd-text-sub">Permohonan surat rekomendasi kegiatan statistik</div></div></a>
+          </div>
+        </div>
+      </div>
     </div>
+  </nav>
 
-    <div class="nav-links-home">
-      <a class="nav-link-home" href="index.html">
-        <i class="bi bi-house-fill"></i> Beranda
-      </a>
-
-      <span class="nav-sep">
-        <i class="bi bi-chevron-right"></i>
-      </span>
-
-      <!-- TAMBAHAN LINK STATISTIK DI NAV KANAN -->
-      <a class="nav-link-home" href="#statistik-pengunjung">
-        <i class="bi bi-bar-chart-fill"></i> Statistik Pengunjung
-      </a>
-
-      <span class="nav-sep">
-        <i class="bi bi-chevron-right"></i>
-      </span>
-
-      <div class="nav-dropdown" id="layanan-dropdown">
-        <button class="nav-dropdown-trigger" onclick="toggleDropdown()">
-          <i class="bi bi-grid-3x3-gap-fill"></i> Jenis Layanan 
-          <i class="bi bi-chevron-down caret"></i>
-        </button>
-
-  <!-- HERO CAROUSEL -->
   <div class="hero-carousel" id="heroCarousel">
     <div class="hero-carousel-track" id="carouselTrack">
 
-      <!-- SLIDE 1: Selamat Datang -->
       <div class="hero-slide hero-slide-welcome">
         <div class="container position-relative" style="z-index:1;">
-          <div class="mb-3">
-            <span class="badge fw-semibold px-3 py-2 rounded-pill"
-              style="
-                font-size:0.8rem;
-                background: rgba(255,255,255,0.12);
-                border: 1px solid rgba(255,255,255,0.3);
-                color: #fff;
-                backdrop-filter: blur(6px);
-              ">
-              <i class="bi bi-patch-check-fill me-1"></i> Layanan Resmi Pemerintah
-            </span>
+          <div class="badge-official">
+            <i class="bi bi-patch-check-fill" style="color: #fff;"></i> Layanan Resmi Pemerintah
           </div>
           <h1>Selamat Datang di<br><span style="color:var(--bps-accent);">BPS Kota Palu</span></h1>
           <p>Portal informasi layanan statistik dan pelayanan publik resmi Badan Pusat Statistik Kota Palu.</p>
@@ -314,26 +196,19 @@
         </div>
       </div>
 
-      <!-- SLIDE 2: Poster SE 2026 — full bleed, blended background -->
       <div class="hero-slide hero-slide-poster">
-        <img src="img/posterbps.png" alt="Ayo Sukseskan Sensus Ekonomi 2026">
+        <img src="img/posterbps.png" alt="Sensus Ekonomi 2026">
       </div>
-
-    </div><!-- /carouselTrack -->
-
-    <!-- Arrows -->
-    <button class="carousel-arrow carousel-arrow-left"  onclick="carouselMove(-1)"><i class="bi bi-chevron-left"></i></button>
-    <button class="carousel-arrow carousel-arrow-right" onclick="carouselMove(1)"><i class="bi bi-chevron-right"></i></button>
-
-    <!-- Dots -->
-    <div class="carousel-dots">
-      <button class="carousel-dot active" onclick="carouselGo(0)"></button>
-      <button class="carousel-dot"        onclick="carouselGo(1)"></button>
     </div>
 
-  </div><!-- /heroCarousel -->
+    <button class="carousel-arrow carousel-arrow-left"  onclick="carouselMove(-1)"><i class="bi bi-chevron-left"></i></button>
+    <button class="carousel-arrow carousel-arrow-right" onclick="carouselMove(1)"><i class="bi bi-chevron-right"></i></button>
+    <div class="carousel-dots">
+      <button class="carousel-dot active" onclick="carouselGo(0)"></button>
+      <button class="carousel-dot" onclick="carouselGo(1)"></button>
+    </div>
+  </div>
 
-  <!-- STATS BAR -->
   <div class="stats-bar">
     <div class="container">
       <div class="row g-0">
@@ -345,7 +220,6 @@
     </div>
   </div>
 
-  <!-- SENSUS EKONOMI 2026 SPANDUK -->
   <section class="py-4" style="background:#f4f6f9;">
     <div class="container">
       <div class="text-center mb-3">
@@ -355,27 +229,16 @@
       </div>
       <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.12);">
         <img src="img/spandukbps.png" alt="Ayo Sukseskan Sensus Ekonomi 2026" style="width:100%;display:block;">
-        <div style="background:white;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border:1px solid rgba(0,0,0,0.07);border-top:none;">
+        <div style="background:white;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
           <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:7px;">
-              <i class="bi bi-calendar-event-fill" style="color:#f4a700;"></i>
-              <span style="font-size:0.83rem;font-weight:700;color:#003f7f;">01 Mei &ndash; 31 Juli 2026</span>
-            </div>
-            <div style="width:1px;height:20px;background:#e0e7f0;"></div>
-            <div style="display:flex;align-items:center;gap:7px;">
-              <i class="bi bi-hash" style="color:#f4a700;"></i>
-              <span style="font-size:0.83rem;font-weight:600;color:#555;">MencatatEkonomiIndonesia</span>
-            </div>
+            <div style="display:flex;align-items:center;gap:7px;"><i class="bi bi-calendar-event-fill" style="color:#f4a700;"></i><span style="font-size:0.83rem;font-weight:700;color:#003f7f;">01 Mei &ndash; 31 Juli 2026</span></div>
           </div>
-          <a href="https://sensus.bps.go.id/se2026/" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#005baa,#003f7f);color:white;font-size:0.8rem;font-weight:700;padding:8px 18px;border-radius:50px;text-decoration:none;transition:all 0.25s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 16px rgba(0,91,170,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-            <i class="bi bi-box-arrow-up-right"></i> Info Lebih Lanjut
-          </a>
+          <a href="https://sensus.bps.go.id/se2026/" target="_blank" style="background:linear-gradient(135deg,#005baa,#003f7f);color:white;font-size:0.8rem;font-weight:700;padding:8px 18px;border-radius:50px;text-decoration:none;">Info Lebih Lanjut</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PREVIEW LAYANAN -->
   <section id="layanan-utama" class="py-5 mt-2" style="scroll-margin-top:70px;">
     <div class="container">
       <div class="text-center mb-2"><h2 class="section-title">Layanan Utama</h2></div>
@@ -386,18 +249,10 @@
         <div class="col-sm-6 col-lg-3"><div class="preview-card"><div class="card-icon"><i class="bi bi-person-badge-fill"></i></div><h5>Pelayanan Produk Statistik Berbayar</h5><a href="produkstatistik.html" class="stretched-link"></a></div></div>
         <div class="col-sm-6 col-lg-3"><div class="preview-card"><div class="card-icon"><i class="bi bi-chat-dots-fill"></i></div><h5>Pelayanan Rekomendasi Kegiatan Statistik</h5><a href="rekomendasistatistik.html" class="stretched-link"></a></div></div>
       </div>
-      <div class="text-center mt-5 mb-2"><h2 class="section-title">Layanan Lainnya</h2><p style="color:#888;font-size:.92rem;margin-top:6px;">Layanan digital BPS yang dapat diakses secara online</p></div>
-      <div class="section-divider"></div>
-      <div class="row g-4 justify-content-center">
-        <div class="col-sm-6 col-lg-4"><div class="preview-card"><div class="card-icon"><i class="bi bi-code-slash"></i></div><h5>Web API BPS</h5></div></div>
-        <div class="col-sm-6 col-lg-4"><div class="preview-card"><div class="card-icon"><i class="bi bi-bar-chart-steps"></i></div><h5>BPS StatInaLab</h5></div></div>
-        <div class="col-sm-6 col-lg-4"><div class="preview-card"><div class="card-icon"><i class="bi bi-arrow-left-right"></i></div><h5>Transdata</h5></div></div>
-      </div>
     </div>
   </section>
 
-  <!-- STATISTIK PENGUNJUNG -->
-  <section id="statistik-pengunjung" class="py-5">
+  <section id="statistik-pengunjung" class="py-5" style="scroll-margin-top:70px;">
     <div class="container">
       <div class="text-center mb-2"><h2 class="section-title">Statistik Pengunjung Layanan</h2><p style="color:#888;font-size:.92rem;margin-top:6px;">Data agregat pengguna layanan BPS Kota Palu</p></div>
       <div class="section-divider"></div>
@@ -415,17 +270,15 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="py-4 mt-3">
     <div class="container text-center">
       <div class="mb-1"><img src="img/logoBPS.png" alt="Logo BPS" height="35" class="me-2"><strong class="text-white">BPS Kota Palu</strong></div>
-      <p class="mb-0">&copy; 2026 Badan Pusat Statistik Kota Palu &nbsp;|&nbsp; <i class="bi bi-clock me-1"></i> Senin &ndash; Kamis: 08.00 &ndash; 16.00 WITA<br>Jumat: 08.00 &ndash; 16.30 WITA</p>
+      <p class="mb-0">&copy; 2026 Badan Pusat Statistik Kota Palu</p>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Dropdown
     function toggleDropdown() {
       const dd = document.getElementById('layanan-dropdown');
       dd.classList.toggle('open');
@@ -435,57 +288,23 @@
       if (dd && !dd.contains(e.target)) dd.classList.remove('open');
     });
 
-    // ===== HERO CAROUSEL =====
     (function() {
       const track  = document.getElementById('carouselTrack');
       const dots   = document.querySelectorAll('.carousel-dot');
-      const total  = 2;
-      let cur      = 0;
-      let timer    = setInterval(next, 4500);
-
-      // KEY FIX: sync slide heights so carousel looks correct on all devices
-      function syncHeights() {
-        const slides = track.querySelectorAll('.hero-slide');
-        // Reset heights first
-        slides.forEach(function(s) { s.style.height = ''; });
-        // Find the tallest slide
-        let maxH = 0;
-        slides.forEach(function(s) { maxH = Math.max(maxH, s.offsetHeight); });
-        // Apply uniform height to all slides
-        if (maxH > 0) {
-          slides.forEach(function(s) { s.style.height = maxH + 'px'; });
-        }
-      }
+      const total  = 2; let cur = 0; let timer = setInterval(next, 4500);
 
       function goTo(n) {
         cur = (n + total) % total;
         track.style.transform = 'translateX(-' + (cur * 50) + '%)';
         dots.forEach(function(d, i) { d.classList.toggle('active', i === cur); });
-        clearInterval(timer);
-        timer = setInterval(next, 4500);
+        clearInterval(timer); timer = setInterval(next, 4500);
       }
       function next() { goTo(cur + 1); }
-
-      window.carouselGo   = goTo;
+      window.carouselGo = goTo;
       window.carouselMove = function(dir) { goTo(cur + dir); };
-
-      // Sync on load and resize
-      window.addEventListener('load', syncHeights);
-      window.addEventListener('resize', syncHeights);
-      // Also sync after a short delay in case fonts/images shift layout
-      setTimeout(syncHeights, 300);
-
-      // Swipe support
-      let tx = 0;
-      const el = document.getElementById('heroCarousel');
-      el.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; }, {passive:true});
-      el.addEventListener('touchend',   function(e) {
-        const diff = tx - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) carouselMove(diff > 0 ? 1 : -1);
-      }, {passive:true});
     })();
 
-    // ===== SUPABASE STATISTIK =====
+    // SUPABASE STATISTIK
     const SUPABASE_URL = 'https://rljhayfmfsrdtpmlqltp.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsamhheWZtZnNyZHRwbWxxbHRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzc5NTcsImV4cCI6MjA4NzkxMzk1N30.1Iyu5DYkQyqnmu9eLT1Kcf7ybOI4V4-bXHr7b7NyR7c';
 
@@ -505,18 +324,17 @@
         data.forEach(d => { if (d.kabupaten_kota) kabCount[d.kabupaten_kota] = (kabCount[d.kabupaten_kota] || 0) + 1; });
         const topKab = Object.entries(kabCount).sort((a,b) => b[1]-a[1])[0];
         if (topKab) document.getElementById('pub-kab-top').textContent = topKab[0];
-        const accents  = ['#005baa','#f4a700','#e05c2a','#2e7d32','#7b1fa2','#0097a7','#c62828'];
-        const bpsBlues = ['#005baa','#1a7fd4','#4da3e8','#003f7f','#7ec0f5','#c8dff5','#002d5a'];
+        
         new Chart(document.getElementById('pub-chart-kategori'), {
           type: 'doughnut',
-          data: { labels: Object.keys(kategoriCount), datasets: [{ data: Object.values(kategoriCount), backgroundColor: accents, borderWidth: 2 }] },
+          data: { labels: Object.keys(kategoriCount), datasets: [{ data: Object.values(kategoriCount), backgroundColor: ['#005baa','#f4a700','#e05c2a','#2e7d32','#7b1fa2'], borderWidth: 2 }] },
           options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 10 }, boxWidth: 12 } } } }
         });
         const pendidikanCount = {};
         data.forEach(d => { if (d.tingkat_pendidikan) pendidikanCount[d.tingkat_pendidikan] = (pendidikanCount[d.tingkat_pendidikan] || 0) + 1; });
         new Chart(document.getElementById('pub-chart-pendidikan'), {
           type: 'doughnut',
-          data: { labels: Object.keys(pendidikanCount), datasets: [{ data: Object.values(pendidikanCount), backgroundColor: bpsBlues, borderWidth: 2 }] },
+          data: { labels: Object.keys(pendidikanCount), datasets: [{ data: Object.values(pendidikanCount), backgroundColor: ['#005baa','#1a7fd4','#4da3e8','#003f7f','#7ec0f5'], borderWidth: 2 }] },
           options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 10 }, boxWidth: 12 } } } }
         });
       } catch(err) { console.log('Statistik tidak tersedia'); }
