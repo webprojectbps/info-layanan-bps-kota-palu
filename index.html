@@ -237,41 +237,55 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">
-        <img src="img/logoBPS.png" alt="Logo BPS" height="35" class="me-2">BPS <span>Kota Palu</span>
-      </a>
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navMenu">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item d-lg-none"><a class="nav-link text-white" href="index.html"><i class="bi bi-house-fill me-1"></i> Beranda</a></li>
-          <li class="nav-item d-lg-none"><a class="nav-link text-white" href="konsultasi.html"><i class="bi bi-bar-chart-steps me-1"></i> Konsultasi Statistik</a></li>
-          <li class="nav-item d-lg-none"><a class="nav-link text-white" href="perpustakaan.html"><i class="bi bi-book-fill me-1"></i> Perpustakaan BPS</a></li>
-          <li class="nav-item d-lg-none"><a class="nav-link text-white" href="produkstatistik.html"><i class="bi bi-shop me-1"></i> Produk Statistik Berbayar</a></li>
-          <li class="nav-item d-lg-none"><a class="nav-link text-white" href="rekomendasistatistik.html"><i class="bi bi-file-earmark-check-fill me-1"></i> Rekomendasi Statistik</a></li>
-        </ul>
-      </div>
-      <div class="nav-links-home">
-        <a class="nav-link-home" href="index.html"><i class="bi bi-house-fill"></i> Beranda</a>
-        <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
-        <div class="nav-dropdown" id="layanan-dropdown">
-          <button class="nav-dropdown-trigger" onclick="toggleDropdown()">
-            <i class="bi bi-grid-3x3-gap-fill"></i> Jenis Layanan <i class="bi bi-chevron-down caret"></i>
-          </button>
-          <div class="nav-dropdown-panel">
-            <div class="snd-group-label">Jenis Layanan</div>
-            <a class="snd-item" href="konsultasi.html"><div class="snd-icon"><i class="bi bi-bar-chart-steps"></i></div><div><div class="snd-text-title">Konsultasi Statistik</div><div class="snd-text-sub">Konsultasi data, metadata &amp; klasifikasi statistik</div></div></a>
-            <a class="snd-item" href="perpustakaan.html"><div class="snd-icon"><i class="bi bi-book-fill"></i></div><div><div class="snd-text-title">Perpustakaan BPS</div><div class="snd-text-sub">Akses koleksi publikasi &amp; referensi statistik</div></div></a>
-            <a class="snd-item" href="produkstatistik.html"><div class="snd-icon"><i class="bi bi-shop"></i></div><div><div class="snd-text-title">Produk Statistik Berbayar</div><div class="snd-text-sub">Publikasi, data mikro, dan peta digital statistik</div></div></a>
-            <a class="snd-item" href="rekomendasistatistik.html"><div class="snd-icon"><i class="bi bi-file-earmark-check-fill"></i></div><div><div class="snd-text-title">Rekomendasi Statistik</div><div class="snd-text-sub">Permohonan surat rekomendasi kegiatan statistik</div></div></a>
-          </div>
-        </div>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img src="img/logoBPS.png" alt="Logo BPS" height="35" class="me-2">BPS <span>Kota Palu</span>
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item d-lg-none">
+          <a class="nav-link text-white" href="index.html"><i class="bi bi-house-fill me-1"></i> Beranda</a>
+        </li>
+
+        <!-- TAMBAHAN MENU STATISTIK -->
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#statistik-pengunjung">
+            <i class="bi bi-bar-chart-fill me-1"></i> Statistik Pengunjung
+          </a>
+        </li>
+
+      </ul>
     </div>
-  </nav>
+
+    <div class="nav-links-home">
+      <a class="nav-link-home" href="index.html">
+        <i class="bi bi-house-fill"></i> Beranda
+      </a>
+
+      <span class="nav-sep">
+        <i class="bi bi-chevron-right"></i>
+      </span>
+
+      <!-- TAMBAHAN LINK STATISTIK DI NAV KANAN -->
+      <a class="nav-link-home" href="#statistik-pengunjung">
+        <i class="bi bi-bar-chart-fill"></i> Statistik Pengunjung
+      </a>
+
+      <span class="nav-sep">
+        <i class="bi bi-chevron-right"></i>
+      </span>
+
+      <div class="nav-dropdown" id="layanan-dropdown">
+        <button class="nav-dropdown-trigger" onclick="toggleDropdown()">
+          <i class="bi bi-grid-3x3-gap-fill"></i> Jenis Layanan 
+          <i class="bi bi-chevron-down caret"></i>
+        </button>
 
   <!-- HERO CAROUSEL -->
   <div class="hero-carousel" id="heroCarousel">
@@ -281,7 +295,14 @@
       <div class="hero-slide hero-slide-welcome">
         <div class="container position-relative" style="z-index:1;">
           <div class="mb-3">
-            <span class="badge bg-warning text-dark fw-semibold px-3 py-2 rounded-pill" style="font-size:0.8rem;">
+            <span class="badge fw-semibold px-3 py-2 rounded-pill"
+              style="
+                font-size:0.8rem;
+                background: rgba(255,255,255,0.12);
+                border: 1px solid rgba(255,255,255,0.3);
+                color: #fff;
+                backdrop-filter: blur(6px);
+              ">
               <i class="bi bi-patch-check-fill me-1"></i> Layanan Resmi Pemerintah
             </span>
           </div>
@@ -376,7 +397,7 @@
   </section>
 
   <!-- STATISTIK PENGUNJUNG -->
-  <section class="py-5">
+  <section id="statistik-pengunjung" class="py-5">
     <div class="container">
       <div class="text-center mb-2"><h2 class="section-title">Statistik Pengunjung Layanan</h2><p style="color:#888;font-size:.92rem;margin-top:6px;">Data agregat pengguna layanan BPS Kota Palu</p></div>
       <div class="section-divider"></div>
