@@ -123,7 +123,17 @@
 
       text-align: center;
 
+      min-height: 420px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
     }
+
+    .hero-slide-welcome > .container { width: 100%; }
 
     .hero-slide-welcome::before { content:''; position:absolute; top:-80px; right:-80px; width:350px; height:350px; border-radius:50%; background:rgba(255,255,255,0.05); pointer-events:none; }
 
@@ -139,13 +149,23 @@
 
     /* Slide 2 - Poster */
 
+    .hero-slide-poster {
+
+      min-height: 420px;
+
+      display: flex;
+
+      align-items: stretch;
+
+    }
+
     .hero-slide-poster img {
 
       width: 100%;
 
       display: block;
 
-      max-height: 420px;
+      height: 420px;
 
       object-fit: cover;
 
@@ -283,11 +303,13 @@
 
     @media (max-width:768px) {
 
-      .hero-slide-welcome { padding:60px 16px; }
+      .hero-slide-welcome { padding:60px 16px; min-height:300px; }
 
       .hero-slide-welcome h1 { font-size:1.8rem; }
 
-      .hero-slide-poster img { max-height:280px; }
+      .hero-slide-poster { min-height:300px; }
+
+      .hero-slide-poster img { height:300px; }
 
       .carousel-arrow { display:none; }
 
