@@ -153,35 +153,98 @@
     /* FOOTER */
     footer { background-color:var(--bps-dark); color:rgba(255,255,255,0.8); font-size:.88rem; }
 
-    /* RESPONSIVE */
-    @media (max-width:992px) { .hero-slide-welcome { padding:80px 20px; } .hero-slide-welcome h1{font-size:2.2rem;} }
-    @media (max-width:768px) {
-      .hero-slide-welcome { padding:60px 16px; }
-      .hero-slide-welcome h1 { font-size:1.8rem; }
-      .hero-slide-poster img { max-height:220px; }
-      .carousel-arrow { display:none; }
-      .stat-divider { border-right:none; border-bottom:1px solid #e0e7f0; }
-      .stat-item { padding:18px 12px; } .stat-number{font-size:1.6rem;}
-      .section-title { font-size:1.4rem; } .preview-card{padding:20px 14px;}
-      .stat-pub-grid { grid-template-columns:1fr; }
-      .stat-highlight-grid { grid-template-columns:1fr 1fr; gap:10px; }
-      .statistik-section { padding:20px 16px; } .chart-wrap-pub{height:220px;}
-      .nav-links-home { display:none; }
+    /* =============================================
+       RESPONSIVE — HANYA PENAMBAHAN & PERBAIKAN
+       ============================================= */
+
+    /* Mobile navbar collapse: tampilkan menu Jenis Layanan di dalam collapse */
+    @media (max-width:991.98px) {
+      /* Sembunyikan desktop nav */
+      .nav-links-home { display:none !important; }
+
+      /* Styling item dalam collapse */
+      #navMenu .nav-link { padding: 10px 4px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      #navMenu .nav-item:last-child .nav-link { border-bottom: none; }
+
+      /* Hamburger spacing */
+      .navbar-toggler { padding: 6px 10px; }
+
+      /* Hero slide welcome padding lebih kecil */
+      .hero-slide-welcome { padding: 60px 16px; }
+      .hero-slide-welcome h1 { font-size: 1.9rem; }
+      .hero-slide-welcome p { font-size: .95rem; }
+
+      /* Poster slide */
+      .hero-slide-poster img { max-height: 260px; }
+
+      /* Sembunyikan panah carousel di layar kecil */
+      .carousel-arrow { display: none; }
+
+      /* Stats bar: 2 kolom, hapus border kanan di kolom genap */
+      .stat-divider { border-right: none; }
+      .col-6.col-md-3:nth-child(odd) .stat-item { border-right: 1px solid #e0e7f0; }
+      .stat-item { padding: 18px 12px; }
+      .stat-number { font-size: 1.6rem; }
+
+      /* Statistik section */
+      .statistik-section { padding: 20px 16px; }
+      .stat-pub-grid { grid-template-columns: 1fr; }
+      .stat-highlight-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .chart-wrap-pub { height: 220px; }
+
+      /* Section title */
+      .section-title { font-size: 1.4rem; }
+      .preview-card { padding: 20px 14px; }
     }
+
+    /* Tablet landscape / small desktop */
+    @media (max-width: 768px) {
+      .hero-slide-welcome { padding: 50px 16px; }
+      .hero-slide-welcome h1 { font-size: 1.7rem; }
+      .hero-slide-poster img { max-height: 220px; }
+
+      .stat-item { padding: 16px 10px; }
+      .stat-number { font-size: 1.5rem; }
+    }
+
+    /* Small phone */
     @media (max-width:576px) {
-      .hero-slide-welcome { padding:48px 14px; }
-      .hero-slide-welcome h1 { font-size:1.6rem; }
-      .stat-highlight-grid { grid-template-columns:1fr; gap:8px; }
-      .section-title { font-size:1.25rem; }
+      .hero-slide-welcome { padding: 44px 14px; }
+      .hero-slide-welcome h1 { font-size: 1.5rem; }
+      .hero-slide-welcome p { font-size: .88rem; }
+      .btn-hero { padding: 11px 24px; font-size: .9rem; }
+
+      /* Stats bar: 1 kolom penuh di layar sangat kecil, hilangkan semua border kanan */
+      .col-6.col-md-3:nth-child(odd) .stat-item { border-right: none; }
+      .stat-item { padding: 14px 8px; border-bottom: 1px solid #e0e7f0; }
+
+      .stat-highlight-grid { grid-template-columns: 1fr; gap: 8px; }
+      .section-title { font-size: 1.25rem; }
+      .preview-card { padding: 16px 12px; }
+
+      .statistik-section { padding: 16px 12px; }
+      .stat-highlight .num { font-size: 1.6rem; }
+
+      /* Spanduk section */
+      .container > div[style*="border-radius:16px"] { border-radius: 10px !important; }
     }
+
+    /* Extra small — 480px ke bawah */
     @media (max-width:480px) {
-      .navbar-brand{font-size:1rem;} .navbar-brand img{height:28px;}
-      .stat-number{font-size:1.4rem;} .stat-item{padding:14px 8px;}
-      .preview-card{padding:16px 12px;}
+      .navbar-brand { font-size: 1rem; }
+      .navbar-brand img { height: 28px; }
+      .stat-number { font-size: 1.4rem; }
+      .stat-item { padding: 12px 6px; }
+      .preview-card { padding: 14px 10px; }
+      .card-icon { width: 52px; height: 52px; font-size: 1.4rem; }
     }
+
+    /* Micro — 360px ke bawah */
     @media (max-width:360px) {
-      .hero-slide-welcome h1{font-size:1.3rem;}
-      .navbar-brand{font-size:.88rem;} .navbar-brand img{height:24px;}
+      .hero-slide-welcome h1 { font-size: 1.25rem; }
+      .navbar-brand { font-size: .88rem; }
+      .navbar-brand img { height: 24px; }
+      .btn-hero { padding: 9px 18px; font-size: .82rem; }
     }
   </style>
 </head>
