@@ -291,11 +291,19 @@
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-  <div class="container">
-    <a class="btn-back" href="index.html" title="Kembali"><i class="bi bi-arrow-left"></i></a>
-    <span style="font-size:0.6rem;font-weight:800;letter-spacing:2.5px;color:rgba(255,255,255,0.65);text-transform:uppercase;margin-left:4px;align-self:center;">SIGITA</span>
+  <div class="container-fluid px-3 px-lg-4">
+    <a class="navbar-brand" href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto;">
+      <a class="btn-back" href="index.html" title="Kembali" style="margin-right:4px;"><i class="bi bi-arrow-left"></i></a>
+      <img src="img/logoBPS.png" alt="Logo BPS" height="38">
+      <div style="display:flex;flex-direction:column;line-height:1.15;">
+        <span style="font-size:1.15rem;font-weight:900;color:white;letter-spacing:2px;text-transform:uppercase;font-style:italic;">SIGITA</span>
+        <span style="font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.7);letter-spacing:0.3px;">BPS Kota Palu</span>
+      </div>
+    </a>
     <div class="nav-links">
-      <a class="nav-link-home" href="index.html"><i class="bi bi-house-fill"></i> Beranda</a>
+      <a class="nav-link-home" href="index.html">
+        <i class="bi bi-house-fill"></i> Beranda
+      </a>
       <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
       <a class="nav-link-home" href="index.html#statistik-pengunjung"><i class="bi bi-bar-chart-fill"></i> Statistik Pengunjung</a>
       <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
@@ -309,24 +317,39 @@
           <div class="snd-group-label">Jenis Layanan</div>
           <a class="snd-item" href="konsultasi.html">
             <div class="snd-icon"><i class="bi bi-bar-chart-steps"></i></div>
-            <div><div class="snd-text-title">Konsultasi Statistik</div><div class="snd-text-sub">Konsultasi data, metadata &amp; klasifikasi statistik</div></div>
+            <div>
+              <div class="snd-text-title">Konsultasi Statistik</div>
+              <div class="snd-text-sub">Konsultasi data, metadata &amp; klasifikasi statistik</div>
+            </div>
+            
           </a>
           <a class="snd-item" href="perpustakaan.html">
             <div class="snd-icon"><i class="bi bi-book-fill"></i></div>
-            <div><div class="snd-text-title">Perpustakaan BPS</div><div class="snd-text-sub">Akses koleksi publikasi &amp; referensi statistik</div></div>
+            <div>
+              <div class="snd-text-title">Perpustakaan BPS</div>
+              <div class="snd-text-sub">Akses koleksi publikasi &amp; referensi statistik</div>
+            </div>
+            
           </a>
           <a class="snd-item active-page" href="produkstatistik.html">
             <div class="snd-icon"><i class="bi bi-shop"></i></div>
-            <div><div class="snd-text-title">Produk Statistik Berbayar</div><div class="snd-text-sub">Publikasi, data mikro, dan peta digital statistik</div></div>
+            <div>
+              <div class="snd-text-title">Produk Statistik Berbayar</div>
+              <div class="snd-text-sub">Publikasi, data mikro, dan peta digital statistik</div>
+            </div>
             <span class="snd-badge-active">Halaman ini</span>
           </a>
           <a class="snd-item" href="rekomendasistatistik.html">
             <div class="snd-icon"><i class="bi bi-file-earmark-check-fill"></i></div>
-            <div><div class="snd-text-title">Rekomendasi Statistik</div><div class="snd-text-sub">Permohonan surat rekomendasi kegiatan statistik</div></div>
+            <div>
+              <div class="snd-text-title">Rekomendasi Statistik</div>
+              <div class="snd-text-sub">Permohonan surat rekomendasi kegiatan statistik</div>
+            </div>
+            
           </a>
         </div>
         <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
-        <a class="nav-link-home" href="index.html#pengaduan-section" style="color:#f4a700;font-weight:800;"><i class="bi bi-headset"></i> Pengaduan</a>
+        <a class="nav-link-home" href="#section-ajukan" style="color:#f4a700;font-weight:800;" onclick="(function(){var el=document.querySelector('.pengajuan-tab[onclick*=pengaduan]');if(el){switchTab('pengaduan',el);}document.getElementById('section-ajukan')?.scrollIntoView({behavior:'smooth'});})();return false;"><i class="bi bi-headset"></i> Pengaduan</a>
       </div>
     </div>
   </div>
