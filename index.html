@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Informasi Layanan BPS Kota Palu</title>
+  <title>SIGITA – Layanan BPS Kota Palu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -138,8 +138,12 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
-      <a class="navbar-brand" href="index.html">
-        <img src="img/logoBPS.png" alt="Logo BPS" height="35" class="me-2">BPS <span>Kota Palu</span>
+      <a class="navbar-brand" href="index.html" style="display:flex;align-items:center;gap:10px;">
+        <img src="img/logoBPS.png" alt="Logo BPS" height="35">
+        <div style="display:flex;flex-direction:column;line-height:1.1;">
+          <span style="font-size:1.05rem;font-weight:800;">BPS <span>Kota Palu</span></span>
+          <span style="font-size:0.58rem;font-weight:700;color:rgba(255,255,255,0.65);letter-spacing:2.5px;text-transform:uppercase;">SIGITA</span>
+        </div>
       </a>
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
         <span class="navbar-toggler-icon"></span>
@@ -176,6 +180,8 @@
             <a class="snd-item" href="rekomendasistatistik.html"><div class="snd-icon"><i class="bi bi-file-earmark-check-fill"></i></div><div><div class="snd-text-title">Rekomendasi Statistik</div><div class="snd-text-sub">Permohonan surat rekomendasi kegiatan statistik</div></div></a>
           </div>
         </div>
+        <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
+        <a class="nav-link-home" href="#pengaduan-section" style="color:#f4a700;font-weight:800;" onclick="document.getElementById('pengaduan-section').scrollIntoView({behavior:'smooth'});return false;"><i class="bi bi-headset"></i> Pengaduan</a>
       </div>
     </div>
   </nav>
@@ -270,9 +276,48 @@
     </div>
   </section>
 
+    <!-- PENGADUAN -->
+  <section id="pengaduan-section" class="py-5" style="background:#f4f6f9;scroll-margin-top:70px;">
+    <div class="container">
+      <div class="text-center mb-2">
+        <h2 style="font-weight:800;color:#003f7f;font-size:1.7rem;margin-bottom:6px;">Pengaduan Layanan</h2>
+        <p style="color:#888;font-size:.92rem;margin-top:6px;">Sampaikan keluhan atau masukan terkait layanan BPS Kota Palu</p>
+      </div>
+      <div style="width:50px;height:4px;background:#f4a700;border-radius:4px;margin:0 auto 36px;"></div>
+      <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+          <div style="background:white;border-radius:16px;padding:36px 32px;box-shadow:0 4px 18px rgba(0,0,0,.07);border:1px solid rgba(0,91,170,.08);">
+            <div class="mb-3">
+              <label style="font-weight:700;font-size:.88rem;color:#003f7f;margin-bottom:6px;display:block;">Nama Lengkap <span style="color:#e53935;">*</span></label>
+              <input type="text" id="pg-nama" placeholder="Masukkan nama lengkap Anda" style="width:100%;padding:11px 16px;border:1.5px solid #dce8f5;border-radius:10px;font-family:inherit;font-size:.9rem;outline:none;transition:border .2s;" onfocus="this.style.borderColor='#005baa'" onblur="this.style.borderColor='#dce8f5'">
+            </div>
+            <div class="mb-3">
+              <label style="font-weight:700;font-size:.88rem;color:#003f7f;margin-bottom:6px;display:block;">Nomor Tiket <span style="color:#999;font-weight:500;">(opsional)</span></label>
+              <input type="text" id="pg-tiket" placeholder="Contoh: TKT-20260001" style="width:100%;padding:11px 16px;border:1.5px solid #dce8f5;border-radius:10px;font-family:inherit;font-size:.9rem;outline:none;transition:border .2s;" onfocus="this.style.borderColor='#005baa'" onblur="this.style.borderColor='#dce8f5'">
+            </div>
+            <div class="mb-4">
+              <label style="font-weight:700;font-size:.88rem;color:#003f7f;margin-bottom:6px;display:block;">Isi Pengaduan <span style="color:#e53935;">*</span></label>
+              <textarea id="pg-isi" rows="4" placeholder="Tuliskan keluhan atau masukan Anda di sini..." style="width:100%;padding:11px 16px;border:1.5px solid #dce8f5;border-radius:10px;font-family:inherit;font-size:.9rem;outline:none;transition:border .2s;resize:vertical;" onfocus="this.style.borderColor='#005baa'" onblur="this.style.borderColor='#dce8f5'"></textarea>
+            </div>
+            <button onclick="kirimPengaduanIndex()" style="width:100%;background:linear-gradient(135deg,#25d366,#128c7e);color:white;font-weight:700;font-size:.95rem;padding:13px;border:none;border-radius:50px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .25s;font-family:inherit;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 20px rgba(37,211,102,.35)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+              <i class="bi bi-whatsapp" style="font-size:1.1rem;"></i> Kirim via WhatsApp
+            </button>
+            <p style="text-align:center;font-size:.78rem;color:#aaa;margin-top:12px;margin-bottom:0;">Pengaduan akan dikirim ke WhatsApp BPS Kota Palu</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="py-4 mt-3">
     <div class="container text-center">
       <div class="mb-1"><img src="img/logoBPS.png" alt="Logo BPS" height="35" class="me-2"><strong class="text-white">BPS Kota Palu</strong></div>
+      <div style="margin:6px 0 8px;">
+        <span style="display:inline-block;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:3px 16px;">
+          <span style="font-size:.72rem;font-weight:800;letter-spacing:2px;color:#f4a700;">SIGITA</span>
+          <span style="font-size:.65rem;color:rgba(255,255,255,.5);margin-left:6px;">Sinergi Inovatif Gesit Inklusif Transparan Akuntabel</span>
+        </span>
+      </div>
       <p class="mb-0">&copy; 2026 Badan Pusat Statistik Kota Palu</p>
     </div>
   </footer>
@@ -340,6 +385,22 @@
       } catch(err) { console.log('Statistik tidak tersedia'); }
     }
     loadStatistik();
+
+    // ===== PENGADUAN INDEX =====
+    function kirimPengaduanIndex() {
+      const nama  = document.getElementById('pg-nama').value.trim();
+      const tiket = document.getElementById('pg-tiket').value.trim();
+      const isi   = document.getElementById('pg-isi').value.trim();
+      if (!nama) { alert('Nama lengkap wajib diisi.'); return; }
+      if (!isi)  { alert('Isi pengaduan wajib diisi.'); return; }
+      const WA = '6281527683764';
+      let msg = '*PENGADUAN LAYANAN BPS Kota Palu (SIGITA)*%0A';
+      msg += 'Nama: ' + encodeURIComponent(nama) + '%0A';
+      if (tiket) msg += 'Nomor Tiket: ' + encodeURIComponent(tiket) + '%0A';
+      msg += 'Keterangan: ' + encodeURIComponent(isi);
+      window.open('https://wa.me/' + WA + '?text=' + msg, '_blank');
+    }
+
   </script>
 </body>
 </html>
