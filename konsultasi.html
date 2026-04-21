@@ -258,7 +258,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
   <div class="container">
     <a class="btn-back" href="index.html" title="Kembali"><i class="bi bi-arrow-left"></i></a>
-    <span style="font-size:0.6rem;font-weight:800;letter-spacing:2.5px;color:rgba(255,255,255,0.65);text-transform:uppercase;margin-left:4px;align-self:center;">SIGITA</span>
+    <span style="font-size:0.72rem;font-weight:900;letter-spacing:2.5px;color:white;text-transform:uppercase;margin-left:4px;align-self:center;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);padding:2px 10px;border-radius:20px;backdrop-filter:blur(4px);">SIGITA</span>
     <div class="nav-links">
       <a class="nav-link-home" href="index.html">
         <i class="bi bi-house-fill"></i> Beranda
@@ -305,7 +305,7 @@
           </a>
         </div>
         <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
-        <a class="nav-link-home" href="index.html#pengaduan-section" style="color:#f4a700;font-weight:800;"><i class="bi bi-headset"></i> Pengaduan</a>
+        <a class="nav-link-home" href="#section-ajukan" style="color:#f4a700;font-weight:800;" onclick="(function(){var el=document.querySelector('.pengajuan-tab[onclick*=pengaduan]');if(el){switchTab('pengaduan',el);}document.getElementById('section-ajukan')?.scrollIntoView({behavior:'smooth'});})();return false;"><i class="bi bi-headset"></i> Pengaduan</a>
       </div>
     </div>
   </div>
