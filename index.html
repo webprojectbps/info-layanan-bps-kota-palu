@@ -131,48 +131,49 @@
     .wa-float-btn {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: #fff;
-      color: #1a7a45;
+      gap: 9px;
+      background: #25d366;
+      color: #fff;
       text-decoration: none;
       padding: 9px 16px 9px 10px;
-      border-radius: 50px;
-      border: 1px solid #c8e6d0;
-      box-shadow: 0 2px 10px rgba(0,0,0,.10);
-      transition: box-shadow .2s, transform .2s;
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 2px 10px rgba(37,211,102,.30);
+      transition: box-shadow .2s, transform .2s, background .2s;
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .wa-float-btn:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,.14);
+      background: #1cb858;
+      box-shadow: 0 4px 16px rgba(37,211,102,.40);
       transform: translateY(-2px);
-      color: #1a7a45;
+      color: #fff;
     }
     .wa-float-icon {
       width: 30px; height: 30px;
-      background: #25d366;
-      border-radius: 50%;
+      background: rgba(255,255,255,.20);
+      border-radius: 7px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
     .wa-float-icon i { font-size: 1rem; color: #fff; }
     .wa-float-text { display: flex; flex-direction: column; }
     .wa-float-text-top {
-      font-size: .62rem;
+      font-size: .6rem;
       font-weight: 600;
-      color: #888;
+      color: rgba(255,255,255,.75);
       line-height: 1.2;
     }
     .wa-float-text-bot {
       font-size: .78rem;
       font-weight: 700;
-      color: #1a7a45;
+      color: #fff;
       line-height: 1.2;
       white-space: nowrap;
     }
     @media (max-width:768px) {
       .wa-float { bottom:18px; right:14px; }
-      .wa-float-btn { padding:8px 13px 8px 9px; gap:7px; }
-      .wa-float-icon { width:28px; height:28px; }
+      .wa-float-btn { padding:8px 13px 8px 9px; gap:7px; border-radius:9px; }
+      .wa-float-icon { width:27px; height:27px; }
       .wa-float-icon i { font-size:.9rem; }
       .wa-float-text-bot { font-size:.72rem; }
     }
