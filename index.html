@@ -590,7 +590,7 @@
       const keterangan = document.getElementById('input-keterangan').value.trim();
       const jenis = jenisPengaduan === 'wbs' ? 'A. Whistle Blowing (WBS)' : 'B. Pelayanan Umum';
       if (!nama || !keterangan) { alert('Mohon isi Nama dan Uraian Pengaduan terlebih dahulu.'); return; }
-      const pesan = `*PENGADUAN LAYANAN BPS KOTA PALU*\n\n👤 *Nama:* ${nama}\n📋 *Jenis:* ${jenis}\n📝 *Keterangan:*\n${keterangan}`;
+      const pesan = `PENGADUAN LAYANAN BPS KOTA PALU\n\nNama: ${nama}\nJenis: ${jenis}\nKeterangan:\n${keterangan}`;
       const url = 'https://wa.me/6281527683764?text=' + encodeURIComponent(pesan);
       window.open(url, '_blank');
       tutupModal();
