@@ -305,10 +305,180 @@
       Pengaduan Layanan
       <span class="wa-tooltip-sub">Senin–Jumat &middot; 07.30–15.30 WITA</span>
     </div>
-    <a href="https://wa.me/6281527683764" target="_blank" class="wa-circle">
+    <a href="#" onclick="bukaModa(); return false;" class="wa-circle">
       <div class="wa-ring"></div>
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
     </a>
+  </div>
+
+  <!-- MODAL PENGADUAN -->
+  <style>
+    #modalPengaduan { display:none; position:fixed; inset:0; background:rgba(0,20,50,0.7); z-index:99999; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(6px); }
+    .mpop-wrap { background:white; border-radius:24px; width:100%; max-width:460px; overflow:hidden; box-shadow:0 32px 80px rgba(0,30,80,0.35); position:relative; animation:mpopIn .3s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes mpopIn { from{opacity:0;transform:scale(.92) translateY(18px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+    /* HEADER */
+    .mpop-header { position:relative; overflow:hidden; padding:36px 28px 32px; background:#003f7f; }
+    .mpop-header-bg { position:absolute; inset:0; }
+    .mpop-header-bg span { position:absolute; border-radius:50%; background:rgba(255,255,255,0.06); }
+    .mpop-header-bg span:nth-child(1) { width:220px; height:220px; top:-80px; right:-60px; }
+    .mpop-header-bg span:nth-child(2) { width:140px; height:140px; bottom:-50px; left:-30px; }
+    .mpop-header-bg span:nth-child(3) { width:80px; height:80px; top:20px; left:40px; background:rgba(244,167,0,0.12); }
+    .mpop-close { position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.22); color:white; border-radius:50%; width:34px; height:34px; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; font-family:'Plus Jakarta Sans',sans-serif; transition:background .2s; z-index:2; }
+    .mpop-close:hover { background:rgba(255,255,255,0.25); }
+    .mpop-header-inner { position:relative; z-index:1; display:flex; align-items:flex-start; gap:18px; }
+    .mpop-icon-wrap { flex-shrink:0; width:56px; height:56px; border-radius:16px; background:rgba(244,167,0,0.18); border:1.5px solid rgba(244,167,0,0.4); display:flex; align-items:center; justify-content:center; }
+    .mpop-icon-wrap i { font-size:1.5rem; color:#f4a700; }
+    .mpop-header-text { flex:1; }
+    .mpop-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(244,167,0,0.18); border:1px solid rgba(244,167,0,0.35); border-radius:50px; padding:3px 10px; margin-bottom:8px; }
+    .mpop-badge span { font-size:0.62rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#f4c84a; }
+    .mpop-header-text h5 { color:white; font-weight:800; font-size:1.15rem; margin:0 0 5px; line-height:1.3; font-family:'Plus Jakarta Sans',sans-serif; }
+    .mpop-header-text p { color:rgba(255,255,255,0.65); font-size:0.75rem; margin:0; line-height:1.55; font-family:'Plus Jakarta Sans',sans-serif; }
+
+    /* STEP BAR */
+    .mpop-steps { display:flex; align-items:center; padding:18px 28px 0; gap:0; }
+    .mpop-step { display:flex; align-items:center; gap:7px; flex:1; }
+    .mpop-step-num { width:26px; height:26px; border-radius:50%; background:#e8f1fb; border:2px solid #b8d4f0; color:#6fa0c8; font-size:0.7rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .3s; font-family:'Plus Jakarta Sans',sans-serif; }
+    .mpop-step.active .mpop-step-num { background:#005baa; border-color:#005baa; color:white; }
+    .mpop-step.done .mpop-step-num { background:#f4a700; border-color:#f4a700; color:#003f7f; }
+    .mpop-step-label { font-size:0.68rem; font-weight:700; color:#aac0d8; font-family:'Plus Jakarta Sans',sans-serif; transition:color .3s; }
+    .mpop-step.active .mpop-step-label { color:#005baa; }
+    .mpop-step.done .mpop-step-label { color:#b07a00; }
+    .mpop-step-line { flex:1; height:2px; background:#e0eaf5; margin:0 6px; border-radius:2px; }
+    .mpop-step-line.done { background:#f4a700; }
+
+    /* BODY */
+    .mpop-body { padding:20px 28px 28px; }
+    .mpop-field { margin-bottom:18px; }
+    .mpop-label { font-size:0.75rem; font-weight:800; color:#003f7f; display:flex; align-items:center; gap:7px; margin-bottom:8px; letter-spacing:0.3px; text-transform:uppercase; font-family:'Plus Jakarta Sans',sans-serif; }
+    .mpop-label i { font-size:13px; color:#005baa; }
+    .mpop-input { width:100%; padding:13px 16px; border:2px solid #dce8f5; border-radius:12px; font-size:0.88rem; font-family:'Plus Jakarta Sans',sans-serif; outline:none; box-sizing:border-box; transition:border-color .2s,box-shadow .2s; background:#fafcff; color:#003f7f; }
+    .mpop-input:focus { border-color:#005baa; box-shadow:0 0 0 4px rgba(0,91,170,0.08); background:white; }
+    .mpop-input::placeholder { color:#b0c4d8; }
+
+    /* JENIS OPTION CARDS */
+    .mpop-options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .mpop-opt { border:2px solid #dce8f5; border-radius:14px; padding:14px 14px 12px; cursor:pointer; transition:all .2s; background:#fafcff; position:relative; overflow:hidden; }
+    .mpop-opt:hover { border-color:#89b8e0; background:white; }
+    .mpop-opt.selected { border-color:#005baa; background:#e8f1fb; }
+    .mpop-opt-icon { width:36px; height:36px; border-radius:10px; background:#e8f1fb; display:flex; align-items:center; justify-content:center; margin-bottom:10px; transition:all .2s; }
+    .mpop-opt.selected .mpop-opt-icon { background:#005baa; }
+    .mpop-opt-icon i { font-size:1rem; color:#005baa; transition:color .2s; }
+    .mpop-opt.selected .mpop-opt-icon i { color:white; }
+    .mpop-opt-name { font-size:0.8rem; font-weight:800; color:#003f7f; font-family:'Plus Jakarta Sans',sans-serif; line-height:1.3; margin-bottom:4px; }
+    .mpop-opt-sub { font-size:0.65rem; color:#8fabc2; font-family:'Plus Jakarta Sans',sans-serif; line-height:1.4; }
+    .mpop-opt-badge { position:absolute; top:10px; right:10px; font-size:0.58rem; font-weight:800; padding:2px 7px; border-radius:5px; letter-spacing:0.5px; }
+    .mpop-opt-badge.wbs { background:#fff3cc; color:#b07a00; }
+    .mpop-opt-badge.umum { background:#e0eaf5; color:#005baa; }
+    .mpop-opt.selected .mpop-opt-check { opacity:1; }
+    .mpop-opt-check { position:absolute; bottom:10px; right:10px; width:18px; height:18px; border-radius:50%; background:#005baa; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .2s; }
+    .mpop-opt-check i { font-size:0.6rem; color:white; }
+
+    /* KIRIM BTN */
+    .mpop-btn-wa { display:flex; align-items:center; justify-content:center; gap:10px; background:#128C7E; color:white; font-weight:800; font-size:0.9rem; padding:15px; border-radius:14px; text-decoration:none; font-family:'Plus Jakarta Sans',sans-serif; transition:all .2s; border:none; width:100%; cursor:pointer; letter-spacing:0.2px; }
+    .mpop-btn-wa:hover { background:#075E54; transform:translateY(-1px); box-shadow:0 6px 20px rgba(18,140,126,0.35); }
+    .mpop-footer-note { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:12px; }
+    .mpop-footer-note span { font-size:0.68rem; color:#a0b8cc; font-family:'Plus Jakarta Sans',sans-serif; }
+    .mpop-footer-note i { font-size:11px; color:#a0b8cc; }
+
+    @media (max-width:480px) {
+      .mpop-wrap { border-radius:20px; }
+      .mpop-header { padding:28px 20px 24px; }
+      .mpop-body { padding:16px 20px 24px; }
+      .mpop-steps { padding:14px 20px 0; }
+      .mpop-options { grid-template-columns:1fr 1fr; gap:8px; }
+    }
+  </style>
+
+  <div id="modalPengaduan">
+    <div class="mpop-wrap">
+
+      <!-- HEADER -->
+      <div class="mpop-header">
+        <div class="mpop-header-bg">
+          <span></span><span></span><span></span>
+        </div>
+        <button class="mpop-close" onclick="tutupModal()">&#x2715;</button>
+        <div class="mpop-header-inner">
+          <div class="mpop-icon-wrap">
+            <i class="bi bi-shield-exclamation"></i>
+          </div>
+          <div class="mpop-header-text">
+            <div class="mpop-badge">
+              <i class="bi bi-patch-check-fill" style="font-size:9px;color:#f4c84a;"></i>
+              <span>Layanan Resmi BPS Kota Palu</span>
+            </div>
+            <h5>Sampaikan <span style="color:#f4a700;">Aduan</span> Anda</h5>
+            <p>Kami siap menindaklanjuti setiap pengaduan secara profesional &amp; transparan.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP INDICATOR -->
+      <div class="mpop-steps">
+        <div class="mpop-step active" id="step-ind-1">
+          <div class="mpop-step-num">1</div>
+          <div class="mpop-step-label">Identitas</div>
+        </div>
+        <div class="mpop-step-line" id="stepline-1"></div>
+        <div class="mpop-step" id="step-ind-2">
+          <div class="mpop-step-num">2</div>
+          <div class="mpop-step-label">Jenis</div>
+        </div>
+        <div class="mpop-step-line" id="stepline-2"></div>
+        <div class="mpop-step" id="step-ind-3">
+          <div class="mpop-step-num">3</div>
+          <div class="mpop-step-label">Keterangan</div>
+        </div>
+      </div>
+
+      <!-- BODY FORM -->
+      <div class="mpop-body">
+        <!-- Nama -->
+        <div class="mpop-field">
+          <div class="mpop-label"><i class="bi bi-person-fill"></i> Nama Lengkap</div>
+          <input type="text" id="input-nama" class="mpop-input" placeholder="Masukkan nama lengkap Anda..." oninput="updateSteps()">
+        </div>
+
+        <!-- Jenis -->
+        <div class="mpop-field">
+          <div class="mpop-label"><i class="bi bi-flag-fill"></i> Jenis Pengaduan</div>
+          <div class="mpop-options">
+            <div class="mpop-opt selected" id="opt-wbs" onclick="pilihJenis('wbs')">
+              <span class="mpop-opt-badge wbs">WBS</span>
+              <div class="mpop-opt-icon"><i class="bi bi-eye-fill"></i></div>
+              <div class="mpop-opt-name">Whistle Blowing</div>
+              <div class="mpop-opt-sub">Pelanggaran internal &amp; integritas</div>
+              <div class="mpop-opt-check"><i class="bi bi-check-lg"></i></div>
+            </div>
+            <div class="mpop-opt" id="opt-umum" onclick="pilihJenis('umum')">
+              <span class="mpop-opt-badge umum">Umum</span>
+              <div class="mpop-opt-icon"><i class="bi bi-chat-dots-fill"></i></div>
+              <div class="mpop-opt-name">Pelayanan Umum</div>
+              <div class="mpop-opt-sub">Keluhan layanan &amp; fasilitas</div>
+              <div class="mpop-opt-check"><i class="bi bi-check-lg"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Keterangan -->
+        <div class="mpop-field">
+          <div class="mpop-label"><i class="bi bi-pencil-square"></i> Uraian Pengaduan</div>
+          <textarea id="input-keterangan" class="mpop-input" placeholder="Jelaskan pengaduan Anda secara lengkap dan jelas..." rows="4" style="resize:none;" oninput="updateSteps()"></textarea>
+        </div>
+
+        <!-- Kirim -->
+        <button class="mpop-btn-wa" onclick="kirimWA()">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:white;flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          Kirim Pengaduan via WhatsApp
+        </button>
+
+        <div class="mpop-footer-note">
+          <i class="bi bi-lock-fill"></i>
+          <span>Informasi Anda terjaga kerahasiaannya &middot; BPS Kota Palu</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -374,6 +544,61 @@
       } catch(err) { console.log('Statistik tidak tersedia'); }
     }
     loadStatistik();
+
+    // MODAL PENGADUAN
+    let jenisPengaduan = 'wbs';
+
+    function bukaModa() {
+      const modal = document.getElementById('modalPengaduan');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      updateSteps();
+    }
+
+    function tutupModal() {
+      const modal = document.getElementById('modalPengaduan');
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function pilihJenis(jenis) {
+      jenisPengaduan = jenis;
+      document.getElementById('opt-wbs').classList.toggle('selected', jenis === 'wbs');
+      document.getElementById('opt-umum').classList.toggle('selected', jenis === 'umum');
+      updateSteps();
+    }
+
+    function updateSteps() {
+      const nama = document.getElementById('input-nama').value.trim();
+      const ket  = document.getElementById('input-keterangan').value.trim();
+      const s1 = document.getElementById('step-ind-1');
+      const s2 = document.getElementById('step-ind-2');
+      const s3 = document.getElementById('step-ind-3');
+      const l1 = document.getElementById('stepline-1');
+      const l2 = document.getElementById('stepline-2');
+      s1.className = 'mpop-step' + (nama ? ' done' : ' active');
+      s1.querySelector('.mpop-step-num').textContent = nama ? '✓' : '1';
+      l1.className = 'mpop-step-line' + (nama ? ' done' : '');
+      s2.className = 'mpop-step' + (nama ? (ket ? ' done' : ' active') : '');
+      s2.querySelector('.mpop-step-num').textContent = (nama && ket) ? '✓' : '2';
+      l2.className = 'mpop-step-line' + ((nama && ket) ? ' done' : '');
+      s3.className = 'mpop-step' + ((nama && ket) ? ' active' : '');
+    }
+
+    function kirimWA() {
+      const nama = document.getElementById('input-nama').value.trim();
+      const keterangan = document.getElementById('input-keterangan').value.trim();
+      const jenis = jenisPengaduan === 'wbs' ? 'A. Whistle Blowing (WBS)' : 'B. Pelayanan Umum';
+      if (!nama || !keterangan) { alert('Mohon isi Nama dan Uraian Pengaduan terlebih dahulu.'); return; }
+      const pesan = `*PENGADUAN LAYANAN BPS KOTA PALU*\n\n👤 *Nama:* ${nama}\n📋 *Jenis:* ${jenis}\n📝 *Keterangan:*\n${keterangan}`;
+      const url = 'https://wa.me/6281527683764?text=' + encodeURIComponent(pesan);
+      window.open(url, '_blank');
+      tutupModal();
+    }
+
+    document.getElementById('modalPengaduan').addEventListener('click', function(e) {
+      if (e.target === this) tutupModal();
+    });
   </script>
 </body>
 </html>
