@@ -12,10 +12,12 @@
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     html,body { height:100%; }
     body { font-family:'Plus Jakarta Sans',sans-serif; background:#f0f4f9; display:flex; flex-direction:column; }
-    .navbar { background-color:var(--bps-blue)!important; padding:0; min-height:56px; position:relative; }
-    .btn-back { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.35); border-radius:8px; color:#fff; font-size:1rem; text-decoration:none; transition:background .2s,border-color .2s,transform .15s; position:absolute; top:50%; left:16px; transform:translateY(-50%); }
-    .btn-back:hover { background:rgba(255,255,255,.28); border-color:rgba(255,255,255,.6); color:#fff; transform:translateY(-50%) translateX(-2px); }
-    .nav-links { position:absolute; top:50%; right:16px; transform:translateY(-50%); display:flex; align-items:center; gap:4px; }
+    .navbar { background-color:var(--bps-blue)!important; padding:0; min-height:56px; }
+    .navbar-inner { display:flex; align-items:center; width:100%; padding:0 16px; height:56px; gap:10px; }
+    .btn-back { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.35); border-radius:8px; color:#fff; font-size:1rem; text-decoration:none; transition:background .2s,border-color .2s,transform .15s; flex-shrink:0; }
+    .btn-back:hover { background:rgba(255,255,255,.28); border-color:rgba(255,255,255,.6); color:#fff; transform:translateX(-2px); }
+    .navbar-brand-area { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+    .nav-links { margin-left:auto; display:flex; align-items:center; gap:4px; }
     .nav-link-home { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; font-weight:700; color:rgba(255,255,255,.75); text-decoration:none; padding:6px 14px; border-radius:7px; white-space:nowrap; transition:background .18s,color .18s; }
     .nav-link-home:hover { background:rgba(255,255,255,.15); color:#fff; }
     .nav-link-home i { font-size:.9rem; }
@@ -255,23 +257,18 @@
 </head>
 <body>
 
+<!-- OPSI A: tombol back di kiri, lalu logo + SIGITA digeser ke kanan (dengan gap), nav-links di ujung kanan -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-  <div class="container-fluid px-3 px-lg-4" style="display:flex;align-items:center;gap:0;">
-
-    <!-- BRAND KIRI: tombol back + logo + SIGITA -->
-    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-      <a href="index.html" class="btn-back" title="Kembali" style="margin-right:2px;"><i class="bi bi-arrow-left"></i></a>
-      <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img src="img/logoBPS.png" alt="Logo BPS" height="38">
-        <div style="display:flex;flex-direction:column;line-height:1.15;">
-          <span style="font-size:1.15rem;font-weight:900;color:white;letter-spacing:2px;text-transform:uppercase;font-style:italic;">SIGITA</span>
-          <span style="font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.7);letter-spacing:0.3px;">BPS Kota Palu</span>
-        </div>
-      </a>
-    </div>
-
-    <!-- NAV LINKS KANAN -->
-    <div class="nav-links" style="margin-left:auto;">
+  <div class="navbar-inner">
+    <a href="index.html" class="btn-back" title="Kembali"><i class="bi bi-arrow-left"></i></a>
+    <a href="index.html" class="navbar-brand-area">
+      <img src="img/logoBPS.png" alt="Logo BPS" height="38">
+      <div style="display:flex;flex-direction:column;line-height:1.15;">
+        <span style="font-size:1.15rem;font-weight:900;color:white;letter-spacing:2px;text-transform:uppercase;font-style:italic;">SIGITA</span>
+        <span style="font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.7);letter-spacing:0.3px;">BPS Kota Palu</span>
+      </div>
+    </a>
+    <div class="nav-links">
       <a class="nav-link-home" href="index.html"><i class="bi bi-house-fill"></i> Beranda</a>
       <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
       <a class="nav-link-home" href="index.html#statistik-pengunjung"><i class="bi bi-bar-chart-fill"></i> Statistik Pengunjung</a>
@@ -290,24 +287,18 @@
             <a class="snd-item" href="perpustakaan.html">
               <div class="snd-icon"><i class="bi bi-book-fill"></i></div>
               <div><div class="snd-text-title">Perpustakaan BPS</div><div class="snd-text-sub">Akses koleksi publikasi &amp; referensi statistik</div></div>
-              
             </a>
             <a class="snd-item" href="produkstatistik.html">
               <div class="snd-icon"><i class="bi bi-shop"></i></div>
               <div><div class="snd-text-title">Produk Statistik Berbayar</div><div class="snd-text-sub">Publikasi, data mikro, dan peta digital statistik</div></div>
-              
             </a>
             <a class="snd-item" href="rekomendasistatistik.html">
               <div class="snd-icon"><i class="bi bi-file-earmark-check-fill"></i></div>
               <div><div class="snd-text-title">Rekomendasi Statistik</div><div class="snd-text-sub">Permohonan surat rekomendasi kegiatan statistik</div></div>
-              
             </a>
         </div>
       </div>
-      <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
-      <a class="nav-link-home" href="#section-ajukan" style="color:#f4a700;font-weight:800;" onclick="(function(){var el=document.querySelector('.pengajuan-tab[onclick*=pengaduan]');if(el){switchTab('pengaduan',el);}document.getElementById('section-ajukan')?.scrollIntoView({behavior:'smooth'});})();return false;"><i class="bi bi-headset"></i> Pengaduan</a>
     </div>
-
   </div>
 </nav>
 
@@ -369,10 +360,7 @@
       </div>
     </section>
 
-
     <div class="content-area">
-
-      <!-- PANEL INFO -->
       <div id="panel-info" class="content-panel active">
 
         <!-- PERSYARATAN -->
@@ -588,7 +576,7 @@
 
       </div><!-- /panel-info -->
 
-      <!-- PANEL AJUKAN (digabung ke panel-info sebagai section) -->
+      <!-- SECTION AJUKAN -->
       <div id="section-ajukan" class="scroll-anchor">
         <div style="background:linear-gradient(135deg,var(--bps-dark) 0%,var(--bps-blue) 100%);border-radius:14px;padding:28px 28px 24px;margin-bottom:18px;position:relative;overflow:hidden;">
           <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none;"></div>
@@ -628,7 +616,6 @@
           <div class="pengajuan-tabs">
             <button class="pengajuan-tab active" onclick="switchTab('form',this)"><i class="bi bi-file-earmark-text me-2"></i>Form Pengajuan</button>
             <button class="pengajuan-tab" onclick="switchTab('cek',this)"><i class="bi bi-search me-2"></i>Cek Status</button>
-            <button class="pengajuan-tab" onclick="switchTab('pengaduan',this)"><i class="bi bi-headset me-2"></i>Pengaduan</button>
           </div>
 
           <!-- TAB FORM -->
@@ -720,28 +707,6 @@
                 </div>
               </div>
             </div></div>
-          </div>
-
-          <!-- TAB PENGADUAN -->
-          <div id="tab-pengaduan" class="tab-content-panel">
-            <div style="background:linear-gradient(135deg,var(--bps-dark),var(--bps-blue));border-radius:14px;padding:28px;margin-bottom:18px;position:relative;overflow:hidden;">
-              <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;"></div>
-              <div style="position:relative;z-index:1;">
-                <div style="display:inline-flex;align-items:center;gap:7px;background:var(--bps-accent);color:var(--bps-dark);font-size:0.72rem;font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:14px;"><i class="bi bi-headset"></i> Layanan Pengaduan</div>
-                <h5 style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:8px;">Sampaikan Pengaduan Anda</h5>
-                <p style="color:rgba(255,255,255,0.85);font-size:0.84rem;line-height:1.7;margin:0;">Jika Anda mengalami kendala atau memiliki keluhan terkait layanan BPS Kota Palu, silakan hubungi kami langsung melalui WhatsApp.</p>
-              </div>
-            </div>
-            <div style="background:white;border-radius:14px;border:1px solid rgba(0,91,170,0.08);box-shadow:0 2px 14px rgba(0,0,0,0.07);padding:24px;">
-              <div class="row g-3">
-                <div class="col-md-6"><label class="form-label">Nama Lengkap <span class="text-danger">*</span></label><input type="text" class="form-control" id="aduan-nama" placeholder="Masukkan nama lengkap"></div>
-                <div class="col-md-6"><label class="form-label">Nomor Tiket <span style="color:#aaa;font-weight:400;">(jika ada)</span></label><input type="text" class="form-control" id="aduan-tiket" placeholder="Contoh: BPS-2026-XXXXX" style="text-transform:uppercase;"></div>
-                <div class="col-12"><label class="form-label">Isi Pengaduan <span class="text-danger">*</span></label><textarea class="form-control" id="aduan-isi" rows="4" placeholder="Jelaskan kendala atau keluhan Anda secara detail..."></textarea></div>
-                <div class="col-12"><div id="aduan-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:0.83rem;border-radius:10px;"></div></div>
-                <div class="col-12"><button class="btn-submit" onclick="kirimPengaduan()" style="background:linear-gradient(135deg,#25D366,#128C7E);"><i class="bi bi-whatsapp"></i> Kirim via WhatsApp</button></div>
-                <div class="col-12"><div style="background:#f8fafd;border-radius:10px;padding:14px 16px;border:1px solid #e0eaf5;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-info-circle-fill" style="color:var(--bps-blue);font-size:1rem;flex-shrink:0;margin-top:2px;"></i><p style="font-size:0.78rem;color:#666;margin:0;line-height:1.6;">Pengaduan akan diteruskan langsung ke WhatsApp petugas BPS Kota Palu. Pastikan aplikasi WhatsApp sudah terinstal di perangkat Anda. Jam layanan: <strong>Senin–Kamis 08.00–16.00 WITA</strong>, <strong>Jumat 08.00–16.30 WITA</strong>.</p></div></div>
-              </div>
-            </div>
           </div>
 
         </div>
@@ -1026,21 +991,6 @@
     doc.text('Simpan nomor tiket ini untuk memantau status pengajuan Anda.', W/2, y+8, { align:'center' });
     doc.text('Cek status melalui halaman layanan BPS Kota Palu.', W/2, y+14.5, { align:'center' });
     doc.save('Tiket-' + d.tiket + '.pdf');
-  }
-
-  const WA_NUMBER = '6281527683764';
-  function kirimPengaduan() {
-    const nama  = document.getElementById('aduan-nama').value.trim();
-    const tiket = document.getElementById('aduan-tiket').value.trim();
-    const isi   = document.getElementById('aduan-isi').value.trim();
-    const errEl = document.getElementById('aduan-error');
-    errEl.classList.add('d-none');
-    if (!nama) { errEl.textContent = 'Nama lengkap wajib diisi!'; errEl.classList.remove('d-none'); return; }
-    if (!isi)  { errEl.textContent = 'Isi pengaduan wajib diisi!'; errEl.classList.remove('d-none'); return; }
-    const tiketInfo = tiket ? `\nNomor Tiket: ${tiket}` : '';
-    const pesan = `*PENGADUAN LAYANAN BPS Kota Palu*\n\nNama: ${nama}${tiketInfo}\n\nKeterangan:\n${isi}\n\n_Dikirim melalui portal layanan BPS Kota Palu_`;
-    const url   = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pesan)}`;
-    window.open(url, '_blank');
   }
 </script>
 </body>
