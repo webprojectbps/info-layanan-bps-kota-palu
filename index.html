@@ -313,80 +313,80 @@
 
   <!-- MODAL PENGADUAN -->
   <style>
-    #modalPengaduan { display:none; position:fixed; inset:0; background:rgba(0,20,50,0.7); z-index:99999; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(6px); }
-    .mpop-wrap { background:white; border-radius:24px; width:100%; max-width:460px; overflow:hidden; box-shadow:0 32px 80px rgba(0,30,80,0.35); position:relative; animation:mpopIn .3s cubic-bezier(.34,1.56,.64,1); }
+    #modalPengaduan { display:none; position:fixed; inset:0; background:rgba(0,20,50,0.7); z-index:99999; align-items:flex-start; justify-content:center; padding:16px; backdrop-filter:blur(6px); overflow-y:auto; }
+    .mpop-wrap { background:white; border-radius:24px; width:100%; max-width:460px; overflow:hidden; box-shadow:0 32px 80px rgba(0,30,80,0.35); position:relative; animation:mpopIn .3s cubic-bezier(.34,1.56,.64,1); margin:auto; }
     @keyframes mpopIn { from{opacity:0;transform:scale(.92) translateY(18px)} to{opacity:1;transform:scale(1) translateY(0)} }
 
     /* HEADER */
-    .mpop-header { position:relative; overflow:hidden; padding:36px 28px 32px; background:#003f7f; }
+    .mpop-header { position:relative; overflow:hidden; padding:20px 22px 18px; background:#003f7f; }
     .mpop-header-bg { position:absolute; inset:0; }
     .mpop-header-bg span { position:absolute; border-radius:50%; background:rgba(255,255,255,0.06); }
-    .mpop-header-bg span:nth-child(1) { width:220px; height:220px; top:-80px; right:-60px; }
-    .mpop-header-bg span:nth-child(2) { width:140px; height:140px; bottom:-50px; left:-30px; }
-    .mpop-header-bg span:nth-child(3) { width:80px; height:80px; top:20px; left:40px; background:rgba(244,167,0,0.12); }
-    .mpop-close { position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.22); color:white; border-radius:50%; width:34px; height:34px; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; font-family:'Plus Jakarta Sans',sans-serif; transition:background .2s; z-index:2; }
+    .mpop-header-bg span:nth-child(1) { width:180px; height:180px; top:-70px; right:-50px; }
+    .mpop-header-bg span:nth-child(2) { width:110px; height:110px; bottom:-40px; left:-20px; }
+    .mpop-header-bg span:nth-child(3) { width:60px; height:60px; top:14px; left:30px; background:rgba(244,167,0,0.12); }
+    .mpop-close { position:absolute; top:12px; right:12px; background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.22); color:white; border-radius:50%; width:30px; height:30px; cursor:pointer; font-size:12px; display:flex; align-items:center; justify-content:center; font-family:'Plus Jakarta Sans',sans-serif; transition:background .2s; z-index:2; }
     .mpop-close:hover { background:rgba(255,255,255,0.25); }
-    .mpop-header-inner { position:relative; z-index:1; display:flex; align-items:flex-start; gap:18px; }
-    .mpop-icon-wrap { flex-shrink:0; width:56px; height:56px; border-radius:16px; background:rgba(244,167,0,0.18); border:1.5px solid rgba(244,167,0,0.4); display:flex; align-items:center; justify-content:center; }
-    .mpop-icon-wrap i { font-size:1.5rem; color:#f4a700; }
+    .mpop-header-inner { position:relative; z-index:1; display:flex; align-items:center; gap:14px; }
+    .mpop-icon-wrap { flex-shrink:0; width:44px; height:44px; border-radius:12px; background:rgba(244,167,0,0.18); border:1.5px solid rgba(244,167,0,0.4); display:flex; align-items:center; justify-content:center; }
+    .mpop-icon-wrap i { font-size:1.2rem; color:#f4a700; }
     .mpop-header-text { flex:1; }
-    .mpop-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(244,167,0,0.18); border:1px solid rgba(244,167,0,0.35); border-radius:50px; padding:3px 10px; margin-bottom:8px; }
-    .mpop-badge span { font-size:0.62rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#f4c84a; }
-    .mpop-header-text h5 { color:white; font-weight:800; font-size:1.15rem; margin:0 0 5px; line-height:1.3; font-family:'Plus Jakarta Sans',sans-serif; }
-    .mpop-header-text p { color:rgba(255,255,255,0.65); font-size:0.75rem; margin:0; line-height:1.55; font-family:'Plus Jakarta Sans',sans-serif; }
+    .mpop-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(244,167,0,0.18); border:1px solid rgba(244,167,0,0.35); border-radius:50px; padding:2px 8px; margin-bottom:4px; }
+    .mpop-badge span { font-size:0.58rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#f4c84a; }
+    .mpop-header-text h5 { color:white; font-weight:800; font-size:1rem; margin:0 0 2px; line-height:1.3; font-family:'Plus Jakarta Sans',sans-serif; }
+    .mpop-header-text p { color:rgba(255,255,255,0.65); font-size:0.7rem; margin:0; line-height:1.4; font-family:'Plus Jakarta Sans',sans-serif; }
 
     /* STEP BAR */
-    .mpop-steps { display:flex; align-items:center; padding:18px 28px 0; gap:0; }
-    .mpop-step { display:flex; align-items:center; gap:7px; flex:1; }
-    .mpop-step-num { width:26px; height:26px; border-radius:50%; background:#e8f1fb; border:2px solid #b8d4f0; color:#6fa0c8; font-size:0.7rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .3s; font-family:'Plus Jakarta Sans',sans-serif; }
+    .mpop-steps { display:flex; align-items:center; padding:12px 22px 0; gap:0; }
+    .mpop-step { display:flex; align-items:center; gap:5px; flex:1; }
+    .mpop-step-num { width:22px; height:22px; border-radius:50%; background:#e8f1fb; border:2px solid #b8d4f0; color:#6fa0c8; font-size:0.62rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .3s; font-family:'Plus Jakarta Sans',sans-serif; }
     .mpop-step.active .mpop-step-num { background:#005baa; border-color:#005baa; color:white; }
     .mpop-step.done .mpop-step-num { background:#f4a700; border-color:#f4a700; color:#003f7f; }
-    .mpop-step-label { font-size:0.68rem; font-weight:700; color:#aac0d8; font-family:'Plus Jakarta Sans',sans-serif; transition:color .3s; }
+    .mpop-step-label { font-size:0.62rem; font-weight:700; color:#aac0d8; font-family:'Plus Jakarta Sans',sans-serif; transition:color .3s; }
     .mpop-step.active .mpop-step-label { color:#005baa; }
     .mpop-step.done .mpop-step-label { color:#b07a00; }
-    .mpop-step-line { flex:1; height:2px; background:#e0eaf5; margin:0 6px; border-radius:2px; }
+    .mpop-step-line { flex:1; height:2px; background:#e0eaf5; margin:0 4px; border-radius:2px; }
     .mpop-step-line.done { background:#f4a700; }
 
     /* BODY */
-    .mpop-body { padding:20px 28px 28px; }
-    .mpop-field { margin-bottom:18px; }
-    .mpop-label { font-size:0.75rem; font-weight:800; color:#003f7f; display:flex; align-items:center; gap:7px; margin-bottom:8px; letter-spacing:0.3px; text-transform:uppercase; font-family:'Plus Jakarta Sans',sans-serif; }
-    .mpop-label i { font-size:13px; color:#005baa; }
-    .mpop-input { width:100%; padding:13px 16px; border:2px solid #dce8f5; border-radius:12px; font-size:0.88rem; font-family:'Plus Jakarta Sans',sans-serif; outline:none; box-sizing:border-box; transition:border-color .2s,box-shadow .2s; background:#fafcff; color:#003f7f; }
-    .mpop-input:focus { border-color:#005baa; box-shadow:0 0 0 4px rgba(0,91,170,0.08); background:white; }
+    .mpop-body { padding:14px 22px 20px; }
+    .mpop-field { margin-bottom:12px; }
+    .mpop-label { font-size:0.7rem; font-weight:800; color:#003f7f; display:flex; align-items:center; gap:6px; margin-bottom:6px; letter-spacing:0.3px; text-transform:uppercase; font-family:'Plus Jakarta Sans',sans-serif; }
+    .mpop-label i { font-size:12px; color:#005baa; }
+    .mpop-input { width:100%; padding:10px 14px; border:2px solid #dce8f5; border-radius:10px; font-size:0.85rem; font-family:'Plus Jakarta Sans',sans-serif; outline:none; box-sizing:border-box; transition:border-color .2s,box-shadow .2s; background:#fafcff; color:#003f7f; }
+    .mpop-input:focus { border-color:#005baa; box-shadow:0 0 0 3px rgba(0,91,170,0.08); background:white; }
     .mpop-input::placeholder { color:#b0c4d8; }
 
     /* JENIS OPTION CARDS */
-    .mpop-options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    .mpop-opt { border:2px solid #dce8f5; border-radius:14px; padding:14px 14px 12px; cursor:pointer; transition:all .2s; background:#fafcff; position:relative; overflow:hidden; }
+    .mpop-options { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .mpop-opt { border:2px solid #dce8f5; border-radius:11px; padding:10px 10px 8px; cursor:pointer; transition:all .2s; background:#fafcff; position:relative; overflow:hidden; }
     .mpop-opt:hover { border-color:#89b8e0; background:white; }
     .mpop-opt.selected { border-color:#005baa; background:#e8f1fb; }
-    .mpop-opt-icon { width:36px; height:36px; border-radius:10px; background:#e8f1fb; display:flex; align-items:center; justify-content:center; margin-bottom:10px; transition:all .2s; }
+    .mpop-opt-icon { width:30px; height:30px; border-radius:8px; background:#e8f1fb; display:flex; align-items:center; justify-content:center; margin-bottom:7px; transition:all .2s; }
     .mpop-opt.selected .mpop-opt-icon { background:#005baa; }
-    .mpop-opt-icon i { font-size:1rem; color:#005baa; transition:color .2s; }
+    .mpop-opt-icon i { font-size:0.85rem; color:#005baa; transition:color .2s; }
     .mpop-opt.selected .mpop-opt-icon i { color:white; }
-    .mpop-opt-name { font-size:0.8rem; font-weight:800; color:#003f7f; font-family:'Plus Jakarta Sans',sans-serif; line-height:1.3; margin-bottom:4px; }
-    .mpop-opt-sub { font-size:0.65rem; color:#8fabc2; font-family:'Plus Jakarta Sans',sans-serif; line-height:1.4; }
-    .mpop-opt-badge { position:absolute; top:10px; right:10px; font-size:0.58rem; font-weight:800; padding:2px 7px; border-radius:5px; letter-spacing:0.5px; }
+    .mpop-opt-name { font-size:0.75rem; font-weight:800; color:#003f7f; font-family:'Plus Jakarta Sans',sans-serif; line-height:1.3; margin-bottom:2px; }
+    .mpop-opt-sub { font-size:0.6rem; color:#8fabc2; font-family:'Plus Jakarta Sans',sans-serif; line-height:1.3; }
+    .mpop-opt-badge { position:absolute; top:8px; right:8px; font-size:0.55rem; font-weight:800; padding:2px 6px; border-radius:4px; letter-spacing:0.5px; }
     .mpop-opt-badge.wbs { background:#fff3cc; color:#b07a00; }
     .mpop-opt-badge.umum { background:#e0eaf5; color:#005baa; }
     .mpop-opt.selected .mpop-opt-check { opacity:1; }
-    .mpop-opt-check { position:absolute; bottom:10px; right:10px; width:18px; height:18px; border-radius:50%; background:#005baa; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .2s; }
-    .mpop-opt-check i { font-size:0.6rem; color:white; }
+    .mpop-opt-check { position:absolute; bottom:8px; right:8px; width:16px; height:16px; border-radius:50%; background:#005baa; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .2s; }
+    .mpop-opt-check i { font-size:0.55rem; color:white; }
 
     /* KIRIM BTN */
-    .mpop-btn-wa { display:flex; align-items:center; justify-content:center; gap:10px; background:#128C7E; color:white; font-weight:800; font-size:0.9rem; padding:15px; border-radius:14px; text-decoration:none; font-family:'Plus Jakarta Sans',sans-serif; transition:all .2s; border:none; width:100%; cursor:pointer; letter-spacing:0.2px; }
+    .mpop-btn-wa { display:flex; align-items:center; justify-content:center; gap:10px; background:#128C7E; color:white; font-weight:800; font-size:0.88rem; padding:12px; border-radius:12px; text-decoration:none; font-family:'Plus Jakarta Sans',sans-serif; transition:all .2s; border:none; width:100%; cursor:pointer; letter-spacing:0.2px; }
     .mpop-btn-wa:hover { background:#075E54; transform:translateY(-1px); box-shadow:0 6px 20px rgba(18,140,126,0.35); }
-    .mpop-footer-note { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:12px; }
-    .mpop-footer-note span { font-size:0.68rem; color:#a0b8cc; font-family:'Plus Jakarta Sans',sans-serif; }
-    .mpop-footer-note i { font-size:11px; color:#a0b8cc; }
+    .mpop-footer-note { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:8px; }
+    .mpop-footer-note span { font-size:0.65rem; color:#a0b8cc; font-family:'Plus Jakarta Sans',sans-serif; }
+    .mpop-footer-note i { font-size:10px; color:#a0b8cc; }
 
     @media (max-width:480px) {
-      .mpop-wrap { border-radius:20px; }
-      .mpop-header { padding:28px 20px 24px; }
-      .mpop-body { padding:16px 20px 24px; }
-      .mpop-steps { padding:14px 20px 0; }
-      .mpop-options { grid-template-columns:1fr 1fr; gap:8px; }
+      .mpop-wrap { border-radius:18px; }
+      .mpop-header { padding:16px 16px 14px; }
+      .mpop-body { padding:12px 16px 16px; }
+      .mpop-steps { padding:10px 16px 0; }
+      .mpop-options { gap:6px; }
     }
   </style>
 
@@ -442,7 +442,7 @@
 
         <!-- Jenis -->
         <div class="mpop-field">
-          <div class="mpop-label"><i class="bi bi-flag-fill"></i> Jenis Pengaduan</div>
+          <div class="mpop-label"><i class="bi bi-exclamation-circle-fill"></i> Jenis Pengaduan</div>
           <div class="mpop-options">
             <div class="mpop-opt selected" id="opt-wbs" onclick="pilihJenis('wbs')">
               <span class="mpop-opt-badge wbs">WBS</span>
@@ -464,7 +464,7 @@
         <!-- Keterangan -->
         <div class="mpop-field">
           <div class="mpop-label"><i class="bi bi-pencil-square"></i> Uraian Pengaduan</div>
-          <textarea id="input-keterangan" class="mpop-input" placeholder="Jelaskan pengaduan Anda secara lengkap dan jelas..." rows="4" style="resize:none;" oninput="updateSteps()"></textarea>
+          <textarea id="input-keterangan" class="mpop-input" placeholder="Jelaskan pengaduan Anda secara lengkap dan jelas..." rows="3" style="resize:none;" oninput="updateSteps()"></textarea>
         </div>
 
         <!-- Kirim -->
