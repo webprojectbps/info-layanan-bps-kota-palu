@@ -13,9 +13,9 @@
     html,body{height:100%;}
     body{font-family:'Plus Jakarta Sans',sans-serif;background:#f0f4f9;display:flex;flex-direction:column;}
     .navbar { background-color:var(--bps-blue)!important; padding:0; min-height:56px; position:relative; }
-    .btn-back { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.35); border-radius:8px; color:#fff; font-size:1rem; text-decoration:none; transition:background .2s,border-color .2s,transform .15s; position:absolute; top:50%; left:16px; transform:translateY(-50%); }
-    .btn-back:hover { background:rgba(255,255,255,.28); border-color:rgba(255,255,255,.6); color:#fff; transform:translateY(-50%) translateX(-2px); }
-    .nav-links { position:absolute; top:50%; right:16px; transform:translateY(-50%); display:flex; align-items:center; gap:4px; }
+    .btn-back { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.35); border-radius:8px; color:#fff; font-size:1rem; text-decoration:none; transition:background .2s,border-color .2s,transform .15s; flex-shrink:0; }
+    .btn-back:hover { background:rgba(255,255,255,.28); border-color:rgba(255,255,255,.6); color:#fff; transform:translateX(-2px); }
+    .nav-links { display:flex; align-items:center; gap:4px; margin-left:auto; }
     .nav-link-home { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; font-weight:700; color:rgba(255,255,255,.75); text-decoration:none; padding:6px 14px; border-radius:7px; white-space:nowrap; transition:background .18s,color .18s; }
     .nav-link-home:hover { background:rgba(255,255,255,.15); color:#fff; }
     .nav-link-home i { font-size:.9rem; }
@@ -260,9 +260,9 @@
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-  <div class="container-fluid px-3 px-lg-4">
-    <a class="navbar-brand" href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto;">
-      <a class="btn-back" href="index.html" title="Kembali" style="margin-right:4px;"><i class="bi bi-arrow-left"></i></a>
+  <div class="container-fluid px-3 px-lg-4" style="display:flex;align-items:center;gap:0;">
+    <a class="btn-back" href="index.html" title="Kembali"><i class="bi bi-arrow-left"></i></a>
+    <a class="navbar-brand" href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;margin-left:12px;margin-right:auto;">
       <img src="img/logoBPS.png" alt="Logo BPS" height="38">
       <div style="display:flex;flex-direction:column;line-height:1.15;">
         <span style="font-size:1.15rem;font-weight:900;color:white;letter-spacing:2px;text-transform:uppercase;font-style:italic;">SIGITA</span>
@@ -290,7 +290,6 @@
               <div class="snd-text-title">Konsultasi Statistik</div>
               <div class="snd-text-sub">Konsultasi data, metadata &amp; klasifikasi statistik</div>
             </div>
-            
           </a>
           <a class="snd-item" href="perpustakaan.html">
             <div class="snd-icon"><i class="bi bi-book-fill"></i></div>
@@ -298,7 +297,6 @@
               <div class="snd-text-title">Perpustakaan BPS</div>
               <div class="snd-text-sub">Akses koleksi publikasi &amp; referensi statistik</div>
             </div>
-            
           </a>
           <a class="snd-item" href="produkstatistik.html">
             <div class="snd-icon"><i class="bi bi-shop"></i></div>
@@ -306,7 +304,6 @@
               <div class="snd-text-title">Produk Statistik Berbayar</div>
               <div class="snd-text-sub">Publikasi, data mikro, dan peta digital statistik</div>
             </div>
-            
           </a>
           <a class="snd-item active-page" href="rekomendasistatistik.html">
             <div class="snd-icon"><i class="bi bi-file-earmark-check-fill"></i></div>
@@ -317,8 +314,6 @@
             <span class="snd-badge-active">Halaman ini</span>
           </a>
         </div>
-        <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
-        <a class="nav-link-home" href="#section-ajukan" style="color:#f4a700;font-weight:800;" onclick="(function(){var el=document.querySelector('.pengajuan-tab[onclick*=pengaduan]');if(el){switchTab('pengaduan',el);}document.getElementById('section-ajukan')?.scrollIntoView({behavior:'smooth'});})();return false;"><i class="bi bi-headset"></i> Pengaduan</a>
       </div>
     </div>
   </div>
@@ -384,7 +379,6 @@
         </div>
       </div>
     </section>
-
 
     <div class="content-area">
       <div id="panel-info" class="content-panel active">
@@ -599,179 +593,148 @@
           </div>
         </div>
 
-      
-
         <!-- AJUKAN LAYANAN -->
         <div id="section-ajukan" class="scroll-anchor">
-        <div style="background:linear-gradient(135deg,var(--bps-dark) 0%,var(--bps-blue) 100%);border-radius:14px;padding:28px 28px 24px;margin-bottom:18px;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none;"></div>
-          <div style="position:absolute;bottom:-50px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
-          <div style="position:relative;z-index:1;">
-            <div style="display:inline-flex;align-items:center;gap:7px;background:var(--bps-accent);color:var(--bps-dark);font-size:.72rem;font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:16px;"><i class="bi bi-info-circle-fill"></i> Informasi Layanan</div>
-            <h5 style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:10px;line-height:1.4;">Ajukan Permintaan Layanan Tanpa Harus Hadir Langsung ke BPS</h5>
-            <p style="color:rgba(255,255,255,.85);font-size:.84rem;line-height:1.75;margin-bottom:20px;">Melalui fitur ini, masyarakat dapat mengajukan permintaan <strong style="color:#fff;">Rekomendasi Kegiatan Statistik</strong> secara daring tanpa perlu datang langsung ke kantor BPS Kota Palu. Petugas kami akan memproses permintaan Anda dan memberikan respons melalui sistem ini.</p>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" class="info-banner-grid">
-              <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-house-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i><div><div style="color:#fff;font-weight:700;font-size:.78rem;margin-bottom:2px;">Dari Mana Saja</div><div style="color:rgba(255,255,255,.65);font-size:.72rem;line-height:1.5;">Ajukan permintaan kapan saja tanpa perlu hadir ke kantor BPS</div></div></div>
-              <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-clock-history" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i><div><div style="color:#fff;font-weight:700;font-size:.78rem;margin-bottom:2px;">Respons 14 Hari Kerja</div><div style="color:rgba(255,255,255,.65);font-size:.72rem;line-height:1.5;">Notifikasi hasil pemeriksaan dikirim maksimal 14 hari kerja</div></div></div>
-              <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-shield-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i><div><div style="color:#fff;font-weight:700;font-size:.78rem;margin-bottom:2px;">Resmi &amp; Terverifikasi</div><div style="color:rgba(255,255,255,.65);font-size:.72rem;line-height:1.5;">Layanan dikelola langsung oleh BPS Kota Palu secara resmi</div></div></div>
-            </div>
-          </div>
-        </div>
-        <div style="background:white;border-radius:14px;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 14px rgba(0,0,0,.07);margin-bottom:18px;overflow:hidden;">
-          <div style="padding:14px 22px;border-bottom:1px solid #eef2f8;background:linear-gradient(to right,#fafcff,#fff);display:flex;align-items:center;gap:12px;">
-            <div style="width:36px;height:36px;border-radius:9px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-list-ol"></i></div>
-            <div><p style="font-weight:800;color:var(--bps-dark);font-size:.95rem;margin:0;">Cara Mengajukan Permohonan</p><p style="font-size:.72rem;color:#888;font-weight:500;margin:0;">Ikuti langkah berikut untuk mengajukan layanan rekomendasi kegiatan statistik</p></div>
-          </div>
-          <div style="padding:18px 22px;">
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;" class="cara-grid">
-              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">1</div><i class="bi bi-person-vcard" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Isi Formulir</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Lengkapi data diri dan deskripsi kebutuhan data Anda</div></div>
-              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">2</div><i class="bi bi-paperclip" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Upload Dokumen</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Lampirkan surat permohonan</div></div>
-              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">3</div><i class="bi bi-send-check" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Kirim &amp; Simpan Tiket</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Kirim pengajuan dan simpan nomor tiket yang diberikan sistem</div></div>
-              <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">4</div><i class="bi bi-envelope-open-text" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Pantau Respons</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Gunakan nomor tiket untuk memantau status dan hasil pengajuan</div></div>
-            </div>
-          </div>
-        </div>
-        <div class="pengajuan-section">
-          <div class="d-flex align-items-center gap-3 mb-4">
-            <div style="width:48px;height:48px;border-radius:12px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-send-fill"></i></div>
-            <div><h4 class="mb-0 fw-bold" style="color:var(--bps-dark);font-size:.97rem;">Ajukan Permintaan Layanan</h4><p class="mb-0" style="font-size:.8rem;color:#888;">Isi form di bawah untuk mengajukan permintaan secara online</p></div>
-          </div>
-          <div class="pengajuan-tabs">
-            <button class="pengajuan-tab active" onclick="switchTab('form',this)"><i class="bi bi-file-earmark-text me-2"></i>Form Pengajuan</button>
-            <button class="pengajuan-tab" onclick="switchTab('cek',this)"><i class="bi bi-search me-2"></i>Cek Status</button>
-            <button class="pengajuan-tab" onclick="switchTab('pengaduan',this)"><i class="bi bi-headset me-2"></i>Pengaduan</button>
-          </div>
-          <div id="tab-form" class="tab-content-panel active">
-            <div class="tiket-box" id="tiket-box">
-              <i class="bi bi-check-circle-fill" style="font-size:2.4rem;color:#4caf50;"></i>
-              <p class="fw-bold mt-3 mb-1" style="font-size:1.05rem;color:#2e7d32;">Pengajuan Berhasil Dikirim!</p>
-              <p style="font-size:.83rem;color:#555;">Simpan nomor tiket berikut untuk memantau status pengajuan Anda:</p>
-              <div class="tiket-number" id="tiket-number">-</div>
-              <p class="tiket-warning"><i class="bi bi-exclamation-triangle me-1"></i>Simpan nomor tiket ini! Anda membutuhkannya untuk cek status pengajuan.</p>
-              <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
-                <button class="btn-submit" onclick="downloadTiketPDF()" style="background:linear-gradient(135deg,#2e7d32,#1b5e20);"><i class="bi bi-file-earmark-pdf"></i> Simpan Tiket (PDF)</button>
-                <button class="btn-submit" onclick="resetForm()" style="background:linear-gradient(135deg,#005baa,#003f7f);"><i class="bi bi-plus-circle"></i> Ajukan Permintaan Baru</button>
-              </div>
-            </div>
-            <div id="form-pengajuan">
-              <div class="row g-3">
-                <div class="col-md-6"><label class="form-label">Nama Lengkap <span class="text-danger">*</span></label><input type="text" class="form-control" id="input-nama" placeholder="Masukkan nama lengkap"></div>
-                <div class="col-md-6"><label class="form-label">Email Aktif <span class="text-danger">*</span></label><input type="email" class="form-control" id="input-email" placeholder="contoh@email.com"></div>
-                <div class="col-md-6"><label class="form-label">Nomor Telepon <span class="text-danger">*</span></label><input type="tel" class="form-control" id="input-telepon" placeholder="08xxxxxxxxxx"></div>
-                <div class="col-md-6"><label class="form-label">Instansi / Universitas <span style="color:#aaa;font-weight:400;">(opsional)</span></label><input type="text" class="form-control" id="input-instansi" placeholder="Nama instansi atau universitas"></div>
-                <div class="col-md-6"><label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label><select class="form-control" id="input-jenis-kelamin"><option value="">Pilih Jenis Kelamin</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
-                <div class="col-md-6"><label class="form-label">Usia <span class="text-danger">*</span></label><input type="number" class="form-control" id="input-usia" placeholder="Contoh: 22" min="10" max="100"></div>
-                <div class="col-md-6"><label class="form-label">Kategori Pengguna <span class="text-danger">*</span></label><select class="form-control" id="input-kategori"><option value="">Pilih Kategori</option><option value="Mahasiswa">Mahasiswa</option><option value="Pelajar (SD/SMP/SMA)">Pelajar (SD/SMP/SMA)</option><option value="Dosen / Peneliti">Dosen / Peneliti</option><option value="ASN / Instansi Pemerintah">ASN / Instansi Pemerintah</option><option value="Swasta / Pelaku Usaha">Swasta / Pelaku Usaha</option><option value="Media / Jurnalis">Media / Jurnalis</option><option value="Umum / Masyarakat">Umum / Masyarakat</option></select></div>
-                <div class="col-md-6"><label class="form-label">Tingkat Pendidikan <span class="text-danger">*</span></label><select class="form-control" id="input-pendidikan"><option value="">Pilih Pendidikan</option><option value="SD / Sederajat">SD / Sederajat</option><option value="SMP / Sederajat">SMP / Sederajat</option><option value="SMA / Sederajat">SMA / Sederajat</option><option value="Diploma (D1/D2/D3)">Diploma (D1/D2/D3)</option><option value="Sarjana (S1)">Sarjana (S1)</option><option value="Pascasarjana (S2/S3)">Pascasarjana (S2/S3)</option></select></div>
-                <div class="col-md-6"><label class="form-label">Kabupaten / Kota <span class="text-danger">*</span></label><select class="form-control" id="input-kabkota"><option value="">Pilih Kabupaten/Kota</option><option value="Kota Palu">Kota Palu</option><option value="Banggai">Banggai</option><option value="Banggai Kepulauan">Banggai Kepulauan</option><option value="Banggai Laut">Banggai Laut</option><option value="Buol">Buol</option><option value="Donggala">Donggala</option><option value="Morowali">Morowali</option><option value="Morowali Utara">Morowali Utara</option><option value="Parigi Moutong">Parigi Moutong</option><option value="Poso">Poso</option><option value="Sigi">Sigi</option><option value="Tojo Una-Una">Tojo Una-Una</option><option value="Tolitoli">Tolitoli</option><option value="Lainnya">Lainnya</option></select></div>
-                <div class="col-12"><label class="form-label">Deskripsi Kebutuhan Data <span class="text-danger">*</span></label><textarea class="form-control" id="input-deskripsi" rows="4" placeholder="Jelaskan data apa yang Anda butuhkan, untuk keperluan apa, dan periode data yang diinginkan..."></textarea></div>
-                <div class="col-12">
-                  <label class="form-label">Upload Surat <span class="text-danger">*</span></label>
-                  <div class="upload-area" id="upload-area">
-                    <input type="file" id="input-dokumen" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileChange(this)">
-                    <div class="upload-icon"><i class="bi bi-cloud-arrow-up"></i></div>
-                    <div class="upload-text">Klik atau seret file ke sini</div>
-                    <div class="upload-hint">Format: PDF, JPG, PNG • Maks. 5MB</div>
-                    <div class="upload-filename" id="upload-filename"></div>
-                  </div>
-                </div>
-                <div class="col-12"><div id="form-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:.83rem;border-radius:10px;"></div></div>
-                <div class="col-12 text-end"><button class="btn-submit" id="btn-submit" onclick="submitPengajuan()"><i class="bi bi-send"></i> Kirim Pengajuan</button></div>
+          <div style="background:linear-gradient(135deg,var(--bps-dark) 0%,var(--bps-blue) 100%);border-radius:14px;padding:28px 28px 24px;margin-bottom:18px;position:relative;overflow:hidden;">
+            <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none;"></div>
+            <div style="position:absolute;bottom:-50px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
+            <div style="position:relative;z-index:1;">
+              <div style="display:inline-flex;align-items:center;gap:7px;background:var(--bps-accent);color:var(--bps-dark);font-size:.72rem;font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:16px;"><i class="bi bi-info-circle-fill"></i> Informasi Layanan</div>
+              <h5 style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:10px;line-height:1.4;">Ajukan Permintaan Layanan Tanpa Harus Hadir Langsung ke BPS</h5>
+              <p style="color:rgba(255,255,255,.85);font-size:.84rem;line-height:1.75;margin-bottom:20px;">Melalui fitur ini, masyarakat dapat mengajukan permintaan <strong style="color:#fff;">Rekomendasi Kegiatan Statistik</strong> secara daring tanpa perlu datang langsung ke kantor BPS Kota Palu. Petugas kami akan memproses permintaan Anda dan memberikan respons melalui sistem ini.</p>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" class="info-banner-grid">
+                <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-house-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i><div><div style="color:#fff;font-weight:700;font-size:.78rem;margin-bottom:2px;">Dari Mana Saja</div><div style="color:rgba(255,255,255,.65);font-size:.72rem;line-height:1.5;">Ajukan permintaan kapan saja tanpa perlu hadir ke kantor BPS</div></div></div>
+                <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-clock-history" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i><div><div style="color:#fff;font-weight:700;font-size:.78rem;margin-bottom:2px;">Respons 14 Hari Kerja</div><div style="color:rgba(255,255,255,.65);font-size:.72rem;line-height:1.5;">Notifikasi hasil pemeriksaan dikirim maksimal 14 hari kerja</div></div></div>
+                <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-shield-check" style="color:var(--bps-accent);font-size:1.1rem;flex-shrink:0;margin-top:1px;"></i><div><div style="color:#fff;font-weight:700;font-size:.78rem;margin-bottom:2px;">Resmi &amp; Terverifikasi</div><div style="color:rgba(255,255,255,.65);font-size:.72rem;line-height:1.5;">Layanan dikelola langsung oleh BPS Kota Palu secara resmi</div></div></div>
               </div>
             </div>
           </div>
-          <div id="tab-cek" class="tab-content-panel">
-            <div class="row justify-content-center"><div class="col-lg-8">
-              <p style="font-size:.87rem;color:#666;margin-bottom:16px;">Masukkan nomor tiket yang Anda terima saat pengajuan untuk melihat status terkini.</p>
-              <div class="d-flex gap-2 mb-4">
-                <input type="text" class="form-control" id="input-tiket-cek" placeholder="Contoh: BPS-2026-001" style="text-transform:uppercase;">
-                <button class="btn-submit px-4" onclick="cekStatus()" style="border-radius:10px;white-space:nowrap;"><i class="bi bi-search"></i> Cek</button>
+          <div style="background:white;border-radius:14px;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 14px rgba(0,0,0,.07);margin-bottom:18px;overflow:hidden;">
+            <div style="padding:14px 22px;border-bottom:1px solid #eef2f8;background:linear-gradient(to right,#fafcff,#fff);display:flex;align-items:center;gap:12px;">
+              <div style="width:36px;height:36px;border-radius:9px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-list-ol"></i></div>
+              <div><p style="font-weight:800;color:var(--bps-dark);font-size:.95rem;margin:0;">Cara Mengajukan Permohonan</p><p style="font-size:.72rem;color:#888;font-weight:500;margin:0;">Ikuti langkah berikut untuk mengajukan layanan rekomendasi kegiatan statistik</p></div>
+            </div>
+            <div style="padding:18px 22px;">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;" class="cara-grid">
+                <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">1</div><i class="bi bi-person-vcard" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Isi Formulir</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Lengkapi data diri dan deskripsi kebutuhan data Anda</div></div>
+                <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">2</div><i class="bi bi-paperclip" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Upload Dokumen</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Lampirkan surat permohonan</div></div>
+                <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">3</div><i class="bi bi-send-check" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Kirim &amp; Simpan Tiket</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Kirim pengajuan dan simpan nomor tiket yang diberikan sistem</div></div>
+                <div style="text-align:center;padding:16px 10px;border-radius:12px;background:#f8fafd;border:1px solid #e8eef8;"><div style="width:32px;height:32px;border-radius:50%;background:var(--bps-blue);color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">4</div><i class="bi bi-envelope-open-text" style="font-size:1.4rem;color:var(--bps-blue);display:block;margin-bottom:7px;"></i><div style="font-weight:700;color:var(--bps-dark);font-size:.78rem;margin-bottom:4px;">Pantau Respons</div><div style="font-size:.7rem;color:#888;line-height:1.5;">Gunakan nomor tiket untuk memantau status dan hasil pengajuan</div></div>
               </div>
-              <div id="cek-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:.83rem;border-radius:10px;"></div>
-              <div class="result-card" id="result-card">
-                <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
-                  <div><p class="mb-1" style="font-size:.73rem;color:#aaa;font-weight:600;">NOMOR TIKET</p><p class="mb-0 fw-bold" style="color:var(--bps-dark);font-size:1rem;" id="res-tiket">-</p></div>
-                  <span class="status-badge" id="res-status-badge">-</span>
+            </div>
+          </div>
+          <div class="pengajuan-section">
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div style="width:48px;height:48px;border-radius:12px;background:var(--bps-light);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--bps-blue);flex-shrink:0;"><i class="bi bi-send-fill"></i></div>
+              <div><h4 class="mb-0 fw-bold" style="color:var(--bps-dark);font-size:.97rem;">Ajukan Permintaan Layanan</h4><p class="mb-0" style="font-size:.8rem;color:#888;">Isi form di bawah untuk mengajukan permintaan secara online</p></div>
+            </div>
+            <div class="pengajuan-tabs">
+              <button class="pengajuan-tab active" onclick="switchTab('form',this)"><i class="bi bi-file-earmark-text me-2"></i>Form Pengajuan</button>
+              <button class="pengajuan-tab" onclick="switchTab('cek',this)"><i class="bi bi-search me-2"></i>Cek Status</button>
+            </div>
+            <div id="tab-form" class="tab-content-panel active">
+              <div class="tiket-box" id="tiket-box">
+                <i class="bi bi-check-circle-fill" style="font-size:2.4rem;color:#4caf50;"></i>
+                <p class="fw-bold mt-3 mb-1" style="font-size:1.05rem;color:#2e7d32;">Pengajuan Berhasil Dikirim!</p>
+                <p style="font-size:.83rem;color:#555;">Simpan nomor tiket berikut untuk memantau status pengajuan Anda:</p>
+                <div class="tiket-number" id="tiket-number">-</div>
+                <p class="tiket-warning"><i class="bi bi-exclamation-triangle me-1"></i>Simpan nomor tiket ini! Anda membutuhkannya untuk cek status pengajuan.</p>
+                <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+                  <button class="btn-submit" onclick="downloadTiketPDF()" style="background:linear-gradient(135deg,#2e7d32,#1b5e20);"><i class="bi bi-file-earmark-pdf"></i> Simpan Tiket (PDF)</button>
+                  <button class="btn-submit" onclick="resetForm()" style="background:linear-gradient(135deg,#005baa,#003f7f);"><i class="bi bi-plus-circle"></i> Ajukan Permintaan Baru</button>
                 </div>
-                <hr style="border-color:#e8edf5;">
-                <div class="result-row"><span class="result-label">Jenis Layanan</span><span class="result-value" id="res-layanan">-</span></div>
-                <div class="result-row"><span class="result-label">Nama</span><span class="result-value" id="res-nama">-</span></div>
-                <div class="result-row"><span class="result-label">Instansi</span><span class="result-value" id="res-instansi">-</span></div>
-                <div class="result-row"><span class="result-label">Tanggal Pengajuan</span><span class="result-value" id="res-tanggal">-</span></div>
-                <div class="result-row"><span class="result-label">Deskripsi</span><span class="result-value" id="res-deskripsi">-</span></div>
-                <div id="res-hasil-box" style="display:none;margin-top:12px;padding:13px;background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border-radius:10px;border:1.5px solid #a5d6a7;">
-                  <p style="margin:0 0 8px;font-weight:700;color:#2e7d32;font-size:.86rem;"><i class="bi bi-check-circle-fill me-2"></i>Data Tersedia</p>
-                  <p style="margin:0 0 10px;font-size:.78rem;color:#555;">Petugas BPS telah mengupload data yang Anda minta.</p>
-                  <a id="res-hasil-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#2e7d32;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.8rem;"><i class="bi bi-download"></i> Download Data</a>
-                </div>
-                <div id="res-rating-box" style="display:none;margin-top:16px;">
-                  <div id="res-rating-form">
-                    <div style="padding:20px;background:white;border-radius:14px;border:1.5px solid #e0eaf5;text-align:center;animation:fadeInUp .4s ease;">
-                      <div style="font-weight:700;font-size:.9rem;color:var(--bps-dark);margin-bottom:5px;">⭐ Bagaimana pengalaman Anda terhadap layanan ini?</div>
-                      <div style="font-size:.77rem;color:#888;margin-bottom:16px;">Berikan penilaian untuk membantu kami meningkatkan kualitas layanan BPS</div>
-                      <div class="emoji-row" id="res-emoji-row">
-                        <button class="emoji-btn" onclick="selectEmojiCek(this,1,'😠','Sangat Buruk')"><span class="em">😠</span><span class="em-label">Sangat Buruk</span></button>
-                        <button class="emoji-btn" onclick="selectEmojiCek(this,2,'😕','Kurang Baik')"><span class="em">😕</span><span class="em-label">Kurang Baik</span></button>
-                        <button class="emoji-btn" onclick="selectEmojiCek(this,3,'😐','Cukup')"><span class="em">😐</span><span class="em-label">Cukup</span></button>
-                        <button class="emoji-btn" onclick="selectEmojiCek(this,4,'😊','Baik')"><span class="em">😊</span><span class="em-label">Baik</span></button>
-                        <button class="emoji-btn" onclick="selectEmojiCek(this,5,'🤩','Sangat Baik')"><span class="em">🤩</span><span class="em-label">Sangat Baik</span></button>
-                      </div>
-                      <div><button class="btn-kirim-rating" id="res-btn-kirim-rating" disabled onclick="kirimRatingCek()"><i class="bi bi-send"></i> Kirim Penilaian</button></div>
+              </div>
+              <div id="form-pengajuan">
+                <div class="row g-3">
+                  <div class="col-md-6"><label class="form-label">Nama Lengkap <span class="text-danger">*</span></label><input type="text" class="form-control" id="input-nama" placeholder="Masukkan nama lengkap"></div>
+                  <div class="col-md-6"><label class="form-label">Email Aktif <span class="text-danger">*</span></label><input type="email" class="form-control" id="input-email" placeholder="contoh@email.com"></div>
+                  <div class="col-md-6"><label class="form-label">Nomor Telepon <span class="text-danger">*</span></label><input type="tel" class="form-control" id="input-telepon" placeholder="08xxxxxxxxxx"></div>
+                  <div class="col-md-6"><label class="form-label">Instansi / Universitas <span style="color:#aaa;font-weight:400;">(opsional)</span></label><input type="text" class="form-control" id="input-instansi" placeholder="Nama instansi atau universitas"></div>
+                  <div class="col-md-6"><label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label><select class="form-control" id="input-jenis-kelamin"><option value="">Pilih Jenis Kelamin</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
+                  <div class="col-md-6"><label class="form-label">Usia <span class="text-danger">*</span></label><input type="number" class="form-control" id="input-usia" placeholder="Contoh: 22" min="10" max="100"></div>
+                  <div class="col-md-6"><label class="form-label">Kategori Pengguna <span class="text-danger">*</span></label><select class="form-control" id="input-kategori"><option value="">Pilih Kategori</option><option value="Mahasiswa">Mahasiswa</option><option value="Pelajar (SD/SMP/SMA)">Pelajar (SD/SMP/SMA)</option><option value="Dosen / Peneliti">Dosen / Peneliti</option><option value="ASN / Instansi Pemerintah">ASN / Instansi Pemerintah</option><option value="Swasta / Pelaku Usaha">Swasta / Pelaku Usaha</option><option value="Media / Jurnalis">Media / Jurnalis</option><option value="Umum / Masyarakat">Umum / Masyarakat</option></select></div>
+                  <div class="col-md-6"><label class="form-label">Tingkat Pendidikan <span class="text-danger">*</span></label><select class="form-control" id="input-pendidikan"><option value="">Pilih Pendidikan</option><option value="SD / Sederajat">SD / Sederajat</option><option value="SMP / Sederajat">SMP / Sederajat</option><option value="SMA / Sederajat">SMA / Sederajat</option><option value="Diploma (D1/D2/D3)">Diploma (D1/D2/D3)</option><option value="Sarjana (S1)">Sarjana (S1)</option><option value="Pascasarjana (S2/S3)">Pascasarjana (S2/S3)</option></select></div>
+                  <div class="col-md-6"><label class="form-label">Kabupaten / Kota <span class="text-danger">*</span></label><select class="form-control" id="input-kabkota"><option value="">Pilih Kabupaten/Kota</option><option value="Kota Palu">Kota Palu</option><option value="Banggai">Banggai</option><option value="Banggai Kepulauan">Banggai Kepulauan</option><option value="Banggai Laut">Banggai Laut</option><option value="Buol">Buol</option><option value="Donggala">Donggala</option><option value="Morowali">Morowali</option><option value="Morowali Utara">Morowali Utara</option><option value="Parigi Moutong">Parigi Moutong</option><option value="Poso">Poso</option><option value="Sigi">Sigi</option><option value="Tojo Una-Una">Tojo Una-Una</option><option value="Tolitoli">Tolitoli</option><option value="Lainnya">Lainnya</option></select></div>
+                  <div class="col-12"><label class="form-label">Deskripsi Kebutuhan Data <span class="text-danger">*</span></label><textarea class="form-control" id="input-deskripsi" rows="4" placeholder="Jelaskan data apa yang Anda butuhkan, untuk keperluan apa, dan periode data yang diinginkan..."></textarea></div>
+                  <div class="col-12">
+                    <label class="form-label">Upload Surat <span class="text-danger">*</span></label>
+                    <div class="upload-area" id="upload-area">
+                      <input type="file" id="input-dokumen" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileChange(this)">
+                      <div class="upload-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                      <div class="upload-text">Klik atau seret file ke sini</div>
+                      <div class="upload-hint">Format: PDF, JPG, PNG • Maks. 5MB</div>
+                      <div class="upload-filename" id="upload-filename"></div>
                     </div>
                   </div>
-                  <div id="res-rating-done" style="display:none;padding:16px 18px;background:linear-gradient(135deg,rgba(76,175,80,.08),transparent);border-radius:12px;border:1.5px solid #a5d6a7;text-align:center;animation:fadeInUp .35s ease;">
-                    <div id="res-rating-done-emoji" style="font-size:2rem;margin-bottom:5px;">🤩</div>
-                    <div style="font-weight:700;color:#2e7d32;font-size:.88rem;">Terima kasih atas penilaian Anda!</div>
-                    <div style="font-size:.75rem;color:#555;margin-top:4px;">Masukan Anda sangat berarti bagi peningkatan layanan BPS Kota Palu.</div>
-                  </div>
-                </div>
-              </div>
-            </div></div>
-          </div>
-          <!-- TAB PENGADUAN -->
-          <div id="tab-pengaduan" class="tab-content-panel">
-            <div style="background:linear-gradient(135deg,var(--bps-dark),var(--bps-blue));border-radius:14px;padding:28px;margin-bottom:18px;position:relative;overflow:hidden;">
-              <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;"></div>
-              <div style="position:relative;z-index:1;">
-                <div style="display:inline-flex;align-items:center;gap:7px;background:var(--bps-accent);color:var(--bps-dark);font-size:0.72rem;font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:14px;"><i class="bi bi-headset"></i> Layanan Pengaduan</div>
-                <h5 style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:8px;">Sampaikan Pengaduan Anda</h5>
-                <p style="color:rgba(255,255,255,0.85);font-size:0.84rem;line-height:1.7;margin:0;">Jika Anda mengalami kendala atau memiliki keluhan terkait layanan BPS Kota Palu, silakan hubungi kami langsung melalui WhatsApp. Tim kami siap membantu Anda.</p>
-              </div>
-            </div>
-            <div style="background:white;border-radius:14px;border:1px solid rgba(0,91,170,0.08);box-shadow:0 2px 14px rgba(0,0,0,0.07);padding:24px;">
-              <p style="font-size:0.87rem;color:#555;margin-bottom:20px;line-height:1.7;">Sebelum mengirim pengaduan, lengkapi informasi berikut agar petugas dapat memproses laporan Anda dengan lebih cepat:</p>
-              <div class="row g-3">
-                <div class="col-md-6"><label class="form-label">Nama Lengkap <span class="text-danger">*</span></label><input type="text" class="form-control" id="aduan-nama" placeholder="Masukkan nama lengkap"></div>
-                <div class="col-md-6"><label class="form-label">Nomor Tiket <span style="color:#aaa;font-weight:400;">(jika ada)</span></label><input type="text" class="form-control" id="aduan-tiket" placeholder="Contoh: BPS-2026-XXXXX" style="text-transform:uppercase;"></div>
-                <div class="col-12"><label class="form-label">Isi Pengaduan <span class="text-danger">*</span></label><textarea class="form-control" id="aduan-isi" rows="4" placeholder="Jelaskan kendala atau keluhan Anda secara detail..."></textarea></div>
-                <div class="col-12"><div id="aduan-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:0.83rem;border-radius:10px;"></div></div>
-                <div class="col-12"><button class="btn-submit" onclick="kirimPengaduan()" style="background:linear-gradient(135deg,#25D366,#128C7E);"><i class="bi bi-whatsapp"></i> Kirim via WhatsApp</button></div>
-                <div class="col-12">
-                  <div style="background:#f8fafd;border-radius:10px;padding:14px 16px;border:1px solid #e0eaf5;display:flex;align-items:flex-start;gap:10px;">
-                    <i class="bi bi-info-circle-fill" style="color:var(--bps-blue);font-size:1rem;flex-shrink:0;margin-top:2px;"></i>
-                    <p style="font-size:0.78rem;color:#666;margin:0;line-height:1.6;">Pengaduan akan diteruskan langsung ke WhatsApp petugas BPS Kota Palu. Pastikan aplikasi WhatsApp sudah terinstal di perangkat Anda. Jam layanan: <strong>Senin–Kamis 08.00–16.00 WITA</strong>, <strong>Jumat 08.00–16.30 WITA</strong>.</p>
-                  </div>
+                  <div class="col-12"><div id="form-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:.83rem;border-radius:10px;"></div></div>
+                  <div class="col-12 text-end"><button class="btn-submit" id="btn-submit" onclick="submitPengajuan()"><i class="bi bi-send"></i> Kirim Pengajuan</button></div>
                 </div>
               </div>
             </div>
+            <div id="tab-cek" class="tab-content-panel">
+              <div class="row justify-content-center"><div class="col-lg-8">
+                <p style="font-size:.87rem;color:#666;margin-bottom:16px;">Masukkan nomor tiket yang Anda terima saat pengajuan untuk melihat status terkini.</p>
+                <div class="d-flex gap-2 mb-4">
+                  <input type="text" class="form-control" id="input-tiket-cek" placeholder="Contoh: BPS-2026-001" style="text-transform:uppercase;">
+                  <button class="btn-submit px-4" onclick="cekStatus()" style="border-radius:10px;white-space:nowrap;"><i class="bi bi-search"></i> Cek</button>
+                </div>
+                <div id="cek-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:.83rem;border-radius:10px;"></div>
+                <div class="result-card" id="result-card">
+                  <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+                    <div><p class="mb-1" style="font-size:.73rem;color:#aaa;font-weight:600;">NOMOR TIKET</p><p class="mb-0 fw-bold" style="color:var(--bps-dark);font-size:1rem;" id="res-tiket">-</p></div>
+                    <span class="status-badge" id="res-status-badge">-</span>
+                  </div>
+                  <hr style="border-color:#e8edf5;">
+                  <div class="result-row"><span class="result-label">Jenis Layanan</span><span class="result-value" id="res-layanan">-</span></div>
+                  <div class="result-row"><span class="result-label">Nama</span><span class="result-value" id="res-nama">-</span></div>
+                  <div class="result-row"><span class="result-label">Instansi</span><span class="result-value" id="res-instansi">-</span></div>
+                  <div class="result-row"><span class="result-label">Tanggal Pengajuan</span><span class="result-value" id="res-tanggal">-</span></div>
+                  <div class="result-row"><span class="result-label">Deskripsi</span><span class="result-value" id="res-deskripsi">-</span></div>
+                  <div id="res-hasil-box" style="display:none;margin-top:12px;padding:13px;background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border-radius:10px;border:1.5px solid #a5d6a7;">
+                    <p style="margin:0 0 8px;font-weight:700;color:#2e7d32;font-size:.86rem;"><i class="bi bi-check-circle-fill me-2"></i>Data Tersedia</p>
+                    <p style="margin:0 0 10px;font-size:.78rem;color:#555;">Petugas BPS telah mengupload data yang Anda minta.</p>
+                    <a id="res-hasil-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#2e7d32;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.8rem;"><i class="bi bi-download"></i> Download Data</a>
+                  </div>
+                  <div id="res-rating-box" style="display:none;margin-top:16px;">
+                    <div id="res-rating-form">
+                      <div style="padding:20px;background:white;border-radius:14px;border:1.5px solid #e0eaf5;text-align:center;animation:fadeInUp .4s ease;">
+                        <div style="font-weight:700;font-size:.9rem;color:var(--bps-dark);margin-bottom:5px;">⭐ Bagaimana pengalaman Anda terhadap layanan ini?</div>
+                        <div style="font-size:.77rem;color:#888;margin-bottom:16px;">Berikan penilaian untuk membantu kami meningkatkan kualitas layanan BPS</div>
+                        <div class="emoji-row" id="res-emoji-row">
+                          <button class="emoji-btn" onclick="selectEmojiCek(this,1,'😠','Sangat Buruk')"><span class="em">😠</span><span class="em-label">Sangat Buruk</span></button>
+                          <button class="emoji-btn" onclick="selectEmojiCek(this,2,'😕','Kurang Baik')"><span class="em">😕</span><span class="em-label">Kurang Baik</span></button>
+                          <button class="emoji-btn" onclick="selectEmojiCek(this,3,'😐','Cukup')"><span class="em">😐</span><span class="em-label">Cukup</span></button>
+                          <button class="emoji-btn" onclick="selectEmojiCek(this,4,'😊','Baik')"><span class="em">😊</span><span class="em-label">Baik</span></button>
+                          <button class="emoji-btn" onclick="selectEmojiCek(this,5,'🤩','Sangat Baik')"><span class="em">🤩</span><span class="em-label">Sangat Baik</span></button>
+                        </div>
+                        <div><button class="btn-kirim-rating" id="res-btn-kirim-rating" disabled onclick="kirimRatingCek()"><i class="bi bi-send"></i> Kirim Penilaian</button></div>
+                      </div>
+                    </div>
+                    <div id="res-rating-done" style="display:none;padding:16px 18px;background:linear-gradient(135deg,rgba(76,175,80,.08),transparent);border-radius:12px;border:1.5px solid #a5d6a7;text-align:center;animation:fadeInUp .35s ease;">
+                      <div id="res-rating-done-emoji" style="font-size:2rem;margin-bottom:5px;">🤩</div>
+                      <div style="font-weight:700;color:#2e7d32;font-size:.88rem;">Terima kasih atas penilaian Anda!</div>
+                      <div style="font-size:.75rem;color:#555;margin-top:4px;">Masukan Anda sangat berarti bagi peningkatan layanan BPS Kota Palu.</div>
+                    </div>
+                  </div>
+                </div>
+              </div></div>
+            </div>
           </div>
-        </div>
-              </div><!-- /section-ajukan -->
-</div><!-- /panel-info -->
+        </div><!-- /section-ajukan -->
 
-     
+      </div><!-- /panel-info -->
     </div><!-- /content-area -->
 
     <footer class="py-4 text-center" style="background:var(--bps-dark,#003f7f);color:rgba(255,255,255,.8);font-size:.85rem;">
-    <div style="margin-bottom:4px;"><strong style="color:white;">BPS Kota Palu</strong></div>
-    <div style="margin-bottom:6px;">
-      <span style="display:inline-block;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:2px 14px;">
-        <span style="font-size:.7rem;font-weight:800;letter-spacing:2px;color:#f4a700;">SIGITA</span>
-        <span style="font-size:.62rem;color:rgba(255,255,255,.5);margin-left:5px;">Sinergi Inovatif Gesit Inklusif Transparan Akuntabel</span>
-      </span>
-    </div>
-    © 2026 BPS Kota Palu
-  </footer>
+      <div style="margin-bottom:4px;"><strong style="color:white;">BPS Kota Palu</strong></div>
+      <div style="margin-bottom:6px;">
+        <span style="display:inline-block;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:50px;padding:2px 14px;">
+          <span style="font-size:.7rem;font-weight:800;letter-spacing:2px;color:#f4a700;">SIGITA</span>
+          <span style="font-size:.62rem;color:rgba(255,255,255,.5);margin-left:5px;">Sinergi Inovatif Gesit Inklusif Transparan Akuntabel</span>
+        </span>
+      </div>
+      © 2026 BPS Kota Palu
+    </footer>
   </div><!-- /main-area -->
 </div><!-- /page-wrapper -->
 
@@ -865,23 +828,6 @@
     doc.text('Simpan nomor tiket ini untuk memantau status pengajuan Anda.', W/2, y+8, { align:'center' });
     doc.text('Cek status melalui halaman layanan BPS Kota Palu.', W/2, y+14.5, { align:'center' });
     doc.save('Tiket-' + d.tiket + '.pdf');
-  }
-
-  // ===== KIRIM PENGADUAN VIA WHATSAPP =====
-  const WA_NUMBER = '6281527683764';
-
-  function kirimPengaduan() {
-    const nama  = document.getElementById('aduan-nama').value.trim();
-    const tiket = document.getElementById('aduan-tiket').value.trim();
-    const isi   = document.getElementById('aduan-isi').value.trim();
-    const errEl = document.getElementById('aduan-error');
-    errEl.classList.add('d-none');
-    if (!nama) { errEl.textContent = 'Nama lengkap wajib diisi!'; errEl.classList.remove('d-none'); return; }
-    if (!isi)  { errEl.textContent = 'Isi pengaduan wajib diisi!'; errEl.classList.remove('d-none'); return; }
-    const tiketInfo = tiket ? `\nNomor Tiket: ${tiket}` : '';
-    const pesan = `*PENGADUAN LAYANAN BPS Kota Palu*\n\nNama: ${nama}${tiketInfo}\n\nKeterangan:\n${isi}\n\n_Dikirim melalui portal layanan BPS Kota Palu_`;
-    const url   = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pesan)}`;
-    window.open(url, '_blank');
   }
 
   // ===== NAVBAR DROPDOWN =====
