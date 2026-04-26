@@ -12,10 +12,12 @@
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     html,body { height:100%; }
     body { font-family:'Plus Jakarta Sans',sans-serif; background:#f0f4f9; display:flex; flex-direction:column; }
-    .navbar { background-color:var(--bps-blue)!important; padding:0; min-height:56px; position:relative; }
-    .btn-back { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.35); border-radius:8px; color:#fff; font-size:1rem; text-decoration:none; transition:background .2s,border-color .2s,transform .15s; position:absolute; top:50%; left:16px; transform:translateY(-50%); }
-    .btn-back:hover { background:rgba(255,255,255,.28); border-color:rgba(255,255,255,.6); color:#fff; transform:translateY(-50%) translateX(-2px); }
-    .nav-links { position:absolute; top:50%; right:16px; transform:translateY(-50%); display:flex; align-items:center; gap:4px; }
+    .navbar { background-color:var(--bps-blue)!important; padding:0; min-height:56px; }
+    .navbar-inner { display:flex; align-items:center; width:100%; padding:0 16px; height:56px; gap:10px; }
+    .btn-back { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.35); border-radius:8px; color:#fff; font-size:1rem; text-decoration:none; transition:background .2s,border-color .2s,transform .15s; flex-shrink:0; }
+    .btn-back:hover { background:rgba(255,255,255,.28); border-color:rgba(255,255,255,.6); color:#fff; transform:translateX(-2px); }
+    .navbar-brand-area { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+    .nav-links { margin-left:auto; display:flex; align-items:center; gap:4px; }
     .nav-link-home { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; font-weight:700; color:rgba(255,255,255,.75); text-decoration:none; padding:6px 14px; border-radius:7px; white-space:nowrap; transition:background .18s,color .18s; }
     .nav-link-home:hover { background:rgba(255,255,255,.15); color:#fff; }
     .nav-link-home i { font-size:.9rem; }
@@ -226,11 +228,10 @@
 </head>
 <body>
 
-<!-- ===================== NAVBAR (diperbarui seperti konsultasi.html) ===================== -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-  <div class="container-fluid px-3 px-lg-4">
-    <a class="navbar-brand" href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto;">
-      <a class="btn-back" href="index.html" title="Kembali" style="margin-right:4px;"><i class="bi bi-arrow-left"></i></a>
+  <div class="navbar-inner">
+    <a href="index.html" class="btn-back" title="Kembali"><i class="bi bi-arrow-left"></i></a>
+    <a href="index.html" class="navbar-brand-area">
       <img src="img/logoBPS.png" alt="Logo BPS" height="38">
       <div style="display:flex;flex-direction:column;line-height:1.15;">
         <span style="font-size:1.15rem;font-weight:900;color:white;letter-spacing:2px;text-transform:uppercase;font-style:italic;">SIGITA</span>
@@ -258,7 +259,6 @@
               <div class="snd-text-title">Konsultasi Statistik</div>
               <div class="snd-text-sub">Konsultasi data, metadata &amp; klasifikasi statistik</div>
             </div>
-            
           </a>
           <a class="snd-item active-page" href="perpustakaan.html">
             <div class="snd-icon"><i class="bi bi-book-fill"></i></div>
@@ -274,7 +274,6 @@
               <div class="snd-text-title">Produk Statistik Berbayar</div>
               <div class="snd-text-sub">Publikasi, data mikro, dan peta digital statistik</div>
             </div>
-            
           </a>
           <a class="snd-item" href="rekomendasistatistik.html">
             <div class="snd-icon"><i class="bi bi-file-earmark-check-fill"></i></div>
@@ -282,16 +281,12 @@
               <div class="snd-text-title">Rekomendasi Statistik</div>
               <div class="snd-text-sub">Permohonan surat rekomendasi kegiatan statistik</div>
             </div>
-            
           </a>
         </div>
-        <span class="nav-sep"><i class="bi bi-chevron-right"></i></span>
-        <a class="nav-link-home" href="#section-ajukan" style="color:#f4a700;font-weight:800;" onclick="(function(){var el=document.querySelector('.pengajuan-tab[onclick*=pengaduan]');if(el){switchTab('pengaduan',el);}document.getElementById('section-ajukan')?.scrollIntoView({behavior:'smooth'});})();return false;"><i class="bi bi-headset"></i> Pengaduan</a>
       </div>
     </div>
   </div>
 </nav>
-<!-- ===================== /NAVBAR ===================== -->
 
 <div class="page-wrapper">
   <aside class="sidebar">
@@ -317,12 +312,10 @@
         <div class="hero-badge"><i class="bi bi-patch-check-fill"></i> Layanan Resmi Pemerintah</div>
         <h1 class="hero-title">Pelayanan Perpustakaan</h1>
         <p class="hero-sub">Layanan akses pustaka tercetak dan digital BPS Kota Palu</p>
-        <!-- ===================== TOMBOL HERO (diperbarui seperti konsultasi.html) ===================== -->
         <a class="hero-cta" href="#" onclick="scrollToSection('section-ajukan',document.querySelectorAll('.sb-link')[4]);return false;"><i class="bi bi-send-fill"></i> Ajukan Layanan</a>
       </div>
     </section>
 
-    <!-- SENSUS EKONOMI 2026 SPANDUK -->
     <section class="py-3" style="background:#f4f6f9;">
       <div class="container">
         <div class="text-center mb-2">
@@ -352,13 +345,9 @@
       </div>
     </section>
 
-
     <div class="content-area">
-
-      <!-- PANEL INFO (satu-satunya panel, ajukan digabung di bawah) -->
       <div id="panel-info" class="content-panel active">
 
-        <!-- PERSYARATAN -->
         <div id="section-persyaratan" class="scroll-anchor">
           <div class="section-box">
             <div class="section-head">
@@ -391,7 +380,6 @@
           </div>
         </div>
 
-        <!-- SOP -->
         <div id="section-sop" class="scroll-anchor">
           <div class="section-box">
             <div class="section-head">
@@ -399,7 +387,6 @@
               <div><p class="section-head-title">SOP &amp; Prosedur</p><p class="section-head-sub">Alur standar operasional pelayanan perpustakaan</p></div>
             </div>
             <div class="section-body">
-
               <div class="sop-flowchart">
                 <div class="flowchart-title langsung"><i class="bi bi-building"></i> Layanan dengan Kunjungan Langsung</div>
                 <div class="fc-desktop">
@@ -510,12 +497,10 @@
                   </ol>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
 
-        <!-- JANGKA WAKTU -->
         <div id="section-jangka" class="scroll-anchor">
           <div class="section-box">
             <div class="section-head">
@@ -537,7 +522,6 @@
           </div>
         </div>
 
-        <!-- BIAYA & PRODUK -->
         <div id="section-biaya" class="scroll-anchor">
           <div class="section-box">
             <div class="section-head">
@@ -578,7 +562,6 @@
 
       </div><!-- /panel-info -->
 
-      <!-- ===================== SECTION AJUKAN (digabung di panel-info, seperti konsultasi.html) ===================== -->
       <div id="section-ajukan" class="scroll-anchor">
         <div style="background:linear-gradient(135deg,var(--bps-dark) 0%,var(--bps-blue) 100%);border-radius:14px;padding:28px 28px 24px;margin-bottom:18px;position:relative;overflow:hidden;">
           <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none;"></div>
@@ -618,10 +601,8 @@
           <div class="pengajuan-tabs">
             <button class="pengajuan-tab active" onclick="switchTab('form',this)"><i class="bi bi-file-earmark-text me-2"></i>Form Pengajuan</button>
             <button class="pengajuan-tab" onclick="switchTab('cek',this)"><i class="bi bi-search me-2"></i>Cek Status</button>
-            <button class="pengajuan-tab" onclick="switchTab('pengaduan',this)"><i class="bi bi-headset me-2"></i>Pengaduan</button>
           </div>
 
-          <!-- TAB FORM -->
           <div id="tab-form" class="tab-content-panel active">
             <div class="tiket-box" id="tiket-box">
               <i class="bi bi-check-circle-fill" style="font-size:2.4rem;color:#4caf50;"></i>
@@ -662,7 +643,6 @@
             </div>
           </div>
 
-          <!-- TAB CEK STATUS -->
           <div id="tab-cek" class="tab-content-panel">
             <div class="row justify-content-center"><div class="col-lg-8">
               <p style="font-size:.87rem;color:#666;margin-bottom:16px;">Masukkan nomor tiket yang Anda terima saat pengajuan untuk melihat status terkini.</p>
@@ -712,27 +692,7 @@
             </div></div>
           </div>
 
-          <!-- TAB PENGADUAN -->
-          <div id="tab-pengaduan" class="tab-content-panel">
-            <div style="background:linear-gradient(135deg,var(--bps-dark),var(--bps-blue));border-radius:14px;padding:28px;margin-bottom:18px;position:relative;overflow:hidden;">
-              <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none;"></div>
-              <div style="position:relative;z-index:1;">
-                <div style="display:inline-flex;align-items:center;gap:7px;background:var(--bps-accent);color:var(--bps-dark);font-size:0.72rem;font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:14px;"><i class="bi bi-headset"></i> Layanan Pengaduan</div>
-                <h5 style="color:#fff;font-weight:800;font-size:1rem;margin-bottom:8px;">Sampaikan Pengaduan Anda</h5>
-                <p style="color:rgba(255,255,255,0.85);font-size:0.84rem;line-height:1.7;margin:0;">Jika Anda mengalami kendala atau memiliki keluhan terkait layanan BPS Kota Palu, silakan hubungi kami langsung melalui WhatsApp.</p>
-              </div>
-            </div>
-            <div style="background:white;border-radius:14px;border:1px solid rgba(0,91,170,0.08);box-shadow:0 2px 14px rgba(0,0,0,0.07);padding:24px;">
-              <div class="row g-3">
-                <div class="col-md-6"><label class="form-label">Nama Lengkap <span class="text-danger">*</span></label><input type="text" class="form-control" id="aduan-nama" placeholder="Masukkan nama lengkap"></div>
-                <div class="col-md-6"><label class="form-label">Nomor Tiket <span style="color:#aaa;font-weight:400;">(jika ada)</span></label><input type="text" class="form-control" id="aduan-tiket" placeholder="Contoh: BPS-2026-XXXXX" style="text-transform:uppercase;"></div>
-                <div class="col-12"><label class="form-label">Isi Pengaduan <span class="text-danger">*</span></label><textarea class="form-control" id="aduan-isi" rows="4" placeholder="Jelaskan kendala atau keluhan Anda secara detail..."></textarea></div>
-                <div class="col-12"><div id="aduan-error" class="alert alert-danger py-2 px-3 d-none" style="font-size:0.83rem;border-radius:10px;"></div></div>
-                <div class="col-12"><button class="btn-submit" onclick="kirimPengaduan()" style="background:linear-gradient(135deg,#25D366,#128C7E);"><i class="bi bi-whatsapp"></i> Kirim via WhatsApp</button></div>
-                <div class="col-12"><div style="background:#f8fafd;border-radius:10px;padding:14px 16px;border:1px solid #e0eaf5;display:flex;align-items:flex-start;gap:10px;"><i class="bi bi-info-circle-fill" style="color:var(--bps-blue);font-size:1rem;flex-shrink:0;margin-top:2px;"></i><p style="font-size:0.78rem;color:#666;margin:0;line-height:1.6;">Pengaduan akan diteruskan langsung ke WhatsApp petugas BPS Kota Palu. Pastikan aplikasi WhatsApp sudah terinstal di perangkat Anda. Jam layanan: <strong>Senin–Kamis 08.00–16.00 WITA</strong>, <strong>Jumat 08.00–16.30 WITA</strong>.</p></div></div>
-              </div>
-            </div>
-          </div>
+
 
         </div>
       </div><!-- /section-ajukan -->
@@ -800,9 +760,7 @@
     scrollToSection(sid,null);
   }
 
-  function showPanelMobile(id, mbnEl) {
-    scrollToSectionMobile('section-ajukan', mbnEl);
-  }
+  function showPanelMobile(id, mbnEl) { scrollToSectionMobile('section-ajukan', mbnEl); }
 
   function switchTab(tab, el) {
     document.querySelectorAll('.pengajuan-tab').forEach(t=>t.classList.remove('active'));
@@ -944,10 +902,8 @@
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
     const W = 210, mg = 20, cw = W - mg * 2;
-    doc.setFillColor(0,63,127);
-    doc.roundedRect(mg, 14, cw, 40, 4, 4, 'F');
-    doc.setFillColor(244,167,0);
-    doc.roundedRect(mg + cw/2 - 38, 19, 76, 9, 3, 3, 'F');
+    doc.setFillColor(0,63,127); doc.roundedRect(mg, 14, cw, 40, 4, 4, 'F');
+    doc.setFillColor(244,167,0); doc.roundedRect(mg + cw/2 - 38, 19, 76, 9, 3, 3, 'F');
     doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(0,63,127);
     doc.text('\u2713 PENGAJUAN BERHASIL', W/2, 24.8, { align:'center' });
     doc.setFontSize(14); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
@@ -957,17 +913,13 @@
     doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(160,160,160);
     doc.text('NOMOR TIKET', W/2, 62, { align:'center' });
     doc.setDrawColor(180,215,245); doc.setFillColor(237,246,255); doc.setLineWidth(0.6);
-    doc.setLineDashPattern([2,1.5], 0);
-    doc.roundedRect(mg+14, 65, cw-28, 17, 3, 3, 'FD');
-    doc.setLineDashPattern([], 0);
+    doc.setLineDashPattern([2,1.5], 0); doc.roundedRect(mg+14, 65, cw-28, 17, 3, 3, 'FD'); doc.setLineDashPattern([], 0);
     doc.setFontSize(19); doc.setFont('helvetica','bold'); doc.setTextColor(0,91,170);
     doc.text(d.tiket, W/2, 77, { align:'center' });
     const fields = [
       { lbl:'JENIS LAYANAN', val: d.jenis_layanan, full:true },
-      { lbl:'NAMA', val: d.nama },
-      { lbl:'EMAIL', val: d.email },
-      { lbl:'NO. TELEPON', val: d.telepon },
-      { lbl:'INSTANSI', val: d.instansi },
+      { lbl:'NAMA', val: d.nama }, { lbl:'EMAIL', val: d.email },
+      { lbl:'NO. TELEPON', val: d.telepon }, { lbl:'INSTANSI', val: d.instansi },
       { lbl:'TANGGAL PENGAJUAN', val: d.tanggal, full:true },
     ];
     let y = 91, half = (cw-5)/2, pending = null;
@@ -978,27 +930,21 @@
           const bx = i === 0 ? mg : mg + half + 5;
           doc.setFillColor(248,250,253); doc.setDrawColor(220,232,245); doc.setLineWidth(0.25);
           doc.roundedRect(bx, y, half, 18, 2, 2, 'FD');
-          doc.setFontSize(6); doc.setFont('helvetica','bold'); doc.setTextColor(170,170,170);
-          doc.text(fi.lbl, bx+4, y+5.5);
-          doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(40,40,40);
-          doc.text(String(fi.val||'-'), bx+4, y+12.5, { maxWidth: half-8 });
+          doc.setFontSize(6); doc.setFont('helvetica','bold'); doc.setTextColor(170,170,170); doc.text(fi.lbl, bx+4, y+5.5);
+          doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(40,40,40); doc.text(String(fi.val||'-'), bx+4, y+12.5, { maxWidth: half-8 });
         });
         y += 22; pending = null; return;
       }
       doc.setFillColor(248,250,253); doc.setDrawColor(220,232,245); doc.setLineWidth(0.25);
       doc.roundedRect(mg, y, cw, 18, 2, 2, 'FD');
-      doc.setFontSize(6); doc.setFont('helvetica','bold'); doc.setTextColor(170,170,170);
-      doc.text(f.lbl, mg+4, y+5.5);
-      doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(40,40,40);
-      doc.text(String(f.val||'-'), mg+4, y+12.5, { maxWidth: cw-8 });
+      doc.setFontSize(6); doc.setFont('helvetica','bold'); doc.setTextColor(170,170,170); doc.text(f.lbl, mg+4, y+5.5);
+      doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(40,40,40); doc.text(String(f.val||'-'), mg+4, y+12.5, { maxWidth: cw-8 });
       y += 22;
     });
     doc.setFillColor(255,243,205); doc.setDrawColor(255,200,0); doc.setLineWidth(0.25);
     doc.roundedRect(mg, y, cw, 17, 2, 2, 'FD');
-    doc.setFontSize(6); doc.setFont('helvetica','bold'); doc.setTextColor(160,160,160);
-    doc.text('STATUS AWAL', W/2, y+5.5, { align:'center' });
-    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(133,100,4);
-    doc.text('\u23F3 Menunggu Verifikasi', W/2, y+13, { align:'center' });
+    doc.setFontSize(6); doc.setFont('helvetica','bold'); doc.setTextColor(160,160,160); doc.text('STATUS AWAL', W/2, y+5.5, { align:'center' });
+    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(133,100,4); doc.text('\u23F3 Menunggu Verifikasi', W/2, y+13, { align:'center' });
     y += 22;
     doc.setFillColor(248,250,253); doc.setDrawColor(220,232,245); doc.setLineWidth(0.25);
     doc.roundedRect(mg, y, cw, 19, 2, 2, 'FD');
@@ -1008,20 +954,6 @@
     doc.save('Tiket-' + d.tiket + '.pdf');
   }
 
-  const WA_NUMBER = '6281527683764';
-  function kirimPengaduan() {
-    const nama  = document.getElementById('aduan-nama').value.trim();
-    const tiket = document.getElementById('aduan-tiket').value.trim();
-    const isi   = document.getElementById('aduan-isi').value.trim();
-    const errEl = document.getElementById('aduan-error');
-    errEl.classList.add('d-none');
-    if (!nama) { errEl.textContent = 'Nama lengkap wajib diisi!'; errEl.classList.remove('d-none'); return; }
-    if (!isi)  { errEl.textContent = 'Isi pengaduan wajib diisi!'; errEl.classList.remove('d-none'); return; }
-    const tiketInfo = tiket ? `\nNomor Tiket: ${tiket}` : '';
-    const pesan = `*PENGADUAN LAYANAN BPS Kota Palu*\n\nNama: ${nama}${tiketInfo}\n\nKeterangan:\n${isi}\n\n_Dikirim melalui portal layanan BPS Kota Palu_`;
-    const url   = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pesan)}`;
-    window.open(url, '_blank');
-  }
 </script>
 </body>
 </html>
