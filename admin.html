@@ -1034,11 +1034,7 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
 
       const wb = window.XLSX.utils.book_new();
 
-      // ── SHEET 1: DASHBOARD ────────────────────────────────────
-      const ws1 = buildDashboardSheet(data);
-      window.XLSX.utils.book_append_sheet(wb, ws1, 'Dashboard');
-
-      // ── SHEET 2: DATA LENGKAP ─────────────────────────────────
+      // ── DATA LENGKAP ──────────────────────────────────────────
       const headers = ['No.','Nomor Tiket','Nama','Email','No. Telepon','Instansi',
         'Jenis Kelamin','Usia','Kategori Pengguna','Tingkat Pendidikan','Kabupaten/Kota',
         'Jenis Layanan','Deskripsi','Nama Dokumen','Status','Rating (1-5)','Emoji Rating',
@@ -1050,12 +1046,12 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         d.status||'', d.rating||'', d.rating_emoji||'',
         new Date(d.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'})
       ]);
-      const ws2 = window.XLSX.utils.aoa_to_sheet([headers, ...rows]);
-      ws2['!cols'] = [
+      const ws1 = window.XLSX.utils.aoa_to_sheet([headers, ...rows]);
+      ws1['!cols'] = [
         {wch:5},{wch:24},{wch:24},{wch:28},{wch:16},{wch:24},{wch:14},{wch:6},
         {wch:24},{wch:18},{wch:20},{wch:38},{wch:42},{wch:24},{wch:22},{wch:10},{wch:8},{wch:30}
       ];
-      window.XLSX.utils.book_append_sheet(wb, ws2, 'Data Lengkap');
+      window.XLSX.utils.book_append_sheet(wb, ws1, 'Data Lengkap');
 
       const lbl = buildFilterLabel(true);
       window.XLSX.writeFile(wb, 'Laporan_BPS_Palu' + (lbl?'_'+lbl:'') + '_' + formatDateFile() + '.xlsx');
@@ -1068,108 +1064,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     }
   }
 
-  function buildDashboardSheet(data) {
-    const rows = [], merges = [];
-    const push = (...c) => rows.push(c);
-    const gap  = () => rows.push([]);
-    const total    = data.length;
-    const menunggu = data.filter(d=>d.status==='Menunggu Verifikasi').length;
-    const diproses = data.filter(d=>d.status==='Sedang Diproses').length;
-    const selesai  = data.filter(d=>d.status==='Selesai').length;
-    const ditolak  = data.filter(d=>d.status==='Ditolak').length;
-    const rated    = data.filter(d=>getRatingValue(d)!==null);
-    const avgR     = rated.length ? (rated.reduce((s,d)=>s+getRatingValue(d),0)/rated.length).toFixed(2) : '-';
-    const dari     = document.getElementById('filter-dari')?.value;
-    const sampai   = document.getElementById('filter-sampai')?.value;
-    const fl       = document.getElementById('filter-layanan')?.value;
-    const fs       = document.getElementById('filter-status')?.value;
-
-    push('LAPORAN STATISTIK LAYANAN BPS KOTA PALU');
-    merges.push({s:{r:0,c:0},e:{r:0,c:5}});
-    push('Digenerate: ' + new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}));
-    merges.push({s:{r:1,c:0},e:{r:1,c:5}});
-    if (dari||sampai) { push('Periode: '+(dari||'-')+' s/d '+(sampai||'-')); merges.push({s:{r:rows.length-1,c:0},e:{r:rows.length-1,c:5}}); }
-    if (fs||fl) { push('Filter: '+[fs,fl].filter(Boolean).join(' | ')); merges.push({s:{r:rows.length-1,c:0},e:{r:rows.length-1,c:5}}); }
-    gap();
-
-    push('A. RINGKASAN UMUM'); merges.push({s:{r:rows.length-1,c:0},e:{r:rows.length-1,c:5}});
-    push('Indikator','Nilai','','Indikator','Nilai','');
-    push('Total Pengajuan',total,'','Menunggu Verifikasi',menunggu,'');
-    push('Sedang Diproses',diproses,'','Selesai',selesai,'');
-    push('Ditolak',ditolak,'','Sudah Dinilai',rated.length,'');
-    push('Rata-rata Rating',avgR,'','Total Data Diexport',total,'');
-    gap();
-
-    // Layanan
-    push('B. PENGAJUAN PER JENIS LAYANAN'); merges.push({s:{r:rows.length-1,c:0},e:{r:rows.length-1,c:5}});
-    push('Jenis Layanan','Jumlah','Persentase','','','');
-    const layananCount = {};
-    data.forEach(d=>{ const k=d.jenis_layanan||'Tidak Diketahui'; layananCount[k]=(layananCount[k]||0)+1; });
-    Object.entries(layananCount).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>{
-      push(k, v, total?((v/total*100).toFixed(1)+'%'):'0%','','','');
-    });
-    push('TOTAL',total,'100%','','',''); gap();
-
-    // Kategori
-    push('C. KATEGORI PENGGUNA'); merges.push({s:{r:rows.length-1,c:0},e:{r:rows.length-1,c:5}});
-    push('Kategori','Jumlah','Persentase','','','');
-    const katCount = {};
-    data.forEach(d=>{ if(d.kategori_pengguna){ katCount[d.kategori_pengguna]=(katCount[d.kategori_pengguna]||0)+1; } });
-    Object.entries(katCount).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>{
-      push(k, v, total?((v/total*100).toFixed(1)+'%'):'0%','','','');
-    });
-    push('TOTAL',data.filter(d=>d.kategori_pengguna).length,'','','',''); gap();
-
-    // Pendidikan
-    push('D. TINGKAT PENDIDIKAN'); merges.push({s:{r:rows.length-1,c:0},e:{r:rows.length-1,c:5}});
-    push('Pendidikan','Jumlah','Persentase','','','');
-    const pendCount = {};
-    data.forEach(d=>{ if(d.tingkat_pendidikan){ pendCount[d.tingkat_pendidikan]=(pendCount[d.tingkat_pendidikan]||0)+1; } });
-    Object.entries(pendCount).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>{
-      push(k, v, total?((v/total*100).toFixed(1)+'%'):'0%','','','');
-    });
-    gap();
-
-    // Kabupaten
-    push('E. SEBARAN KABUPATEN/KOTA'); merges.push({s:{r:rows.length-1,c:0},e:{r:rows.length-1,c:5}});
-    push('Kabupaten/Kota','Jumlah','Persentase','','','');
-    const kabCount = {};
-    data.forEach(d=>{ if(d.kabupaten_kota){ kabCount[d.kabupaten_kota]=(kabCount[d.kabupaten_kota]||0)+1; } });
-    Object.entries(kabCount).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>{
-      push(k, v, total?((v/total*100).toFixed(1)+'%'):'0%','','','');
-    });
-    gap();
-
-    // Rating
-    push('F. DISTRIBUSI RATING KEPUASAN'); merges.push({s:{r:rows.length-1,c:0},e:{r:rows.length-1,c:5}});
-    push('Rating','Jumlah','Persentase','Kategori','','');
-    const ratingLabels = {1:'Sangat Tidak Puas',2:'Tidak Puas',3:'Cukup',4:'Puas',5:'Sangat Puas'};
-    [5,4,3,2,1].forEach(s=>{
-      const cnt=rated.filter(d=>getRatingValue(d)===s).length;
-      push(s+' Bintang',cnt,rated.length?((cnt/rated.length*100).toFixed(1)+'%'):'0%',ratingLabels[s],'','');
-    });
-    push('Total Dinilai',rated.length,'100%','','','');
-    push('Rata-rata Rating',avgR,'','','','');
-    gap();
-
-    // Rating per Layanan
-    push('G. RATA-RATA RATING PER LAYANAN'); merges.push({s:{r:rows.length-1,c:0},e:{r:rows.length-1,c:5}});
-    push('Jenis Layanan','Jumlah Dinilai','Rata-rata','','','');
-    Object.keys(layananCount).forEach(l=>{
-      const rr=data.filter(d=>d.jenis_layanan===l&&getRatingValue(d)!==null);
-      const av=rr.length?(rr.reduce((s,d)=>s+getRatingValue(d),0)/rr.length).toFixed(2):'-';
-      push(l.replace('Pelayanan ',''),rr.length,av,'','','');
-    });
-
-    const ws = window.XLSX.utils.aoa_to_sheet(rows);
-    ws['!merges'] = merges;
-    ws['!cols'] = [{wch:40},{wch:14},{wch:14},{wch:28},{wch:14},{wch:14}];
-    return ws;
-  }
-
-  // ============================================================
-  // EXPORT PDF
-  // ============================================================
   async function exportPDF() {
     const btn = document.getElementById('btn-export-pdf');
     btn.disabled = true;
