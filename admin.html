@@ -1077,306 +1077,163 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
 
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
-      const W = 297, H = 210, mg = 12;
+      const W = 297, mg = 14;
 
-      // ── Helpers ──────────────────────────────────────────────────
-      const dari   = document.getElementById('filter-dari')?.value || '';
-      const sampai = document.getElementById('filter-sampai')?.value || '';
-      const fs     = document.getElementById('filter-status')?.value || '';
-      const fl     = (document.getElementById('filter-layanan')?.value || '').replace('Pelayanan ','');
-      const nowStr = new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      // HEADER
+      doc.setFillColor(0, 63, 127); doc.rect(0, 0, W, 26, 'F');
+      doc.setFillColor(244, 167, 0); doc.rect(0, 26, W, 3, 'F');
+      doc.setFontSize(15); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+      doc.text('LAPORAN STATISTIK LAYANAN BPS KOTA PALU', W/2, 11, {align:'center'});
 
+      const dari   = document.getElementById('filter-dari')?.value;
+      const sampai = document.getElementById('filter-sampai')?.value;
+      const fs     = document.getElementById('filter-status')?.value;
+      const fl     = document.getElementById('filter-layanan')?.value;
+      let subLine  = 'Digenerate: ' + new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      if (dari||sampai) subLine += '   |   Periode: '+(dari||'-')+' s/d '+(sampai||'-');
+      if (fs||fl) subLine += '   |   Filter: '+[fs,fl].filter(Boolean).join(' & ');
+      doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(200,220,255);
+      doc.text(subLine, W/2, 20, {align:'center'});
+
+      let y = 35;
+
+      // SUMMARY CARDS
       const total    = data.length;
       const menunggu = data.filter(d=>d.status==='Menunggu Verifikasi').length;
       const diproses = data.filter(d=>d.status==='Sedang Diproses').length;
       const selesai  = data.filter(d=>d.status==='Selesai').length;
       const ditolak  = data.filter(d=>d.status==='Ditolak').length;
       const rated    = data.filter(d=>getRatingValue(d)!==null);
-      const avgR     = rated.length ? (rated.reduce((s,d)=>s+getRatingValue(d),0)/rated.length).toFixed(2) : '0.00';
-      const puas     = rated.filter(d=>getRatingValue(d)>=4).length;
+      const avgR     = rated.length ? (rated.reduce((s,d)=>s+getRatingValue(d),0)/rated.length).toFixed(1) : '-';
 
-      const layananCount={}, katCount={}, pendCount={}, kabCount={};
-      data.forEach(d=>{
-        const lk=(d.jenis_layanan||'').replace('Pelayanan ','');
-        layananCount[lk]=(layananCount[lk]||0)+1;
-        if(d.kategori_pengguna) katCount[d.kategori_pengguna]=(katCount[d.kategori_pengguna]||0)+1;
-        if(d.tingkat_pendidikan) pendCount[d.tingkat_pendidikan]=(pendCount[d.tingkat_pendidikan]||0)+1;
-        if(d.kabupaten_kota) kabCount[d.kabupaten_kota]=(kabCount[d.kabupaten_kota]||0)+1;
-      });
-
-      // ── addFooter helper ────────────────────────────────────────
-      function addFooter(pageNum, totalPgs) {
-        doc.setFillColor(0,40,90); doc.rect(0, H-8, W, 8, 'F');
-        doc.setFontSize(6); doc.setFont('helvetica','normal'); doc.setTextColor(160,185,220);
-        doc.text('BPS Kota Palu  ·  SIGITA  ·  Sistem Informasi Layanan  ·  Dokumen Rahasia', mg, H-3.2);
-        doc.text('Hal. '+pageNum+' / '+totalPgs, W-mg, H-3.2, {align:'right'});
-        doc.setDrawColor(244,167,0); doc.setLineWidth(0.4);
-        doc.line(0, H-8, W, H-8);
-      }
-
-      // ════════════════════════════════════════════════════════════
-      // HALAMAN 1 — RINGKASAN EKSEKUTIF
-      // ════════════════════════════════════════════════════════════
-
-      // ── Header block ────────────────────────────────────────────
-      doc.setFillColor(0,40,90); doc.rect(0, 0, W, 22, 'F');
-      // Gold accent line
-      doc.setFillColor(244,167,0); doc.rect(0, 22, W, 1.2, 'F');
-
-      // Logo placeholder (circle)
-      doc.setFillColor(244,167,0);
-      doc.circle(mg+5, 11, 5, 'F');
-      doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(0,40,90);
-      doc.text('BPS', mg+5, 12.2, {align:'center'});
-
-      // Title
-      doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-      doc.text('LAPORAN STATISTIK LAYANAN', mg+14, 9);
-      doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(180,205,240);
-      doc.text('BPS Kota Palu  ·  SIGITA', mg+14, 15);
-
-      // Meta info on right
-      doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(160,190,230);
-      doc.text('Digenerate: '+nowStr, W-mg, 8, {align:'right'});
-      if (dari||sampai) doc.text('Periode: '+(dari||'awal')+' s/d '+(sampai||'sekarang'), W-mg, 13, {align:'right'});
-      const filterTxt = [fs, fl].filter(Boolean).join('  ·  ');
-      if (filterTxt) doc.text('Filter: '+filterTxt, W-mg, 18, {align:'right'});
-
-      let y = 27;
-
-      // ── Section title ───────────────────────────────────────────
-      doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(100,120,150);
-      doc.text('RINGKASAN EKSEKUTIF', mg, y+4);
-      doc.setDrawColor(220,230,240); doc.setLineWidth(0.3);
-      doc.line(mg+38, y+3.5, W-mg, y+3.5);
-      y += 8;
-
-      // ── 6 stat cards (compact, side by side) ───────────────────
-      const cardDefs = [
-        {v:String(total),    l:'Total Pengajuan',   bg:[0,63,127],    fg:[255,255,255], accent:[100,160,230]},
-        {v:String(menunggu), l:'Menunggu',           bg:[120,85,0],    fg:[255,255,255], accent:[255,210,80]},
-        {v:String(diproses), l:'Diproses',           bg:[0,100,120],   fg:[255,255,255], accent:[80,210,240]},
-        {v:String(selesai),  l:'Selesai',            bg:[20,80,40],    fg:[255,255,255], accent:[80,200,120]},
-        {v:String(ditolak),  l:'Ditolak',            bg:[120,20,20],   fg:[255,255,255], accent:[255,120,100]},
-        {v:avgR+' ★',  l:'Rata-rata Rating',   bg:[80,50,0],     fg:[255,255,255], accent:[255,190,40]},
+      const cards = [
+        {label:'Total Pengajuan',  value:String(total),        color:[0,91,170]},
+        {label:'Menunggu',         value:String(menunggu),     color:[180,130,0]},
+        {label:'Diproses',         value:String(diproses),     color:[0,130,150]},
+        {label:'Selesai',          value:String(selesai),      color:[40,110,50]},
+        {label:'Ditolak',          value:String(ditolak),      color:[160,40,40]},
+        {label:'Rata-rata Rating', value:avgR + ' / 5',        color:[100,60,0]},
       ];
-      const gap = 2, cw = (W - mg*2 - gap*5) / 6, ch = 18;
-      cardDefs.forEach((c,i) => {
-        const cx = mg + i*(cw+gap);
-        // Card bg
-        doc.setFillColor(...c.bg); doc.roundedRect(cx, y, cw, ch, 1.5, 1.5, 'F');
-        // Left accent stripe
-        doc.setFillColor(...c.accent); doc.roundedRect(cx, y, 2.5, ch, 1, 1, 'F');
-        // Value
-        doc.setFontSize(15); doc.setFont('helvetica','bold'); doc.setTextColor(...c.fg);
-        doc.text(c.v, cx+cw/2+1, y+10, {align:'center'});
-        // Label
-        doc.setFontSize(6); doc.setFont('helvetica','normal'); doc.setTextColor(...c.accent);
-        doc.text(c.l, cx+cw/2+1, y+15.5, {align:'center'});
+      const cw = (W - mg*2 - 10*5) / 6;
+      cards.forEach((c,i) => {
+        const cx = mg + i*(cw+10);
+        doc.setFillColor(...c.color);
+        doc.roundedRect(cx, y, cw, 16, 2, 2, 'F');
+        doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+        doc.text(c.value, cx+cw/2, y+8, {align:'center'});
+        doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(220,235,255);
+        doc.text(c.label, cx+cw/2, y+13.5, {align:'center'});
       });
-      y += ch + 5;
+      y += 22;
 
-      // ── 4 stat tables in 2x2 grid ───────────────────────────────
-      const colW4 = (W - mg*2 - 6) / 4;
-      const tH = {fontSize:7.5, fontStyle:'bold', fillColor:[0,40,90], textColor:[255,255,255], halign:'center', cellPadding:2.5};
-      const tB = {fontSize:7,   textColor:[40,40,40], cellPadding:2};
-      const tA = {fillColor:[245,249,255]};
-      const tS = {lineColor:[215,228,242], lineWidth:0.2};
+      // TABEL STATISTIK (2 kolom kiri-kanan)
+      const colL = mg, colR = W/2 + 4, colW = W/2 - mg - 4;
+      const headStyle = {fillColor:[0,63,127], textColor:255, fontSize:7.5, fontStyle:'bold', halign:'center'};
+      const bodyStyle = {fontSize:7, textColor:50};
+      const tblOpts   = {theme:'grid', headStyles:headStyle, bodyStyles:bodyStyle, styles:{cellPadding:2},
+                         columnStyles:{1:{halign:'center'},2:{halign:'center'}}};
 
-      // Build 4 datasets
-      const tables4 = [
-        {
-          title:'Jenis Layanan',
-          head:[['Layanan','Jml','%']],
-          body: Object.entries(layananCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(0)+'%'):'0%']),
-          colStyles:{0:{cellWidth:'auto'},1:{halign:'center',cellWidth:12},2:{halign:'center',cellWidth:11}},
-          hColor:[0,63,127]
-        },
-        {
-          title:'Kategori Pengguna',
-          head:[['Kategori','Jml','%']],
-          body: Object.entries(katCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(0)+'%'):'0%']),
-          colStyles:{0:{cellWidth:'auto'},1:{halign:'center',cellWidth:12},2:{halign:'center',cellWidth:11}},
-          hColor:[0,100,130]
-        },
-        {
-          title:'Tingkat Pendidikan',
-          head:[['Pendidikan','Jml','%']],
-          body: Object.entries(pendCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(0)+'%'):'0%']),
-          colStyles:{0:{cellWidth:'auto'},1:{halign:'center',cellWidth:12},2:{halign:'center',cellWidth:11}},
-          hColor:[0,80,100]
-        },
-        {
-          title:'Rating Kepuasan',
-          head:[['Rating','Jml','%']],
-          body: [
-            ['5 ★ Sangat Puas',    rated.filter(d=>getRatingValue(d)===5).length, rated.length?((rated.filter(d=>getRatingValue(d)===5).length/rated.length*100).toFixed(0)+'%'):'0%'],
-            ['4 ★ Puas',           rated.filter(d=>getRatingValue(d)===4).length, rated.length?((rated.filter(d=>getRatingValue(d)===4).length/rated.length*100).toFixed(0)+'%'):'0%'],
-            ['3 ★ Cukup',          rated.filter(d=>getRatingValue(d)===3).length, rated.length?((rated.filter(d=>getRatingValue(d)===3).length/rated.length*100).toFixed(0)+'%'):'0%'],
-            ['2 ★ Tidak Puas',     rated.filter(d=>getRatingValue(d)===2).length, rated.length?((rated.filter(d=>getRatingValue(d)===2).length/rated.length*100).toFixed(0)+'%'):'0%'],
-            ['1 ★ Sangat Tdk Puas',rated.filter(d=>getRatingValue(d)===1).length, rated.length?((rated.filter(d=>getRatingValue(d)===1).length/rated.length*100).toFixed(0)+'%'):'0%'],
-            ['Rata-rata', avgR+' / 5', ''],
-          ],
-          colStyles:{0:{cellWidth:'auto'},1:{halign:'center',cellWidth:12},2:{halign:'center',cellWidth:11}},
-          hColor:[120,80,0]
-        },
-      ];
-
-      tables4.forEach((t, i) => {
-        const cx = mg + i*(colW4+2);
-        // Mini section label
-        doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(...t.hColor);
-        doc.text(('■  '+t.title).toUpperCase(), cx, y-1);
-        doc.autoTable({
-          startY: y,
-          margin: {left: cx},
-          tableWidth: colW4,
-          head: t.head,
-          body: t.body,
-          theme: 'grid',
-          headStyles: {...tH, fillColor: t.hColor},
-          bodyStyles: tB,
-          alternateRowStyles: tA,
-          tableLineColor: [200,215,235],
-          tableLineWidth: 0.25,
-          styles: tS,
-          columnStyles: t.colStyles,
-          didParseCell(d) {
-            if (d.section==='body' && d.row.index===d.table.body.length-1 && i===3) {
-              d.cell.styles.fontStyle='bold';
-              d.cell.styles.fillColor=[255,245,200];
-              d.cell.styles.textColor=[100,70,0];
-            }
-          }
-        });
+      // Layanan
+      const layananCount = {};
+      data.forEach(d=>{ const k=(d.jenis_layanan||'').replace('Pelayanan ',''); layananCount[k]=(layananCount[k]||0)+1; });
+      doc.autoTable({...tblOpts, startY:y, margin:{left:colL}, tableWidth:colW,
+        head:[['Jenis Layanan','Jumlah','%']],
+        body: Object.entries(layananCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(1)+'%'):'0%'])
       });
 
-      // ── Sebaran Kabupaten (below, full width strip) ──────────────
-      const yBot = Math.max(...tables4.map((_,i)=>{
-        // approximate — jsPDF doesn't expose per-table finalY when called with margin
-        return doc.lastAutoTable.finalY;
-      })) + 4;
+      // Kategori
+      const katCount = {};
+      data.forEach(d=>{ if(d.kategori_pengguna){ katCount[d.kategori_pengguna]=(katCount[d.kategori_pengguna]||0)+1; } });
+      doc.autoTable({...tblOpts, startY:y, margin:{left:colR}, tableWidth:colW,
+        head:[['Kategori Pengguna','Jumlah','%']],
+        body: Object.entries(katCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(1)+'%'):'0%'])
+      });
 
-      if (yBot < H-20) {
-        doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(0,63,127);
-        doc.text('■  SEBARAN KABUPATEN/KOTA', mg, yBot-1);
-        const kabEntries = Object.entries(kabCount).sort((a,b)=>b[1]-a[1]);
-        const maxKab = kabEntries.length > 0 ? kabEntries[0][1] : 1;
-        const barW = W - mg*2 - 55, barH = 3.8, barGap = 1.5;
-        let bY = yBot + 1;
-        kabEntries.slice(0,7).forEach(([k,v],i) => {
-          const fillW = Math.max((v/maxKab)*barW, 1);
-          const pct   = total ? ((v/total)*100).toFixed(1)+'%' : '0%';
-          // Label
-          doc.setFontSize(6.2); doc.setFont('helvetica','normal'); doc.setTextColor(60,60,60);
-          doc.text(k, mg, bY+barH-1.2);
-          // Bar track
-          doc.setFillColor(230,238,248); doc.roundedRect(mg+45, bY, barW, barH, 1, 1, 'F');
-          // Bar fill
-          const barColor = i===0 ? [0,63,127] : i===1 ? [0,91,170] : [74,144,220];
-          doc.setFillColor(...barColor); doc.roundedRect(mg+45, bY, fillW, barH, 1, 1, 'F');
-          // Count + pct
-          doc.setFontSize(6); doc.setFont('helvetica','bold'); doc.setTextColor(0,50,120);
-          doc.text(v+' ('+pct+')', mg+45+barW+3, bY+barH-1.2);
-          bY += barH + barGap;
-        });
-      }
+      const y2 = doc.lastAutoTable.finalY + 6;
 
-      // ════════════════════════════════════════════════════════════
-      // HALAMAN 2 — DATA PENGAJUAN
-      // ════════════════════════════════════════════════════════════
+      // Pendidikan
+      const pendCount = {};
+      data.forEach(d=>{ if(d.tingkat_pendidikan){ pendCount[d.tingkat_pendidikan]=(pendCount[d.tingkat_pendidikan]||0)+1; } });
+      doc.autoTable({...tblOpts, startY:y2, margin:{left:colL}, tableWidth:colW,
+        head:[['Tingkat Pendidikan','Jumlah','%']],
+        body: Object.entries(pendCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(1)+'%'):'0%'])
+      });
+
+      // Rating
+      const ratingLabels = {1:'Sangat Tidak Puas',2:'Tidak Puas',3:'Cukup',4:'Puas',5:'Sangat Puas'};
+      const ratingRows   = [5,4,3,2,1].map(s=>{
+        const cnt = rated.filter(d=>getRatingValue(d)===s).length;
+        return [s+' ⭐  '+ratingLabels[s], cnt, rated.length?((cnt/rated.length*100).toFixed(1)+'%'):'0%'];
+      });
+      ratingRows.push(['Rata-rata Rating', avgR+' / 5.0', '']);
+      doc.autoTable({...tblOpts, startY:y2, margin:{left:colR}, tableWidth:colW,
+        head:[['Rating Kepuasan','Jumlah','%']],
+        body: ratingRows
+      });
+
+      // HALAMAN 2 — DATA LENGKAP
       doc.addPage('landscape');
-
-      // Header strip
-      doc.setFillColor(0,40,90); doc.rect(0, 0, W, 14, 'F');
-      doc.setFillColor(244,167,0); doc.rect(0, 14, W, 1.2, 'F');
-      doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-      doc.text('DATA PENGAJUAN LAYANAN', mg, 9);
-      doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(160,190,230);
-      doc.text(total+' entri  ·  '+nowStr, W-mg, 9, {align:'right'});
+      doc.setFillColor(0,63,127); doc.rect(0,0,W,14,'F');
+      doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+      doc.text('DATA LENGKAP PENGAJUAN (' + total + ' entri)', W/2, 9, {align:'center'});
 
       const statusColors = {
-        'Menunggu Verifikasi':{fill:[255,248,220],text:[140,100,0]},
-        'Sedang Diproses'    :{fill:[220,245,255],text:[0,80,120]},
-        'Selesai'            :{fill:[220,242,228],text:[15,80,40]},
-        'Ditolak'            :{fill:[255,225,225],text:[150,20,20]},
+        'Menunggu Verifikasi':{fill:[255,243,205],text:[133,100,4]},
+        'Sedang Diproses'    :{fill:[207,244,252],text:[5,81,96]},
+        'Selesai'            :{fill:[209,231,221],text:[10,54,34]},
+        'Ditolak'            :{fill:[248,215,218],text:[132,32,41]},
       };
 
       doc.autoTable({
-        startY: 18,
-        margin: {left:mg, right:mg, bottom:12},
-        head: [['#','Nomor Tiket','Nama','Jenis Layanan','Kab/Kota','Kategori','Status','Rating','Tgl Pengajuan']],
+        startY: 18, margin:{left:mg, right:mg},
+        head:[['No.','Nomor Tiket','Nama','Jenis Layanan','Kabupaten/Kota','Kategori','Status','Rating','Tanggal']],
         body: data.map((d,i)=>[
-          i+1,
-          d.nomor_tiket||'',
-          d.nama||'',
+          i+1, d.nomor_tiket||'', d.nama||'',
           (d.jenis_layanan||'').replace('Pelayanan ',''),
-          d.kabupaten_kota||'-',
-          d.kategori_pengguna||'-',
+          d.kabupaten_kota||'-', d.kategori_pengguna||'-',
           d.status||'',
-          d.rating ? d.rating+'/5' : '-',
-          new Date(d.created_at).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'})
+          d.rating ? (d.rating_emoji||'')+' '+d.rating+'/5' : '-',
+          new Date(d.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})
         ]),
-        theme: 'grid',
-        headStyles: {
-          fillColor:[0,40,90], textColor:[255,255,255],
-          fontSize:7.5, fontStyle:'bold', halign:'center',
-          cellPadding:2.5, lineColor:[0,50,110], lineWidth:0.3
-        },
-        bodyStyles: {fontSize:6.8, textColor:[40,40,40], cellPadding:2, lineColor:[210,225,240], lineWidth:0.2},
-        alternateRowStyles: {fillColor:[247,251,255]},
-        columnStyles: {
-          0: {halign:'center', cellWidth:7,  fontStyle:'bold', textColor:[100,120,150]},
-          1: {cellWidth:30,    fontStyle:'bold', textColor:[0,63,127]},
-          2: {cellWidth:28},
-          3: {cellWidth:36},
-          4: {cellWidth:28},
-          5: {cellWidth:28},
-          6: {halign:'center', cellWidth:26},
-          7: {halign:'center', cellWidth:14, fontStyle:'bold'},
-          8: {halign:'center', cellWidth:22},
-        },
+        theme:'striped',
+        headStyles:{fillColor:[0,63,127],textColor:255,fontSize:7.5,fontStyle:'bold',halign:'center'},
+        bodyStyles:{fontSize:7,textColor:50},
+        alternateRowStyles:{fillColor:[248,250,253]},
+        columnStyles:{0:{halign:'center',cellWidth:8},1:{cellWidth:32},3:{cellWidth:38},6:{halign:'center'},7:{halign:'center'},8:{halign:'center',cellWidth:24}},
+        styles:{cellPadding:2},
         didParseCell(hookData) {
-          if (hookData.section === 'body') {
-            if (hookData.column.index === 6) {
-              const sc = statusColors[hookData.cell.raw];
-              if (sc) {
-                hookData.cell.styles.fillColor  = sc.fill;
-                hookData.cell.styles.textColor  = sc.text;
-                hookData.cell.styles.fontStyle  = 'bold';
-              }
-            }
-            if (hookData.column.index === 7 && hookData.cell.raw !== '-') {
-              const rv = parseInt(hookData.cell.raw);
-              if (rv >= 4) { hookData.cell.styles.textColor = [15,80,40]; hookData.cell.styles.fillColor = [220,242,228]; }
-              else if (rv === 3) { hookData.cell.styles.textColor = [100,70,0]; hookData.cell.styles.fillColor = [255,248,210]; }
-              else if (rv > 0)  { hookData.cell.styles.textColor = [150,20,20]; hookData.cell.styles.fillColor = [255,225,225]; }
-            }
-          }
-        },
-        didDrawPage(hookData) {
-          // Repeat header strip on continuation pages
-          if (hookData.pageNumber > 1) {
-            doc.setFillColor(0,40,90); doc.rect(0,0,W,10,'F');
-            doc.setFillColor(244,167,0); doc.rect(0,10,W,1,'F');
-            doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-            doc.text('DATA PENGAJUAN (lanjutan)', mg, 7);
+          if (hookData.section==='body' && hookData.column.index===6) {
+            const sc = statusColors[hookData.cell.raw];
+            if (sc) { hookData.cell.styles.fillColor=sc.fill; hookData.cell.styles.textColor=sc.text; hookData.cell.styles.fontStyle='bold'; }
           }
         }
       });
 
-      // ── Footer semua halaman ─────────────────────────────────────
+      // Kabupaten
+      const kabCount = {};
+      data.forEach(d=>{ if(d.kabupaten_kota){ kabCount[d.kabupaten_kota]=(kabCount[d.kabupaten_kota]||0)+1; } });
+      const yKab = doc.lastAutoTable.finalY + 6;
+      if (yKab < 190) {
+        doc.autoTable({...tblOpts, startY:yKab, margin:{left:mg}, tableWidth:120,
+          head:[['Sebaran Kabupaten/Kota','Jumlah','%']],
+          body: Object.entries(kabCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(1)+'%'):'0%'])
+        });
+      }
+
+      // FOOTER tiap halaman
       const totalPages = doc.internal.getNumberOfPages();
       for (let i=1; i<=totalPages; i++) {
         doc.setPage(i);
-        addFooter(i, totalPages);
+        doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(180,180,180);
+        doc.text('BPS Kota Palu  ·  SIGITA  ·  Laporan digenerate secara otomatis', mg, 207);
+        doc.text('Halaman ' + i + ' / ' + totalPages, W-mg, 207, {align:'right'});
       }
 
       const lbl = buildFilterLabel(true);
-      doc.save('Laporan_BPS_Palu'+(lbl?'_'+lbl:'')+'_'+formatDateFile()+'.pdf');
+      doc.save('Laporan_BPS_Palu' + (lbl?'_'+lbl:'') + '_' + formatDateFile() + '.pdf');
       showToast('Export PDF berhasil! ✓', false);
     } catch(err) {
-      showToast('Gagal export PDF: '+err.message, true); console.error(err);
+      showToast('Gagal export PDF: ' + err.message, true); console.error(err);
     } finally {
       btn.disabled = false;
       btn.innerHTML = '<i class="bi bi-file-earmark-pdf-fill"></i> PDF';
