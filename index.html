@@ -148,6 +148,52 @@
 </head>
 <body>
 
+  <!-- POPUP POSTER PENGADUAN -->
+  <div id="popupOverlay" style="
+    position:fixed; inset:0; z-index:9999;
+    background:rgba(0,0,0,0.65);
+    display:flex; align-items:center; justify-content:center;
+    padding:16px;
+    backdrop-filter:blur(4px);
+    animation:fadeInOverlay 0.3s ease;
+  ">
+    <div style="
+      position:relative;
+      max-width:480px; width:100%;
+      max-height:90vh;
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 24px 80px rgba(0,0,0,0.5);
+      animation:popupIn 0.35s cubic-bezier(.22,.68,0,1.2);
+    ">
+      <!-- Tombol X -->
+      <button onclick="tutupPopup()" style="
+        position:absolute; top:10px; right:10px;
+        width:32px; height:32px;
+        background:rgba(0,0,0,0.55);
+        border:2px solid rgba(255,255,255,0.6);
+        border-radius:50%;
+        color:white; font-size:1rem; font-weight:700;
+        cursor:pointer; display:flex; align-items:center; justify-content:center;
+        z-index:10; transition:all 0.2s; line-height:1;
+        backdrop-filter:blur(4px);
+      " onmouseover="this.style.background='rgba(0,0,0,0.8)';this.style.transform='scale(1.1)'"
+         onmouseout="this.style.background='rgba(0,0,0,0.55)';this.style.transform='scale(1)'">
+        &times;
+      </button>
+      <!-- Gambar poster -->
+      <img src="img/poster_pengaduan_BPS.png"
+           alt="Poster Pengaduan Layanan SIGITA BPS Kota Palu"
+           style="width:100%;display:block;max-height:90vh;object-fit:contain;">
+    </div>
+  </div>
+
+  <style>
+    @keyframes fadeInOverlay { from{opacity:0} to{opacity:1} }
+    @keyframes popupIn { from{opacity:0;transform:scale(0.85) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+  </style>
+
+
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid px-3 px-lg-4">
       <a class="navbar-brand" href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto;">
@@ -598,6 +644,24 @@
 
     document.getElementById('modalPengaduan').addEventListener('click', function(e) {
       if (e.target === this) tutupModal();
+    });
+  </script>
+  <script>
+    // ===== POPUP POSTER PENGADUAN =====
+    function tutupPopup() {
+      const el = document.getElementById('popupOverlay');
+      if (!el) return;
+      el.style.transition = 'opacity 0.25s ease';
+      el.style.opacity = '0';
+      setTimeout(() => el.remove(), 260);
+    }
+    // Tutup juga kalau klik di luar gambar (overlay)
+    document.getElementById('popupOverlay').addEventListener('click', function(e) {
+      if (e.target === this) tutupPopup();
+    });
+    // Tutup dengan tombol Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') tutupPopup();
     });
   </script>
 </body>
