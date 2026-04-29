@@ -66,81 +66,32 @@
     .stat-num { font-size:1.7rem; font-weight:800; color:var(--bps-dark); line-height:1; }
     .stat-lbl { font-size:0.74rem; color:#888; margin-top:3px; }
 
-    /* ===== DOWNLOAD DASHBOARD BUTTON ===== */
     .dashboard-actions-bar {
-      background: white;
-      border-radius: 14px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      border: 1px solid rgba(0,91,170,0.07);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
+      background: white; border-radius: 14px; padding: 16px 20px; margin-bottom: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid rgba(0,91,170,0.07);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     }
-    .dashboard-actions-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .dashboard-actions-info i {
-      font-size: 1.2rem;
-      color: var(--bps-blue);
-    }
-    .dashboard-actions-info h6 {
-      margin: 0;
-      font-weight: 700;
-      color: var(--bps-dark);
-      font-size: 0.88rem;
-    }
-    .dashboard-actions-info p {
-      margin: 0;
-      font-size: 0.75rem;
-      color: #999;
-    }
+    .dashboard-actions-info { display: flex; align-items: center; gap: 10px; }
+    .dashboard-actions-info i { font-size: 1.2rem; color: var(--bps-blue); }
+    .dashboard-actions-info h6 { margin: 0; font-weight: 700; color: var(--bps-dark); font-size: 0.88rem; }
+    .dashboard-actions-info p { margin: 0; font-size: 0.75rem; color: #999; }
     .btn-download-dashboard {
-      background: linear-gradient(135deg, var(--bps-blue), var(--bps-dark));
-      border: none;
-      border-radius: 10px;
-      padding: 10px 20px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: white;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.25s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-      box-shadow: 0 4px 14px rgba(0,91,170,0.3);
+      background: linear-gradient(135deg, var(--bps-blue), var(--bps-dark)); border: none;
+      border-radius: 10px; padding: 10px 20px; font-size: 0.88rem; font-weight: 700; color: white;
+      font-family: inherit; cursor: pointer; transition: all 0.25s; display: flex; align-items: center;
+      gap: 8px; white-space: nowrap; box-shadow: 0 4px 14px rgba(0,91,170,0.3);
     }
-    .btn-download-dashboard:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,91,170,0.4);
-    }
-    .btn-download-dashboard:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-    }
+    .btn-download-dashboard:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,91,170,0.4); }
+    .btn-download-dashboard:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
     .btn-download-dashboard .spinner {
-      width: 14px; height: 14px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: none;
+      width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
     }
     .btn-download-dashboard.loading .spinner { display: inline-block; }
     .btn-download-dashboard.loading .icon-pdf { display: none; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ===== RATING SECTION ===== */
     .rating-section { margin-bottom:28px; }
-
     .rating-overview {
       background: linear-gradient(135deg, var(--bps-dark) 0%, var(--bps-blue) 100%);
       border-radius:16px; padding:24px 28px; display:flex; align-items:center; gap:32px;
@@ -153,9 +104,7 @@
     .rating-big-num { font-size:3.2rem; font-weight:800; color:#fff; line-height:1; }
     .rating-big-stars { font-size:1.3rem; color:#f4a700; margin:6px 0 4px; }
     .rating-big-sub { font-size:0.75rem; color:rgba(255,255,255,0.65); }
-
     .rating-divider { width:1px; height:80px; background:rgba(255,255,255,0.15); flex-shrink:0; }
-
     .rating-bars { flex:1; min-width:200px; position:relative; z-index:1; }
     .rating-bar-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
     .rating-bar-row:last-child { margin-bottom:0; }
@@ -164,12 +113,10 @@
     .rating-bar-track { flex:1; height:8px; background:rgba(255,255,255,0.12); border-radius:50px; overflow:hidden; }
     .rating-bar-fill { height:100%; border-radius:50px; background:linear-gradient(90deg,#f4a700,#ffc107); transition:width 0.8s ease; }
     .rating-bar-count { font-size:0.72rem; color:rgba(255,255,255,0.6); width:28px; text-align:right; flex-shrink:0; }
-
     .rating-stats-grid { display:flex; gap:20px; flex-shrink:0; flex-wrap:wrap; position:relative; z-index:1; }
     .rating-stat-item { text-align:center; }
     .rating-stat-num { font-size:1.4rem; font-weight:800; color:#fff; }
     .rating-stat-lbl { font-size:0.68rem; color:rgba(255,255,255,0.6); margin-top:2px; }
-
     .rating-charts-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
     @media (max-width:768px) { .rating-charts-row { grid-template-columns:1fr; } }
 
@@ -189,20 +136,16 @@
     .filter-select:focus { border-color:var(--bps-blue); }
     .btn-refresh { background:var(--bps-light); border:none; border-radius:8px; padding:7px 14px; font-size:0.82rem; font-weight:600; color:var(--bps-blue); font-family:inherit; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
     .btn-refresh:hover { background:var(--bps-blue); color:white; }
-
     .filter-date-group { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
     .filter-date-label { font-size:0.75rem; font-weight:700; color:#888; white-space:nowrap; }
     .filter-date-input { border:1.5px solid #e0eaf5; border-radius:8px; padding:6px 10px; font-size:0.82rem; font-family:inherit; color:#555; outline:none; cursor:pointer; }
     .filter-date-input:focus { border-color:var(--bps-blue); }
-
     .btn-export-excel { background:#1d6f42; border:none; border-radius:8px; padding:7px 14px; font-size:0.82rem; font-weight:700; color:white; font-family:inherit; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; white-space:nowrap; }
     .btn-export-excel:hover:not(:disabled) { background:#155232; transform:translateY(-1px); box-shadow:0 4px 12px rgba(29,111,66,0.35); }
     .btn-export-excel:disabled { opacity:0.6; cursor:not-allowed; }
-
     .btn-export-pdf { background:#c0392b; border:none; border-radius:8px; padding:7px 14px; font-size:0.82rem; font-weight:700; color:white; font-family:inherit; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; white-space:nowrap; }
     .btn-export-pdf:hover:not(:disabled) { background:#922b21; transform:translateY(-1px); box-shadow:0 4px 12px rgba(192,57,43,0.35); }
     .btn-export-pdf:disabled { opacity:0.6; cursor:not-allowed; }
-
     .export-divider { width:1px; height:28px; background:#e0eaf5; flex-shrink:0; }
     .filter-row-wrap { display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
 
@@ -212,27 +155,22 @@
     tbody td { padding:13px 16px; font-size:0.86rem; color:#444; border-bottom:1px solid #f8fafd; vertical-align:middle; }
     tbody tr:last-child td { border-bottom:none; }
     tbody tr:hover td { background:#fafcff; }
-
     .tiket-cell { font-weight:700; color:var(--bps-blue); font-size:0.82rem; }
-
     .badge-status { display:inline-block; padding:4px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; white-space:nowrap; }
     .badge-menunggu { background:#fff3cd; color:#856404; }
     .badge-diproses  { background:#cff4fc; color:#055160; }
     .badge-selesai   { background:#d1e7dd; color:#0a3622; }
     .badge-ditolak   { background:#f8d7da; color:#842029; }
-
     .rating-stars-cell { display:flex; align-items:center; gap:4px; flex-wrap:nowrap; }
     .rating-stars-cell .stars { color:#f4a700; font-size:0.75rem; letter-spacing:1px; }
     .rating-stars-cell .emoji { font-size:1.1rem; }
     .rating-stars-cell .num { font-size:0.75rem; color:#888; font-weight:600; }
     .rating-none { color:#ccc; font-size:0.75rem; }
-
     .status-select { border:1.5px solid #e0eaf5; border-radius:8px; padding:5px 10px; font-size:0.8rem; font-family:inherit; cursor:pointer; outline:none; background:white; min-width:160px; }
     .status-select:focus { border-color:var(--bps-blue); }
     .btn-save-status { background:var(--bps-blue); color:white; border:none; border-radius:7px; padding:5px 12px; font-size:0.78rem; font-weight:700; font-family:inherit; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
     .btn-save-status:hover { background:var(--bps-dark); }
     .btn-save-status:disabled { opacity:0.6; cursor:not-allowed; }
-
     .btn-doc { color:var(--bps-blue); font-size:0.8rem; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border:1.5px solid var(--bps-light); border-radius:7px; transition:all 0.2s; white-space:nowrap; }
     .btn-doc:hover { background:var(--bps-blue); color:white; border-color:var(--bps-blue); }
     .btn-upload-hasil { background:#fff8e1; color:#a37100; border:1.5px solid #ffe082; border-radius:7px; padding:4px 10px; font-size:0.78rem; font-weight:700; font-family:inherit; cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:4px; white-space:nowrap; }
@@ -240,16 +178,13 @@
     .btn-upload-hasil:disabled { opacity:0.6; cursor:not-allowed; }
     .btn-hasil-link { color:#2e7d32; font-size:0.78rem; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border:1.5px solid #a5d6a7; border-radius:7px; background:#e8f5e9; transition:all 0.2s; white-space:nowrap; }
     .btn-hasil-link:hover { background:#2e7d32; color:white; border-color:#2e7d32; }
-
     .empty-state { text-align:center; padding:60px 20px; color:#aaa; }
     .empty-state i { font-size:3rem; margin-bottom:12px; display:block; }
     .empty-state p { font-size:0.9rem; }
     .loading-row td { text-align:center; padding:40px; color:#aaa; }
-
     .toast-msg { position:fixed; bottom:24px; right:24px; background:#2e7d32; color:white; padding:12px 20px; border-radius:10px; font-size:0.88rem; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,0.2); z-index:9999; display:none; align-items:center; gap:8px; }
     .toast-msg.show { display:flex; }
     .toast-msg.error { background:#c62828; }
-
     .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; display:none; align-items:center; justify-content:center; padding:20px; }
     .modal-overlay.show { display:flex; }
     .modal-box { background:white; border-radius:16px; width:100%; max-width:580px; max-height:92vh; overflow-y:auto; box-shadow:0 24px 64px rgba(0,0,0,0.2); }
@@ -267,18 +202,15 @@
     .detail-full { grid-column:1 / -1; }
     .btn-detail-row { background:var(--bps-light); border:none; border-radius:7px; padding:5px 12px; font-size:0.78rem; font-weight:700; color:var(--bps-blue); font-family:inherit; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
     .btn-detail-row:hover { background:var(--bps-blue); color:white; }
-
     .rating-display { display:flex; align-items:center; gap:12px; padding:14px 16px; background:linear-gradient(135deg,#fff8e1,#fffdf5); border-radius:10px; border:1.5px solid #ffe082; }
     .rating-display-emoji { font-size:2rem; }
     .rating-display-stars { color:#f4a700; font-size:1.1rem; letter-spacing:2px; }
     .rating-display-num { font-size:0.82rem; color:#888; font-weight:600; }
     .rating-display-none { color:#aaa; font-size:0.85rem; font-style:italic; }
-
     .schema-error { background:#fde8e8; border:1.5px solid #f5c6c6; border-radius:10px; padding:14px 18px; margin-bottom:20px; font-size:0.84rem; color:#842029; display:none; }
     .schema-error.show { display:flex; gap:12px; align-items:flex-start; }
     .schema-error pre { background:#fff0f0; border-radius:6px; padding:10px 12px; font-size:0.78rem; margin-top:8px; color:#555; white-space:pre-wrap; }
 
-    /* ===== PROGRESS MODAL ===== */
     .progress-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:2000; display:none; align-items:center; justify-content:center; }
     .progress-overlay.show { display:flex; }
     .progress-box { background:white; border-radius:20px; padding:36px 40px; width:360px; text-align:center; box-shadow:0 24px 64px rgba(0,0,0,0.25); }
@@ -317,7 +249,6 @@
   </div>
 
   <div class="dashboard-body">
-
     <div class="section-label">Ringkasan Pengajuan</div>
     <div class="stats-grid" style="margin-bottom:20px;">
       <div class="stat-card">
@@ -345,7 +276,6 @@
       </div>
     </div>
 
-    <!-- ===== TOMBOL DOWNLOAD DASHBOARD PDF ===== -->
     <div class="dashboard-actions-bar">
       <div class="dashboard-actions-info">
         <i class="bi bi-file-earmark-bar-graph-fill"></i>
@@ -361,7 +291,6 @@
       </button>
     </div>
 
-    <!-- SCHEMA ERROR BANNER -->
     <div class="schema-error" id="schema-error">
       <i class="bi bi-exclamation-triangle-fill" style="font-size:1.4rem;flex-shrink:0;margin-top:2px;"></i>
       <div>
@@ -373,7 +302,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       </div>
     </div>
 
-    <!-- RATING SECTION -->
     <div class="section-label">Statistik Kepuasan Pengguna</div>
     <div class="rating-section" id="rating-section" style="display:none;">
       <div class="rating-overview">
@@ -417,7 +345,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       <p style="color:#888;font-size:0.9rem;margin:0;">Belum ada data penilaian dari pengguna.</p>
     </div>
 
-    <!-- CHARTS DEMOGRAFIS -->
     <div class="section-label" style="margin-top:8px;">Analisis Demografis Pengajuan</div>
     <div class="charts-grid" id="charts-grid" style="display:none;">
       <div class="chart-card">
@@ -438,7 +365,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       </div>
     </div>
 
-    <!-- TABLE -->
     <div class="section-label">Daftar Pengajuan</div>
     <div class="table-section">
       <div class="table-header">
@@ -494,7 +420,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         </table>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -554,7 +479,7 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
   </div>
 </div>
 
-<!-- PROGRESS MODAL untuk Download Dashboard -->
+<!-- PROGRESS MODAL -->
 <div class="progress-overlay" id="progress-overlay">
   <div class="progress-box">
     <div class="progress-icon"><i class="bi bi-file-earmark-bar-graph-fill"></i></div>
@@ -579,9 +504,7 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     'id','nomor_tiket','jenis_layanan','nama','email','no_telepon','instansi',
     'jenis_kelamin','usia','kategori_pengguna','tingkat_pendidikan','kabupaten_kota',
     'deskripsi','nama_dokumen','url_dokumen','url_hasil','nama_hasil',
-    'status','created_at',
-    'rating',
-    'rating_emoji'
+    'status','created_at','rating','rating_emoji'
   ].join(',');
 
   function getRatingValue(d) {
@@ -591,7 +514,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     if (isNaN(parsed) || parsed < 1 || parsed > 5) return null;
     return parsed;
   }
-
   function getRatingEmoji(d) { return d.rating_emoji || ''; }
 
   function checkSchemaAndWarn(data) {
@@ -613,8 +535,7 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Memproses...';
     try {
       const res  = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json', 'apikey': SUPABASE_KEY },
+        method: 'POST', headers: { 'Content-Type':'application/json', 'apikey': SUPABASE_KEY },
         body: JSON.stringify({ email, password })
       });
       const data = await res.json();
@@ -625,8 +546,7 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       document.getElementById('dashboard-page').style.display = 'block';
       loadData();
     } catch(err) {
-      errEl.textContent = err.message;
-      errEl.style.display = 'block';
+      errEl.textContent = err.message; errEl.style.display = 'block';
     } finally {
       btn.disabled  = false;
       btn.innerHTML = '<i class="bi bi-box-arrow-in-right me-2"></i>Masuk';
@@ -644,8 +564,8 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
   let _lastAllData = [];
 
   async function loadData() {
-    const tbody         = document.getElementById('table-body');
-    tbody.innerHTML     = '<tr class="loading-row"><td colspan="10"><i class="bi bi-arrow-repeat"></i> Memuat data...</td></tr>';
+    const tbody = document.getElementById('table-body');
+    tbody.innerHTML = '<tr class="loading-row"><td colspan="10"><i class="bi bi-arrow-repeat"></i> Memuat data...</td></tr>';
     const filterStatus  = document.getElementById('filter-status').value;
     const filterLayanan = document.getElementById('filter-layanan').value;
     let url = `${SUPABASE_URL}/rest/v1/pengajuan?select=${encodeURIComponent(SELECT_COLUMNS)}&order=created_at.desc`;
@@ -673,8 +593,8 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         return;
       }
       tbody.innerHTML = filteredData.map(d => {
-        const tgl          = new Date(d.created_at).toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
-        const badgeClass   = { 'Menunggu Verifikasi':'badge-menunggu', 'Sedang Diproses':'badge-diproses', 'Selesai':'badge-selesai', 'Ditolak':'badge-ditolak' }[d.status] || 'badge-menunggu';
+        const tgl        = new Date(d.created_at).toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
+        const badgeClass = { 'Menunggu Verifikasi':'badge-menunggu', 'Sedang Diproses':'badge-diproses', 'Selesai':'badge-selesai', 'Ditolak':'badge-ditolak' }[d.status] || 'badge-menunggu';
         const layananShort = d.jenis_layanan.replace('Pelayanan ', '');
         const hasilCell = d.url_hasil
           ? `<div style="display:flex;flex-direction:column;gap:4px;">
@@ -715,11 +635,7 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     if (r === null) return '<span class="rating-none"><i class="bi bi-dash"></i> Belum dinilai</span>';
     const emoji = getRatingEmoji(d);
     const stars = '★'.repeat(r) + '☆'.repeat(5 - r);
-    return `<div class="rating-stars-cell">
-      <span class="emoji">${emoji}</span>
-      <span class="stars">${stars}</span>
-      <span class="num">${r}/5</span>
-    </div>`;
+    return `<div class="rating-stars-cell"><span class="emoji">${emoji}</span><span class="stars">${stars}</span><span class="num">${r}/5</span></div>`;
   }
 
   function updateStats(allData) {
@@ -737,16 +653,11 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
   }
 
   function renderRatingSection(data) {
-    const rated         = data.filter(d => getRatingValue(d) !== null);
+    const rated = data.filter(d => getRatingValue(d) !== null);
     const ratingSection = document.getElementById('rating-section');
     const noRatingMsg   = document.getElementById('no-rating-msg');
-    if (rated.length === 0) {
-      ratingSection.style.display = 'none';
-      noRatingMsg.style.display   = 'block';
-      return;
-    }
-    ratingSection.style.display = 'block';
-    noRatingMsg.style.display   = 'none';
+    if (rated.length === 0) { ratingSection.style.display = 'none'; noRatingMsg.style.display = 'block'; return; }
+    ratingSection.style.display = 'block'; noRatingMsg.style.display = 'none';
     const avg    = rated.reduce((s, d) => s + getRatingValue(d), 0) / rated.length;
     const puas   = rated.filter(d => getRatingValue(d) >= 4).length;
     const netral = rated.filter(d => getRatingValue(d) === 3).length;
@@ -763,7 +674,7 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     document.getElementById('ro-netral').textContent = netral;
     document.getElementById('ro-kurang').textContent = kurang;
     const countPerStar = [5,4,3,2,1].map(s => ({ star:s, count: rated.filter(d => getRatingValue(d) === s).length }));
-    const maxCount     = Math.max(...countPerStar.map(c => c.count), 1);
+    const maxCount = Math.max(...countPerStar.map(c => c.count), 1);
     document.getElementById('ro-bars').innerHTML = countPerStar.map(({star, count}) => {
       const pct = Math.round((count / maxCount) * 100);
       return `<div class="rating-bar-row">
@@ -783,15 +694,8 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     if (chartRatingDist) chartRatingDist.destroy();
     chartRatingDist = new Chart(document.getElementById('chart-rating-dist'), {
       type: 'bar',
-      data: {
-        labels: ['1 Bintang', '2 Bintang', '3 Bintang', '4 Bintang', '5 Bintang'],
-        datasets: [{ label: 'Jumlah Penilaian', data: distCount, backgroundColor: starColors, borderRadius: 8, borderSkipped: false }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true, ticks: { stepSize: 1, precision: 0 }, grid: { color: '#f0f4f8' } }, x: { grid: { display: false } } }
-      }
+      data: { labels: ['1 Bintang', '2 Bintang', '3 Bintang', '4 Bintang', '5 Bintang'], datasets: [{ label: 'Jumlah Penilaian', data: distCount, backgroundColor: starColors, borderRadius: 8, borderSkipped: false }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, precision: 0 }, grid: { color: '#f0f4f8' } }, x: { grid: { display: false } } } }
     });
     const layananList = [...new Set(allData.map(d => d.jenis_layanan.replace('Pelayanan ', '')))];
     const layananAvg  = layananList.map(l => {
@@ -799,24 +703,12 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       if (rows.length === 0) return 0;
       return parseFloat((rows.reduce((s, d) => s + getRatingValue(d), 0) / rows.length).toFixed(2));
     });
-    const layananColors = layananAvg.map(v =>
-      v >= 4.5 ? '#26a69a' : v >= 3.5 ? '#66bb6a' : v >= 2.5 ? '#ffca28' : v >= 1.5 ? '#ff7043' : '#ef5350'
-    );
+    const layananColors = layananAvg.map(v => v >= 4.5 ? '#26a69a' : v >= 3.5 ? '#66bb6a' : v >= 2.5 ? '#ffca28' : v >= 1.5 ? '#ff7043' : '#ef5350');
     if (chartRatingLayanan) chartRatingLayanan.destroy();
     chartRatingLayanan = new Chart(document.getElementById('chart-rating-layanan'), {
       type: 'bar',
-      data: {
-        labels: layananList,
-        datasets: [{ label: 'Rata-rata Rating', data: layananAvg, backgroundColor: layananColors, borderRadius: 8, borderSkipped: false }]
-      },
-      options: {
-        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { beginAtZero: true, max: 5, ticks: { stepSize: 1 }, grid: { color: '#f0f4f8' } },
-          y: { grid: { display: false }, ticks: { font: { size: 10 } } }
-        }
-      }
+      data: { labels: layananList, datasets: [{ label: 'Rata-rata Rating', data: layananAvg, backgroundColor: layananColors, borderRadius: 8, borderSkipped: false }] },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, max: 5, ticks: { stepSize: 1 }, grid: { color: '#f0f4f8' } }, y: { grid: { display: false }, ticks: { font: { size: 10 } } } } }
     });
   }
 
@@ -869,8 +761,7 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         body: JSON.stringify({ status: newStatus })
       });
       if (!res.ok) throw new Error('Gagal update');
-      showToast('Status berhasil diperbarui!', false);
-      loadData();
+      showToast('Status berhasil diperbarui!', false); loadData();
     } catch(err) {
       showToast('Gagal memperbarui status', true);
       btn.disabled = false; btn.textContent = 'Simpan';
@@ -900,27 +791,15 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     document.getElementById('md-kabkota').textContent    = d.kabupaten_kota || '-';
     document.getElementById('md-deskripsi').textContent  = d.deskripsi || '-';
     document.getElementById('md-status').innerHTML       = `<span class="badge-status ${statusMap[d.status]||'badge-menunggu'}">${d.status}</span>`;
-    document.getElementById('md-dokumen').innerHTML      = d.url_dokumen
-      ? `<a href="${d.url_dokumen}" target="_blank" style="color:var(--bps-blue);font-weight:600;font-size:0.85rem;"><i class="bi bi-file-earmark-arrow-down me-1"></i>Lihat Dokumen</a>`
-      : '-';
-    document.getElementById('md-hasil').innerHTML = d.url_hasil
-      ? `<a href="${d.url_hasil}" target="_blank" style="color:#2e7d32;font-weight:600;font-size:0.85rem;"><i class="bi bi-download me-1"></i>Download Data</a>`
-      : '<span style="color:#aaa;">Belum diupload</span>';
+    document.getElementById('md-dokumen').innerHTML      = d.url_dokumen ? `<a href="${d.url_dokumen}" target="_blank" style="color:var(--bps-blue);font-weight:600;font-size:0.85rem;"><i class="bi bi-file-earmark-arrow-down me-1"></i>Lihat Dokumen</a>` : '-';
+    document.getElementById('md-hasil').innerHTML        = d.url_hasil ? `<a href="${d.url_hasil}" target="_blank" style="color:#2e7d32;font-weight:600;font-size:0.85rem;"><i class="bi bi-download me-1"></i>Download Data</a>` : '<span style="color:#aaa;">Belum diupload</span>';
     const ratingEl = document.getElementById('md-rating-display');
     const r = getRatingValue(d);
     if (r !== null) {
-      const emoji  = getRatingEmoji(d);
-      const stars  = '★'.repeat(r) + '☆'.repeat(5 - r);
+      const emoji = getRatingEmoji(d);
+      const stars = '★'.repeat(r) + '☆'.repeat(5 - r);
       const labels = { 1:'Sangat Tidak Puas', 2:'Tidak Puas', 3:'Cukup', 4:'Puas', 5:'Sangat Puas' };
-      ratingEl.innerHTML = `
-        <div class="rating-display">
-          <span class="rating-display-emoji">${emoji}</span>
-          <div>
-            <div class="rating-display-stars">${stars}</div>
-            <div style="font-weight:700;color:#333;font-size:0.9rem;margin:4px 0 2px;">${labels[r] || ''}</div>
-            <div class="rating-display-num">${r} dari 5 bintang</div>
-          </div>
-        </div>`;
+      ratingEl.innerHTML = `<div class="rating-display"><span class="rating-display-emoji">${emoji}</span><div><div class="rating-display-stars">${stars}</div><div style="font-weight:700;color:#333;font-size:0.9rem;margin:4px 0 2px;">${labels[r] || ''}</div><div class="rating-display-num">${r} dari 5 bintang</div></div></div>`;
     } else {
       ratingEl.innerHTML = `<div class="rating-display-none"><i class="bi bi-star me-1"></i>Pengguna belum memberikan penilaian</div>`;
     }
@@ -931,17 +810,11 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
   document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
 
   let currentUploadId = null;
-
-  function triggerUploadHasil(id) {
-    currentUploadId = id;
-    document.getElementById('hidden-hasil-input').click();
-  }
+  function triggerUploadHasil(id) { currentUploadId = id; document.getElementById('hidden-hasil-input').click(); }
 
   document.addEventListener('DOMContentLoaded', () => {
-    const input  = document.createElement('input');
-    input.type   = 'file';
-    input.id     = 'hidden-hasil-input';
-    input.style.display = 'none';
+    const input = document.createElement('input');
+    input.type = 'file'; input.id = 'hidden-hasil-input'; input.style.display = 'none';
     input.accept = '.pdf,.xlsx,.xls,.csv,.jpg,.jpeg,.png,.zip';
     input.addEventListener('change', async function() {
       const file = this.files[0];
@@ -952,9 +825,7 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         const fileExt  = file.name.split('.').pop();
         const fileName = `hasil/${currentUploadId}_${Date.now()}.${fileExt}`;
         const uploadRes = await fetch(`${SUPABASE_URL}/storage/v1/object/dokumen/${fileName}`, {
-          method:'POST',
-          headers:{ 'Authorization':`Bearer ${accessToken}`, 'Content-Type':file.type, 'x-upsert':'true' },
-          body: file
+          method:'POST', headers:{ 'Authorization':`Bearer ${accessToken}`, 'Content-Type':file.type, 'x-upsert':'true' }, body: file
         });
         if (!uploadRes.ok) throw new Error('Gagal upload file');
         const urlHasil  = `${SUPABASE_URL}/storage/v1/object/public/dokumen/${fileName}`;
@@ -964,11 +835,8 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
           body: JSON.stringify({ url_hasil: urlHasil, nama_hasil: file.name })
         });
         if (!updateRes.ok) throw new Error('Gagal menyimpan URL hasil');
-        showToast('File hasil berhasil diupload! ✓', false);
-        loadData();
-      } catch(err) {
-        showToast('Gagal upload: ' + err.message, true);
-      }
+        showToast('File hasil berhasil diupload! ✓', false); loadData();
+      } catch(err) { showToast('Gagal upload: ' + err.message, true); }
       this.value = '';
     });
     document.body.appendChild(input);
@@ -1033,17 +901,27 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
   // ============================================================
   // HELPER: render chart ke canvas offscreen → dataURL
   // ============================================================
-  function renderChartToDataURL(type, data, options, width=560, height=240) {
+  function renderChartToDataURL(type, data, options, width=700, height=320) {
     return new Promise((resolve) => {
       const canvas = document.createElement('canvas');
-      canvas.width  = width;
-      canvas.height = height;
-      const chart = new Chart(canvas, { type, data, options: { ...options, animation: false, responsive: false } });
-      // Tunggu selesai render
+      canvas.width  = width * 2;   // 2x resolution for crisp output
+      canvas.height = height * 2;
+      const ctx = canvas.getContext('2d');
+      ctx.scale(2, 2);
+      const chart = new Chart(canvas, {
+        type, data,
+        options: {
+          ...options,
+          animation: false,
+          responsive: false,
+          devicePixelRatio: 1,
+          layout: { padding: 8 }
+        }
+      });
       setTimeout(() => {
         resolve(canvas.toDataURL('image/png', 1.0));
         chart.destroy();
-      }, 100);
+      }, 150);
     });
   }
 
@@ -1055,95 +933,193 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     document.getElementById('progress-subtitle').textContent = subtitle;
     document.getElementById('progress-step').textContent = step;
   }
+  function showProgressModal() { document.getElementById('progress-overlay').classList.add('show'); setProgress(0, 'Menyiapkan data...', 'Langkah 0 dari 5'); }
+  function hideProgressModal() { document.getElementById('progress-overlay').classList.remove('show'); }
 
-  function showProgressModal() {
-    document.getElementById('progress-overlay').classList.add('show');
-    setProgress(0, 'Menyiapkan data...', 'Langkah 0 dari 5');
+  // ============================================================
+  // PDF HELPERS
+  // ============================================================
+  function pdfHeader(doc, title, subtitle, PW, MG, accentColor) {
+    // Deep navy banner
+    doc.setFillColor(0, 31, 63);
+    doc.rect(0, 0, PW, 52, 'F');
+    // Accent strip
+    doc.setFillColor(...accentColor);
+    doc.rect(0, 52, PW, 4, 'F');
+    // Decorative circle top-right
+    doc.setFillColor(255, 255, 255, 0.04);
+    doc.setDrawColor(255,255,255);
+    doc.setLineWidth(0.1);
+    // Title
+    doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(150, 200, 255);
+    doc.text('BADAN PUSAT STATISTIK — KOTA PALU', PW/2, 14, {align:'center'});
+    doc.setFontSize(15); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text(title, PW/2, 27, {align:'center'});
+    doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(150, 200, 255);
+    doc.text(subtitle, PW/2, 37, {align:'center'});
+    const genDate = new Date().toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    doc.setFontSize(7); doc.setTextColor(100, 160, 220);
+    doc.text('Digenerate: ' + genDate, PW/2, 46, {align:'center'});
   }
 
-  function hideProgressModal() {
-    document.getElementById('progress-overlay').classList.remove('show');
+  function pdfFooter(doc, pageNum, totalPages, PW, MG) {
+    const y = 285;
+    doc.setFillColor(245, 248, 252);
+    doc.rect(0, y - 4, PW, 16, 'F');
+    doc.setFillColor(0, 91, 170);
+    doc.rect(0, y - 4, 3, 16, 'F');
+    doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(120, 140, 170);
+    doc.text('BPS Kota Palu  •  Sistem Informasi Pengajuan Layanan (SIGITA)  •  Laporan Dashboard Statistik', MG + 4, y + 3);
+    doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(0, 91, 170);
+    doc.text(`Hal. ${pageNum} / ${totalPages}`, PW - MG, y + 3, {align:'right'});
+  }
+
+  function drawSectionTitle(doc, text, x, y, PW, MG) {
+    doc.setFillColor(232, 241, 251);
+    doc.roundedRect(MG, y - 5, PW - MG * 2, 11, 2, 2, 'F');
+    doc.setFillColor(0, 91, 170);
+    doc.rect(MG, y - 5, 3, 11, 'F');
+    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(0, 45, 90);
+    doc.text(text, MG + 8, y + 2);
+    return y + 12;
+  }
+
+  // Draw a premium stat card
+  function drawStatCard(doc, x, y, w, h, label, value, bgRgb, fgRgb, accent) {
+    // Shadow
+    doc.setFillColor(200, 215, 235);
+    doc.roundedRect(x + 1.5, y + 1.5, w, h, 4, 4, 'F');
+    // Card body
+    doc.setFillColor(...bgRgb);
+    doc.roundedRect(x, y, w, h, 4, 4, 'F');
+    // Accent bar at top
+    doc.setFillColor(...accent);
+    doc.roundedRect(x, y, w, 3, 2, 2, 'F');
+    doc.rect(x, y + 1, w, 2, 'F'); // flush bottom of accent bar
+    // Value (big number)
+    doc.setFontSize(22); doc.setFont('helvetica','bold'); doc.setTextColor(...fgRgb);
+    doc.text(value, x + w / 2, y + h * 0.58, {align:'center', baseline:'middle'});
+    // Label
+    doc.setFontSize(6.5); doc.setFont('helvetica','normal');
+    doc.setTextColor(fgRgb[0] + 40, fgRgb[1] + 40, fgRgb[2] + 40);
+    doc.text(label, x + w / 2, y + h - 5, {align:'center'});
+  }
+
+  // Draw a chart frame (white card with shadow)
+  function drawChartFrame(doc, x, y, w, h, title) {
+    doc.setFillColor(220, 228, 240);
+    doc.roundedRect(x + 1, y + 1, w, h, 4, 4, 'F');
+    doc.setFillColor(255, 255, 255);
+    doc.roundedRect(x, y, w, h, 4, 4, 'F');
+    // Title bar
+    doc.setFillColor(248, 250, 253);
+    doc.roundedRect(x, y, w, 14, 4, 4, 'F');
+    doc.rect(x, y + 8, w, 6, 'F');
+    doc.setDrawColor(235, 240, 248);
+    doc.setLineWidth(0.3);
+    doc.line(x, y + 14, x + w, y + 14);
+    doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(0, 45, 90);
+    doc.text(title, x + 8, y + 9.5);
+    return y + 16; // content start Y
+  }
+
+  // Draw a horizontal progress bar row
+  function drawProgressBar(doc, x, y, totalW, label, value, maxValue, color) {
+    doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(80, 100, 130);
+    doc.text(label, x, y + 3);
+    const labelW = 48;
+    const barW   = totalW - labelW - 22;
+    const barX   = x + labelW;
+    // Track
+    doc.setFillColor(235, 240, 250);
+    doc.roundedRect(barX, y, barW, 5, 2, 2, 'F');
+    // Fill
+    const fillW = maxValue > 0 ? Math.max((value / maxValue) * barW, 2) : 0;
+    doc.setFillColor(...color);
+    doc.roundedRect(barX, y, fillW, 5, 2, 2, 'F');
+    // Count
+    doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(0, 45, 90);
+    doc.text(String(value), x + totalW - 8, y + 4, {align:'right'});
   }
 
   // ============================================================
-  // DOWNLOAD DASHBOARD PDF — FUNGSI UTAMA
+  // DOWNLOAD DASHBOARD PDF — FUNGSI UTAMA (IMPROVED)
   // ============================================================
   async function downloadDashboardPDF() {
     const btn = document.getElementById('btn-download-dashboard');
     if (btn.disabled) return;
     if (!_lastAllData || _lastAllData.length === 0) {
-      showToast('Belum ada data. Silakan tunggu data dimuat.', true);
-      return;
+      showToast('Belum ada data. Silakan tunggu data dimuat.', true); return;
     }
-
-    btn.disabled = true;
-    btn.classList.add('loading');
-
+    btn.disabled = true; btn.classList.add('loading');
     showProgressModal();
 
     try {
-      // ── STEP 1: Load libraries ──────────────────────────────
-      setProgress(10, 'Memuat library PDF...', 'Langkah 1 dari 5');
+      // ── STEP 1: Load libraries ─────────────────────────────
+      setProgress(8, 'Memuat library PDF...', 'Langkah 1 dari 5');
       await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
       await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
 
       const data  = _lastAllData;
       const total = data.length;
       const rated = data.filter(d => getRatingValue(d) !== null);
-      const avgR  = rated.length
-        ? (rated.reduce((s,d) => s + getRatingValue(d), 0) / rated.length).toFixed(1)
-        : null;
+      const avgR  = rated.length ? (rated.reduce((s,d) => s + getRatingValue(d), 0) / rated.length).toFixed(1) : null;
+      const menunggu = data.filter(d => d.status === 'Menunggu Verifikasi').length;
+      const diproses = data.filter(d => d.status === 'Sedang Diproses').length;
+      const selesai  = data.filter(d => d.status === 'Selesai').length;
+      const ditolak  = data.filter(d => d.status === 'Ditolak').length;
 
-      // ── STEP 2: Render semua chart ke gambar ─────────────────
-      setProgress(25, 'Merender grafik...', 'Langkah 2 dari 5');
+      // Pre-compute data
+      const layananCount = {};
+      data.forEach(d => { const k = d.jenis_layanan.replace('Pelayanan ',''); layananCount[k]=(layananCount[k]||0)+1; });
+      const katCount = {};
+      data.forEach(d => { if(d.kategori_pengguna) katCount[d.kategori_pengguna]=(katCount[d.kategori_pengguna]||0)+1; });
+      const kabCount = {};
+      data.forEach(d => { if(d.kabupaten_kota) kabCount[d.kabupaten_kota]=(kabCount[d.kabupaten_kota]||0)+1; });
+      const pendCount = {};
+      data.forEach(d => { if(d.tingkat_pendidikan) pendCount[d.tingkat_pendidikan]=(pendCount[d.tingkat_pendidikan]||0)+1; });
+
+      // ── STEP 2: Render semua chart ke gambar ──────────────
+      setProgress(22, 'Merender grafik (resolusi tinggi)...', 'Langkah 2 dari 5');
       await new Promise(r => setTimeout(r, 50));
 
       const bpsBlues = ['#005baa','#1a7fd4','#4da3e8','#003f7f','#7ec0f5','#c8dff5','#002d5a'];
       const accents  = ['#f4a700','#005baa','#e05c2a','#2e7d32','#7b1fa2','#0097a7','#c62828'];
       const starColors = ['#ef5350','#ff7043','#ffca28','#66bb6a','#26a69a'];
 
-      // Chart: Pengajuan per Layanan
-      const layananCount = {};
-      data.forEach(d => { const k = d.jenis_layanan.replace('Pelayanan ',''); layananCount[k]=(layananCount[k]||0)+1; });
+      const commonOpts = {
+        plugins: { legend: { display: false } },
+        layout: { padding: { top:10, bottom:10, left:10, right:10 } }
+      };
+
       const imgLayanan = await renderChartToDataURL('bar', {
         labels: Object.keys(layananCount),
-        datasets: [{ data: Object.values(layananCount), backgroundColor: bpsBlues, borderRadius: 6 }]
-      }, { plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true,grid:{color:'#f0f4f8'}},x:{grid:{display:false},ticks:{font:{size:10}}}} });
+        datasets: [{ data: Object.values(layananCount), backgroundColor: bpsBlues, borderRadius: 10, borderSkipped: false }]
+      }, { ...commonOpts, scales:{ y:{beginAtZero:true,grid:{color:'#eff3fa'},ticks:{font:{size:13},color:'#555'}}, x:{grid:{display:false},ticks:{font:{size:11},color:'#555'}} } }, 680, 340);
 
-      // Chart: Kategori Pengguna
-      const katCount = {};
-      data.forEach(d => { if(d.kategori_pengguna) katCount[d.kategori_pengguna]=(katCount[d.kategori_pengguna]||0)+1; });
       const imgKategori = await renderChartToDataURL('doughnut', {
         labels: Object.keys(katCount),
-        datasets: [{ data: Object.values(katCount), backgroundColor: accents, borderWidth: 2 }]
-      }, { plugins:{legend:{position:'right',labels:{font:{size:11},boxWidth:14}}} });
+        datasets: [{ data: Object.values(katCount), backgroundColor: accents, borderWidth: 3, hoverOffset: 8 }]
+      }, { plugins:{ legend:{ position:'right', labels:{font:{size:13},boxWidth:14,padding:10} } }, layout:{padding:10} }, 680, 340);
 
-      // Chart: Sebaran Kabupaten
-      const kabCount = {};
-      data.forEach(d => { if(d.kabupaten_kota) kabCount[d.kabupaten_kota]=(kabCount[d.kabupaten_kota]||0)+1; });
       const kabSorted = Object.entries(kabCount).sort((a,b)=>b[1]-a[1]);
       const imgKabkota = await renderChartToDataURL('bar', {
         labels: kabSorted.map(k=>k[0]),
-        datasets: [{ data: kabSorted.map(k=>k[1]), backgroundColor: '#1a7fd4', borderRadius: 6 }]
-      }, { indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true,grid:{color:'#f0f4f8'}},y:{grid:{display:false},ticks:{font:{size:10}}}} });
+        datasets: [{ data: kabSorted.map(k=>k[1]), backgroundColor: '#1a7fd4', borderRadius: 8, borderSkipped: false }]
+      }, { ...commonOpts, indexAxis:'y', scales:{ x:{beginAtZero:true,grid:{color:'#eff3fa'},ticks:{font:{size:13},color:'#555'}}, y:{grid:{display:false},ticks:{font:{size:12},color:'#555'}} } }, 680, 340);
 
-      // Chart: Pendidikan
-      const pendCount = {};
-      data.forEach(d => { if(d.tingkat_pendidikan) pendCount[d.tingkat_pendidikan]=(pendCount[d.tingkat_pendidikan]||0)+1; });
       const imgPendidikan = await renderChartToDataURL('doughnut', {
         labels: Object.keys(pendCount),
-        datasets: [{ data: Object.values(pendCount), backgroundColor: bpsBlues, borderWidth: 2 }]
-      }, { plugins:{legend:{position:'right',labels:{font:{size:11},boxWidth:14}}} });
+        datasets: [{ data: Object.values(pendCount), backgroundColor: bpsBlues, borderWidth: 3, hoverOffset: 8 }]
+      }, { plugins:{ legend:{ position:'right', labels:{font:{size:13},boxWidth:14,padding:10} } }, layout:{padding:10} }, 680, 340);
 
-      // Chart: Distribusi Rating
-      let imgRatingDist = null;
-      let imgRatingLayanan = null;
+      let imgRatingDist = null, imgRatingLayanan = null;
       if (rated.length > 0) {
         const distCount = [1,2,3,4,5].map(s => rated.filter(d => getRatingValue(d) === s).length);
         imgRatingDist = await renderChartToDataURL('bar', {
-          labels: ['1 Bintang', '2 Bintang', '3 Bintang', '4 Bintang', '5 Bintang'],
-          datasets: [{ data: distCount, backgroundColor: starColors, borderRadius: 8, borderSkipped: false }]
-        }, { plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true,grid:{color:'#f0f4f8'}},x:{grid:{display:false}}} });
+          labels: ['1★', '2★', '3★', '4★', '5★'],
+          datasets: [{ data: distCount, backgroundColor: starColors, borderRadius: 10, borderSkipped: false }]
+        }, { ...commonOpts, scales:{ y:{beginAtZero:true,grid:{color:'#eff3fa'},ticks:{font:{size:13}}}, x:{grid:{display:false},ticks:{font:{size:14}}} } }, 680, 340);
 
         const lNames = [...new Set(data.map(d => d.jenis_layanan.replace('Pelayanan ', '')))];
         const lAvg   = lNames.map(l => {
@@ -1153,114 +1129,85 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         const lColors = lAvg.map(v => v>=4.5?'#26a69a':v>=3.5?'#66bb6a':v>=2.5?'#ffca28':v>=1.5?'#ff7043':'#ef5350');
         imgRatingLayanan = await renderChartToDataURL('bar', {
           labels: lNames,
-          datasets: [{ data: lAvg, backgroundColor: lColors, borderRadius: 8, borderSkipped: false }]
-        }, { indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true,max:5,grid:{color:'#f0f4f8'}},y:{grid:{display:false},ticks:{font:{size:10}}}} });
+          datasets: [{ data: lAvg, backgroundColor: lColors, borderRadius: 10, borderSkipped: false }]
+        }, { ...commonOpts, indexAxis:'y', scales:{ x:{beginAtZero:true,max:5,grid:{color:'#eff3fa'},ticks:{font:{size:13}}}, y:{grid:{display:false},ticks:{font:{size:12}}} } }, 680, 340);
       }
 
-      // ── STEP 3: Buat dokumen PDF ──────────────────────────────
+      // ── STEP 3: Buat dokumen PDF ─────────────────────────
       setProgress(50, 'Menyusun halaman PDF...', 'Langkah 3 dari 5');
       await new Promise(r => setTimeout(r, 50));
 
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
       const PW = 210, PH = 297, MG = 14;
+      const BLUE      = [0, 91, 170];
+      const DARK_BLUE = [0, 31, 63];
+      const ACCENT    = [244, 167, 0];
 
-      // ── HALAMAN 1: COVER + RINGKASAN ─────────────────────────
-      // Header banner
-      doc.setFillColor(0, 63, 127);
-      doc.rect(0, 0, PW, 44, 'F');
-      doc.setFillColor(244, 167, 0);
-      doc.rect(0, 44, PW, 3, 'F');
+      // ══════════════════════════════════════════════════════
+      // HALAMAN 1: COVER + RINGKASAN STATUS
+      // ══════════════════════════════════════════════════════
+      pdfHeader(doc, 'DASHBOARD STATISTIK LAYANAN', 'Sistem Informasi Pengajuan Layanan (SIGITA) — BPS Kota Palu', PW, MG, ACCENT);
+      let y = 64;
 
-      // Judul
-      doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(180, 210, 255);
-      doc.text('BADAN PUSAT STATISTIK KOTA PALU', PW/2, 12, {align:'center'});
-      doc.setFontSize(16); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-      doc.text('DASHBOARD STATISTIK LAYANAN', PW/2, 23, {align:'center'});
-      doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(200, 230, 255);
-      doc.text('Sistem Informasi Pengajuan Layanan (SIGITA)', PW/2, 31, {align:'center'});
+      // ── Stat cards: 3 columns × 2 rows ──────────────────
+      y = drawSectionTitle(doc, 'RINGKASAN PENGAJUAN', MG, y, PW, MG);
+      y += 4;
 
-      const genDate = new Date().toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
-      doc.setFontSize(7.5); doc.setTextColor(160,200,255);
-      doc.text('Digenerate: ' + genDate, PW/2, 39, {align:'center'});
+      const cols = 3;
+      const cardW = (PW - MG * 2 - 8 * (cols-1)) / cols;
+      const cardH = 34;
+      const cardGap = 8;
 
-      let y = 54;
-
-      // ── KARTU RINGKASAN (6 kartu) ──────────────────────────────
-      doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(150,150,150);
-      doc.text('RINGKASAN PENGAJUAN', MG, y); y += 6;
-
-      const menunggu = data.filter(d=>d.status==='Menunggu Verifikasi').length;
-      const diproses = data.filter(d=>d.status==='Sedang Diproses').length;
-      const selesai  = data.filter(d=>d.status==='Selesai').length;
-      const ditolak  = data.filter(d=>d.status==='Ditolak').length;
-
-      const cards = [
-        { label:'Total Pengajuan', value:String(total),       bg:[0,91,170],   fg:[255,255,255] },
-        { label:'Menunggu',        value:String(menunggu),    bg:[180,130,0],  fg:[255,255,255] },
-        { label:'Diproses',        value:String(diproses),    bg:[0,130,150],  fg:[255,255,255] },
-        { label:'Selesai',         value:String(selesai),     bg:[40,110,50],  fg:[255,255,255] },
-        { label:'Ditolak',         value:String(ditolak),     bg:[160,40,40],  fg:[255,255,255] },
-        { label:'Rata-rata Rating',value:(avgR ? avgR+'/5' : '-'), bg:[120,80,0], fg:[255,255,255] },
+      const cardsRow1 = [
+        { label:'Total Pengajuan',     value: String(total),    bg:[0,63,127],  fg:[255,255,255], acc:[0,140,255] },
+        { label:'Menunggu Verifikasi', value: String(menunggu), bg:[130,90,0],  fg:[255,255,255], acc:[244,167,0] },
+        { label:'Sedang Diproses',     value: String(diproses), bg:[0,100,120], fg:[255,255,255], acc:[0,200,220] },
+      ];
+      const cardsRow2 = [
+        { label:'Selesai',             value: String(selesai),  bg:[30,90,40],  fg:[255,255,255], acc:[76,175,80] },
+        { label:'Ditolak',             value: String(ditolak),  bg:[130,30,30], fg:[255,255,255], acc:[244,67,54] },
+        { label:'Rata-rata Rating',    value: avgR ? avgR+'/5' : '-', bg:[80,50,10], fg:[255,255,255], acc:[255,200,0] },
       ];
 
-      const cols = 3, cardW = (PW - MG*2 - 8*2) / cols;
-      const rows2 = [0,1].map(r => cards.slice(r*cols, r*cols+cols));
-      rows2.forEach((row, ri) => {
+      [cardsRow1, cardsRow2].forEach((row, ri) => {
         row.forEach((c, ci) => {
-          const cx = MG + ci*(cardW+8);
-          const cy = y + ri*20;
-          // Shadow
-          doc.setFillColor(220,228,240);
-          doc.roundedRect(cx+1, cy+1, cardW, 16, 3, 3, 'F');
-          // Card
-          doc.setFillColor(...c.bg);
-          doc.roundedRect(cx, cy, cardW, 16, 3, 3, 'F');
-          // Value
-          doc.setFontSize(16); doc.setFont('helvetica','bold'); doc.setTextColor(...c.fg);
-          doc.text(c.value, cx+cardW/2, cy+9.5, {align:'center'});
-          // Label
-          doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(200,225,255);
-          doc.text(c.label, cx+cardW/2, cy+14, {align:'center'});
+          const cx = MG + ci * (cardW + cardGap);
+          const cy = y + ri * (cardH + 8);
+          drawStatCard(doc, cx, cy, cardW, cardH, c.label, c.value, c.bg, c.fg, c.acc);
         });
       });
-      y += 48;
+      y += 2 * (cardH + 8) + 6;
 
-      // ── DIVIDER ──────────────────────────────────────────────
-      doc.setDrawColor(230,235,245); doc.setLineWidth(0.5);
-      doc.line(MG, y, PW-MG, y); y += 8;
+      // ── Status detail table ───────────────────────────────
+      y = drawSectionTitle(doc, 'REKAP STATUS PENGAJUAN', MG, y, PW, MG);
+      y += 3;
 
-      // ── TABEL STATUS ─────────────────────────────────────────
-      doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(150,150,150);
-      doc.text('REKAP STATUS PENGAJUAN', MG, y); y += 5;
-
-      const statusData = [
-        ['Menunggu Verifikasi', menunggu, total ? ((menunggu/total*100).toFixed(1)+'%') : '0%'],
-        ['Sedang Diproses',     diproses, total ? ((diproses/total*100).toFixed(1)+'%') : '0%'],
-        ['Selesai',             selesai,  total ? ((selesai /total*100).toFixed(1)+'%') : '0%'],
-        ['Ditolak',             ditolak,  total ? ((ditolak /total*100).toFixed(1)+'%') : '0%'],
+      const statusRows = [
+        ['Menunggu Verifikasi', menunggu, total ? ((menunggu/total*100).toFixed(1)+'%') : '-'],
+        ['Sedang Diproses',     diproses, total ? ((diproses/total*100).toFixed(1)+'%') : '-'],
+        ['Selesai',             selesai,  total ? ((selesai/total*100).toFixed(1)+'%')  : '-'],
+        ['Ditolak',             ditolak,  total ? ((ditolak/total*100).toFixed(1)+'%')  : '-'],
         ['TOTAL',               total,    '100%'],
       ];
 
       doc.autoTable({
         startY: y, margin:{left:MG, right:MG},
-        head:[['Status', 'Jumlah', 'Persentase']],
-        body: statusData,
+        head:[['Status Pengajuan', 'Jumlah', 'Persentase']],
+        body: statusRows,
         theme:'grid',
-        headStyles:{ fillColor:[0,63,127], textColor:255, fontSize:7.5, fontStyle:'bold', halign:'center' },
-        bodyStyles:{ fontSize:7.5, textColor:50 },
-        columnStyles:{ 0:{cellWidth:90}, 1:{halign:'center'}, 2:{halign:'center'} },
-        styles:{ cellPadding:3 },
+        headStyles:{ fillColor:DARK_BLUE, textColor:255, fontSize:8, fontStyle:'bold', halign:'center', cellPadding:5 },
+        bodyStyles:{ fontSize:8, textColor:50, cellPadding:5 },
+        columnStyles:{ 0:{cellWidth:100}, 1:{halign:'center', cellWidth:40}, 2:{halign:'center'} },
         didParseCell(hook) {
           if (hook.section==='body') {
-            const statusColors2 = {
-              'Menunggu Verifikasi':{fill:[255,248,205],text:[133,100,4]},
+            const sc = {
+              'Menunggu Verifikasi':{fill:[255,248,200],text:[133,100,4]},
               'Sedang Diproses'    :{fill:[207,244,252],text:[5,81,96]},
               'Selesai'            :{fill:[209,231,221],text:[10,54,34]},
               'Ditolak'            :{fill:[248,215,218],text:[132,32,41]},
-            };
-            if (hook.column.index===0 && statusColors2[hook.cell.raw]) {
-              const sc = statusColors2[hook.cell.raw];
+            }[hook.cell.raw];
+            if (hook.column.index===0 && sc) {
               hook.cell.styles.fillColor = sc.fill;
               hook.cell.styles.textColor = sc.text;
               hook.cell.styles.fontStyle = 'bold';
@@ -1268,7 +1215,7 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
             if (hook.row.index===4) {
               hook.cell.styles.fillColor = [232,241,251];
               hook.cell.styles.fontStyle = 'bold';
-              hook.cell.styles.textColor = [0,63,127];
+              hook.cell.styles.textColor = DARK_BLUE;
             }
           }
         }
@@ -1276,200 +1223,239 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
 
       y = doc.lastAutoTable.finalY + 10;
 
-      // ── FOOTER HALAMAN 1 ──────────────────────────────────────
-      doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(180,180,180);
-      doc.text('BPS Kota Palu  ·  SIGITA  ·  Laporan Dashboard Statistik', MG, 291);
-      doc.text('Halaman 1', PW-MG, 291, {align:'right'});
+      // ── Distribution progress bars ────────────────────────
+      if (y < 240) {
+        y = drawSectionTitle(doc, 'DISTRIBUSI STATUS (VISUAL)', MG, y, PW, MG);
+        y += 5;
+        const barColors = {
+          'Menunggu Verifikasi': [244, 167, 0],
+          'Sedang Diproses':     [0, 151, 167],
+          'Selesai':             [56, 142, 60],
+          'Ditolak':             [192, 57, 43],
+        };
+        const barData = [
+          { label:'Menunggu Verifikasi', val: menunggu },
+          { label:'Sedang Diproses',     val: diproses },
+          { label:'Selesai',             val: selesai  },
+          { label:'Ditolak',             val: ditolak  },
+        ];
+        const barTotalW = PW - MG * 2;
+        barData.forEach(b => {
+          drawProgressBar(doc, MG, y, barTotalW, b.label, b.val, total, barColors[b.label] || BLUE);
+          y += 10;
+        });
+      }
 
-      // ── HALAMAN 2: GRAFIK DEMOGRAFIS ────────────────────────
-      setProgress(65, 'Menyusun grafik demografis...', 'Langkah 4 dari 5');
+      pdfFooter(doc, 1, 3, PW, MG);
+
+      // ══════════════════════════════════════════════════════
+      // HALAMAN 2: GRAFIK DEMOGRAFIS
+      // ══════════════════════════════════════════════════════
+      setProgress(68, 'Menyusun grafik demografis...', 'Langkah 4 dari 5');
       doc.addPage('portrait');
 
-      // Sub-header
-      doc.setFillColor(248, 250, 253);
-      doc.rect(0, 0, PW, 16, 'F');
-      doc.setFillColor(0, 91, 170);
-      doc.rect(0, 0, 4, 16, 'F');
-      doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(0,63,127);
-      doc.text('ANALISIS DEMOGRAFIS PENGAJUAN', 12, 10);
-      doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(150,150,150);
-      doc.text('Distribusi berdasarkan layanan, kategori pengguna, wilayah, dan pendidikan', 12, 14);
-      y = 24;
+      // Sub-banner
+      doc.setFillColor(...DARK_BLUE);
+      doc.rect(0, 0, PW, 20, 'F');
+      doc.setFillColor(...ACCENT);
+      doc.rect(0, 20, PW, 3, 'F');
+      doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+      doc.text('ANALISIS DEMOGRAFIS PENGAJUAN', PW/2, 13, {align:'center'});
+      y = 30;
 
-      const imgW = (PW - MG*2 - 8) / 2;
-      const imgH = 65;
+      const imgW = (PW - MG*2 - 10) / 2;
+      const imgH = 68; // taller charts
 
-      // Row 1: Layanan + Kategori
-      doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(100,100,120);
-      doc.text('Pengajuan per Jenis Layanan', MG, y); 
-      doc.text('Sebaran Kategori Pengguna', MG + imgW + 8, y);
-      y += 3;
+      // Row 1
+      y += 2;
+      let contentY = drawChartFrame(doc, MG,          y, imgW, imgH + 18, 'Pengajuan per Jenis Layanan');
+      doc.addImage(imgLayanan,  'PNG', MG + 1,         contentY, imgW - 2, imgH);
+      contentY = drawChartFrame(doc, MG + imgW + 10, y, imgW, imgH + 18, 'Sebaran Kategori Pengguna');
+      doc.addImage(imgKategori, 'PNG', MG + imgW + 11, contentY, imgW - 2, imgH);
+      y += imgH + 30;
 
-      // Border box
-      doc.setDrawColor(230,235,245); doc.setLineWidth(0.3);
-      doc.roundedRect(MG-2, y-1, imgW+4, imgH+4, 2, 2);
-      doc.roundedRect(MG+imgW+6, y-1, imgW+4, imgH+4, 2, 2);
+      // Row 2
+      contentY = drawChartFrame(doc, MG,          y, imgW, imgH + 18, 'Sebaran Kabupaten/Kota Asal Pemohon');
+      doc.addImage(imgKabkota,   'PNG', MG + 1,         contentY, imgW - 2, imgH);
+      contentY = drawChartFrame(doc, MG + imgW + 10, y, imgW, imgH + 18, 'Distribusi Tingkat Pendidikan');
+      doc.addImage(imgPendidikan,'PNG', MG + imgW + 11, contentY, imgW - 2, imgH);
+      y += imgH + 30;
 
-      doc.addImage(imgLayanan,  'PNG', MG,          y, imgW, imgH);
-      doc.addImage(imgKategori, 'PNG', MG+imgW+8,   y, imgW, imgH);
-      y += imgH + 12;
+      // Ringkasan demografis table
+      if (y < 240) {
+        y = drawSectionTitle(doc, 'RINGKASAN DEMOGRAFIS', MG, y, PW, MG);
+        y += 3;
 
-      // Row 2: Kabupaten + Pendidikan
-      doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(100,100,120);
-      doc.text('Sebaran Kabupaten/Kota Asal Pemohon', MG, y);
-      doc.text('Distribusi Tingkat Pendidikan', MG + imgW + 8, y);
-      y += 3;
+        const topLayanan = Object.entries(layananCount).sort((a,b)=>b[1]-a[1])[0];
+        const topKat     = Object.entries(katCount).sort((a,b)=>b[1]-a[1])[0];
+        const topKab     = Object.entries(kabCount).sort((a,b)=>b[1]-a[1])[0];
+        const topPend    = Object.entries(pendCount).sort((a,b)=>b[1]-a[1])[0];
 
-      doc.setDrawColor(230,235,245);
-      doc.roundedRect(MG-2, y-1, imgW+4, imgH+4, 2, 2);
-      doc.roundedRect(MG+imgW+6, y-1, imgW+4, imgH+4, 2, 2);
+        doc.autoTable({
+          startY: y, margin:{left:MG, right:MG},
+          head:[['Indikator','Nilai Tertinggi','Jumlah','% dari Total']],
+          body:[
+            ['Jenis Layanan',      topLayanan?topLayanan[0]:'-', topLayanan?topLayanan[1]:0, topLayanan?((topLayanan[1]/total*100).toFixed(1)+'%'):'0%'],
+            ['Kategori Pengguna',  topKat?topKat[0]:'-',         topKat?topKat[1]:0,         topKat?((topKat[1]/total*100).toFixed(1)+'%'):'0%'],
+            ['Kabupaten/Kota',     topKab?topKab[0]:'-',         topKab?topKab[1]:0,         topKab?((topKab[1]/total*100).toFixed(1)+'%'):'0%'],
+            ['Tingkat Pendidikan', topPend?topPend[0]:'-',       topPend?topPend[1]:0,       topPend?((topPend[1]/total*100).toFixed(1)+'%'):'0%'],
+          ],
+          theme:'grid',
+          headStyles:{ fillColor:DARK_BLUE, textColor:255, fontSize:8, fontStyle:'bold', halign:'center', cellPadding:5 },
+          bodyStyles:{ fontSize:8, textColor:50, cellPadding:5 },
+          alternateRowStyles:{ fillColor:[248,250,253] },
+          columnStyles:{ 2:{halign:'center'}, 3:{halign:'center'} }
+        });
+      }
 
-      doc.addImage(imgKabkota,   'PNG', MG,        y, imgW, imgH);
-      doc.addImage(imgPendidikan,'PNG', MG+imgW+8, y, imgW, imgH);
-      y += imgH + 12;
+      pdfFooter(doc, 2, 3, PW, MG);
 
-      // Tabel ringkas demografis
-      doc.setFillColor(248, 250, 253);
-      doc.rect(MG-2, y-2, PW-MG*2+4, 8, 'F');
-      doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(0,63,127);
-      doc.text('Ringkasan Demografis', MG, y+4); y += 10;
-
-      const topLayanan  = Object.entries(layananCount).sort((a,b)=>b[1]-a[1])[0];
-      const topKat      = Object.entries(katCount).sort((a,b)=>b[1]-a[1])[0];
-      const topKab      = Object.entries(kabCount).sort((a,b)=>b[1]-a[1])[0];
-      const topPend     = Object.entries(pendCount).sort((a,b)=>b[1]-a[1])[0];
-
-      doc.autoTable({
-        startY: y, margin:{left:MG, right:MG},
-        head:[['Indikator','Nilai Tertinggi','Jumlah','Persentase']],
-        body:[
-          ['Jenis Layanan',       topLayanan ? topLayanan[0] : '-', topLayanan?topLayanan[1]:0, topLayanan?((topLayanan[1]/total*100).toFixed(1)+'%'):'0%'],
-          ['Kategori Pengguna',   topKat     ? topKat[0]     : '-', topKat?topKat[1]:0,         topKat?((topKat[1]/total*100).toFixed(1)+'%'):'0%'],
-          ['Kabupaten/Kota',      topKab     ? topKab[0]     : '-', topKab?topKab[1]:0,         topKab?((topKab[1]/total*100).toFixed(1)+'%'):'0%'],
-          ['Tingkat Pendidikan',  topPend    ? topPend[0]    : '-', topPend?topPend[1]:0,        topPend?((topPend[1]/total*100).toFixed(1)+'%'):'0%'],
-        ],
-        theme:'grid',
-        headStyles:{ fillColor:[0,63,127], textColor:255, fontSize:7.5, fontStyle:'bold' },
-        bodyStyles:{ fontSize:7.5, textColor:50 },
-        columnStyles:{ 2:{halign:'center'}, 3:{halign:'center'} },
-        styles:{ cellPadding:3 }
-      });
-
-      // Footer
-      doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(180,180,180);
-      doc.text('BPS Kota Palu  ·  SIGITA  ·  Laporan Dashboard Statistik', MG, 291);
-      doc.text('Halaman 2', PW-MG, 291, {align:'right'});
-
-      // ── HALAMAN 3: KEPUASAN & RATING ──────────────────────────
-      setProgress(80, 'Menyusun halaman kepuasan...', 'Langkah 5 dari 5');
+      // ══════════════════════════════════════════════════════
+      // HALAMAN 3: KEPUASAN & RATING
+      // ══════════════════════════════════════════════════════
+      setProgress(84, 'Menyusun halaman kepuasan...', 'Langkah 5 dari 5');
       doc.addPage('portrait');
 
-      doc.setFillColor(248, 250, 253);
-      doc.rect(0, 0, PW, 16, 'F');
+      doc.setFillColor(...DARK_BLUE);
+      doc.rect(0, 0, PW, 20, 'F');
       doc.setFillColor(244, 167, 0);
-      doc.rect(0, 0, 4, 16, 'F');
-      doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(0,63,127);
-      doc.text('STATISTIK KEPUASAN PENGGUNA', 12, 10);
-      doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(150,150,150);
-      doc.text(`Berdasarkan ${rated.length} dari ${total} pengajuan yang memberikan penilaian`, 12, 14);
-      y = 24;
+      doc.rect(0, 20, PW, 3, 'F');
+      doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+      doc.text('STATISTIK KEPUASAN PENGGUNA', PW/2, 13, {align:'center'});
+      y = 30;
 
       if (rated.length > 0 && avgR !== null) {
-        // Rating overview card
-        doc.setFillColor(0, 63, 127);
-        doc.roundedRect(MG, y, PW-MG*2, 30, 4, 4, 'F');
-
-        // Bintang besar
-        doc.setFontSize(22); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-        doc.text(avgR, MG+18, y+16, {align:'center'});
-        doc.setFontSize(10); doc.setTextColor(244,167,0);
-        const fullS = Math.floor(parseFloat(avgR));
-        doc.text('★'.repeat(fullS) + '☆'.repeat(5-fullS), MG+18, y+24, {align:'center'});
-        doc.setFontSize(7); doc.setTextColor(180,210,255);
-        doc.text('dari 5.0', MG+18, y+28, {align:'center'});
-
-        // Divider
-        doc.setDrawColor(255,255,255,0.2); doc.setLineWidth(0.3);
-        doc.line(MG+36, y+5, MG+36, y+25);
-
-        // Stats kepuasan
         const puas   = rated.filter(d => getRatingValue(d) >= 4).length;
         const netral = rated.filter(d => getRatingValue(d) === 3).length;
         const kurang = rated.filter(d => getRatingValue(d) <= 2).length;
 
-        const statItems = [
+        // ── Overview card ────────────────────────────────────
+        doc.setFillColor(0, 31, 63);
+        doc.roundedRect(MG, y, PW - MG*2, 42, 5, 5, 'F');
+        doc.setFillColor(244, 167, 0);
+        doc.roundedRect(MG, y, PW - MG*2, 4, 3, 3, 'F');
+        doc.rect(MG, y + 2, PW - MG*2, 2, 'F');
+
+        // Big rating number
+        doc.setFontSize(26); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+        doc.text(avgR, MG + 22, y + 24, {align:'center'});
+        // Stars
+        const fullS = Math.floor(parseFloat(avgR));
+        doc.setFontSize(11); doc.setTextColor(244, 167, 0);
+        doc.text('★'.repeat(fullS) + '☆'.repeat(5-fullS), MG + 22, y + 34, {align:'center'});
+        // Sub label
+        doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(150,200,255);
+        doc.text('dari 5.0', MG + 22, y + 40, {align:'center'});
+
+        // Vertical divider
+        doc.setFillColor(255,255,255);
+        doc.setDrawColor(255,255,255);
+        doc.setLineWidth(0.1);
+        doc.setFillColor(255,255,255,0.15);
+        doc.rect(MG + 44, y + 8, 0.4, 26, 'F');
+
+        // Stat items in 4 columns
+        const rStats = [
           { label:'Total Penilaian', value: String(rated.length) },
-          { label:'Puas (4-5 Bintang)', value: puas + ' (' + (rated.length?(puas/rated.length*100).toFixed(0):0) + '%)' },
-          { label:'Netral (3 Bintang)', value: netral + ' (' + (rated.length?(netral/rated.length*100).toFixed(0):0) + '%)' },
-          { label:'Kurang (1-2 Bintang)', value: kurang + ' (' + (rated.length?(kurang/rated.length*100).toFixed(0):0) + '%)' },
+          { label:'Puas (4-5★)',     value: puas + ' (' + (rated.length?(puas/rated.length*100).toFixed(0):0)+'%)' },
+          { label:'Netral (3★)',     value: netral + ' (' + (rated.length?(netral/rated.length*100).toFixed(0):0)+'%)' },
+          { label:'Kurang (1-2★)',   value: kurang + ' (' + (rated.length?(kurang/rated.length*100).toFixed(0):0)+'%)' },
         ];
-        const siW = (PW - MG*2 - 40) / statItems.length;
-        statItems.forEach((s, i) => {
-          const sx = MG + 42 + i * siW;
-          doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-          doc.text(s.value, sx + siW/2, y+14, {align:'center'});
-          doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(180,210,255);
-          doc.text(s.label, sx + siW/2, y+21, {align:'center'});
+        const sW = (PW - MG*2 - 50) / rStats.length;
+        rStats.forEach((s, i) => {
+          const sx = MG + 48 + i * sW;
+          doc.setFontSize(14); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+          doc.text(s.value, sx + sW/2, y + 24, {align:'center'});
+          doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(150,200,255);
+          doc.text(s.label, sx + sW/2, y + 33, {align:'center'});
         });
+        y += 50;
 
-        y += 36;
-
-        // Chart distribusi rating & per layanan
-        doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(100,100,120);
-        doc.text('Distribusi Rating', MG, y);
-        doc.text('Rata-rata Rating per Layanan', MG + imgW + 8, y);
+        // ── Rating distribution per star bar chart ────────────
+        y = drawSectionTitle(doc, 'DISTRIBUSI RATING BINTANG', MG, y, PW, MG);
         y += 3;
 
-        doc.setDrawColor(230,235,245);
-        doc.roundedRect(MG-2, y-1, imgW+4, imgH+4, 2, 2);
-        doc.roundedRect(MG+imgW+6, y-1, imgW+4, imgH+4, 2, 2);
+        const starLabels = { 5:'Sangat Puas', 4:'Puas', 3:'Cukup', 2:'Tidak Puas', 1:'Sangat Tidak Puas' };
+        const starBgColors = { 5:'#26a69a', 4:'#66bb6a', 3:'#ffca28', 2:'#ff7043', 1:'#ef5350' };
+        const maxStarCount = Math.max(...[5,4,3,2,1].map(s => rated.filter(d => getRatingValue(d) === s).length), 1);
 
-        if (imgRatingDist)    doc.addImage(imgRatingDist,    'PNG', MG,        y, imgW, imgH);
-        if (imgRatingLayanan) doc.addImage(imgRatingLayanan, 'PNG', MG+imgW+8, y, imgW, imgH);
-        y += imgH + 12;
-
-        // Tabel distribusi bintang
-        const ratingLabels = {1:'Sangat Tidak Puas',2:'Tidak Puas',3:'Cukup',4:'Puas',5:'Sangat Puas'};
-        doc.autoTable({
-          startY: y, margin:{left:MG, right:MG},
-          head:[['Bintang', 'Label Kepuasan', 'Jumlah Penilai', 'Persentase']],
-          body: [5,4,3,2,1].map(s => {
-            const cnt = rated.filter(d => getRatingValue(d) === s).length;
-            return ['★'.repeat(s), ratingLabels[s]||'', cnt, rated.length?((cnt/rated.length*100).toFixed(1)+'%'):'0%'];
-          }).concat([['', 'TOTAL', rated.length, '100%']]),
-          theme:'grid',
-          headStyles:{ fillColor:[0,63,127], textColor:255, fontSize:7.5, fontStyle:'bold', halign:'center' },
-          bodyStyles:{ fontSize:7.5, textColor:50 },
-          columnStyles:{ 0:{halign:'center',textColor:[244,167,0],fontStyle:'bold'}, 2:{halign:'center'}, 3:{halign:'center'} },
-          styles:{ cellPadding:3 },
-          didParseCell(hook) {
-            if (hook.section==='body' && hook.row.index===5) {
-              hook.cell.styles.fillColor = [232,241,251];
-              hook.cell.styles.fontStyle = 'bold';
-              hook.cell.styles.textColor = [0,63,127];
-            }
-          }
+        [5,4,3,2,1].forEach(s => {
+          const cnt = rated.filter(d => getRatingValue(d) === s).length;
+          const hex = starBgColors[s];
+          const rgb = [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)];
+          // Star label
+          doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(...rgb);
+          doc.text('★'.repeat(s), MG, y + 5);
+          doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(80,100,130);
+          doc.text(starLabels[s], MG + 18, y + 5);
+          // Bar
+          const barX = MG + 62;
+          const barW = PW - MG*2 - 62 - 20;
+          const fillW = maxStarCount > 0 ? Math.max((cnt / maxStarCount) * barW, cnt>0?3:0) : 0;
+          doc.setFillColor(240,244,252);
+          doc.roundedRect(barX, y, barW, 8, 2, 2, 'F');
+          doc.setFillColor(...rgb);
+          if (fillW > 0) doc.roundedRect(barX, y, fillW, 8, 2, 2, 'F');
+          // Count + pct
+          doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(0,45,90);
+          const pct = rated.length ? ((cnt/rated.length)*100).toFixed(1) : '0.0';
+          doc.text(`${cnt} (${pct}%)`, PW - MG, y + 6, {align:'right'});
+          y += 13;
         });
+
+        y += 4;
+
+        // ── Charts row ────────────────────────────────────────
+        if (imgRatingDist && imgRatingLayanan) {
+          const rImgW = (PW - MG*2 - 10) / 2;
+          const rImgH = 66;
+          let cY = drawChartFrame(doc, MG,             y, rImgW, rImgH + 18, 'Distribusi Rating');
+          doc.addImage(imgRatingDist,    'PNG', MG + 1,             cY, rImgW - 2, rImgH);
+          cY = drawChartFrame(doc, MG + rImgW + 10, y, rImgW, rImgH + 18, 'Rata-rata Rating per Layanan');
+          doc.addImage(imgRatingLayanan, 'PNG', MG + rImgW + 11, cY, rImgW - 2, rImgH);
+          y += rImgH + 28;
+        }
+
+        // ── Rating detail table ────────────────────────────────
+        if (y < 252) {
+          const ratingLabels = {1:'Sangat Tidak Puas',2:'Tidak Puas',3:'Cukup',4:'Puas',5:'Sangat Puas'};
+          doc.autoTable({
+            startY: y, margin:{left:MG, right:MG},
+            head:[['Bintang','Label Kepuasan','Jumlah Penilai','Persentase']],
+            body: [5,4,3,2,1].map(s => {
+              const cnt = rated.filter(d => getRatingValue(d) === s).length;
+              return ['★'.repeat(s), ratingLabels[s]||'', cnt, rated.length?((cnt/rated.length*100).toFixed(1)+'%'):'0%'];
+            }).concat([['','TOTAL', rated.length, '100%']]),
+            theme:'grid',
+            headStyles:{ fillColor:DARK_BLUE, textColor:255, fontSize:8, fontStyle:'bold', halign:'center', cellPadding:5 },
+            bodyStyles:{ fontSize:8, textColor:50, cellPadding:5 },
+            columnStyles:{ 0:{halign:'center',textColor:[244,167,0],fontStyle:'bold'}, 2:{halign:'center'}, 3:{halign:'center'} },
+            alternateRowStyles:{ fillColor:[248,250,253] },
+            didParseCell(hook) {
+              if (hook.section==='body' && hook.row.index===5) {
+                hook.cell.styles.fillColor = [232,241,251];
+                hook.cell.styles.fontStyle = 'bold';
+                hook.cell.styles.textColor = DARK_BLUE;
+              }
+            }
+          });
+        }
+
       } else {
-        // No rating placeholder
+        // No rating
         doc.setFillColor(248, 250, 253);
-        doc.roundedRect(MG, y, PW-MG*2, 40, 4, 4, 'F');
+        doc.roundedRect(MG, y, PW-MG*2, 40, 5, 5, 'F');
         doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(180,180,180);
         doc.text('Belum ada data penilaian dari pengguna', PW/2, y+22, {align:'center'});
         y += 50;
       }
 
-      // Footer halaman 3
-      doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(180,180,180);
-      doc.text('BPS Kota Palu  ·  SIGITA  ·  Laporan Dashboard Statistik', MG, 291);
-      doc.text('Halaman 3', PW-MG, 291, {align:'right'});
+      pdfFooter(doc, 3, 3, PW, MG);
 
-      // ── SIMPAN FILE ──────────────────────────────────────────
-      setProgress(95, 'Menyimpan file PDF...', 'Selesai');
+      // ── SAVE ─────────────────────────────────────────────
+      setProgress(97, 'Menyimpan file PDF...', 'Selesai');
       await new Promise(r => setTimeout(r, 200));
-
-      const fileName = 'Dashboard_BPS_Palu_' + formatDateFile() + '.pdf';
-      doc.save(fileName);
+      doc.save('Dashboard_BPS_Palu_' + formatDateFile() + '.pdf');
 
       setProgress(100, 'Selesai!', 'Selesai');
       await new Promise(r => setTimeout(r, 500));
@@ -1481,26 +1467,22 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       showToast('Gagal membuat Dashboard PDF: ' + err.message, true);
       console.error(err);
     } finally {
-      btn.disabled = false;
-      btn.classList.remove('loading');
+      btn.disabled = false; btn.classList.remove('loading');
     }
   }
 
   // ============================================================
-  // EXPORT EXCEL (data tabel)
+  // EXPORT EXCEL
   // ============================================================
   async function exportExcel() {
     const btn = document.getElementById('btn-export-excel');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Memproses...';
+    btn.disabled = true; btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Memproses...';
     try {
       await loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js');
       const data = getExportData();
       if (!data.length) { showToast('Tidak ada data untuk diexport', true); return; }
       const wb = window.XLSX.utils.book_new();
-      const headers = ['No.','Nomor Tiket','Nama','Email','No. Telepon','Instansi',
-        'Jenis Kelamin','Usia','Kategori Pengguna','Tingkat Pendidikan','Kabupaten/Kota',
-        'Jenis Layanan','Deskripsi','Nama Dokumen','Status','Rating (1-5)','Emoji Rating','Tanggal Pengajuan'];
+      const headers = ['No.','Nomor Tiket','Nama','Email','No. Telepon','Instansi','Jenis Kelamin','Usia','Kategori Pengguna','Tingkat Pendidikan','Kabupaten/Kota','Jenis Layanan','Deskripsi','Nama Dokumen','Status','Rating (1-5)','Emoji Rating','Tanggal Pengajuan'];
       const rows = data.map((d, i) => [
         i+1, d.nomor_tiket||'', d.nama||'', d.email||'', d.no_telepon||'', d.instansi||'',
         d.jenis_kelamin||'', d.usia||'', d.kategori_pengguna||'', d.tingkat_pendidikan||'',
@@ -1514,21 +1496,16 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       const lbl = buildFilterLabel(true);
       window.XLSX.writeFile(wb, 'Laporan_BPS_Palu' + (lbl?'_'+lbl:'') + '_' + formatDateFile() + '.xlsx');
       showToast('Export Excel berhasil! ✓', false);
-    } catch(err) {
-      showToast('Gagal export Excel: ' + err.message, true);
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="bi bi-file-earmark-excel-fill"></i> Excel';
-    }
+    } catch(err) { showToast('Gagal export Excel: ' + err.message, true); }
+    finally { btn.disabled = false; btn.innerHTML = '<i class="bi bi-file-earmark-excel-fill"></i> Excel'; }
   }
 
   // ============================================================
-  // EXPORT PDF (data tabel)
+  // EXPORT PDF (tabel data)
   // ============================================================
   async function exportPDF() {
     const btn = document.getElementById('btn-export-pdf');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Memproses...';
+    btn.disabled = true; btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Memproses...';
     try {
       await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
       await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
@@ -1545,102 +1522,68 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(200,220,255);
       doc.text(subLine, W/2, 20, {align:'center'});
       let y = 35;
-      const total    = data.length;
-      const menunggu = data.filter(d=>d.status==='Menunggu Verifikasi').length;
-      const diproses = data.filter(d=>d.status==='Sedang Diproses').length;
-      const selesai  = data.filter(d=>d.status==='Selesai').length;
-      const ditolak  = data.filter(d=>d.status==='Ditolak').length;
-      const rated    = data.filter(d=>getRatingValue(d)!==null);
-      const avgR2    = rated.length ? (rated.reduce((s,d)=>s+getRatingValue(d),0)/rated.length).toFixed(1) : '-';
+      const total2   = data.length;
+      const men2 = data.filter(d=>d.status==='Menunggu Verifikasi').length;
+      const dip2 = data.filter(d=>d.status==='Sedang Diproses').length;
+      const sel2 = data.filter(d=>d.status==='Selesai').length;
+      const dit2 = data.filter(d=>d.status==='Ditolak').length;
+      const rat2 = data.filter(d=>getRatingValue(d)!==null);
+      const avg2 = rat2.length ? (rat2.reduce((s,d)=>s+getRatingValue(d),0)/rat2.length).toFixed(1) : '-';
       const cards2 = [
-        {label:'Total Pengajuan',value:String(total),color:[0,91,170]},
-        {label:'Menunggu',value:String(menunggu),color:[180,130,0]},
-        {label:'Diproses',value:String(diproses),color:[0,130,150]},
-        {label:'Selesai',value:String(selesai),color:[40,110,50]},
-        {label:'Ditolak',value:String(ditolak),color:[160,40,40]},
-        {label:'Avg Rating',value:avgR2+'/5',color:[100,60,0]},
+        {label:'Total',value:String(total2),color:[0,91,170]},{label:'Menunggu',value:String(men2),color:[180,130,0]},
+        {label:'Diproses',value:String(dip2),color:[0,130,150]},{label:'Selesai',value:String(sel2),color:[40,110,50]},
+        {label:'Ditolak',value:String(dit2),color:[160,40,40]},{label:'Avg Rating',value:avg2+'/5',color:[100,60,0]},
       ];
-      const cw = (W - mg*2 - 10*5) / 6;
+      const cw2 = (W - mg*2 - 10*5) / 6;
       cards2.forEach((c,i) => {
-        const cx = mg + i*(cw+10);
-        doc.setFillColor(...c.color);
-        doc.roundedRect(cx, y, cw, 16, 2, 2, 'F');
+        const cx = mg + i*(cw2+10);
+        doc.setFillColor(...c.color); doc.roundedRect(cx, y, cw2, 16, 2, 2, 'F');
         doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-        doc.text(c.value, cx+cw/2, y+8, {align:'center'});
+        doc.text(c.value, cx+cw2/2, y+8, {align:'center'});
         doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(220,235,255);
-        doc.text(c.label, cx+cw/2, y+13.5, {align:'center'});
+        doc.text(c.label, cx+cw2/2, y+13.5, {align:'center'});
       });
       y += 22;
       const colL=mg,colR=W/2+4,colW=W/2-mg-4;
       const headStyle={fillColor:[0,63,127],textColor:255,fontSize:7.5,fontStyle:'bold',halign:'center'};
       const bodyStyle={fontSize:7,textColor:50};
       const tblOpts={theme:'grid',headStyles:headStyle,bodyStyles:bodyStyle,styles:{cellPadding:2},columnStyles:{1:{halign:'center'},2:{halign:'center'}}};
-      const layananCount2={};
-      data.forEach(d=>{const k=(d.jenis_layanan||'').replace('Pelayanan ','');layananCount2[k]=(layananCount2[k]||0)+1;});
-      doc.autoTable({...tblOpts,startY:y,margin:{left:colL},tableWidth:colW,head:[['Jenis Layanan','Jumlah','%']],
-        body:Object.entries(layananCount2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(1)+'%'):'0%'])});
-      const katCount2={};
-      data.forEach(d=>{if(d.kategori_pengguna){katCount2[d.kategori_pengguna]=(katCount2[d.kategori_pengguna]||0)+1;}});
-      doc.autoTable({...tblOpts,startY:y,margin:{left:colR},tableWidth:colW,head:[['Kategori Pengguna','Jumlah','%']],
-        body:Object.entries(katCount2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(1)+'%'):'0%'])});
+      const lC2={};data.forEach(d=>{const k=(d.jenis_layanan||'').replace('Pelayanan ','');lC2[k]=(lC2[k]||0)+1;});
+      doc.autoTable({...tblOpts,startY:y,margin:{left:colL},tableWidth:colW,head:[['Jenis Layanan','Jumlah','%']],body:Object.entries(lC2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total2?((v/total2*100).toFixed(1)+'%'):'0%'])});
+      const kC2={};data.forEach(d=>{if(d.kategori_pengguna){kC2[d.kategori_pengguna]=(kC2[d.kategori_pengguna]||0)+1;}});
+      doc.autoTable({...tblOpts,startY:y,margin:{left:colR},tableWidth:colW,head:[['Kategori Pengguna','Jumlah','%']],body:Object.entries(kC2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total2?((v/total2*100).toFixed(1)+'%'):'0%'])});
       const y2=doc.lastAutoTable.finalY+6;
-      const pendCount2={};
-      data.forEach(d=>{if(d.tingkat_pendidikan){pendCount2[d.tingkat_pendidikan]=(pendCount2[d.tingkat_pendidikan]||0)+1;}});
-      doc.autoTable({...tblOpts,startY:y2,margin:{left:colL},tableWidth:colW,head:[['Tingkat Pendidikan','Jumlah','%']],
-        body:Object.entries(pendCount2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(1)+'%'):'0%'])});
-      const ratingLabels2={1:'Sangat Tidak Puas',2:'Tidak Puas',3:'Cukup',4:'Puas',5:'Sangat Puas'};
-      const ratingRows=[5,4,3,2,1].map(s=>{const cnt=rated.filter(d=>getRatingValue(d)===s).length;return[s+' / '+ratingLabels2[s],cnt,rated.length?((cnt/rated.length*100).toFixed(1)+'%'):'0%'];});
-      ratingRows.push(['Rata-rata Rating',avgR2+'/5.0','']);
-      doc.autoTable({...tblOpts,startY:y2,margin:{left:colR},tableWidth:colW,head:[['Rating Kepuasan','Jumlah','%']],body:ratingRows});
+      const pC2={};data.forEach(d=>{if(d.tingkat_pendidikan){pC2[d.tingkat_pendidikan]=(pC2[d.tingkat_pendidikan]||0)+1;}});
+      doc.autoTable({...tblOpts,startY:y2,margin:{left:colL},tableWidth:colW,head:[['Tingkat Pendidikan','Jumlah','%']],body:Object.entries(pC2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total2?((v/total2*100).toFixed(1)+'%'):'0%'])});
+      const rL2={1:'Sangat Tidak Puas',2:'Tidak Puas',3:'Cukup',4:'Puas',5:'Sangat Puas'};
+      const rR2=[5,4,3,2,1].map(s=>{const cnt=rat2.filter(d=>getRatingValue(d)===s).length;return[s+' / '+rL2[s],cnt,rat2.length?((cnt/rat2.length*100).toFixed(1)+'%'):'0%'];});
+      rR2.push(['Rata-rata Rating',avg2+'/5.0','']);
+      doc.autoTable({...tblOpts,startY:y2,margin:{left:colR},tableWidth:colW,head:[['Rating Kepuasan','Jumlah','%']],body:rR2});
       doc.addPage('landscape');
       doc.setFillColor(0,63,127);doc.rect(0,0,W,14,'F');
       doc.setFontSize(11);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);
-      doc.text('DATA LENGKAP PENGAJUAN ('+total+' entri)',W/2,9,{align:'center'});
-      const statusColors={
-        'Menunggu Verifikasi':{fill:[255,243,205],text:[133,100,4]},
-        'Sedang Diproses':{fill:[207,244,252],text:[5,81,96]},
-        'Selesai':{fill:[209,231,221],text:[10,54,34]},
-        'Ditolak':{fill:[248,215,218],text:[132,32,41]},
-      };
+      doc.text('DATA LENGKAP PENGAJUAN ('+total2+' entri)',W/2,9,{align:'center'});
+      const sC2={'Menunggu Verifikasi':{fill:[255,243,205],text:[133,100,4]},'Sedang Diproses':{fill:[207,244,252],text:[5,81,96]},'Selesai':{fill:[209,231,221],text:[10,54,34]},'Ditolak':{fill:[248,215,218],text:[132,32,41]}};
       doc.autoTable({
         startY:18,margin:{left:mg,right:mg},
         head:[['No.','Nomor Tiket','Nama','Jenis Layanan','Kabupaten/Kota','Kategori','Status','Rating','Tanggal']],
         body:data.map((d,i)=>[i+1,d.nomor_tiket||'',d.nama||'',(d.jenis_layanan||'').replace('Pelayanan ',''),d.kabupaten_kota||'-',d.kategori_pengguna||'-',d.status||'',d.rating?(d.rating_emoji||'')+' '+d.rating+'/5':'-',new Date(d.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})]),
-        theme:'striped',
-        headStyles:{fillColor:[0,63,127],textColor:255,fontSize:7.5,fontStyle:'bold',halign:'center'},
-        bodyStyles:{fontSize:7,textColor:50},
-        alternateRowStyles:{fillColor:[248,250,253]},
+        theme:'striped',headStyles:{fillColor:[0,63,127],textColor:255,fontSize:7.5,fontStyle:'bold',halign:'center'},
+        bodyStyles:{fontSize:7,textColor:50},alternateRowStyles:{fillColor:[248,250,253]},
         columnStyles:{0:{halign:'center',cellWidth:8},1:{cellWidth:32},3:{cellWidth:38},6:{halign:'center'},7:{halign:'center'},8:{halign:'center',cellWidth:24}},
         styles:{cellPadding:2},
-        didParseCell(hookData){
-          if(hookData.section==='body'&&hookData.column.index===6){
-            const sc=statusColors[hookData.cell.raw];
-            if(sc){hookData.cell.styles.fillColor=sc.fill;hookData.cell.styles.textColor=sc.text;hookData.cell.styles.fontStyle='bold';}
-          }
-        }
+        didParseCell(hookData){if(hookData.section==='body'&&hookData.column.index===6){const sc=sC2[hookData.cell.raw];if(sc){hookData.cell.styles.fillColor=sc.fill;hookData.cell.styles.textColor=sc.text;hookData.cell.styles.fontStyle='bold';}}}
       });
-      const kabCount2={};
-      data.forEach(d=>{if(d.kabupaten_kota){kabCount2[d.kabupaten_kota]=(kabCount2[d.kabupaten_kota]||0)+1;}});
-      const yKab=doc.lastAutoTable.finalY+6;
-      if(yKab<190){
-        doc.autoTable({...tblOpts,startY:yKab,margin:{left:mg},tableWidth:120,head:[['Sebaran Kabupaten/Kota','Jumlah','%']],
-          body:Object.entries(kabCount2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total?((v/total*100).toFixed(1)+'%'):'0%'])});
-      }
-      const totalPages=doc.internal.getNumberOfPages();
-      for(let i=1;i<=totalPages;i++){
-        doc.setPage(i);doc.setFontSize(6.5);doc.setFont('helvetica','normal');doc.setTextColor(180,180,180);
-        doc.text('BPS Kota Palu  ·  SIGITA',mg,207);
-        doc.text('Halaman '+i+' / '+totalPages,W-mg,207,{align:'right'});
-      }
+      const kabC2={};data.forEach(d=>{if(d.kabupaten_kota){kabC2[d.kabupaten_kota]=(kabC2[d.kabupaten_kota]||0)+1;}});
+      const yKab2=doc.lastAutoTable.finalY+6;
+      if(yKab2<190){doc.autoTable({...tblOpts,startY:yKab2,margin:{left:mg},tableWidth:120,head:[['Sebaran Kabupaten/Kota','Jumlah','%']],body:Object.entries(kabC2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total2?((v/total2*100).toFixed(1)+'%'):'0%'])});}
+      const totalP=doc.internal.getNumberOfPages();
+      for(let i=1;i<=totalP;i++){doc.setPage(i);doc.setFontSize(6.5);doc.setFont('helvetica','normal');doc.setTextColor(180,180,180);doc.text('BPS Kota Palu  ·  SIGITA',mg,207);doc.text('Halaman '+i+' / '+totalP,W-mg,207,{align:'right'});}
       const lbl=buildFilterLabel(true);
       doc.save('Laporan_BPS_Palu'+(lbl?'_'+lbl:'')+'_'+formatDateFile()+'.pdf');
       showToast('Export PDF berhasil! ✓',false);
-    } catch(err) {
-      showToast('Gagal export PDF: '+err.message,true);
-    } finally {
-      btn.disabled=false;
-      btn.innerHTML='<i class="bi bi-file-earmark-pdf-fill"></i> PDF';
-    }
+    } catch(err) { showToast('Gagal export PDF: '+err.message,true); }
+    finally { btn.disabled=false; btn.innerHTML='<i class="bi bi-file-earmark-pdf-fill"></i> PDF'; }
   }
 
   const savedToken = sessionStorage.getItem('admin_token');
