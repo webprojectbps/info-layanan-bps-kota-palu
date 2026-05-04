@@ -66,31 +66,6 @@
     .stat-num { font-size:1.7rem; font-weight:800; color:var(--bps-dark); line-height:1; }
     .stat-lbl { font-size:0.74rem; color:#888; margin-top:3px; }
 
-    .dashboard-actions-bar {
-      background: white; border-radius: 14px; padding: 16px 20px; margin-bottom: 24px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid rgba(0,91,170,0.07);
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-    }
-    .dashboard-actions-info { display: flex; align-items: center; gap: 10px; }
-    .dashboard-actions-info i { font-size: 1.2rem; color: var(--bps-blue); }
-    .dashboard-actions-info h6 { margin: 0; font-weight: 700; color: var(--bps-dark); font-size: 0.88rem; }
-    .dashboard-actions-info p { margin: 0; font-size: 0.75rem; color: #999; }
-    .btn-download-dashboard {
-      background: linear-gradient(135deg, var(--bps-blue), var(--bps-dark)); border: none;
-      border-radius: 10px; padding: 10px 20px; font-size: 0.88rem; font-weight: 700; color: white;
-      font-family: inherit; cursor: pointer; transition: all 0.25s; display: flex; align-items: center;
-      gap: 8px; white-space: nowrap; box-shadow: 0 4px 14px rgba(0,91,170,0.3);
-    }
-    .btn-download-dashboard:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,91,170,0.4); }
-    .btn-download-dashboard:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
-    .btn-download-dashboard .spinner {
-      width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
-    }
-    .btn-download-dashboard.loading .spinner { display: inline-block; }
-    .btn-download-dashboard.loading .icon-pdf { display: none; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
     .rating-section { margin-bottom:28px; }
     .rating-overview {
       background: linear-gradient(135deg, var(--bps-dark) 0%, var(--bps-blue) 100%);
@@ -143,8 +118,8 @@
     .btn-export-excel { background:#1d6f42; border:none; border-radius:8px; padding:7px 14px; font-size:0.82rem; font-weight:700; color:white; font-family:inherit; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; white-space:nowrap; }
     .btn-export-excel:hover:not(:disabled) { background:#155232; transform:translateY(-1px); box-shadow:0 4px 12px rgba(29,111,66,0.35); }
     .btn-export-excel:disabled { opacity:0.6; cursor:not-allowed; }
-    .btn-export-pdf { background:#c0392b; border:none; border-radius:8px; padding:7px 14px; font-size:0.82rem; font-weight:700; color:white; font-family:inherit; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; white-space:nowrap; }
-    .btn-export-pdf:hover:not(:disabled) { background:#922b21; transform:translateY(-1px); box-shadow:0 4px 12px rgba(192,57,43,0.35); }
+    .btn-export-pdf { background:linear-gradient(135deg, var(--bps-blue), var(--bps-dark)); border:none; border-radius:8px; padding:7px 14px; font-size:0.82rem; font-weight:700; color:white; font-family:inherit; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:6px; white-space:nowrap; box-shadow: 0 3px 10px rgba(0,91,170,0.3); }
+    .btn-export-pdf:hover:not(:disabled) { transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,91,170,0.4); }
     .btn-export-pdf:disabled { opacity:0.6; cursor:not-allowed; }
     .export-divider { width:1px; height:28px; background:#e0eaf5; flex-shrink:0; }
     .filter-row-wrap { display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
@@ -276,21 +251,6 @@
       </div>
     </div>
 
-    <div class="dashboard-actions-bar">
-      <div class="dashboard-actions-info">
-        <i class="bi bi-file-earmark-bar-graph-fill"></i>
-        <div>
-          <h6>Download Dashboard Statistik</h6>
-          <p>Laporan visual lengkap landscape: ringkasan, grafik demografis, distribusi rating, dan tren layanan</p>
-        </div>
-      </div>
-      <button class="btn-download-dashboard" id="btn-download-dashboard" onclick="downloadDashboardPDF()">
-        <div class="spinner" id="dash-spinner"></div>
-        <i class="bi bi-file-earmark-bar-graph-fill icon-pdf"></i>
-        Download Dashboard PDF
-      </button>
-    </div>
-
     <div class="schema-error" id="schema-error">
       <i class="bi bi-exclamation-triangle-fill" style="font-size:1.4rem;flex-shrink:0;margin-top:2px;"></i>
       <div>
@@ -399,8 +359,8 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
             <button class="btn-export-excel" id="btn-export-excel" onclick="exportExcel()">
               <i class="bi bi-file-earmark-excel-fill"></i> Excel
             </button>
-            <button class="btn-export-pdf" id="btn-export-pdf" onclick="exportPDF()">
-              <i class="bi bi-file-earmark-pdf-fill"></i> PDF
+            <button class="btn-export-pdf" id="btn-export-pdf" onclick="exportAllPDF()">
+              <i class="bi bi-file-earmark-bar-graph-fill"></i> Dashboard PDF
             </button>
           </div>
         </div>
@@ -900,28 +860,33 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
 
   // ============================================================
   // HELPER: render chart ke canvas offscreen → dataURL
+  // Gunakan ukuran fix agar tidak stretch di PDF
   // ============================================================
-  function renderChartToDataURL(type, data, options, width=900, height=420) {
+  function renderChartToDataURL(type, data, options, width, height) {
     return new Promise((resolve) => {
       const canvas = document.createElement('canvas');
+      // Render 2x untuk resolusi retina lalu scale down di PDF
       canvas.width  = width * 2;
       canvas.height = height * 2;
       const ctx = canvas.getContext('2d');
       ctx.scale(2, 2);
+      // Background putih agar tidak transparan
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, width, height);
       const chart = new Chart(canvas, {
-        type, data,
+        type,
+        data,
         options: {
           ...options,
           animation: false,
           responsive: false,
           devicePixelRatio: 1,
-          layout: { padding: 10 }
         }
       });
       setTimeout(() => {
         resolve(canvas.toDataURL('image/png', 1.0));
         chart.destroy();
-      }, 150);
+      }, 200);
     });
   }
 
@@ -937,112 +902,91 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
   function hideProgressModal() { document.getElementById('progress-overlay').classList.remove('show'); }
 
   // ============================================================
-  // PDF HELPERS — LANDSCAPE (A4: 297 x 210 mm)
+  // PDF: Halaman 1 — RINGKASAN STATUS (Portrait A4: 210×297 mm)
   // ============================================================
-  // PW = 297, PH = 210, MG = 14
-  function pdfHeader(doc, title, subtitle, PW, MG, accentColor) {
+  // Semua halaman: A4 Portrait. PW=210, PH=297, MG=14
+
+  function pdfHeaderPortrait(doc, subtitle, PW, MG) {
+    // Gradient header block
     doc.setFillColor(0, 31, 63);
-    doc.rect(0, 0, PW, 44, 'F');
-    doc.setFillColor(...accentColor);
-    doc.rect(0, 44, PW, 3, 'F');
-    doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(150, 200, 255);
-    doc.text('BADAN PUSAT STATISTIK — KOTA PALU', PW/2, 11, {align:'center'});
-    doc.setFontSize(14); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-    doc.text(title, PW/2, 23, {align:'center'});
-    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(150, 200, 255);
-    doc.text(subtitle, PW/2, 32, {align:'center'});
+    doc.rect(0, 0, PW, 38, 'F');
+    doc.setFillColor(0, 91, 170);
+    doc.rect(0, 26, PW, 12, 'F');
+    doc.setFillColor(244, 167, 0);
+    doc.rect(0, 38, PW, 2.5, 'F');
+    // Instansi
+    doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(160, 210, 255);
+    doc.text('BADAN PUSAT STATISTIK — KOTA PALU', PW/2, 9, {align:'center'});
+    // Judul besar
+    doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(255, 255, 255);
+    doc.text('DASHBOARD STATISTIK LAYANAN', PW/2, 20, {align:'center'});
+    // Subtitle
+    doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(180, 220, 255);
+    doc.text(subtitle, PW/2, 29, {align:'center'});
+    // Tanggal
     const genDate = new Date().toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
-    doc.setFontSize(7); doc.setTextColor(100, 160, 220);
-    doc.text('Digenerate: ' + genDate, PW/2, 40, {align:'center'});
+    doc.setFontSize(6.5); doc.setTextColor(120, 170, 220);
+    doc.text('Digenerate: ' + genDate, PW/2, 36, {align:'center'});
   }
 
-  function pdfFooter(doc, pageNum, totalPages, PW, MG) {
-    // PH = 210 mm for landscape A4; footer at bottom
-    const y = 200;
+  function pdfFooterPortrait(doc, pageNum, totalPages, PW, MG) {
+    const y = 287;
     doc.setFillColor(245, 248, 252);
-    doc.rect(0, y - 4, PW, 14, 'F');
+    doc.rect(0, y - 2, PW, 12, 'F');
     doc.setFillColor(0, 91, 170);
-    doc.rect(0, y - 4, 3, 14, 'F');
-    doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(120, 140, 170);
-    doc.text('BPS Kota Palu  •  Sistem Informasi Pengajuan Layanan (SIGITA)  •  Laporan Dashboard Statistik', MG + 4, y + 3);
-    doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(0, 91, 170);
-    doc.text(`Hal. ${pageNum} / ${totalPages}`, PW - MG, y + 3, {align:'right'});
+    doc.rect(0, y - 2, 3, 12, 'F');
+    doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(120, 140, 170);
+    doc.text('BPS Kota Palu  •  SIGITA  •  Laporan Dashboard Statistik', MG + 4, y + 5);
+    doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(0, 91, 170);
+    doc.text(`Hal. ${pageNum} / ${totalPages}`, PW - MG, y + 5, {align:'right'});
   }
 
-  function drawSectionTitle(doc, text, y, PW, MG) {
+  function drawSectionTitleP(doc, text, y, PW, MG) {
     doc.setFillColor(232, 241, 251);
-    doc.roundedRect(MG, y - 5, PW - MG * 2, 11, 2, 2, 'F');
+    doc.roundedRect(MG, y, PW - MG * 2, 9, 2, 2, 'F');
     doc.setFillColor(0, 91, 170);
-    doc.rect(MG, y - 5, 3, 11, 'F');
-    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(0, 45, 90);
-    doc.text(text, MG + 8, y + 2);
-    return y + 12;
-  }
-
-  function drawStatCard(doc, x, y, w, h, label, value, bgRgb, fgRgb, accent) {
-    doc.setFillColor(200, 215, 235);
-    doc.roundedRect(x + 1.5, y + 1.5, w, h, 4, 4, 'F');
-    doc.setFillColor(...bgRgb);
-    doc.roundedRect(x, y, w, h, 4, 4, 'F');
-    doc.setFillColor(...accent);
-    doc.roundedRect(x, y, w, 3, 2, 2, 'F');
-    doc.rect(x, y + 1, w, 2, 'F');
-    doc.setFontSize(20); doc.setFont('helvetica','bold'); doc.setTextColor(...fgRgb);
-    doc.text(value, x + w / 2, y + h * 0.58, {align:'center', baseline:'middle'});
-    doc.setFontSize(6.5); doc.setFont('helvetica','normal');
-    doc.setTextColor(Math.min(fgRgb[0]+60,255), Math.min(fgRgb[1]+60,255), Math.min(fgRgb[2]+60,255));
-    doc.text(label, x + w / 2, y + h - 4, {align:'center'});
-  }
-
-  function drawChartFrame(doc, x, y, w, h, title) {
-    doc.setFillColor(220, 228, 240);
-    doc.roundedRect(x + 1, y + 1, w, h, 4, 4, 'F');
-    doc.setFillColor(255, 255, 255);
-    doc.roundedRect(x, y, w, h, 4, 4, 'F');
-    doc.setFillColor(248, 250, 253);
-    doc.roundedRect(x, y, w, 13, 4, 4, 'F');
-    doc.rect(x, y + 7, w, 6, 'F');
-    doc.setDrawColor(235, 240, 248); doc.setLineWidth(0.3);
-    doc.line(x, y + 13, x + w, y + 13);
+    doc.rect(MG, y, 3, 9, 'F');
     doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(0, 45, 90);
-    doc.text(title, x + 8, y + 9);
-    return y + 15;
+    doc.text(text, MG + 7, y + 6);
+    return y + 13;
   }
 
-  function drawProgressBar(doc, x, y, totalW, label, value, maxValue, color) {
-    doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(80, 100, 130);
-    doc.text(label, x, y + 3);
-    const labelW = 52;
-    const barW   = totalW - labelW - 22;
-    const barX   = x + labelW;
-    doc.setFillColor(235, 240, 250);
-    doc.roundedRect(barX, y, barW, 5, 2, 2, 'F');
-    const fillW = maxValue > 0 ? Math.max((value / maxValue) * barW, 2) : 0;
-    doc.setFillColor(...color);
-    doc.roundedRect(barX, y, fillW, 5, 2, 2, 'F');
-    doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(0, 45, 90);
-    doc.text(String(value), x + totalW - 8, y + 4, {align:'right'});
+  // Stat card portait (lebih compact)
+  function drawStatCardP(doc, x, y, w, h, label, value, bgTop, bgBot, textColor) {
+    // Shadow
+    doc.setFillColor(190, 210, 235);
+    doc.roundedRect(x + 1, y + 1.5, w, h, 3, 3, 'F');
+    // Body gradient sim: atas lebih gelap
+    doc.setFillColor(...bgBot);
+    doc.roundedRect(x, y, w, h, 3, 3, 'F');
+    doc.setFillColor(...bgTop);
+    doc.roundedRect(x, y, w, h * 0.45, 3, 3, 'F');
+    doc.rect(x, y + h*0.3, w, h*0.15, 'F');
+    // Value
+    doc.setFontSize(18); doc.setFont('helvetica','bold'); doc.setTextColor(...textColor);
+    doc.text(value, x + w/2, y + h * 0.55, {align:'center', baseline:'middle'});
+    // Label
+    doc.setFontSize(6); doc.setFont('helvetica','normal');
+    doc.setTextColor(textColor[0]+50 > 255 ? 255 : textColor[0]+50, textColor[1]+50>255?255:textColor[1]+50, textColor[2]+50>255?255:textColor[2]+50);
+    doc.text(label, x + w/2, y + h - 3.5, {align:'center'});
   }
 
   // ============================================================
-  // DOWNLOAD DASHBOARD PDF — LANDSCAPE A4
+  // DOWNLOAD DASHBOARD PDF — 3 halaman Portrait A4
+  // Halaman 1: Ringkasan + Status
+  // Halaman 2: Demografis (4 grafik)
+  // Halaman 3: Kepuasan & Rating
   // ============================================================
   async function downloadDashboardPDF() {
-    const btn = document.getElementById('btn-download-dashboard');
-    if (btn.disabled) return;
-    if (!_lastAllData || _lastAllData.length === 0) {
+    const data = _lastAllData;
+    if (!data || data.length === 0) {
       showToast('Belum ada data. Silakan tunggu data dimuat.', true); return;
     }
-    btn.disabled = true; btn.classList.add('loading');
-    showProgressModal();
 
     try {
-      // ── STEP 1: Load libraries ─────────────────────────────
-      setProgress(8, 'Memuat library PDF...', 'Langkah 1 dari 5');
       await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
       await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
 
-      const data     = _lastAllData;
       const total    = data.length;
       const rated    = data.filter(d => getRatingValue(d) !== null);
       const avgR     = rated.length ? (rated.reduce((s,d) => s + getRatingValue(d), 0) / rated.length).toFixed(1) : null;
@@ -1060,48 +1004,68 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       const pendCount = {};
       data.forEach(d => { if(d.tingkat_pendidikan) pendCount[d.tingkat_pendidikan]=(pendCount[d.tingkat_pendidikan]||0)+1; });
 
-      // ── STEP 2: Render charts ──────────────────────────────
-      setProgress(22, 'Merender grafik resolusi tinggi...', 'Langkah 2 dari 5');
+      // ─── Ukuran canvas chart untuk portrait A4 ───────────
+      // PDF: kolom chart ~85mm, 2 kolom dengan gap
+      // Canvas pixel = 85mm * (96px/25.4mm) ≈ 321px → pakai 340x280
+      const CHART_W = 340; // px (lebar satu kolom chart di canvas)
+      const CHART_H = 260; // px
+
+      setProgress(20, 'Merender grafik...', 'Langkah 2 dari 5');
       await new Promise(r => setTimeout(r, 50));
 
       const bpsBlues  = ['#005baa','#1a7fd4','#4da3e8','#003f7f','#7ec0f5','#c8dff5','#002d5a'];
       const accents   = ['#f4a700','#005baa','#e05c2a','#2e7d32','#7b1fa2','#0097a7','#c62828'];
       const starColors = ['#ef5350','#ff7043','#ffca28','#66bb6a','#26a69a'];
 
-      const commonOpts = {
+      const baseOpts = {
         plugins: { legend: { display: false } },
-        layout: { padding: { top:12, bottom:12, left:12, right:12 } }
+        layout: { padding: { top:16, bottom:16, left:14, right:14 } },
+        scales: {
+          y: { beginAtZero:true, grid:{ color:'#eef2f8' }, ticks:{ font:{size:12}, color:'#556' } },
+          x: { grid:{ display:false }, ticks:{ font:{size:11}, color:'#556' } }
+        }
+      };
+      const baseOptsHoriz = {
+        plugins: { legend: { display: false } },
+        layout: { padding: { top:14, bottom:14, left:12, right:20 } },
+        scales: {
+          x: { beginAtZero:true, grid:{ color:'#eef2f8' }, ticks:{ font:{size:11}, color:'#556' } },
+          y: { grid:{ display:false }, ticks:{ font:{size:11}, color:'#556' } }
+        }
+      };
+      const doughnutOpts = {
+        plugins: { legend: { position:'right', labels:{ font:{size:13}, boxWidth:16, padding:10, color:'#333' } } },
+        layout: { padding:16 }
       };
 
-      // Charts rendered at LANDSCAPE-friendly resolution: wider canvas
       const imgLayanan = await renderChartToDataURL('bar', {
         labels: Object.keys(layananCount),
-        datasets: [{ data: Object.values(layananCount), backgroundColor: bpsBlues, borderRadius: 10, borderSkipped: false }]
-      }, { ...commonOpts, scales:{ y:{beginAtZero:true,grid:{color:'#eff3fa'},ticks:{font:{size:14},color:'#555'}}, x:{grid:{display:false},ticks:{font:{size:12},color:'#555'}} } }, 900, 420);
+        datasets: [{ data: Object.values(layananCount), backgroundColor: bpsBlues, borderRadius: 8, borderSkipped: false }]
+      }, baseOpts, CHART_W, CHART_H);
 
       const imgKategori = await renderChartToDataURL('doughnut', {
         labels: Object.keys(katCount),
-        datasets: [{ data: Object.values(katCount), backgroundColor: accents, borderWidth: 3, hoverOffset: 8 }]
-      }, { plugins:{ legend:{ position:'right', labels:{font:{size:14},boxWidth:16,padding:12} } }, layout:{padding:12} }, 900, 420);
+        datasets: [{ data: Object.values(katCount), backgroundColor: accents, borderWidth: 2, hoverOffset: 6 }]
+      }, doughnutOpts, CHART_W, CHART_H);
 
       const kabSorted = Object.entries(kabCount).sort((a,b)=>b[1]-a[1]);
       const imgKabkota = await renderChartToDataURL('bar', {
         labels: kabSorted.map(k=>k[0]),
-        datasets: [{ data: kabSorted.map(k=>k[1]), backgroundColor: '#1a7fd4', borderRadius: 8, borderSkipped: false }]
-      }, { ...commonOpts, indexAxis:'y', scales:{ x:{beginAtZero:true,grid:{color:'#eff3fa'},ticks:{font:{size:14},color:'#555'}}, y:{grid:{display:false},ticks:{font:{size:12},color:'#555'}} } }, 900, 420);
+        datasets: [{ data: kabSorted.map(k=>k[1]), backgroundColor: '#1a7fd4', borderRadius: 7, borderSkipped: false }]
+      }, baseOptsHoriz, CHART_W, CHART_H);
 
       const imgPendidikan = await renderChartToDataURL('doughnut', {
         labels: Object.keys(pendCount),
-        datasets: [{ data: Object.values(pendCount), backgroundColor: bpsBlues, borderWidth: 3, hoverOffset: 8 }]
-      }, { plugins:{ legend:{ position:'right', labels:{font:{size:14},boxWidth:16,padding:12} } }, layout:{padding:12} }, 900, 420);
+        datasets: [{ data: Object.values(pendCount), backgroundColor: bpsBlues, borderWidth: 2, hoverOffset: 6 }]
+      }, doughnutOpts, CHART_W, CHART_H);
 
       let imgRatingDist = null, imgRatingLayanan = null;
       if (rated.length > 0) {
         const distCount = [1,2,3,4,5].map(s => rated.filter(d => getRatingValue(d) === s).length);
         imgRatingDist = await renderChartToDataURL('bar', {
           labels: ['1★', '2★', '3★', '4★', '5★'],
-          datasets: [{ data: distCount, backgroundColor: starColors, borderRadius: 10, borderSkipped: false }]
-        }, { ...commonOpts, scales:{ y:{beginAtZero:true,grid:{color:'#eff3fa'},ticks:{font:{size:14}}}, x:{grid:{display:false},ticks:{font:{size:15}}} } }, 900, 420);
+          datasets: [{ data: distCount, backgroundColor: starColors, borderRadius: 9, borderSkipped: false }]
+        }, baseOpts, CHART_W, CHART_H);
 
         const lNames = [...new Set(data.map(d => d.jenis_layanan.replace('Pelayanan ', '')))];
         const lAvg   = lNames.map(l => {
@@ -1111,89 +1075,91 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         const lColors = lAvg.map(v => v>=4.5?'#26a69a':v>=3.5?'#66bb6a':v>=2.5?'#ffca28':v>=1.5?'#ff7043':'#ef5350');
         imgRatingLayanan = await renderChartToDataURL('bar', {
           labels: lNames,
-          datasets: [{ data: lAvg, backgroundColor: lColors, borderRadius: 10, borderSkipped: false }]
-        }, { ...commonOpts, indexAxis:'y', scales:{ x:{beginAtZero:true,max:5,grid:{color:'#eff3fa'},ticks:{font:{size:14}}}, y:{grid:{display:false},ticks:{font:{size:12}}} } }, 900, 420);
+          datasets: [{ data: lAvg, backgroundColor: lColors, borderRadius: 9, borderSkipped: false }]
+        }, { ...baseOptsHoriz, scales: { ...baseOptsHoriz.scales, x: { ...baseOptsHoriz.scales.x, max: 5, ticks: { ...baseOptsHoriz.scales.x.ticks, stepSize: 1 } } } }, CHART_W, CHART_H);
       }
 
-      // ── STEP 3: Buat dokumen PDF LANDSCAPE ────────────────
-      setProgress(50, 'Menyusun halaman PDF landscape...', 'Langkah 3 dari 5');
+      setProgress(52, 'Menyusun halaman PDF...', 'Langkah 3 dari 5');
       await new Promise(r => setTimeout(r, 50));
 
       const { jsPDF } = window.jspdf;
-      // *** LANDSCAPE A4: 297 x 210 mm ***
-      const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-      const PW = 297, PH = 210, MG = 14;
-      const BLUE      = [0, 91, 170];
+      // *** PORTRAIT A4: 210 × 297 mm ***
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const PW = 210, PH = 297, MG = 14;
       const DARK_BLUE = [0, 31, 63];
-      const ACCENT    = [244, 167, 0];
+      const BLUE = [0, 91, 170];
+      const ACCENT = [244, 167, 0];
 
       // ══════════════════════════════════════════════════════
-      // HALAMAN 1 (LANDSCAPE): RINGKASAN STATUS
-      // Layout: header 47mm | stat cards | status table + progress bars | footer
+      // HALAMAN 1: RINGKASAN & STATUS
       // ══════════════════════════════════════════════════════
-      pdfHeader(doc, 'DASHBOARD STATISTIK LAYANAN', 'Sistem Informasi Pengajuan Layanan (SIGITA) — BPS Kota Palu', PW, MG, ACCENT);
-      let y = 54;
+      pdfHeaderPortrait(doc, 'Sistem Informasi Pengajuan Layanan (SIGITA)', PW, MG);
+      let y = 46;
 
-      // ── 6 stat cards dalam 1 baris (landscape lebar!) ────
-      y = drawSectionTitle(doc, 'RINGKASAN PENGAJUAN', y, PW, MG);
-      y += 3;
+      // ─── 3 stat cards row 1: Total, Menunggu, Diproses ──
+      y = drawSectionTitleP(doc, 'RINGKASAN PENGAJUAN', y, PW, MG);
+      const cardW = (PW - MG * 2 - 8 * 2) / 3;
+      const cardH = 28;
+      const cardGap = 8;
 
-      const cardW  = (PW - MG * 2 - 10 * 5) / 6;  // 6 cards, 5 gaps of 10mm
-      const cardH  = 30;
-      const cardGap = 10;
-
-      const cards = [
-        { label:'Total Pengajuan',     value: String(total),              bg:[0,43,100],  fg:[255,255,255], acc:[0,140,255] },
-        { label:'Menunggu Verifikasi', value: String(menunggu),           bg:[100,65,0],  fg:[255,255,255], acc:[244,167,0] },
-        { label:'Sedang Diproses',     value: String(diproses),           bg:[0,80,100],  fg:[255,255,255], acc:[0,200,220] },
-        { label:'Selesai',             value: String(selesai),            bg:[20,80,30],  fg:[255,255,255], acc:[76,175,80] },
-        { label:'Ditolak',             value: String(ditolak),            bg:[110,20,20], fg:[255,255,255], acc:[244,67,54] },
-        { label:'Rata-rata Rating',    value: avgR ? avgR+'/5' : '-',     bg:[70,40,0],   fg:[255,255,255], acc:[255,200,0] },
+      const cards3 = [
+        { label:'Total Pengajuan',     value: String(total),    bgTop:[0,55,120],    bgBot:[0,40,90],    text:[255,255,255] },
+        { label:'Menunggu Verifikasi', value: String(menunggu), bgTop:[130,80,0],    bgBot:[100,60,0],   text:[255,255,255] },
+        { label:'Sedang Diproses',     value: String(diproses), bgTop:[0,110,130],   bgBot:[0,85,100],   text:[255,255,255] },
       ];
+      cards3.forEach((c, i) => {
+        drawStatCardP(doc, MG + i*(cardW+cardGap), y, cardW, cardH, c.label, c.value, c.bgTop, c.bgBot, c.text);
+      });
+      y += cardH + 6;
 
-      cards.forEach((c, i) => {
-        const cx = MG + i * (cardW + cardGap);
-        drawStatCard(doc, cx, y, cardW, cardH, c.label, c.value, c.bg, c.fg, c.acc);
+      // 3 stat cards row 2: Selesai, Ditolak, Rating
+      const cards3b = [
+        { label:'Selesai',          value: String(selesai), bgTop:[25,100,40],   bgBot:[18,75,30],   text:[255,255,255] },
+        { label:'Ditolak',          value: String(ditolak), bgTop:[160,35,35],   bgBot:[120,25,25],  text:[255,255,255] },
+        { label:'Rata-rata Rating', value: avgR ? avgR+'/5' : 'N/A', bgTop:[90,55,0], bgBot:[70,40,0], text:[255,255,255] },
+      ];
+      cards3b.forEach((c, i) => {
+        drawStatCardP(doc, MG + i*(cardW+cardGap), y, cardW, cardH, c.label, c.value, c.bgTop, c.bgBot, c.text);
       });
       y += cardH + 8;
 
-      // ── 2-column layout: tabel status kiri | progress bar kanan ──
-      const colW2 = (PW - MG * 2 - 12) / 2;
-      const colL  = MG;
-      const colR  = MG + colW2 + 12;
+      // ─── Tabel Status Pengajuan ───────────────────────────
+      y = drawSectionTitleP(doc, 'DISTRIBUSI STATUS PENGAJUAN', y, PW, MG);
 
-      // Section title spans full width
-      const ySecStart = y;
-      y = drawSectionTitle(doc, 'REKAP STATUS PENGAJUAN', y, PW, MG);
-      y += 2;
+      const statusColors = {
+        'Menunggu Verifikasi': { fill:[255,243,205], text:[133,100,4] },
+        'Sedang Diproses':     { fill:[207,244,252], text:[5,81,96] },
+        'Selesai':             { fill:[209,231,221], text:[10,54,34] },
+        'Ditolak':             { fill:[248,215,218], text:[132,32,41] },
+      };
 
       const statusRows = [
-        ['Menunggu Verifikasi', menunggu, total ? ((menunggu/total*100).toFixed(1)+'%') : '-'],
-        ['Sedang Diproses',     diproses, total ? ((diproses/total*100).toFixed(1)+'%') : '-'],
-        ['Selesai',             selesai,  total ? ((selesai/total*100).toFixed(1)+'%')  : '-'],
-        ['Ditolak',             ditolak,  total ? ((ditolak/total*100).toFixed(1)+'%')  : '-'],
+        ['Menunggu Verifikasi', menunggu, total ? (menunggu/total*100).toFixed(1)+'%' : '-'],
+        ['Sedang Diproses',     diproses, total ? (diproses/total*100).toFixed(1)+'%' : '-'],
+        ['Selesai',             selesai,  total ? (selesai/total*100).toFixed(1)+'%'  : '-'],
+        ['Ditolak',             ditolak,  total ? (ditolak/total*100).toFixed(1)+'%'  : '-'],
         ['TOTAL',               total,    '100%'],
       ];
 
-      const sC = {'Menunggu Verifikasi':{fill:[255,243,205],text:[133,100,4]},'Sedang Diproses':{fill:[207,244,252],text:[5,81,96]},'Selesai':{fill:[209,231,221],text:[10,54,34]},'Ditolak':{fill:[248,215,218],text:[132,32,41]}};
-
       doc.autoTable({
-        startY: y, margin:{left:colL, right: PW - colL - colW2},
-        head:[['Status Pengajuan', 'Jumlah', 'Persentase']],
+        startY: y,
+        margin: { left: MG, right: MG },
+        head: [['Status Pengajuan', 'Jumlah', 'Persentase']],
         body: statusRows,
-        theme:'grid',
-        headStyles:{ fillColor:DARK_BLUE, textColor:255, fontSize:8, fontStyle:'bold', halign:'center', cellPadding:4 },
-        bodyStyles:{ fontSize:8, textColor:50, cellPadding:4 },
-        columnStyles:{ 0:{cellWidth:80}, 1:{halign:'center',cellWidth:28}, 2:{halign:'center'} },
+        theme: 'grid',
+        headStyles: { fillColor: DARK_BLUE, textColor: 255, fontSize: 8.5, fontStyle: 'bold', halign: 'center', cellPadding: 5 },
+        bodyStyles: { fontSize: 8.5, textColor: 50, cellPadding: 4.5 },
+        columnStyles: { 0:{cellWidth: 110}, 1:{halign:'center', cellWidth: 26}, 2:{halign:'center'} },
+        alternateRowStyles: { fillColor: [250, 252, 255] },
         didParseCell(hook) {
-          if (hook.section==='body') {
-            const sc = sC[hook.cell.raw];
-            if (hook.column.index===0 && sc) {
+          if (hook.section === 'body') {
+            const sc = statusColors[hook.cell.raw];
+            if (hook.column.index === 0 && sc) {
               hook.cell.styles.fillColor = sc.fill;
               hook.cell.styles.textColor = sc.text;
               hook.cell.styles.fontStyle = 'bold';
             }
-            if (hook.row.index===4) {
+            if (hook.row.index === 4) {
               hook.cell.styles.fillColor = [232,241,251];
               hook.cell.styles.fontStyle = 'bold';
               hook.cell.styles.textColor = DARK_BLUE;
@@ -1201,190 +1167,224 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
           }
         }
       });
+      y = doc.lastAutoTable.finalY + 8;
 
-      // Distribusi visual bars on RIGHT column
+      // ─── Visual bar distribusi ────────────────────────────
+      y = drawSectionTitleP(doc, 'VISUALISASI DISTRIBUSI STATUS', y, PW, MG);
       const barColors = {
-        'Menunggu Verifikasi': [244, 167, 0],
-        'Sedang Diproses':     [0, 151, 167],
-        'Selesai':             [56, 142, 60],
-        'Ditolak':             [192, 57, 43],
+        'Menunggu Verifikasi': [244,167,0],
+        'Sedang Diproses':     [0,151,167],
+        'Selesai':             [56,142,60],
+        'Ditolak':             [192,57,43],
       };
-
-      let yBar = y + 4;
-      doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(0, 45, 90);
-      doc.setFillColor(232, 241, 251);
-      doc.roundedRect(colR, yBar - 5, colW2, 11, 2, 2, 'F');
-      doc.setFillColor(0, 91, 170);
-      doc.rect(colR, yBar - 5, 3, 11, 'F');
-      doc.text('DISTRIBUSI STATUS (VISUAL)', colR + 8, yBar + 2);
-      yBar += 9;
-
       const barData = [
-        { label:'Menunggu Verifikasi', val: menunggu },
-        { label:'Sedang Diproses',     val: diproses },
-        { label:'Selesai',             val: selesai  },
-        { label:'Ditolak',             val: ditolak  },
+        {label:'Menunggu Verifikasi', val:menunggu},
+        {label:'Sedang Diproses',     val:diproses},
+        {label:'Selesai',             val:selesai},
+        {label:'Ditolak',             val:ditolak},
       ];
-      const barTotalW = colW2;
       barData.forEach(b => {
-        drawProgressBar(doc, colR, yBar, barTotalW, b.label, b.val, total, barColors[b.label] || BLUE);
-        yBar += 11;
+        const barW = PW - MG * 2;
+        const labelW = 52;
+        const trackW = barW - labelW - 24;
+        doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(70,90,120);
+        doc.text(b.label, MG, y + 4.5);
+        doc.setFillColor(235,240,250);
+        doc.roundedRect(MG + labelW, y, trackW, 7, 2, 2, 'F');
+        const fillW = total > 0 ? Math.max((b.val / total) * trackW, b.val > 0 ? 3 : 0) : 0;
+        doc.setFillColor(...(barColors[b.label] || BLUE));
+        if (fillW > 0) doc.roundedRect(MG + labelW, y, fillW, 7, 2, 2, 'F');
+        doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(0,45,90);
+        doc.text(String(b.val), MG + barW - 2, y + 5.5, {align:'right'});
+        y += 11;
       });
+      y += 4;
 
-      // Info card bawah kanan: highlight statistik kunci
-      yBar += 4;
+      // ─── Highlight rating kalau ada ──────────────────────
       if (avgR) {
         doc.setFillColor(255, 248, 220);
-        doc.roundedRect(colR, yBar, colW2, 18, 3, 3, 'F');
-        doc.setFillColor(244, 167, 0);
-        doc.roundedRect(colR, yBar, colW2, 3, 2, 2, 'F');
-        doc.rect(colR, yBar+1, colW2, 2, 'F');
-        doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(100,70,0);
-        doc.text('Rata-rata Kepuasan Pengguna', colR + colW2/2, yBar + 8, {align:'center'});
-        doc.setFontSize(14); doc.setFont('helvetica','bold'); doc.setTextColor(100,60,0);
-        doc.text(avgR + ' / 5.0  ★', colR + colW2/2, yBar + 15, {align:'center'});
+        doc.roundedRect(MG, y, PW - MG*2, 22, 4, 4, 'F');
+        doc.setFillColor(...ACCENT);
+        doc.roundedRect(MG, y, PW - MG*2, 3, 3, 3, 'F');
+        doc.rect(MG, y + 1.5, PW - MG*2, 1.5, 'F');
+        const puas   = rated.filter(d => getRatingValue(d) >= 4).length;
+        const puasPct = rated.length ? ((puas/rated.length)*100).toFixed(0) : 0;
+        doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(120,80,0);
+        doc.text('Kepuasan Pengguna', MG + (PW-MG*2)/2, y + 9, {align:'center'});
+        doc.setFontSize(16); doc.setFont('helvetica','bold'); doc.setTextColor(100,60,0);
+        doc.text(avgR + ' / 5.0', MG + (PW-MG*2)/2, y + 17, {align:'center'});
+        doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(160,110,20);
+        doc.text(rated.length + ' penilaian  |  ' + puasPct + '% puas', MG + (PW-MG*2)/2, y + 21, {align:'center'});
       }
 
-      pdfFooter(doc, 1, 3, PW, MG);
+      pdfFooterPortrait(doc, 1, 3, PW, MG);
 
       // ══════════════════════════════════════════════════════
-      // HALAMAN 2 (LANDSCAPE): GRAFIK DEMOGRAFIS — 2×2 GRID
+      // HALAMAN 2: DEMOGRAFIS — 2×2 GRID GRAFIK
       // ══════════════════════════════════════════════════════
-      setProgress(68, 'Menyusun grafik demografis...', 'Langkah 4 dari 5');
-      doc.addPage('landscape');
+      setProgress(72, 'Menyusun grafik demografis...', 'Langkah 4 dari 5');
+      doc.addPage();
 
-      // Sub-banner
+      // Sub-header
       doc.setFillColor(...DARK_BLUE);
-      doc.rect(0, 0, PW, 16, 'F');
+      doc.rect(0, 0, PW, 14, 'F');
       doc.setFillColor(...ACCENT);
-      doc.rect(0, 16, PW, 2.5, 'F');
-      doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-      doc.text('ANALISIS DEMOGRAFIS PENGAJUAN', PW/2, 11, {align:'center'});
-      y = 24;
+      doc.rect(0, 14, PW, 2, 'F');
+      doc.setFontSize(9.5); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+      doc.text('ANALISIS DEMOGRAFIS PENGAJUAN', PW/2, 10, {align:'center'});
+      y = 21;
 
-      // 2×2 chart grid — landscape gives MORE width per chart
-      const imgW2 = (PW - MG * 2 - 10) / 2;   // ~131 mm each
-      const imgH2 = 77;                           // taller charts
+      // 2×2 grid — setiap chart: lebar (PW-MG*2-8)/2 mm, tinggi proporsional
+      // PW=210, MG=14, gap=8 → colW = (210-28-8)/2 = 87mm
+      const colW = (PW - MG * 2 - 8) / 2;
+      // Tinggi chart di PDF: pixel CHART_W×CHART_H → aspect ratio = CHART_H/CHART_W
+      // colW mm → tinggi = colW * (CHART_H/CHART_W)
+      const aspect = CHART_H / CHART_W;
+      const imgH   = Math.round(colW * aspect); // ≈ 66 mm
 
-      // Row 1: Layanan | Kategori
-      let cY1 = drawChartFrame(doc, MG,           y, imgW2, imgH2 + 15, 'Pengajuan per Jenis Layanan');
-      doc.addImage(imgLayanan,  'PNG', MG + 1,            cY1, imgW2 - 2, imgH2);
-      let cY2 = drawChartFrame(doc, MG+imgW2+10,  y, imgW2, imgH2 + 15, 'Sebaran Kategori Pengguna');
-      doc.addImage(imgKategori, 'PNG', MG+imgW2+11,       cY2, imgW2 - 2, imgH2);
-      y += imgH2 + 20;
+      // Frame chart: header 10mm + gambar imgH + padding bawah 3mm
+      const frameH = imgH + 16;
 
-      // Row 2: Kabkota | Pendidikan
-      cY1 = drawChartFrame(doc, MG,          y, imgW2, imgH2 + 15, 'Sebaran Kabupaten/Kota Asal Pemohon');
-      doc.addImage(imgKabkota,   'PNG', MG + 1,           cY1, imgW2 - 2, imgH2);
-      cY2 = drawChartFrame(doc, MG+imgW2+10, y, imgW2, imgH2 + 15, 'Distribusi Tingkat Pendidikan');
-      doc.addImage(imgPendidikan,'PNG', MG+imgW2+11,      cY2, imgW2 - 2, imgH2);
+      function drawChartBox(doc, x, cy, w, h, title, imgData, aspect) {
+        // Shadow
+        doc.setFillColor(215, 225, 240);
+        doc.roundedRect(x+1, cy+1, w, h, 3, 3, 'F');
+        // Background
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(x, cy, w, h, 3, 3, 'F');
+        // Header bar
+        doc.setFillColor(248, 250, 254);
+        doc.roundedRect(x, cy, w, 11, 3, 3, 'F');
+        doc.rect(x, cy+5, w, 6, 'F');
+        doc.setFillColor(0, 91, 170);
+        doc.roundedRect(x, cy, 3, 11, 2, 2, 'F');
+        doc.rect(x, cy+3, 3, 8, 'F');
+        // Border bottom of header
+        doc.setFillColor(235, 241, 252);
+        doc.rect(x, cy+11, w, 0.5, 'F');
+        doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(0,45,90);
+        doc.text(title, x+7, cy+8);
+        // Gambar chart — sisakan padding 3mm kiri/kanan/bawah
+        const imgX = x + 2;
+        const imgW = w - 4;
+        const imgH2 = imgW * (CHART_H / CHART_W);
+        if (imgData) doc.addImage(imgData, 'PNG', imgX, cy + 13, imgW, imgH2);
+      }
 
-      pdfFooter(doc, 2, 3, PW, MG);
+      const imgHActual = colW * aspect;  // tinggi image sebenarnya di PDF
+      const frameHActual = imgHActual + 16;
+
+      // Row 1
+      drawChartBox(doc, MG,          y, colW, frameHActual, 'Pengajuan per Jenis Layanan',  imgLayanan,   aspect);
+      drawChartBox(doc, MG+colW+8,   y, colW, frameHActual, 'Sebaran Kategori Pengguna',    imgKategori,  aspect);
+      y += frameHActual + 8;
+
+      // Row 2
+      drawChartBox(doc, MG,          y, colW, frameHActual, 'Sebaran Kabupaten/Kota',       imgKabkota,   aspect);
+      drawChartBox(doc, MG+colW+8,   y, colW, frameHActual, 'Distribusi Tingkat Pendidikan',imgPendidikan,aspect);
+
+      pdfFooterPortrait(doc, 2, 3, PW, MG);
 
       // ══════════════════════════════════════════════════════
-      // HALAMAN 3 (LANDSCAPE): KEPUASAN & RATING
+      // HALAMAN 3: KEPUASAN & RATING
       // ══════════════════════════════════════════════════════
-      setProgress(84, 'Menyusun halaman kepuasan...', 'Langkah 5 dari 5');
-      doc.addPage('landscape');
+      setProgress(88, 'Menyusun halaman kepuasan...', 'Langkah 5 dari 5');
+      doc.addPage();
 
       doc.setFillColor(...DARK_BLUE);
-      doc.rect(0, 0, PW, 16, 'F');
-      doc.setFillColor(244, 167, 0);
-      doc.rect(0, 16, PW, 2.5, 'F');
-      doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-      doc.text('STATISTIK KEPUASAN PENGGUNA', PW/2, 11, {align:'center'});
-      y = 24;
+      doc.rect(0, 0, PW, 14, 'F');
+      doc.setFillColor(...ACCENT);
+      doc.rect(0, 14, PW, 2, 'F');
+      doc.setFontSize(9.5); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+      doc.text('STATISTIK KEPUASAN PENGGUNA', PW/2, 10, {align:'center'});
+      y = 21;
 
       if (rated.length > 0 && avgR !== null) {
         const puas   = rated.filter(d => getRatingValue(d) >= 4).length;
         const netral = rated.filter(d => getRatingValue(d) === 3).length;
         const kurang = rated.filter(d => getRatingValue(d) <= 2).length;
 
-        // ── Overview banner (full width) ─────────────────────
-        doc.setFillColor(0, 31, 63);
-        doc.roundedRect(MG, y, PW - MG*2, 34, 5, 5, 'F');
-        doc.setFillColor(244, 167, 0);
-        doc.roundedRect(MG, y, PW - MG*2, 3, 3, 3, 'F');
-        doc.rect(MG, y+1, PW - MG*2, 2, 'F');
+        // ─── Overview banner ──────────────────────────────
+        doc.setFillColor(0,31,63);
+        doc.roundedRect(MG, y, PW-MG*2, 30, 4, 4, 'F');
+        doc.setFillColor(...ACCENT);
+        doc.roundedRect(MG, y, PW-MG*2, 3, 3, 3, 'F');
+        doc.rect(MG, y+1.5, PW-MG*2, 1.5, 'F');
 
-        // Big rating
-        doc.setFontSize(22); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-        doc.text(avgR, MG + 24, y + 19, {align:'center'});
+        // Big number kiri
+        doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+        doc.text(avgR, MG+20, y+18, {align:'center'});
         const fullS = Math.floor(parseFloat(avgR));
-        doc.setFontSize(10); doc.setTextColor(244, 167, 0);
-        doc.text('★'.repeat(fullS) + '☆'.repeat(5-fullS), MG + 24, y + 28, {align:'center'});
-        doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(150,200,255);
-        doc.text('dari 5.0', MG + 24, y + 33, {align:'center'});
+        doc.setFontSize(9); doc.setTextColor(244,167,0);
+        doc.text('★'.repeat(fullS)+'☆'.repeat(5-fullS), MG+20, y+26, {align:'center'});
+        doc.setFontSize(6); doc.setFont('helvetica','normal'); doc.setTextColor(150,200,255);
+        doc.text('dari 5.0', MG+20, y+29, {align:'center'});
 
         // Divider
         doc.setFillColor(255,255,255);
-        doc.setLineWidth(0.1);
-        doc.rect(MG + 46, y + 6, 0.4, 22, 'F');
+        doc.rect(MG+38, y+5, 0.4, 20, 'F');
 
-        // Stat cols (4 items across wider space)
+        // Stats 4 kolom
         const rStats = [
           { label:'Total Penilaian', value: String(rated.length) },
-          { label:'Puas (4-5★)',     value: puas + ' (' + (rated.length?(puas/rated.length*100).toFixed(0):0)+'%)' },
-          { label:'Netral (3★)',     value: netral + ' (' + (rated.length?(netral/rated.length*100).toFixed(0):0)+'%)' },
-          { label:'Kurang (1-2★)',   value: kurang + ' (' + (rated.length?(kurang/rated.length*100).toFixed(0):0)+'%)' },
+          { label:'Puas (4-5★)', value: puas+' ('+( rated.length?(puas/rated.length*100).toFixed(0):0)+'%)' },
+          { label:'Netral (3★)', value: netral+' ('+(rated.length?(netral/rated.length*100).toFixed(0):0)+'%)' },
+          { label:'Kurang (1-2★)', value: kurang+' ('+(rated.length?(kurang/rated.length*100).toFixed(0):0)+'%)' },
         ];
-        const sW2 = (PW - MG*2 - 52) / rStats.length;
+        const sColW = (PW-MG*2-42) / rStats.length;
         rStats.forEach((s, i) => {
-          const sx = MG + 50 + i * sW2;
-          doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-          doc.text(s.value, sx + sW2/2, y + 19, {align:'center'});
-          doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(150,200,255);
-          doc.text(s.label, sx + sW2/2, y + 28, {align:'center'});
+          const sx = MG + 40 + i * sColW;
+          doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+          doc.text(s.value, sx + sColW/2, y+18, {align:'center'});
+          doc.setFontSize(6); doc.setFont('helvetica','normal'); doc.setTextColor(150,200,255);
+          doc.text(s.label, sx + sColW/2, y+25, {align:'center'});
         });
-        y += 40;
+        y += 36;
 
-        // ── 2-column layout: bar chart kiri | tabel rating kanan ──
-        const halfW = (PW - MG*2 - 12) / 2;
-
-        // LEFT: rating distribution horizontal bars (visual)
-        y = drawSectionTitle(doc, 'DISTRIBUSI BINTANG KEPUASAN', y, PW, MG);
-        // (only label, bars span left column)
-
-        const starLabels = { 5:'Sangat Puas', 4:'Puas', 3:'Cukup', 2:'Tidak Puas', 1:'Sangat Tidak Puas' };
-        const starHex    = { 5:'#26a69a', 4:'#66bb6a', 3:'#ffca28', 2:'#ff7043', 1:'#ef5350' };
-        const maxStarCount = Math.max(...[5,4,3,2,1].map(s => rated.filter(d => getRatingValue(d) === s).length), 1);
-
-        let yBars = y;
+        // ─── Bar kepuasan bintang ─────────────────────────
+        y = drawSectionTitleP(doc, 'DISTRIBUSI RATING BINTANG', y, PW, MG);
+        const starLabels = {5:'Sangat Puas',4:'Puas',3:'Cukup',2:'Tidak Puas',1:'Sangat Tidak Puas'};
+        const starHexMap = {5:'#26a69a',4:'#66bb6a',3:'#ffca28',2:'#ff7043',1:'#ef5350'};
+        const maxStarCount = Math.max(...[5,4,3,2,1].map(s => rated.filter(d=>getRatingValue(d)===s).length), 1);
         [5,4,3,2,1].forEach(s => {
-          const cnt = rated.filter(d => getRatingValue(d) === s).length;
-          const hex = starHex[s];
-          const rgb = [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)];
+          const cnt = rated.filter(d=>getRatingValue(d)===s).length;
+          const hex = starHexMap[s];
+          const rgb = [parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16)];
+          const barW2 = PW - MG*2;
+          const labelW = 58;
+          const trackW2 = barW2 - labelW - 26;
           doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(...rgb);
-          doc.text('★'.repeat(s), MG, yBars + 5);
-          doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(80,100,130);
-          doc.text(starLabels[s], MG + 20, yBars + 5);
-          const barX = MG + 68;
-          const barW = halfW - 68 - 18;
-          const fillW = maxStarCount > 0 ? Math.max((cnt / maxStarCount) * barW, cnt>0?3:0) : 0;
-          doc.setFillColor(240,244,252);
-          doc.roundedRect(barX, yBars, barW, 8, 2, 2, 'F');
+          doc.text('★'.repeat(s), MG, y+5.5);
+          doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(70,90,120);
+          doc.text(starLabels[s], MG+14, y+5.5);
+          doc.setFillColor(238,243,252);
+          doc.roundedRect(MG+labelW, y, trackW2, 8, 2, 2, 'F');
+          const fillW = maxStarCount > 0 ? Math.max((cnt/maxStarCount)*trackW2, cnt>0?3:0) : 0;
           doc.setFillColor(...rgb);
-          if (fillW > 0) doc.roundedRect(barX, yBars, fillW, 8, 2, 2, 'F');
+          if (fillW > 0) doc.roundedRect(MG+labelW, y, fillW, 8, 2, 2, 'F');
           const pct = rated.length ? ((cnt/rated.length)*100).toFixed(1) : '0.0';
-          doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(0,45,90);
-          doc.text(`${cnt} (${pct}%)`, MG + halfW - 2, yBars + 6, {align:'right'});
-          yBars += 12;
+          doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(0,45,90);
+          doc.text(`${cnt} (${pct}%)`, MG+barW2-2, y+6, {align:'right'});
+          y += 12;
         });
+        y += 4;
 
-        // RIGHT: rating table
-        const ratingLabels = {1:'Sangat Tidak Puas',2:'Tidak Puas',3:'Cukup',4:'Puas',5:'Sangat Puas'};
+        // ─── Tabel ringkasan rating ───────────────────────
+        y = drawSectionTitleP(doc, 'TABEL DISTRIBUSI RATING', y, PW, MG);
+        const ratingLabelsFull = {1:'Sangat Tidak Puas',2:'Tidak Puas',3:'Cukup',4:'Puas',5:'Sangat Puas'};
         doc.autoTable({
-          startY: y, margin:{left: MG + halfW + 12, right: MG},
-          head:[['Bintang','Kepuasan','Jumlah','%']],
+          startY: y,
+          margin: { left: MG, right: MG },
+          head: [['Bintang', 'Keterangan', 'Jumlah', 'Persentase']],
           body: [5,4,3,2,1].map(s => {
-            const cnt = rated.filter(d => getRatingValue(d) === s).length;
-            return ['★'.repeat(s), ratingLabels[s]||'', cnt, rated.length?((cnt/rated.length*100).toFixed(1)+'%'):'0%'];
-          }).concat([['','TOTAL', rated.length, '100%']]),
-          theme:'grid',
-          headStyles:{ fillColor:DARK_BLUE, textColor:255, fontSize:8, fontStyle:'bold', halign:'center', cellPadding:4 },
-          bodyStyles:{ fontSize:8, textColor:50, cellPadding:4 },
-          columnStyles:{ 0:{halign:'center',textColor:[200,140,0],fontStyle:'bold',cellWidth:22}, 2:{halign:'center'}, 3:{halign:'center'} },
-          alternateRowStyles:{ fillColor:[248,250,253] },
+            const cnt = rated.filter(d=>getRatingValue(d)===s).length;
+            return ['★'.repeat(s), ratingLabelsFull[s]||'', cnt, rated.length ? ((cnt/rated.length*100).toFixed(1)+'%') : '0%'];
+          }).concat([['', 'TOTAL', rated.length, '100%']]),
+          theme: 'grid',
+          headStyles: { fillColor:DARK_BLUE, textColor:255, fontSize:8.5, fontStyle:'bold', halign:'center', cellPadding:4.5 },
+          bodyStyles: { fontSize:8.5, textColor:50, cellPadding:4 },
+          columnStyles: { 0:{halign:'center',textColor:[180,120,0],fontStyle:'bold',cellWidth:24}, 2:{halign:'center',cellWidth:22}, 3:{halign:'center',cellWidth:26} },
+          alternateRowStyles: { fillColor:[249,251,255] },
           didParseCell(hook) {
             if (hook.section==='body' && hook.row.index===5) {
               hook.cell.styles.fillColor = [232,241,251];
@@ -1393,48 +1393,61 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
             }
           }
         });
+        y = doc.lastAutoTable.finalY + 8;
 
-        // ── Bottom: 2 rating charts (full width, side by side) ──
-        const tableBottom = doc.lastAutoTable.finalY;
-        const afterBars   = yBars;
-        const chartStartY = Math.max(tableBottom, afterBars) + 6;
-
-        if (imgRatingDist && imgRatingLayanan && chartStartY < 175) {
-          const rImgW = (PW - MG * 2 - 10) / 2;
-          const rImgH = Math.min(55, 196 - chartStartY - 16);
-          if (rImgH > 25) {
-            let rcY1 = drawChartFrame(doc, MG,           chartStartY, rImgW, rImgH + 14, 'Distribusi Rating Bintang');
-            doc.addImage(imgRatingDist,    'PNG', MG + 1,          rcY1, rImgW - 2, rImgH);
-            let rcY2 = drawChartFrame(doc, MG+rImgW+10, chartStartY, rImgW, rImgH + 14, 'Rata-rata Rating per Jenis Layanan');
-            doc.addImage(imgRatingLayanan, 'PNG', MG+rImgW+11,     rcY2, rImgW - 2, rImgH);
+        // ─── 2 grafik rating di bawah ─────────────────────
+        if (imgRatingDist && imgRatingLayanan && y < 255) {
+          const rColW = (PW - MG*2 - 8) / 2;
+          const rImgH = rColW * aspect;
+          const rFrameH = rImgH + 16;
+          if (y + rFrameH < 284) {
+            drawChartBox(doc, MG,        y, rColW, rFrameH, 'Distribusi Rating Bintang',          imgRatingDist,    aspect);
+            drawChartBox(doc, MG+rColW+8,y, rColW, rFrameH, 'Rata-rata Rating per Jenis Layanan', imgRatingLayanan, aspect);
           }
         }
-
       } else {
-        doc.setFillColor(248, 250, 253);
-        doc.roundedRect(MG, y, PW-MG*2, 30, 5, 5, 'F');
+        doc.setFillColor(248,250,253);
+        doc.roundedRect(MG, y, PW-MG*2, 28, 4, 4, 'F');
         doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(180,180,180);
-        doc.text('Belum ada data penilaian dari pengguna', PW/2, y+17, {align:'center'});
+        doc.text('Belum ada data penilaian dari pengguna', PW/2, y+16, {align:'center'});
       }
 
-      pdfFooter(doc, 3, 3, PW, MG);
+      pdfFooterPortrait(doc, 3, 3, PW, MG);
 
-      // ── SAVE ─────────────────────────────────────────────
+      // ─── Simpan ───────────────────────────────────────────
       setProgress(97, 'Menyimpan file PDF...', 'Selesai');
       await new Promise(r => setTimeout(r, 200));
       doc.save('Dashboard_BPS_Palu_' + formatDateFile() + '.pdf');
-
       setProgress(100, 'Selesai!', 'Selesai');
       await new Promise(r => setTimeout(r, 500));
       hideProgressModal();
-      showToast('Dashboard PDF landscape berhasil didownload! ✓', false);
+      showToast('Dashboard PDF berhasil didownload! ✓', false);
 
     } catch(err) {
       hideProgressModal();
       showToast('Gagal membuat Dashboard PDF: ' + err.message, true);
       console.error(err);
+    }
+  }
+
+  // ============================================================
+  // EXPORT SEMUA (Dashboard PDF dipanggil dari tombol)
+  // ============================================================
+  async function exportAllPDF() {
+    const btn = document.getElementById('btn-export-pdf');
+    if (btn.disabled) return;
+    if (!_lastAllData || _lastAllData.length === 0) {
+      showToast('Belum ada data. Silakan tunggu data dimuat.', true); return;
+    }
+    btn.disabled = true;
+    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Memproses...';
+    showProgressModal();
+    try {
+      await downloadDashboardPDF();
     } finally {
-      btn.disabled = false; btn.classList.remove('loading');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="bi bi-file-earmark-bar-graph-fill"></i> Dashboard PDF';
+      hideProgressModal();
     }
   }
 
@@ -1465,92 +1478,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       showToast('Export Excel berhasil! ✓', false);
     } catch(err) { showToast('Gagal export Excel: ' + err.message, true); }
     finally { btn.disabled = false; btn.innerHTML = '<i class="bi bi-file-earmark-excel-fill"></i> Excel'; }
-  }
-
-  // ============================================================
-  // EXPORT PDF (tabel data) — tetap landscape seperti semula
-  // ============================================================
-  async function exportPDF() {
-    const btn = document.getElementById('btn-export-pdf');
-    btn.disabled = true; btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Memproses...';
-    try {
-      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
-      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
-      const data = getExportData();
-      if (!data.length) { showToast('Tidak ada data untuk diexport', true); return; }
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
-      const W = 297, mg = 14;
-      doc.setFillColor(0, 63, 127); doc.rect(0, 0, W, 26, 'F');
-      doc.setFillColor(244, 167, 0); doc.rect(0, 26, W, 3, 'F');
-      doc.setFontSize(15); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-      doc.text('LAPORAN STATISTIK LAYANAN BPS KOTA PALU', W/2, 11, {align:'center'});
-      const subLine = 'Digenerate: ' + new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
-      doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(200,220,255);
-      doc.text(subLine, W/2, 20, {align:'center'});
-      let y = 35;
-      const total2   = data.length;
-      const men2 = data.filter(d=>d.status==='Menunggu Verifikasi').length;
-      const dip2 = data.filter(d=>d.status==='Sedang Diproses').length;
-      const sel2 = data.filter(d=>d.status==='Selesai').length;
-      const dit2 = data.filter(d=>d.status==='Ditolak').length;
-      const rat2 = data.filter(d=>getRatingValue(d)!==null);
-      const avg2 = rat2.length ? (rat2.reduce((s,d)=>s+getRatingValue(d),0)/rat2.length).toFixed(1) : '-';
-      const cards2 = [
-        {label:'Total',value:String(total2),color:[0,91,170]},{label:'Menunggu',value:String(men2),color:[180,130,0]},
-        {label:'Diproses',value:String(dip2),color:[0,130,150]},{label:'Selesai',value:String(sel2),color:[40,110,50]},
-        {label:'Ditolak',value:String(dit2),color:[160,40,40]},{label:'Avg Rating',value:avg2+'/5',color:[100,60,0]},
-      ];
-      const cw2 = (W - mg*2 - 10*5) / 6;
-      cards2.forEach((c,i) => {
-        const cx = mg + i*(cw2+10);
-        doc.setFillColor(...c.color); doc.roundedRect(cx, y, cw2, 16, 2, 2, 'F');
-        doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-        doc.text(c.value, cx+cw2/2, y+8, {align:'center'});
-        doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(220,235,255);
-        doc.text(c.label, cx+cw2/2, y+13.5, {align:'center'});
-      });
-      y += 22;
-      const colL=mg,colR=W/2+4,colW=W/2-mg-4;
-      const headStyle={fillColor:[0,63,127],textColor:255,fontSize:7.5,fontStyle:'bold',halign:'center'};
-      const bodyStyle={fontSize:7,textColor:50};
-      const tblOpts={theme:'grid',headStyles:headStyle,bodyStyles:bodyStyle,styles:{cellPadding:2},columnStyles:{1:{halign:'center'},2:{halign:'center'}}};
-      const lC2={};data.forEach(d=>{const k=(d.jenis_layanan||'').replace('Pelayanan ','');lC2[k]=(lC2[k]||0)+1;});
-      doc.autoTable({...tblOpts,startY:y,margin:{left:colL,right:W-colL-colW},head:[['Jenis Layanan','Jumlah','%']],body:Object.entries(lC2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total2?((v/total2*100).toFixed(1)+'%'):'0%'])});
-      const kC2={};data.forEach(d=>{if(d.kategori_pengguna){kC2[d.kategori_pengguna]=(kC2[d.kategori_pengguna]||0)+1;}});
-      doc.autoTable({...tblOpts,startY:y,margin:{left:colR,right:mg},head:[['Kategori Pengguna','Jumlah','%']],body:Object.entries(kC2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total2?((v/total2*100).toFixed(1)+'%'):'0%'])});
-      const y2=doc.lastAutoTable.finalY+6;
-      const pC2={};data.forEach(d=>{if(d.tingkat_pendidikan){pC2[d.tingkat_pendidikan]=(pC2[d.tingkat_pendidikan]||0)+1;}});
-      doc.autoTable({...tblOpts,startY:y2,margin:{left:colL,right:W-colL-colW},head:[['Tingkat Pendidikan','Jumlah','%']],body:Object.entries(pC2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total2?((v/total2*100).toFixed(1)+'%'):'0%'])});
-      const rL2={1:'Sangat Tidak Puas',2:'Tidak Puas',3:'Cukup',4:'Puas',5:'Sangat Puas'};
-      const rR2=[5,4,3,2,1].map(s=>{const cnt=rat2.filter(d=>getRatingValue(d)===s).length;return[s+' / '+rL2[s],cnt,rat2.length?((cnt/rat2.length*100).toFixed(1)+'%'):'0%'];});
-      rR2.push(['Rata-rata Rating',avg2+'/5.0','']);
-      doc.autoTable({...tblOpts,startY:y2,margin:{left:colR,right:mg},head:[['Rating Kepuasan','Jumlah','%']],body:rR2});
-      doc.addPage('landscape');
-      doc.setFillColor(0,63,127);doc.rect(0,0,W,14,'F');
-      doc.setFontSize(11);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);
-      doc.text('DATA LENGKAP PENGAJUAN ('+total2+' entri)',W/2,9,{align:'center'});
-      const sC2={'Menunggu Verifikasi':{fill:[255,243,205],text:[133,100,4]},'Sedang Diproses':{fill:[207,244,252],text:[5,81,96]},'Selesai':{fill:[209,231,221],text:[10,54,34]},'Ditolak':{fill:[248,215,218],text:[132,32,41]}};
-      doc.autoTable({
-        startY:18,margin:{left:mg,right:mg},
-        head:[['No.','Nomor Tiket','Nama','Jenis Layanan','Kabupaten/Kota','Kategori','Status','Rating','Tanggal']],
-        body:data.map((d,i)=>[i+1,d.nomor_tiket||'',d.nama||'',(d.jenis_layanan||'').replace('Pelayanan ',''),d.kabupaten_kota||'-',d.kategori_pengguna||'-',d.status||'',d.rating?(d.rating_emoji||'')+' '+d.rating+'/5':'-',new Date(d.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})]),
-        theme:'striped',headStyles:{fillColor:[0,63,127],textColor:255,fontSize:7.5,fontStyle:'bold',halign:'center'},
-        bodyStyles:{fontSize:7,textColor:50},alternateRowStyles:{fillColor:[248,250,253]},
-        columnStyles:{0:{halign:'center',cellWidth:8},1:{cellWidth:32},3:{cellWidth:38},6:{halign:'center'},7:{halign:'center'},8:{halign:'center',cellWidth:24}},
-        styles:{cellPadding:2},
-        didParseCell(hookData){if(hookData.section==='body'&&hookData.column.index===6){const sc=sC2[hookData.cell.raw];if(sc){hookData.cell.styles.fillColor=sc.fill;hookData.cell.styles.textColor=sc.text;hookData.cell.styles.fontStyle='bold';}}}
-      });
-      const kabC2={};data.forEach(d=>{if(d.kabupaten_kota){kabC2[d.kabupaten_kota]=(kabC2[d.kabupaten_kota]||0)+1;}});
-      const yKab2=doc.lastAutoTable.finalY+6;
-      if(yKab2<190){doc.autoTable({...tblOpts,startY:yKab2,margin:{left:mg},tableWidth:120,head:[['Sebaran Kabupaten/Kota','Jumlah','%']],body:Object.entries(kabC2).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,total2?((v/total2*100).toFixed(1)+'%'):'0%'])});}
-      const totalP=doc.internal.getNumberOfPages();
-      for(let i=1;i<=totalP;i++){doc.setPage(i);doc.setFontSize(6.5);doc.setFont('helvetica','normal');doc.setTextColor(180,180,180);doc.text('BPS Kota Palu  ·  SIGITA',mg,207);doc.text('Halaman '+i+' / '+totalP,W-mg,207,{align:'right'});}
-      const lbl=buildFilterLabel(true);
-      doc.save('Laporan_BPS_Palu'+(lbl?'_'+lbl:'')+'_'+formatDateFile()+'.pdf');
-      showToast('Export PDF berhasil! ✓',false);
-    } catch(err) { showToast('Gagal export PDF: '+err.message,true); }
-    finally { btn.disabled=false; btn.innerHTML='<i class="bi bi-file-earmark-pdf-fill"></i> PDF'; }
   }
 
   const savedToken = sessionStorage.getItem('admin_token');
