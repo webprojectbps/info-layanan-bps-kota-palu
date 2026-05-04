@@ -858,19 +858,13 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     });
   }
 
-  // ============================================================
-  // HELPER: render chart ke canvas offscreen → dataURL
-  // Gunakan ukuran fix agar tidak stretch di PDF
-  // ============================================================
   function renderChartToDataURL(type, data, options, width, height) {
     return new Promise((resolve) => {
       const canvas = document.createElement('canvas');
-      // Render 2x untuk resolusi retina lalu scale down di PDF
       canvas.width  = width * 2;
       canvas.height = height * 2;
       const ctx = canvas.getContext('2d');
       ctx.scale(2, 2);
-      // Background putih agar tidak transparan
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, width, height);
       const chart = new Chart(canvas, {
@@ -890,9 +884,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     });
   }
 
-  // ============================================================
-  // PROGRESS HELPERS
-  // ============================================================
   function setProgress(pct, subtitle, step) {
     document.getElementById('progress-bar').style.width = pct + '%';
     document.getElementById('progress-subtitle').textContent = subtitle;
@@ -902,31 +893,22 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
   function hideProgressModal() { document.getElementById('progress-overlay').classList.remove('show'); }
 
   // ============================================================
-  // PDF: Halaman 1 — RINGKASAN STATUS (Portrait A4: 210×297 mm)
+  // PDF HEADER — JUDUL SIMPEL: "Dashboard Statistik Layanan"
   // ============================================================
-  // Semua halaman: A4 Portrait. PW=210, PH=297, MG=14
-
   function pdfHeaderPortrait(doc, subtitle, PW, MG) {
-    // Gradient header block
+    // Background header
     doc.setFillColor(0, 31, 63);
-    doc.rect(0, 0, PW, 38, 'F');
-    doc.setFillColor(0, 91, 170);
-    doc.rect(0, 26, PW, 12, 'F');
+    doc.rect(0, 0, PW, 32, 'F');
+    // Garis aksen kuning di bawah header
     doc.setFillColor(244, 167, 0);
-    doc.rect(0, 38, PW, 2.5, 'F');
-    // Instansi
-    doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(160, 210, 255);
-    doc.text('BADAN PUSAT STATISTIK — KOTA PALU', PW/2, 9, {align:'center'});
-    // Judul besar
-    doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(255, 255, 255);
-    doc.text('DASHBOARD STATISTIK LAYANAN', PW/2, 20, {align:'center'});
-    // Subtitle
-    doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(180, 220, 255);
-    doc.text(subtitle, PW/2, 29, {align:'center'});
-    // Tanggal
-    const genDate = new Date().toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
-    doc.setFontSize(6.5); doc.setTextColor(120, 170, 220);
-    doc.text('Digenerate: ' + genDate, PW/2, 36, {align:'center'});
+    doc.rect(0, 32, PW, 2.5, 'F');
+    // Judul utama — simpel, hanya satu baris
+    doc.setFontSize(15); doc.setFont('helvetica', 'bold'); doc.setTextColor(255, 255, 255);
+    doc.text('Dashboard Statistik Layanan', PW / 2, 19, { align: 'center' });
+    // Tanggal generate — tetap ditampilkan tapi kecil
+    const genDate = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    doc.setFontSize(6.5); doc.setFont('helvetica', 'normal'); doc.setTextColor(120, 170, 220);
+    doc.text('Digenerate: ' + genDate, PW / 2, 28, { align: 'center' });
   }
 
   function pdfFooterPortrait(doc, pageNum, totalPages, PW, MG) {
@@ -951,31 +933,31 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     return y + 13;
   }
 
-  // Stat card portait (lebih compact)
+  // ============================================================
+  // STAT CARD — WARNA SOLID (tanpa gradasi)
+  // ============================================================
   function drawStatCardP(doc, x, y, w, h, label, value, bgTop, bgBot, textColor) {
     // Shadow
     doc.setFillColor(190, 210, 235);
     doc.roundedRect(x + 1, y + 1.5, w, h, 3, 3, 'F');
-    // Body gradient sim: atas lebih gelap
+    // Body — warna solid menggunakan bgBot saja (tidak ada efek gradasi)
     doc.setFillColor(...bgBot);
     doc.roundedRect(x, y, w, h, 3, 3, 'F');
-    doc.setFillColor(...bgTop);
-    doc.roundedRect(x, y, w, h * 0.45, 3, 3, 'F');
-    doc.rect(x, y + h*0.3, w, h*0.15, 'F');
     // Value
-    doc.setFontSize(18); doc.setFont('helvetica','bold'); doc.setTextColor(...textColor);
-    doc.text(value, x + w/2, y + h * 0.55, {align:'center', baseline:'middle'});
+    doc.setFontSize(18); doc.setFont('helvetica', 'bold'); doc.setTextColor(...textColor);
+    doc.text(value, x + w / 2, y + h * 0.55, { align: 'center', baseline: 'middle' });
     // Label
-    doc.setFontSize(6); doc.setFont('helvetica','normal');
-    doc.setTextColor(textColor[0]+50 > 255 ? 255 : textColor[0]+50, textColor[1]+50>255?255:textColor[1]+50, textColor[2]+50>255?255:textColor[2]+50);
-    doc.text(label, x + w/2, y + h - 3.5, {align:'center'});
+    doc.setFontSize(6); doc.setFont('helvetica', 'normal');
+    doc.setTextColor(
+      textColor[0] + 50 > 255 ? 255 : textColor[0] + 50,
+      textColor[1] + 50 > 255 ? 255 : textColor[1] + 50,
+      textColor[2] + 50 > 255 ? 255 : textColor[2] + 50
+    );
+    doc.text(label, x + w / 2, y + h - 3.5, { align: 'center' });
   }
 
   // ============================================================
-  // DOWNLOAD DASHBOARD PDF — 3 halaman Portrait A4
-  // Halaman 1: Ringkasan + Status
-  // Halaman 2: Demografis (4 grafik)
-  // Halaman 3: Kepuasan & Rating
+  // DOWNLOAD DASHBOARD PDF
   // ============================================================
   async function downloadDashboardPDF() {
     const data = _lastAllData;
@@ -1004,11 +986,8 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       const pendCount = {};
       data.forEach(d => { if(d.tingkat_pendidikan) pendCount[d.tingkat_pendidikan]=(pendCount[d.tingkat_pendidikan]||0)+1; });
 
-      // ─── Ukuran canvas chart untuk portrait A4 ───────────
-      // PDF: kolom chart ~85mm, 2 kolom dengan gap
-      // Canvas pixel = 85mm * (96px/25.4mm) ≈ 321px → pakai 340x280
-      const CHART_W = 340; // px (lebar satu kolom chart di canvas)
-      const CHART_H = 260; // px
+      const CHART_W = 340;
+      const CHART_H = 260;
 
       setProgress(20, 'Merender grafik...', 'Langkah 2 dari 5');
       await new Promise(r => setTimeout(r, 50));
@@ -1083,7 +1062,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       await new Promise(r => setTimeout(r, 50));
 
       const { jsPDF } = window.jspdf;
-      // *** PORTRAIT A4: 210 × 297 mm ***
       const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
       const PW = 210, PH = 297, MG = 14;
       const DARK_BLUE = [0, 31, 63];
@@ -1094,9 +1072,8 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       // HALAMAN 1: RINGKASAN & STATUS
       // ══════════════════════════════════════════════════════
       pdfHeaderPortrait(doc, 'Sistem Informasi Pengajuan Layanan (SIGITA)', PW, MG);
-      let y = 46;
+      let y = 40;
 
-      // ─── 3 stat cards row 1: Total, Menunggu, Diproses ──
       y = drawSectionTitleP(doc, 'RINGKASAN PENGAJUAN', y, PW, MG);
       const cardW = (PW - MG * 2 - 8 * 2) / 3;
       const cardH = 28;
@@ -1112,7 +1089,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       });
       y += cardH + 6;
 
-      // 3 stat cards row 2: Selesai, Ditolak, Rating
       const cards3b = [
         { label:'Selesai',          value: String(selesai), bgTop:[25,100,40],   bgBot:[18,75,30],   text:[255,255,255] },
         { label:'Ditolak',          value: String(ditolak), bgTop:[160,35,35],   bgBot:[120,25,25],  text:[255,255,255] },
@@ -1123,7 +1099,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       });
       y += cardH + 8;
 
-      // ─── Tabel Status Pengajuan ───────────────────────────
       y = drawSectionTitleP(doc, 'DISTRIBUSI STATUS PENGAJUAN', y, PW, MG);
 
       const statusColors = {
@@ -1169,7 +1144,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       });
       y = doc.lastAutoTable.finalY + 8;
 
-      // ─── Visual bar distribusi ────────────────────────────
       y = drawSectionTitleP(doc, 'VISUALISASI DISTRIBUSI STATUS', y, PW, MG);
       const barColors = {
         'Menunggu Verifikasi': [244,167,0],
@@ -1200,7 +1174,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       });
       y += 4;
 
-      // ─── Highlight rating kalau ada ──────────────────────
       if (avgR) {
         doc.setFillColor(255, 248, 220);
         doc.roundedRect(MG, y, PW - MG*2, 22, 4, 4, 'F');
@@ -1220,12 +1193,11 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       pdfFooterPortrait(doc, 1, 3, PW, MG);
 
       // ══════════════════════════════════════════════════════
-      // HALAMAN 2: DEMOGRAFIS — 2×2 GRID GRAFIK
+      // HALAMAN 2: DEMOGRAFIS
       // ══════════════════════════════════════════════════════
       setProgress(72, 'Menyusun grafik demografis...', 'Langkah 4 dari 5');
       doc.addPage();
 
-      // Sub-header
       doc.setFillColor(...DARK_BLUE);
       doc.rect(0, 0, PW, 14, 'F');
       doc.setFillColor(...ACCENT);
@@ -1234,52 +1206,36 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
       doc.text('ANALISIS DEMOGRAFIS PENGAJUAN', PW/2, 10, {align:'center'});
       y = 21;
 
-      // 2×2 grid — setiap chart: lebar (PW-MG*2-8)/2 mm, tinggi proporsional
-      // PW=210, MG=14, gap=8 → colW = (210-28-8)/2 = 87mm
       const colW = (PW - MG * 2 - 8) / 2;
-      // Tinggi chart di PDF: pixel CHART_W×CHART_H → aspect ratio = CHART_H/CHART_W
-      // colW mm → tinggi = colW * (CHART_H/CHART_W)
       const aspect = CHART_H / CHART_W;
-      const imgH   = Math.round(colW * aspect); // ≈ 66 mm
-
-      // Frame chart: header 10mm + gambar imgH + padding bawah 3mm
-      const frameH = imgH + 16;
+      const imgHActual = colW * aspect;
+      const frameHActual = imgHActual + 16;
 
       function drawChartBox(doc, x, cy, w, h, title, imgData, aspect) {
-        // Shadow
         doc.setFillColor(215, 225, 240);
         doc.roundedRect(x+1, cy+1, w, h, 3, 3, 'F');
-        // Background
         doc.setFillColor(255, 255, 255);
         doc.roundedRect(x, cy, w, h, 3, 3, 'F');
-        // Header bar
         doc.setFillColor(248, 250, 254);
         doc.roundedRect(x, cy, w, 11, 3, 3, 'F');
         doc.rect(x, cy+5, w, 6, 'F');
         doc.setFillColor(0, 91, 170);
         doc.roundedRect(x, cy, 3, 11, 2, 2, 'F');
         doc.rect(x, cy+3, 3, 8, 'F');
-        // Border bottom of header
         doc.setFillColor(235, 241, 252);
         doc.rect(x, cy+11, w, 0.5, 'F');
         doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(0,45,90);
         doc.text(title, x+7, cy+8);
-        // Gambar chart — sisakan padding 3mm kiri/kanan/bawah
         const imgX = x + 2;
         const imgW = w - 4;
         const imgH2 = imgW * (CHART_H / CHART_W);
         if (imgData) doc.addImage(imgData, 'PNG', imgX, cy + 13, imgW, imgH2);
       }
 
-      const imgHActual = colW * aspect;  // tinggi image sebenarnya di PDF
-      const frameHActual = imgHActual + 16;
-
-      // Row 1
       drawChartBox(doc, MG,          y, colW, frameHActual, 'Pengajuan per Jenis Layanan',  imgLayanan,   aspect);
       drawChartBox(doc, MG+colW+8,   y, colW, frameHActual, 'Sebaran Kategori Pengguna',    imgKategori,  aspect);
       y += frameHActual + 8;
 
-      // Row 2
       drawChartBox(doc, MG,          y, colW, frameHActual, 'Sebaran Kabupaten/Kota',       imgKabkota,   aspect);
       drawChartBox(doc, MG+colW+8,   y, colW, frameHActual, 'Distribusi Tingkat Pendidikan',imgPendidikan,aspect);
 
@@ -1304,14 +1260,12 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         const netral = rated.filter(d => getRatingValue(d) === 3).length;
         const kurang = rated.filter(d => getRatingValue(d) <= 2).length;
 
-        // ─── Overview banner ──────────────────────────────
         doc.setFillColor(0,31,63);
         doc.roundedRect(MG, y, PW-MG*2, 30, 4, 4, 'F');
         doc.setFillColor(...ACCENT);
         doc.roundedRect(MG, y, PW-MG*2, 3, 3, 3, 'F');
         doc.rect(MG, y+1.5, PW-MG*2, 1.5, 'F');
 
-        // Big number kiri
         doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
         doc.text(avgR, MG+20, y+18, {align:'center'});
         const fullS = Math.floor(parseFloat(avgR));
@@ -1320,11 +1274,9 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         doc.setFontSize(6); doc.setFont('helvetica','normal'); doc.setTextColor(150,200,255);
         doc.text('dari 5.0', MG+20, y+29, {align:'center'});
 
-        // Divider
         doc.setFillColor(255,255,255);
         doc.rect(MG+38, y+5, 0.4, 20, 'F');
 
-        // Stats 4 kolom
         const rStats = [
           { label:'Total Penilaian', value: String(rated.length) },
           { label:'Puas (4-5★)', value: puas+' ('+( rated.length?(puas/rated.length*100).toFixed(0):0)+'%)' },
@@ -1341,7 +1293,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         });
         y += 36;
 
-        // ─── Bar kepuasan bintang ─────────────────────────
         y = drawSectionTitleP(doc, 'DISTRIBUSI RATING BINTANG', y, PW, MG);
         const starLabels = {5:'Sangat Puas',4:'Puas',3:'Cukup',2:'Tidak Puas',1:'Sangat Tidak Puas'};
         const starHexMap = {5:'#26a69a',4:'#66bb6a',3:'#ffca28',2:'#ff7043',1:'#ef5350'};
@@ -1369,7 +1320,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         });
         y += 4;
 
-        // ─── Tabel ringkasan rating ───────────────────────
         y = drawSectionTitleP(doc, 'TABEL DISTRIBUSI RATING', y, PW, MG);
         const ratingLabelsFull = {1:'Sangat Tidak Puas',2:'Tidak Puas',3:'Cukup',4:'Puas',5:'Sangat Puas'};
         doc.autoTable({
@@ -1395,7 +1345,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
         });
         y = doc.lastAutoTable.finalY + 8;
 
-        // ─── 2 grafik rating di bawah ─────────────────────
         if (imgRatingDist && imgRatingLayanan && y < 255) {
           const rColW = (PW - MG*2 - 8) / 2;
           const rImgH = rColW * aspect;
@@ -1414,7 +1363,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
 
       pdfFooterPortrait(doc, 3, 3, PW, MG);
 
-      // ─── Simpan ───────────────────────────────────────────
       setProgress(97, 'Menyimpan file PDF...', 'Selesai');
       await new Promise(r => setTimeout(r, 200));
       doc.save('Dashboard_BPS_Palu_' + formatDateFile() + '.pdf');
@@ -1430,9 +1378,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     }
   }
 
-  // ============================================================
-  // EXPORT SEMUA (Dashboard PDF dipanggil dari tombol)
-  // ============================================================
   async function exportAllPDF() {
     const btn = document.getElementById('btn-export-pdf');
     if (btn.disabled) return;
@@ -1451,9 +1396,6 @@ ALTER TABLE pengajuan ADD COLUMN IF NOT EXISTS rating_emoji text;</pre>
     }
   }
 
-  // ============================================================
-  // EXPORT EXCEL
-  // ============================================================
   async function exportExcel() {
     const btn = document.getElementById('btn-export-excel');
     btn.disabled = true; btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Memproses...';
